@@ -1,0 +1,49 @@
+syntax = "proto3";
+package Protocol;
+
+message C_ENTER
+{
+	string clientId = 2;
+}
+
+message S_ENTER
+{
+	string result = 1;
+}
+
+message C_REENTER
+{
+	string clientId = 1;
+}
+
+message S_REENTER
+{
+	bool success = 1;
+}
+
+message C_LEAVE
+{
+}
+
+message C_GET_CLIENT
+{
+}
+
+message S_ADD_CLIENT
+{
+	message ClientInfo
+	{
+		string clientId = 1;
+	}
+	repeated ClientInfo clientInfos = 1;
+}
+
+message S_REMOVE_CLIENT
+{
+	repeated string clientIds = 1;
+}
+
+message S_DISCONNECT
+{
+	string code = 1;
+}
