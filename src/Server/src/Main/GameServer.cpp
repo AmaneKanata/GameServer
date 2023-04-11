@@ -55,8 +55,6 @@ void DistributeReservedJobs()
 
 void DoWorkerJob(shared_ptr<Service>& service)
 {
-	int count = 0;
-
 	while (true)
 	{
 #ifdef linux

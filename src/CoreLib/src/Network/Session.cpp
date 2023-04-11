@@ -20,6 +20,13 @@ Session::~Session()
 	GLogManager->Log("Socket Destroyed");
 }
 
+void Session::Connect(ip::tcp::endpoint ep)
+{
+	socket->connect(ep);
+
+	ProcessConnect();
+}
+
 void Session::Disconnect()
 {
 	if (isConnected.exchange(false) == false)

@@ -1,9 +1,6 @@
 #pragma once
 #include "../pch.h"
 
-class Scene;
-class GameObject;
-class RoomBase;
 class ClientBase;
 
 class GameSession : public PacketSession
