@@ -26,6 +26,7 @@ public:
 
 	shared_ptr<ip::tcp::socket> GetSocket() { return socket; }
 
+	void Connect(ip::tcp::endpoint ep);
 	void Disconnect();
 
 	void Send(shared_ptr<SendBuffer> sendBuffer);

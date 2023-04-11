@@ -22,7 +22,7 @@ enum
 	WORKER_TICK = 64
 };
 
-void DoGlobalQueueWork()
+void DistributePendingJobs()
 {
 	while (true)
 	{
@@ -34,7 +34,7 @@ void DoGlobalQueueWork()
 		if (now > LEndTickCount)
 			break;
 
-		shared_ptr<JobQueue> jobQueue = GGlobalQueue->Pop();
+		shared_ptr<JobQueue> jobQueue = GPendingJobQueues->Pop();
 		if (jobQueue == nullptr)
 			break;
 
@@ -55,8 +55,6 @@ void DistributeReservedJobs()
 
 void DoWorkerJob(shared_ptr<Service>& service)
 {
-	int count = 0;
-
 	while (true)
 	{
 #ifdef linux
@@ -66,7 +64,7 @@ void DoWorkerJob(shared_ptr<Service>& service)
 #endif
 		service->Dispatch(10); // IO 수행
 		DistributeReservedJobs(); // JobTimer 에 있는 Job 수행
-		DoGlobalQueueWork(); // GlobalQueue 에 있는 JobQueue 의 Job 수행
+		DistributePendingJobs(); // GPendingJobQueues 에 있는 JobQueue 의 Job 수행
 	}
 }
 

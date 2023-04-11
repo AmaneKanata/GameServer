@@ -14,7 +14,6 @@
 
 #include "Job/JobQueue.h"
 #include "Job/JobTimer.h"
-#include "Job/GlobalQueue.h"
 
 #include "Util/LogManager.h"
 

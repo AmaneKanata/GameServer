@@ -3,7 +3,7 @@
 
 ThreadManager* GThreadManager = nullptr;
 SendBufferManager* GSendBufferManager = nullptr;
-GlobalQueue* GGlobalQueue = nullptr;
+LockQueue<shared_ptr<JobQueue>>* GPendingJobQueues = nullptr;
 JobTimer* GJobTimer = nullptr;
 shared_ptr<LogManager> GLogManager = nullptr;
 
@@ -14,7 +14,7 @@ public:
 	{
 		GThreadManager = new ThreadManager();
 		GSendBufferManager = new SendBufferManager();
-		GGlobalQueue = new GlobalQueue();
+		GPendingJobQueues = new LockQueue<shared_ptr<JobQueue>>();
 		GJobTimer = new JobTimer();
 		GLogManager = make_shared<LogManager>();
 	}
@@ -23,7 +23,7 @@ public:
 	{
 		delete GThreadManager;
 		delete GSendBufferManager;
-		delete GGlobalQueue;
+		delete GPendingJobQueues;
 		delete GJobTimer;
 	}
 } GCoreGlobal;

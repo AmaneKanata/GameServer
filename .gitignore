@@ -24,12 +24,12 @@
 *.lai
 *.la
 *.a
-#*.lib
+*.lib
+!src/Server/Lib/*.lib
 
 # Executables
 *.exe
-!src/Server/protoc.exe
-!src/Server/GenPackets.exe
+!src/Server/*.exe
 *.out
 *.app
 

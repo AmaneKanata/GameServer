@@ -1,6 +1,5 @@
 #include "../pch.h"
 #include "JobQueue.h"
-#include "GlobalQueue.h"
 
 void JobQueue::Push(shared_ptr<Job> job, bool pushOnly)
 {
@@ -11,7 +10,7 @@ void JobQueue::Push(shared_ptr<Job> job, bool pushOnly)
 		if (LCurrentJobQueue == nullptr && pushOnly == false)
 			Execute();
 		else
-			GGlobalQueue->Push(shared_from_this());
+			GPendingJobQueues->Push(shared_from_this());
 }
 
 void JobQueue::Execute()
@@ -41,7 +40,7 @@ void JobQueue::Execute()
 		if (now >= LEndTickCount)
 		{
 			LCurrentJobQueue = nullptr;
-			GGlobalQueue->Push(shared_from_this());
+			GPendingJobQueues->Push(shared_from_this());
 			break;
 		}
 	}
