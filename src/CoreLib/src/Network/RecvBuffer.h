@@ -12,19 +12,19 @@ public:
 	RecvBuffer(int bufferSize);
 	~RecvBuffer();
 
-	void			Clean();
-	bool			OnRead(int numOfBytes);
-	bool			OnWrite(int numOfBytes);
+	void Clean();
+	bool OnRead(int numOfBytes);
+	bool OnWrite(int numOfBytes);
 
-	unsigned char* ReadPos() { return &_buffer[_readPos]; }
-	unsigned char* WritePos() { return &_buffer[_writePos]; }
-	int			DataSize() { return _writePos - _readPos; }
-	int			FreeSize() { return _capacity - _writePos; }
+	unsigned char* ReadPos() { return &buffer[readPos]; }
+	unsigned char* WritePos() { return &buffer[writePos]; }
+	int DataSize() { return writePos - readPos; }
+	int FreeSize() { return capacity - writePos; }
 
 private:
-	int			_capacity = 0;
-	int			_bufferSize = 0;
-	int			_readPos = 0;
-	int			_writePos = 0;
-	vector<unsigned char>	_buffer;
+	int capacity = 0;
+	int bufferSize = 0;
+	int readPos = 0;
+	int writePos = 0;
+	vector<unsigned char> buffer;
 };

@@ -44,13 +44,13 @@ public:
 		GJobTimer->Reserve(tickAfter, shared_from_this(), job);
 	}
 
-	void ClearJobs() { _jobs.Clear(); }
+	void ClearJobs() { jobs.Clear(); }
 
 public:
 	void Push(shared_ptr<Job> job, bool pushOnly = false);
 	void Execute();
 
 protected:
-	LockQueue<shared_ptr<Job>> _jobs;
-	atomic<int> _jobCount = { 0 };
+	LockQueue<shared_ptr<Job>> jobs;
+	atomic<int> jobCount = { 0 };
 };

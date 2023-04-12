@@ -3,8 +3,8 @@
 
 void JobQueue::Push(shared_ptr<Job> job, bool pushOnly)
 {
-	const int prevCount = _jobCount.fetch_add(1);
-	_jobs.Push(job);
+	const int prevCount = jobCount.fetch_add(1);
+	jobs.Push(job);
 
 	if (prevCount == 0)
 		if (LCurrentJobQueue == nullptr && pushOnly == false)
@@ -19,14 +19,14 @@ void JobQueue::Execute()
 
 	while (true)
 	{
-		vector<shared_ptr<Job>> jobs;
-		_jobs.PopAll(jobs);
+		vector<shared_ptr<Job>> _jobs;
+		jobs.PopAll(_jobs);
 
-		const int jobCount = static_cast<int>(jobs.size());
-		for (int i = 0; i < jobCount; i++)
-			jobs[i]->Execute();
+		const int _jobCount = static_cast<int>(_jobs.size());
+		for (int i = 0; i < _jobCount; i++)
+			_jobs[i]->Execute();
 
-		if (_jobCount.fetch_sub(jobCount) == jobCount)
+		if (jobCount.fetch_sub(_jobCount) == _jobCount)
 		{
 			LCurrentJobQueue = nullptr;
 			return;

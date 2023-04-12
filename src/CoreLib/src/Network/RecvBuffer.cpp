@@ -4,10 +4,10 @@
 
 using namespace std;
 
-RecvBuffer::RecvBuffer(int bufferSize) : _bufferSize(bufferSize)
+RecvBuffer::RecvBuffer(int bufferSize) : bufferSize(bufferSize)
 {
-	_capacity = bufferSize * BUFFER_COUNT;
-	_buffer.resize(_capacity);
+	capacity = bufferSize * BUFFER_COUNT;
+	buffer.resize(capacity);
 }
 
 RecvBuffer::~RecvBuffer()
@@ -19,15 +19,15 @@ void RecvBuffer::Clean()
 	int dataSize = DataSize();
 	if (dataSize == 0)
 	{
-		_readPos = _writePos = 0;
+		readPos = writePos = 0;
 	}
 	else
 	{
-		if (FreeSize() < _bufferSize)
+		if (FreeSize() < bufferSize)
 		{
-			memcpy(&_buffer[0], &_buffer[_readPos], dataSize);
-			_readPos = 0;
-			_writePos = dataSize;
+			memcpy(&buffer[0], &buffer[readPos], dataSize);
+			readPos = 0;
+			writePos = dataSize;
 		}
 	}
 }
@@ -37,7 +37,7 @@ bool RecvBuffer::OnRead(int numOfBytes)
 	if (numOfBytes > DataSize())
 		return false;
 
-	_readPos += numOfBytes;
+	readPos += numOfBytes;
 	return true;
 }
 
@@ -46,6 +46,6 @@ bool RecvBuffer::OnWrite(int numOfBytes)
 	if (numOfBytes > FreeSize())
 		return false;
 
-	_writePos += numOfBytes;
+	writePos += numOfBytes;
 	return true;
 }

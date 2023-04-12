@@ -10,13 +10,13 @@ using CallbackType = std::function<void()>;
 class Job
 {
 public:
-	Job(CallbackType&& callback) : _callback(std::move(callback))
+	Job(CallbackType&& callback) : callback(std::move(callback))
 	{}
 
 	template<typename T, typename Ret, typename... Args>
 	Job(shared_ptr<T> owner, Ret(T::* memFunc)(Args...), Args&&... args)
 	{
-		_callback = [owner, memFunc, args...]()
+		callback = [owner, memFunc, args...]()
 		{
 			(owner.get()->*memFunc)(args...);
 		};
@@ -24,9 +24,9 @@ public:
 
 	void Execute()
 	{
-		_callback();
+		callback();
 	}
 
 private:
-	CallbackType _callback;
+	CallbackType callback;
 };

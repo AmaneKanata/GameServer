@@ -16,6 +16,6 @@ private:
 	void RegisterAccept();
 
 private:
-	shared_ptr<Service> _owner;
+	shared_ptr<Service> owner;
 	shared_ptr<ip::tcp::acceptor> acceptor;
 };

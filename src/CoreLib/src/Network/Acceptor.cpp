@@ -9,10 +9,10 @@ using namespace boost::asio;
 
 bool Acceptor::StartAccept(shared_ptr<Service> owner)
 {
-	_owner = owner;
+	this->owner = owner;
 
-	acceptor = make_shared<ip::tcp::acceptor>(_owner->GetIOC(), _owner->GetEndPoint().protocol());
-	acceptor->bind(_owner->GetEndPoint());
+	acceptor = make_shared<ip::tcp::acceptor>(owner->GetIOC(), owner->GetEndPoint().protocol());
+	acceptor->bind(owner->GetEndPoint());
 	acceptor->listen();
 
 	RegisterAccept();
@@ -22,7 +22,7 @@ bool Acceptor::StartAccept(shared_ptr<Service> owner)
 
 void Acceptor::RegisterAccept()
 {
-	auto session = _owner->CreateSession();
+	auto session = owner->CreateSession();
 	acceptor->async_accept(*session->GetSocket(), [this, session](const boost::system::error_code& error) {
 		if (error)
 			return;
