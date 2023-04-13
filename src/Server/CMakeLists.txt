@@ -9,15 +9,15 @@ target_include_directories(Server PRIVATE ../CoreLib/src ./Include)
 target_link_libraries(Server PRIVATE CoreLib)
 
 if (WIN32)
-    file(GLOB libs ./Lib/*.lib)
+    file(GLOB common_libs ./Lib/Win/*.lib)
 
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-        file(GLOB libs ./Lib/Win/Debug/*.lib)
+        file(GLOB platform_libs ./Lib/Win/Debug/*.lib)
     elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
-        file(GLOB libs ./Lib/Win/Release/*.lib)
+        file(GLOB platform_libs ./Lib/Win/Release/*.lib)
     endif()
 
-    target_link_libraries(Server PRIVATE ${libs})
+    target_link_libraries(Server PRIVATE ${common_libs} ${platform_libs})
 endif (WIN32)
 
 if (UNIX)
