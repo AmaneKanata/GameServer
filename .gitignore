@@ -38,7 +38,7 @@
 
 # Executables
 *.exe
-!src/Server/*.exe
+!src/ProtoBuf/*.exe
 *.out
 *.app
 
