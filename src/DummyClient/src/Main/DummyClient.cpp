@@ -6,6 +6,13 @@
 
 #include <boost/asio.hpp>
 
+#ifdef linux
+#include <sys/types.h>
+#include <ifaddrs.h>
+#include <netinet/in.h> 
+#include <arpa/inet.h>
+#endif
+
 using namespace boost::asio;
 
 enum
@@ -199,7 +206,7 @@ int main()
 			continue;
 		}
 
-		else if (command._Equal("move"))
+		else if (command == "move")
 		{
 			string clientId;
 			cin >> clientId;
