@@ -2,17 +2,15 @@
 #include <iostream>
 
 #include "Acceptor.h"
-#include "Service.h"
+#include "Session.h"
 
 using namespace std;
 using namespace boost::asio;
 
-bool Acceptor::StartAccept(shared_ptr<Service> owner)
+bool Acceptor::StartAccept()
 {
-	this->owner = owner;
-
-	acceptor = make_shared<ip::tcp::acceptor>(owner->GetIOC(), owner->GetEndPoint().protocol());
-	acceptor->bind(owner->GetEndPoint());
+	acceptor = make_shared<ip::tcp::acceptor>(ioc, ep.protocol());
+	acceptor->bind(ep);
 	acceptor->listen();
 
 	RegisterAccept();
@@ -22,7 +20,7 @@ bool Acceptor::StartAccept(shared_ptr<Service> owner)
 
 void Acceptor::RegisterAccept()
 {
-	auto session = owner->CreateSession();
+	auto session = sessionFactory(ioc);
 	acceptor->async_accept(*session->GetSocket(), [this, session](const boost::system::error_code& error) {
 		if (error)
 			return;

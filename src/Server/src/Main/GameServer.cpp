@@ -53,7 +53,7 @@ void DistributeReservedJobs()
 	GJobTimer->Distribute(now);
 }
 
-void DoWorkerJob(shared_ptr<Service>& service)
+void DoWorkerJob(io_context& ioc)
 {
 	while (true)
 	{
@@ -62,7 +62,7 @@ void DoWorkerJob(shared_ptr<Service>& service)
 #elif _WIN32
 		LEndTickCount = ::GetTickCount64() + WORKER_TICK;
 #endif
-		service->Dispatch(10); // IO 수행
+		ioc.run_for(std::chrono::microseconds{10}); // IO 수행
 		DistributeReservedJobs(); // JobTimer 에 있는 Job 수행
 		DistributePendingJobs(); // GPendingJobQueues 에 있는 JobQueue 의 Job 수행
 	}
@@ -120,23 +120,23 @@ int main()
 		return 0;
 	}
 
-	shared_ptr<Service> service = make_shared<Service>(
-		ip::address_v4::from_string(localHostIp),
-		tcpPort,
-		[](io_context& ioc) {
-			return make_shared<GameSession>(ioc);
-		}
-		);
+	io_context ioc;
+	ip::tcp::endpoint ep(ip::address_v4::from_string(localHostIp), tcpPort);
 
-	service->Start();
+	auto acceptor = make_shared<Acceptor>(ioc, ep, 
+		[](io_context& ioc) {
+		return make_shared<GameSession>(ioc);
+		}
+	);
+	acceptor->StartAccept();
 
 	GLogManager->Log("Game Server Started with IP ", localHostIp);
 
 	for (int i = 0; i < 5; i++)
 	{
-		GThreadManager->Launch([&service]()
+		GThreadManager->Launch([&ioc]()
 			{
-				DoWorkerJob(service);
+				DoWorkerJob(ioc);
 			});
 	}
 

@@ -5,17 +5,27 @@
 using namespace std;
 using namespace boost::asio;
 
+class Session;
 class Service;
+
+using SessionFactory = function<shared_ptr<Session>(io_context& ioc)>;
 
 class Acceptor
 {
 public:
-	bool StartAccept(shared_ptr<Service> owner);
+	Acceptor(io_context& ioc, ip::tcp::endpoint& ep, SessionFactory sessionFactory) 
+		: ioc(ioc)
+		, ep(ep)
+		, sessionFactory(sessionFactory)
+	{}
+	bool StartAccept();
 
 private:
 	void RegisterAccept();
 
 private:
-	shared_ptr<Service> owner;
+	io_context& ioc;
+	ip::tcp::endpoint& ep;
+	SessionFactory sessionFactory;
 	shared_ptr<ip::tcp::acceptor> acceptor;
 };
