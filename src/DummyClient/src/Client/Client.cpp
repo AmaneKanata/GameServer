@@ -1,5 +1,5 @@
 #include "Client.h"
-#include "../Session/GameSession.h"
+#include "../Network/GameSession.h"
 
 void Client::Send(shared_ptr<SendBuffer> sendBuffer)
 {

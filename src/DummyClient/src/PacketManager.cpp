@@ -1,6 +1,6 @@
 #include "PacketManager.h"
 #include "Client/Client.h"
-#include "Session/GameSession.h"
+#include "Network/GameSession.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
