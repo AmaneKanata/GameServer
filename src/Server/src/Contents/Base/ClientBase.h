@@ -26,7 +26,6 @@ public:
 
 	void Leave(string code);
 	void Send(shared_ptr<SendBuffer> sendBuffer);
-	void UDP_Send(shared_ptr<SendBuffer> sendBuffer);
 
 	void ReEnter(shared_ptr<GameSession> session);
 
@@ -36,5 +35,4 @@ public:
 	string clientId;
 	ClientState state;
 	shared_ptr<GameSession> session;
-	boost::asio::ip::udp::endpoint udpEp;
 };

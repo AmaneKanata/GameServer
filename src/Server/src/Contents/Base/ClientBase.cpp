@@ -1,8 +1,7 @@
 #include "ClientBase.h"
 #include "RoomBase.h"
-#include "../../Network/GameSession.h"
+#include "../../Session/GameSession.h"
 #include "../../PacketManager.h"
-#include "../../Network/GameUDPSocket.h"
 
 void ClientBase::Leave(string code)
 {
@@ -30,14 +29,6 @@ void ClientBase::Send(shared_ptr<SendBuffer> sendBuffer)
 		return;
 
 	session->Send(sendBuffer);
-}
-
-void ClientBase::UDP_Send(shared_ptr<SendBuffer> sendBuffer)
-{
-	if (udpEp == defaultUDPEndPoint)
-		return;
-
-	GUDPSocket->Send(sendBuffer, udpEp);
 }
 
 void ClientBase::ReEnter(shared_ptr<GameSession> session)

@@ -3,8 +3,7 @@
 #include "GameServer.h"
 #include "../pch.h"
 #include "../PacketManager.h"
-#include "../Network/GameSession.h"
-#include "../Network/GameUDPSocket.h"
+#include "../Session/GameSession.h"
 #include "../Contents/Base/RoomBase.h"
 #include "../Contents/GameObject/GameObjectRoom.h"
 
@@ -122,13 +121,9 @@ int main()
 	}
 
 	io_context ioc;
-	ip::tcp::endpoint tcpEp(ip::address_v4::from_string(localHostIp), port);
-	ip::udp::endpoint udpEp(ip::address_v4::from_string(localHostIp), port);
+	ip::tcp::endpoint ep(ip::address_v4::from_string(localHostIp), tcpPort);
 
-	GUDPSocket = new GameUDPSocket(ioc, udpEp);
-	GUDPSocket->Start();
-
-	auto acceptor = make_shared<Acceptor>(ioc, tcpEp, 
+	auto acceptor = make_shared<Acceptor>(ioc, ep, 
 		[](io_context& ioc) {
 		return make_shared<GameSession>(ioc);
 		}

@@ -2,7 +2,7 @@
 #include "GameObjectClient.h"
 #include "GameObject.h"
 #include "../../PacketManager.h"
-#include "../../Network/GameSession.h"
+#include "../../Session/GameSession.h"
 
 static int idGenerator = 0;
 

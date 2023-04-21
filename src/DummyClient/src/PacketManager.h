@@ -69,13 +69,6 @@ public:
 	static shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_INSTANTIATE_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_C_INSTANTIATE_GAME_OBJECT); }
 	static shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_GET_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_C_GET_GAME_OBJECT); }
 	static shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_SET_TRANSFORM& pkt) { return MakeSendBuffer(pkt, PKT_C_SET_TRANSFORM); }
-	static shared_ptr<SendBuffer> UDP_MakeSendBuffer(Protocol::C_ENTER& pkt) { return UDP_MakeSendBuffer(pkt, PKT_C_ENTER); }
-	static shared_ptr<SendBuffer> UDP_MakeSendBuffer(Protocol::C_REENTER& pkt) { return UDP_MakeSendBuffer(pkt, PKT_C_REENTER); }
-	static shared_ptr<SendBuffer> UDP_MakeSendBuffer(Protocol::C_LEAVE& pkt) { return UDP_MakeSendBuffer(pkt, PKT_C_LEAVE); }
-	static shared_ptr<SendBuffer> UDP_MakeSendBuffer(Protocol::C_GET_CLIENT& pkt) { return UDP_MakeSendBuffer(pkt, PKT_C_GET_CLIENT); }
-	static shared_ptr<SendBuffer> UDP_MakeSendBuffer(Protocol::C_INSTANTIATE_GAME_OBJECT& pkt) { return UDP_MakeSendBuffer(pkt, PKT_C_INSTANTIATE_GAME_OBJECT); }
-	static shared_ptr<SendBuffer> UDP_MakeSendBuffer(Protocol::C_GET_GAME_OBJECT& pkt) { return UDP_MakeSendBuffer(pkt, PKT_C_GET_GAME_OBJECT); }
-	static shared_ptr<SendBuffer> UDP_MakeSendBuffer(Protocol::C_SET_TRANSFORM& pkt) { return UDP_MakeSendBuffer(pkt, PKT_C_SET_TRANSFORM); }
 
 private:
 	template<typename PacketType, typename ProcessFunc>
@@ -97,24 +90,6 @@ private:
 		shared_ptr<SendBuffer> sendBuffer = GSendBufferManager->Open(packetSize);
 		PacketHeader* header = reinterpret_cast<PacketHeader*>(sendBuffer->Buffer());
 		header->size = packetSize;
-		header->id = pktId;
-		pkt.SerializeToArray(&header[1], dataSize);
-		sendBuffer->Close(packetSize);
-
-		return sendBuffer;
-	}
-
-	template<typename T>
-	static shared_ptr<SendBuffer> UDP_MakeSendBuffer(T& pkt, unsigned short pktId)
-	{
-		static unsigned short udp_packet_id = 0;
-
-		const unsigned short dataSize = static_cast<unsigned short>(pkt.ByteSizeLong());
-		const unsigned short packetSize = dataSize + sizeof(PacketHeader);
-
-		shared_ptr<SendBuffer> sendBuffer = GSendBufferManager->Open(packetSize);
-		PacketHeader* header = reinterpret_cast<PacketHeader*>(sendBuffer->Buffer());
-		header->size = (udp_packet_id++ / 65535); //use packetheader->size as udp packet id
 		header->id = pktId;
 		pkt.SerializeToArray(&header[1], dataSize);
 		sendBuffer->Close(packetSize);

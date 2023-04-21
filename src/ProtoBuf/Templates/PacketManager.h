@@ -43,10 +43,6 @@ public:
 	static shared_ptr<SendBuffer> MakeSendBuffer(Protocol::{{pkt.name}}& pkt) { return MakeSendBuffer(pkt, PKT_{{pkt.name}}); }
 {%- endfor %}
 
-{%- for pkt in parser.send_pkt %}
-	static shared_ptr<SendBuffer> UDP_MakeSendBuffer(Protocol::{{pkt.name}}& pkt) { return UDP_MakeSendBuffer(pkt, PKT_{{pkt.name}}); }
-{%- endfor %}
-
 private:
 	template<typename PacketType, typename ProcessFunc>
 	static bool HandlePacket(ProcessFunc func, shared_ptr<GameSession>& session, unsigned char* buffer, int len)
@@ -67,24 +63,6 @@ private:
 		shared_ptr<SendBuffer> sendBuffer = GSendBufferManager->Open(packetSize);
 		PacketHeader* header = reinterpret_cast<PacketHeader*>(sendBuffer->Buffer());
 		header->size = packetSize;
-		header->id = pktId;
-		pkt.SerializeToArray(&header[1], dataSize);
-		sendBuffer->Close(packetSize);
-
-		return sendBuffer;
-	}
-
-	template<typename T>
-	static shared_ptr<SendBuffer> UDP_MakeSendBuffer(T& pkt, unsigned short pktId)
-	{
-		static unsigned short udp_packet_id = 0;
-
-		const unsigned short dataSize = static_cast<unsigned short>(pkt.ByteSizeLong());
-		const unsigned short packetSize = dataSize + sizeof(PacketHeader);
-
-		shared_ptr<SendBuffer> sendBuffer = GSendBufferManager->Open(packetSize);
-		PacketHeader* header = reinterpret_cast<PacketHeader*>(sendBuffer->Buffer());
-		header->size = (udp_packet_id++ / 65535); //use packetheader->size as udp packet id
 		header->id = pktId;
 		pkt.SerializeToArray(&header[1], dataSize);
 		sendBuffer->Close(packetSize);

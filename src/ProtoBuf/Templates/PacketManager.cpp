@@ -1,5 +1,5 @@
 #include "PacketManager.h"
-#include "Network/GameSession.h"
+#include "Session/GameSession.h"
 #include "Contents/Base/RoomBase.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];

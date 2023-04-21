@@ -2,7 +2,7 @@
 #include "../pch.h"
 #include "../PacketManager.h"
 #include "../Client/Client.h"
-#include "../Network/GameSession.h"
+#include "../Session/GameSession.h"
 
 #include <boost/asio.hpp>
 
@@ -114,7 +114,7 @@ int main()
 #endif
 
 	io_context ioc;
-	ip::tcp::endpoint ep(ip::address_v4::from_string(localHostIp), port);
+	ip::tcp::endpoint ep(ip::address_v4::from_string(localHostIp), tcpPort);
 
 	bool state = true;
 

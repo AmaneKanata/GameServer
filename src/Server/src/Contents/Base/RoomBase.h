@@ -33,9 +33,6 @@ public:
 	virtual void GetClient(shared_ptr<ClientBase> session);
 
 	virtual void Broadcast(shared_ptr<SendBuffer> sendBuffer);
-	virtual void UDP_Broadcast(shared_ptr<SendBuffer> sendBuffer);
-
-	virtual void SetUDPEndPoint(string clientId, boost::asio::ip::udp::endpoint ep);
 
 	virtual shared_ptr<ClientBase> MakeClient(string clientId);
 	

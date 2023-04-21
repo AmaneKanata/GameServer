@@ -1,6 +1,6 @@
 #include "RoomBase.h"
 #include "ClientBase.h"
-#include "../../Network/GameSession.h"
+#include "../../Session/GameSession.h"
 #include "../../PacketManager.h"
 
 RoomBase::RoomBase()
@@ -112,26 +112,10 @@ void RoomBase::GetClient(shared_ptr<ClientBase> client)
 
 void RoomBase::Broadcast(shared_ptr<SendBuffer> sendBuffer)
 {
+	if (state != RoomState::Running) return;
+
 	for (const auto& [key, client] : clients)
 		client->Send(sendBuffer);
-}
-
-void RoomBase::UDP_Broadcast(shared_ptr<SendBuffer> sendBuffer)
-{
-	for (const auto& [key, client] : clients)
-		client->UDP_Send(sendBuffer);
-}
-
-
-void RoomBase::SetUDPEndPoint(string clientId, boost::asio::ip::udp::endpoint ep)
-{
-	auto client = clients.find(clientId);
-	if (client == clients.end())
-		return;
-
-	client->second->udpEp = ep;
-
-	//send ack to client
 }
 
 shared_ptr<ClientBase> RoomBase::MakeClient(string clientId)
