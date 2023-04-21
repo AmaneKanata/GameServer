@@ -6,3 +6,6 @@ extern thread_local class JobQueue* LCurrentJobQueue;
 
 #include <memory>
 extern thread_local std::shared_ptr<class SendBufferChunk> LSendBufferChunk;
+
+#include <boost/asio.hpp>
+extern thread_local std::shared_ptr<class boost::asio::ip::udp::socket> UDPSocket;

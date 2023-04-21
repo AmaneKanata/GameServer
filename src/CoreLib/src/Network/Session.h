@@ -11,8 +11,6 @@
 
 using namespace boost::asio;
 
-class Service;
-
 class Session : public enable_shared_from_this<Session>
 {
 	enum
@@ -45,7 +43,6 @@ private:
 	recursive_mutex mtx;
 
 	shared_ptr<ip::tcp::socket> socket;
-	shared_ptr<Service> service;
 	RecvBuffer recvBuffer;
 	queue<shared_ptr<SendBuffer>> sendQueue;
 	vector<shared_ptr<SendBuffer>> sendBufferRefs;
