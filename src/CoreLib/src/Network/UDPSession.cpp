@@ -13,16 +13,16 @@ UDPSession::UDPSession(io_context& ioc, ip::udp::endpoint ep)
     , packetSequence(0)
 {}
 
+void UDPSession::Write(shared_ptr<SendBuffer> sendBuffer)
+{
+    lock_guard<recursive_mutex> lock(mtx);
+    sendQueue.push(sendBuffer);
+}
+
 void UDPSession::StartSend()
 {
 	timer.expires_after(interval);
 	timer.async_wait([this](const boost::system::error_code&) { Send(); });
-}
-
-void UDPSession::Write(shared_ptr<SendBuffer> sendBuffer)
-{
-	lock_guard<recursive_mutex> lock(mtx);
-	sendQueue.push(sendBuffer);
 }
 
 void UDPSession::Send()
@@ -45,6 +45,7 @@ void UDPSession::Send()
 
         std::shared_ptr<vector<std::shared_ptr<SendBuffer>>> tempSendBufferRefs = std::make_shared<vector<std::shared_ptr<SendBuffer>>>();
 
+        //단일 SendBuffer 로 MAX_PACKET_SIZE 를 초과하는 경우를 고려해야 함. 만약 그런 패킷이 존재한다면 이후로 통신이 수행되지 않음
         while (!tempSendQueue.empty() && currentPacketSize + tempSendQueue.front()->WriteSize() < MAX_PACKET_SIZE)
         {
             currentPacketSize += tempSendQueue.front()->WriteSize();
@@ -58,5 +59,5 @@ void UDPSession::Send()
             });
     }
 
-    Start();
+    StartSend();
 }
