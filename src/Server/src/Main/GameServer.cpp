@@ -6,6 +6,9 @@
 #include "../Session/GameSession.h"
 #include "../Contents/Base/RoomBase.h"
 #include "../Contents/GameObject/GameObjectRoom.h"
+#include "../Contents/Base/ClientManager.h"
+
+#include <Network/UDPSession.h>
 
 #ifdef linux
 #include <sys/types.h>
@@ -68,6 +71,18 @@ void DoWorkerJob(io_context& ioc)
 	}
 }
 
+void UDPAccept(boost::asio::io_context& ioc , ip::udp::socket& socket, std::array<char, 1024>& buffer, ip::udp::endpoint& remoteEp)
+{
+	socket.async_receive_from(boost::asio::buffer(buffer), remoteEp, 
+		[&](const boost::system::error_code& error, std::size_t bytes_transferred) {
+			auto client = GClientManager->GetClient(string(buffer.data(), bytes_transferred));
+			auto udpSession = make_shared<UDPSession>(ioc, remoteEp);
+			udpSession->StartSend();
+			client->udpSession = udpSession;
+			UDPAccept(ioc, socket, buffer, remoteEp);
+		});
+}
+
 int main()
 {
 	PacketManager::Init();
@@ -122,7 +137,7 @@ int main()
 
 	io_context ioc;
 	ip::tcp::endpoint ep(ip::address_v4::from_string(localHostIp), tcpPort);
-
+	
 	auto acceptor = make_shared<Acceptor>(ioc, ep, 
 		[](io_context& ioc) {
 		return make_shared<GameSession>(ioc);
@@ -132,6 +147,13 @@ int main()
 
 	GLogManager->Log("Game Server Started with IP ", localHostIp);
 
+	ip::udp::endpoint udpEp(ip::address_v4::from_string(localHostIp), tcpPort);
+	ip::udp::socket udpAcceptor(ioc, udpEp);
+	std::array<char, 1024> udpBuffer;
+	ip::udp::endpoint remoteEp;
+
+	UDPAccept(ioc, udpAcceptor, udpBuffer, remoteEp);
+
 	for (int i = 0; i < 5; i++)
 	{
 		GThreadManager->Launch([&ioc]()
@@ -139,6 +161,7 @@ int main()
 				DoWorkerJob(ioc);
 			});
 	}
+
 
 	GThreadManager->Join();
 }

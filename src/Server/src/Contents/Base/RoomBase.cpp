@@ -2,6 +2,7 @@
 #include "ClientBase.h"
 #include "../../Session/GameSession.h"
 #include "../../PacketManager.h"
+#include "ClientManager.h"
 
 RoomBase::RoomBase()
 	: state(RoomState::Idle)
@@ -120,5 +121,5 @@ void RoomBase::Broadcast(shared_ptr<SendBuffer> sendBuffer)
 
 shared_ptr<ClientBase> RoomBase::MakeClient(string clientId)
 {
-	return make_shared<ClientBase>(clientId);
+	return GClientManager->MakeClient<ClientBase>(clientId);
 }

@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "../../PacketManager.h"
 #include "../../Session/GameSession.h"
+#include "../Base/ClientManager.h"
 
 static int idGenerator = 0;
 
@@ -89,5 +90,5 @@ void GameObjectRoom::SetTransform(Protocol::C_SET_TRANSFORM pkt)
 
 shared_ptr<ClientBase> GameObjectRoom::MakeClient(string clientId)
 {
-	return make_shared<GameObjectClient>(clientId);
+	return GClientManager->MakeClient<GameObjectClient>(clientId);
 }

@@ -2,6 +2,8 @@
 #include "RoomBase.h"
 #include "../../Session/GameSession.h"
 #include "../../PacketManager.h"
+#include "ClientManager.h"
+#include "Network/UDPSession.h"
 
 void ClientBase::Leave(string code)
 {
@@ -21,6 +23,8 @@ void ClientBase::Leave(string code)
 		session->Disconnect();
 		session = nullptr;
 	}
+
+	GClientManager->RemoveClient(clientId);
 }
 
 void ClientBase::Send(shared_ptr<SendBuffer> sendBuffer)
@@ -29,6 +33,14 @@ void ClientBase::Send(shared_ptr<SendBuffer> sendBuffer)
 		return;
 
 	session->Send(sendBuffer);
+}
+
+void ClientBase::UDP_Send(shared_ptr<SendBuffer> sendBuffer)
+{
+	if (udpSession == nullptr)
+		return;
+
+	udpSession->Write(sendBuffer);
 }
 
 void ClientBase::ReEnter(shared_ptr<GameSession> session)
