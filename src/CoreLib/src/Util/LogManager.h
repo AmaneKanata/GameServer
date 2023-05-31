@@ -3,8 +3,11 @@
 #include <chrono>
 #include <ctime>
 #include <iomanip>
+#include <memory>
 
-#include "../pch.h"
+#include "../Job/JobQueue.h"
+
+using namespace std;
 
 #define LOG_SIZE 200
 
@@ -23,6 +26,10 @@ public:
 
 class LogManager : public JobQueue
 {
+public:
+	LogManager(boost::asio::io_context& ioc) : JobQueue(ioc)
+	{}
+
 private:
 	void AppendToString(shared_ptr<LogObj> log) { return; }
 
@@ -40,7 +47,8 @@ public:
 		log->Init();
 		AppendToString(log, s, strs...);
 
-		DoAsync(&LogManager::PrintLog, log);
+		//log manager 는 싱글톤이라서 this 로 해도 문제없다?
+		jobs.post(std::bind(&LogManager::PrintLog, this, log));
 	}
 
 	void PrintLog(shared_ptr<LogObj> log);

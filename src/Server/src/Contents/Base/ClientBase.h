@@ -6,33 +6,18 @@ class RoomBase;
 class GameSession;
 class SendBuffer;
 
-enum class ClientState
-{
-	NORMAL,
-	LEAVING
-};
-
-class ClientBase : public JobQueue
+class ClientBase
 {
 public:
-	ClientBase(string clientId) 
-		: state(ClientState::NORMAL)
-		, clientId(clientId)
+	ClientBase(string clientId) : clientId(clientId)
 	{}
+
 	~ClientBase()
 	{
 		GLogManager->Log("Client Destroyed :			", clientId);
 	}
 
-	void Leave(string code);
-	void Send(shared_ptr<SendBuffer> sendBuffer);
-
-	void ReEnter(shared_ptr<GameSession> session);
-
-	void OnDisconnected();
-
 public:
 	string clientId;
-	ClientState state;
 	shared_ptr<GameSession> session;
 };

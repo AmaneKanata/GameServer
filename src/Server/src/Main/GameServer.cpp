@@ -31,14 +31,14 @@ void DistributePendingJobs()
 #elif _WIN32
 		 unsigned long long now = ::GetTickCount64();
 #endif
-		if (now > LEndTickCount)
-			break;
+		//if (now > LEndTickCount)
+		//	break;
 
-		shared_ptr<JobQueue> jobQueue = GPendingJobQueues->Pop();
-		if (jobQueue == nullptr)
-			break;
+		//shared_ptr<JobQueue> jobQueue = GPendingJobQueues->Pop();
+		//if (jobQueue == nullptr)
+		//	break;
 
-		jobQueue->Execute();
+		//jobQueue->Execute();
 	}
 }
 
@@ -50,7 +50,7 @@ void DistributeReservedJobs()
 	unsigned long long now = ::GetTickCount64();
 #endif
 
-	GJobTimer->Distribute(now);
+	//GJobTimer->Distribute(now);
 }
 
 void DoWorkerJob(io_context& ioc)
@@ -72,8 +72,8 @@ int main()
 {
 	PacketManager::Init();
 
-	GRoom = make_shared<GameObjectRoom>();
-	GRoom->Init();
+	//GRoom = make_shared<GameObjectRoom>();
+	//GRoom->Init();
 
 #ifdef linux
 	struct ifaddrs* ifAddrStruct = NULL;

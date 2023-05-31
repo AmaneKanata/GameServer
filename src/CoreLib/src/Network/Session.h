@@ -9,20 +9,22 @@
 #include "RecvBuffer.h"
 #include "SendBuffer.h"
 
+#include "../Job/JobQueue.h"
+
 using namespace boost::asio;
 
 class Service;
 
-class Session : public enable_shared_from_this<Session>
-{
+class TCPSession : public JobQueue
+{  
 	enum
 	{
 		BUFFER_SIZE = 0x10000
 	};
 
 public:
-	Session(io_context& context);
-	virtual ~Session();
+	TCPSession(io_context& context);
+	virtual ~TCPSession();
 
 	shared_ptr<ip::tcp::socket> GetSocket() { return socket; }
 
@@ -30,13 +32,13 @@ public:
 	void Disconnect();
 
 	void Send(shared_ptr<SendBuffer> sendBuffer);
-	
-	void RegisterRecv();
-	void RegisterSend();
 
 	void ProcessConnect();
 
 protected:
+	void RegisterRecv();
+	void RegisterSend();
+
 	virtual void OnConnected() {};
 	virtual void OnDisconnected() {};
 	virtual int OnRecv(unsigned char* buffer, int len) { return len; }
@@ -53,19 +55,13 @@ private:
 	atomic<bool> isConnected = { false };
 };
 
-struct PacketHeader
-{
-	unsigned short size;
-	unsigned short id;
-};
-
-class PacketSession : public Session
-{
-public:
-	PacketSession(io_context& ioc) : Session(ioc)
-	{}
-	virtual ~PacketSession() {};
-
-	virtual int OnRecv(unsigned char* buffer, int len) final;
-	virtual void OnRecvPacket(unsigned char* buffer, int len) = 0;
-};
+//class PacketSession : public TCPSession
+//{
+//public:
+//	PacketSession(io_context& ioc) : TCPSession(ioc)
+//	{}
+//	virtual ~PacketSession() {};
+//
+//	virtual int OnRecv(unsigned char* buffer, int len) final;
+//	virtual void OnRecvPacket(unsigned char* buffer, int len) = 0;
+//};

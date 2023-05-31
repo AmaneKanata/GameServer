@@ -13,9 +13,6 @@
 #include "Network/Session.h"
 #include "Network/SendBuffer.h"
 
-#include "Job/JobQueue.h"
-#include "Job/JobTimer.h"
-
 #include "Util/LogManager.h"
 
 #include "Singleton.h"

@@ -8,25 +8,26 @@
 using namespace std;
 using namespace boost::asio;
 
-Session::Session(io_context& context) 
-	: socket(make_shared<ip::tcp::socket>(context))
+TCPSession::TCPSession(io_context& context)
+	: JobQueue(context)
+	, socket(make_shared<ip::tcp::socket>(context))
 	, recvBuffer(BUFFER_SIZE)
 {
 }
 
-Session::~Session()
+TCPSession::~TCPSession()
 {
 	GLogManager->Log("Socket Destroyed");
 }
 
-void Session::Connect(ip::tcp::endpoint ep)
+void TCPSession::Connect(ip::tcp::endpoint ep)
 {
 	socket->connect(ep);
 
 	ProcessConnect();
 }
 
-void Session::Disconnect()
+void TCPSession::Disconnect()
 {
 	if (isConnected.exchange(false) == false)
 		return;
@@ -36,7 +37,7 @@ void Session::Disconnect()
 	OnDisconnected();
 }
 
-void Session::ProcessConnect()
+void TCPSession::ProcessConnect()
 {
 	boost::asio::socket_base::linger option(true, 100);
 	socket->set_option(option);
@@ -48,7 +49,7 @@ void Session::ProcessConnect()
 	RegisterRecv();
 }
 
-void Session::RegisterRecv()
+void TCPSession::RegisterRecv()
 {
 	mutable_buffer buffer(reinterpret_cast<char*>(recvBuffer.WritePos()), recvBuffer.FreeSize());
 
@@ -82,7 +83,7 @@ void Session::RegisterRecv()
 		});
 }
 
-void Session::Send(std::shared_ptr<SendBuffer> sendBuffer)
+void TCPSession::Send(std::shared_ptr<SendBuffer> sendBuffer)
 {
 	bool registerSend = false;
 
@@ -96,10 +97,12 @@ void Session::Send(std::shared_ptr<SendBuffer> sendBuffer)
 	}
 
 	if (registerSend)
-		RegisterSend();
+	{
+		jobs.post(std::bind(&TCPSession::RegisterSend, static_pointer_cast<TCPSession>(shared_from_this())));
+	}
 }
 
-void Session::RegisterSend()
+void TCPSession::RegisterSend()
 {
 	{
 		lock_guard<recursive_mutex> lock(mtx);
@@ -118,7 +121,7 @@ void Session::RegisterSend()
 	for (shared_ptr<SendBuffer> sendBuffer : sendBufferRefs)
 		sendBuffers.emplace_back(sendBuffer->Buffer(), sendBuffer->WriteSize());
 
-	auto ref = shared_from_this();
+	auto ref = static_pointer_cast<TCPSession>(shared_from_this());
 
 	socket->async_send(sendBuffers, [this, ref](const boost::system::error_code& error, std::size_t bytes_transferred) {
 		
@@ -141,7 +144,7 @@ void Session::RegisterSend()
 			if (sendQueue.empty())
 				isSendRegistered.store(false);
 			else
-				RegisterSend();
+				jobs.post(std::bind(&TCPSession::RegisterSend, ref));
 		}
 
 		});

@@ -3,15 +3,24 @@
 
 class ClientBase;
 
-class GameSession : public PacketSession
+enum class SessionState
+{
+	NORMAL,
+	LEAVING
+};
+
+
+class GameSession : public JobQueue
 {
 public:
-	GameSession(io_context& ioc) : PacketSession(ioc)
+	GameSession(io_context& ioc) : JobQueue(ioc)
 	{}
-	~GameSession() { owner = nullptr; }
 
-	virtual void OnDisconnected() override;
-	virtual void OnRecvPacket(unsigned char* buffer, int len) override;
+	//virtual void OnDisconnected() override;
+	void OnRecvPacket(unsigned char* buffer, int len);
 
-	shared_ptr<ClientBase> owner;
+	void Leave(string code);
+
+	shared_ptr<ClientBase> client;
+	SessionState state;
 };

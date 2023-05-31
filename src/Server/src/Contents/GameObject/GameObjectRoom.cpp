@@ -6,17 +6,18 @@
 
 static int idGenerator = 0;
 
-void GameObjectRoom::Handle_C_INSTANTIATE_GAME_OBJECT(shared_ptr<ClientBase>& client, Protocol::C_INSTANTIATE_GAME_OBJECT& pkt) { DoAsync(&GameObjectRoom::InstantiateGameObject, client, pkt); }
-void GameObjectRoom::Handle_C_GET_GAME_OBJECT(shared_ptr<ClientBase>& client, Protocol::C_GET_GAME_OBJECT& pkt) { DoAsync(&GameObjectRoom::GetGameObject, client); }
-void GameObjectRoom::Handle_C_SET_TRANSFORM(shared_ptr<ClientBase>& client, Protocol::C_SET_TRANSFORM& pkt) { DoAsync(&GameObjectRoom::SetTransform, pkt); }
+void GameObjectRoom::Handle_C_INSTANTIATE_GAME_OBJECT(shared_ptr<GameSession>& session, Protocol::C_INSTANTIATE_GAME_OBJECT& pkt) { jobs.post(std::bind(&GameObjectRoom::InstantiateGameObject, this, session, pkt)); }
+void GameObjectRoom::Handle_C_GET_GAME_OBJECT(shared_ptr<GameSession>& session, Protocol::C_GET_GAME_OBJECT& pkt) { jobs.post(std::bind(&GameObjectRoom::GetGameObject, this, session)); }
+void GameObjectRoom::Handle_C_SET_TRANSFORM(shared_ptr<GameSession>& session, Protocol::C_SET_TRANSFORM& pkt) { jobs.post(std::bind(&GameObjectRoom::SetTransform, this, pkt)); }
 
-void GameObjectRoom::Leave(shared_ptr<ClientBase> client)
+void GameObjectRoom::Leave(shared_ptr<GameSession> client)
 {
 	if (state != RoomState::Running) return;
 
-	auto gClient = static_pointer_cast<GameObjectClient>(client);
+	// 형변환 오류
+	//auto gClient = static_pointer_cast<GameObjectClient>(client);
 
-	if (gClient->gameObject != nullptr)
+	/*if (gClient->gameObject != nullptr)
 	{
 		gameObjects.erase(gClient->gameObject->gameObjectId);
 
@@ -27,12 +28,12 @@ void GameObjectRoom::Leave(shared_ptr<ClientBase> client)
 		gClient->gameObject = nullptr;
 	}
 
-	RoomBase::Leave(client);
+	RoomBase::Leave(client);*/
 }
 
-void GameObjectRoom::InstantiateGameObject(shared_ptr<ClientBase> client, Protocol::C_INSTANTIATE_GAME_OBJECT pkt)
+void GameObjectRoom::InstantiateGameObject(shared_ptr<GameSession> session, Protocol::C_INSTANTIATE_GAME_OBJECT pkt)
 {
-	if (state != RoomState::Running) return;
+	/*if (state != RoomState::Running) return;
 
 	auto gameObject = make_shared<GameObject>(idGenerator++);
 	gameObject->SetPosition(pkt.position());
@@ -51,22 +52,22 @@ void GameObjectRoom::InstantiateGameObject(shared_ptr<ClientBase> client, Protoc
 	Protocol::S_ADD_GAME_OBJECT addGameObject;
 	auto gameObjectInfo = addGameObject.add_gameobjects();
 	gameObject->MakeGameObjectInfo(gameObjectInfo);
-	Broadcast(PacketManager::MakeSendBuffer(addGameObject));
+	Broadcast(PacketManager::MakeSendBuffer(addGameObject));*/
 }
 
-void GameObjectRoom::GetGameObject(shared_ptr<ClientBase> client)
+void GameObjectRoom::GetGameObject(shared_ptr<GameSession> session)
 {
-	if (state != RoomState::Running) return;
+	//if (state != RoomState::Running) return;
 
-	Protocol::S_ADD_GAME_OBJECT addGameObject;
+	//Protocol::S_ADD_GAME_OBJECT addGameObject;
 
-	for (const auto& [key, gameObject] : gameObjects)
-	{
-		auto gameObjectInfo = addGameObject.add_gameobjects();
-		gameObject->MakeGameObjectInfo(gameObjectInfo);
-	}
+	//for (const auto& [key, gameObject] : gameObjects)
+	//{
+	//	auto gameObjectInfo = addGameObject.add_gameobjects();
+	//	gameObject->MakeGameObjectInfo(gameObjectInfo);
+	//}
 
-	client->Send(PacketManager::MakeSendBuffer(addGameObject));
+	//client->Send(PacketManager::MakeSendBuffer(addGameObject));
 }
 
 void GameObjectRoom::SetTransform(Protocol::C_SET_TRANSFORM pkt)
@@ -87,7 +88,7 @@ void GameObjectRoom::SetTransform(Protocol::C_SET_TRANSFORM pkt)
 	Broadcast(PacketManager::MakeSendBuffer(setTransform));
 }
 
-shared_ptr<ClientBase> GameObjectRoom::MakeClient(string clientId)
+shared_ptr<ClientBase> GameObjectRoom::MakeClient()
 {
-	return make_shared<GameObjectClient>(clientId);
+	return shared_ptr<GameObjectClient>();
 }

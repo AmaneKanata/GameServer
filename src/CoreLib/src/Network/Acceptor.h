@@ -5,10 +5,10 @@
 using namespace std;
 using namespace boost::asio;
 
-class Session;
+class TCPSession;
 class Service;
 
-using SessionFactory = function<shared_ptr<Session>(io_context& ioc)>;
+using SessionFactory = function<shared_ptr<TCPSession>(io_context& ioc)>;
 
 class Acceptor
 {

@@ -1,4 +1,5 @@
 #include "LogManager.h"
+#include <iostream>
 
 void LogObj::Init()
 {

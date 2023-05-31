@@ -14,9 +14,9 @@ public:
 	{
 		GThreadManager = new ThreadManager();
 		GSendBufferManager = new SendBufferManager();
-		GPendingJobQueues = new LockQueue<shared_ptr<JobQueue>>();
-		GJobTimer = new JobTimer();
-		GLogManager = make_shared<LogManager>();
+		//GPendingJobQueues = new LockQueue<shared_ptr<JobQueue>>();
+		//GJobTimer = new JobTimer();
+		//GLogManager = make_shared<LogManager>();
 	}
 
 	~CoreGlobal()
