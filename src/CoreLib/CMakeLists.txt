@@ -4,6 +4,11 @@ file(GLOB_RECURSE src ./src/*.h ./src/*.cpp)
 
 add_library (CoreLib STATIC ${src})
 
+target_include_directories(CoreLib PUBLIC src)
+target_include_directories(CoreLib PUBLIC src/Job)
+target_include_directories(CoreLib PUBLIC src/Network)
+target_include_directories(CoreLib PUBLIC src/Thread)
+
 if (WIN32)
 	set(BOOST_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/boost)
 	set(Boost_USE_STATIC_LIBS ON)

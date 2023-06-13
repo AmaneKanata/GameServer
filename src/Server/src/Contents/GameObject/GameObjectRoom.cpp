@@ -1,63 +1,54 @@
 #include "GameObjectRoom.h"
-#include "GameObjectClient.h"
 #include "GameObject.h"
-#include "../../PacketManager.h"
-#include "../../Session/GameSession.h"
+#include "GameObjectClient.h"
+#include "GameSession.h"
 
 static int idGenerator = 0;
 
-void GameObjectRoom::Handle_C_INSTANTIATE_GAME_OBJECT(shared_ptr<ClientBase>& client, Protocol::C_INSTANTIATE_GAME_OBJECT& pkt) { DoAsync(&GameObjectRoom::InstantiateGameObject, client, pkt); }
-void GameObjectRoom::Handle_C_GET_GAME_OBJECT(shared_ptr<ClientBase>& client, Protocol::C_GET_GAME_OBJECT& pkt) { DoAsync(&GameObjectRoom::GetGameObject, client); }
-void GameObjectRoom::Handle_C_SET_TRANSFORM(shared_ptr<ClientBase>& client, Protocol::C_SET_TRANSFORM& pkt) { DoAsync(&GameObjectRoom::SetTransform, pkt); }
-
-void GameObjectRoom::Leave(shared_ptr<ClientBase> client)
+void GameObjectRoom::Leave(std::shared_ptr<ClientBase> client, std::string code)
 {
-	if (state != RoomState::Running) return;
-
 	auto gClient = static_pointer_cast<GameObjectClient>(client);
 
 	if (gClient->gameObject != nullptr)
 	{
 		gameObjects.erase(gClient->gameObject->gameObjectId);
+		GLogManager->Log("GameObject Removed : ", std::to_string(gClient->gameObject->gameObjectId), ", GameObject Number : ", std::to_string(gameObjects.size()));
 
 		Protocol::S_REMOVE_GAME_OBJECT removeGameObject;
 		removeGameObject.add_gameobjects(gClient->gameObject->gameObjectId);
-		Broadcast(PacketManager::MakeSendBuffer(removeGameObject));
+		Broadcast(MakeSendBuffer(removeGameObject));
 
 		gClient->gameObject = nullptr;
 	}
 
-	RoomBase::Leave(client);
+	RoomBase::Leave(client, code);
 }
 
-void GameObjectRoom::InstantiateGameObject(shared_ptr<ClientBase> client, Protocol::C_INSTANTIATE_GAME_OBJECT pkt)
+void GameObjectRoom::Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::C_INSTANTIATE_GAME_OBJECT pkt)
 {
-	if (state != RoomState::Running) return;
-
 	auto gameObject = make_shared<GameObject>(idGenerator++);
 	gameObject->SetPosition(pkt.position());
 	gameObject->SetRotation(pkt.rotation());
 
-	auto gClient = static_pointer_cast<GameObjectClient>(client);
+	auto gClient = static_pointer_cast<GameObjectClient>(session->client);
 	gClient->gameObject = gameObject;
 
 	gameObjects.insert({ gameObject->gameObjectId, gameObject });
+	GLogManager->Log("GameObject Added : ", std::to_string(gameObject->gameObjectId), ", GameObject Number : ", std::to_string(gameObjects.size()));
 
 	Protocol::S_INSTANTIATE_GAME_OBJECT res;
 	res.set_success(true);
 	res.set_gameobjectid(gameObject->gameObjectId);
-	client->Send(PacketManager::MakeSendBuffer(res));
+	session->client->Post(&ClientBase::Send ,MakeSendBuffer(res));
 
 	Protocol::S_ADD_GAME_OBJECT addGameObject;
 	auto gameObjectInfo = addGameObject.add_gameobjects();
 	gameObject->MakeGameObjectInfo(gameObjectInfo);
-	Broadcast(PacketManager::MakeSendBuffer(addGameObject));
+	Broadcast(MakeSendBuffer(addGameObject));
 }
 
-void GameObjectRoom::GetGameObject(shared_ptr<ClientBase> client)
+void GameObjectRoom::Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::C_GET_GAME_OBJECT pkt)
 {
-	if (state != RoomState::Running) return;
-
 	Protocol::S_ADD_GAME_OBJECT addGameObject;
 
 	for (const auto& [key, gameObject] : gameObjects)
@@ -66,13 +57,11 @@ void GameObjectRoom::GetGameObject(shared_ptr<ClientBase> client)
 		gameObject->MakeGameObjectInfo(gameObjectInfo);
 	}
 
-	client->Send(PacketManager::MakeSendBuffer(addGameObject));
+	session->client->Post(&ClientBase::Send, MakeSendBuffer(addGameObject));
 }
 
-void GameObjectRoom::SetTransform(Protocol::C_SET_TRANSFORM pkt)
+void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session, Protocol::C_SET_TRANSFORM pkt)
 {
-	if (state != RoomState::Running) return;
-
 	auto gameObject = gameObjects.find(pkt.gameobjectid());
 	if (gameObject == gameObjects.end())
 		return;
@@ -84,10 +73,10 @@ void GameObjectRoom::SetTransform(Protocol::C_SET_TRANSFORM pkt)
 	setTransform.set_gameobjectid(pkt.gameobjectid());
 	setTransform.set_allocated_position(pkt.release_position());
 	setTransform.set_allocated_rotation(pkt.release_rotation());
-	Broadcast(PacketManager::MakeSendBuffer(setTransform));
+	Broadcast(MakeSendBuffer(setTransform));
 }
 
-shared_ptr<ClientBase> GameObjectRoom::MakeClient(string clientId)
+std::shared_ptr<ClientBase> GameObjectRoom::MakeClient(string clientId)
 {
-	return make_shared<GameObjectClient>(clientId);
+	return std::make_shared<GameObjectClient>(GetIoC(), clientId);
 }

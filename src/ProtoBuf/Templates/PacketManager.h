@@ -1,12 +1,13 @@
 #pragma once
 
-#include "pch.h"
+#include <PacketHeader.h>
+#include <JobQueue.h>
+#include <SendBuffer.h>
+#include <CoreLib_Singleton.h>
+
 #include "Protocols.h"
 
 class GameSession;
-
-using PacketHandlerFunc = std::function<bool(shared_ptr<GameSession>&, unsigned char*, int)>;
-extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
 enum : unsigned short
 {
@@ -15,58 +16,96 @@ enum : unsigned short
 {%- endfor %}
 };
 
-bool Handle_INVALID(shared_ptr<GameSession>& session, unsigned char* buffer, int len);
-{%- for pkt in parser.recv_pkt %}
-bool Handle_{{pkt.name}}(shared_ptr<GameSession>& session, Protocol::{{pkt.name}}& pkt);
+template<typename T>
+static std::shared_ptr<SendBuffer> MakeSendBuffer(T& pkt, unsigned short pktId)
+{
+	const unsigned short dataSize = static_cast<unsigned short>(pkt.ByteSizeLong());
+	const unsigned short packetSize = dataSize + sizeof(PacketHeader);
+
+	std::shared_ptr<SendBuffer> sendBuffer = GSendBufferManager->Open(packetSize);
+	PacketHeader* header = reinterpret_cast<PacketHeader*>(sendBuffer->Buffer());
+	header->size = packetSize;
+	header->id = pktId;
+	pkt.SerializeToArray(&header[1], dataSize);
+	sendBuffer->Close(packetSize);
+
+	return sendBuffer;
+}
+{% for pkt in parser.send_pkt %}
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::{{pkt.name}}& pkt) { return MakeSendBuffer(pkt, PKT_{{pkt.name}}); }
 {%- endfor %}
 
-class PacketManager
+enum class HandlerState
 {
+	Idle,
+	Running,
+	Closing,
+	Closed
+};
+
+class PacketHandler : public JobQueue
+{
+	using PacketHandlerFunc = std::function<void(std::shared_ptr<GameSession>&, unsigned char*, int)>;
+
 public:
-	static void Init()
+	PacketHandler(boost::asio::io_context& ioc)
+		: JobQueue(ioc)
+		, state(HandlerState::Idle)
 	{
 		for (int i = 0; i < UINT16_MAX; i++)
-			GPacketHandler[i] = Handle_INVALID;
-
-{%- for pkt in parser.recv_pkt %}
-		GPacketHandler[PKT_{{pkt.name}}] = [](shared_ptr<GameSession>& session, unsigned char* buffer, int len) { return HandlePacket < Protocol::{{pkt.name}} > (Handle_{{pkt.name}}, session, buffer, len); };
-{%- endfor %}
+			PacketHandlers[i] = PacketHandlers[i] = std::bind(&PacketHandler::Handle_INVALID, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+		{% for pkt in parser.recv_pkt %}
+		PacketHandlers[PKT_{{pkt.name}}] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
+		{ 
+			Protocol::{{pkt.name}} pkt;
+			if (pkt.ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_{{pkt.name}}, session, std::move(pkt));
+		};
+		{%- endfor %}
 	}
 
-	static bool HandlePacket(shared_ptr<GameSession>& session, unsigned char* buffer, int len)
+	void Init()
 	{
+		state = HandlerState::Running;
+		HandleInit();
+	}
+	virtual void HandleInit() {};
+	
+	void Close()
+	{
+		if (state != HandlerState::Running) return;
+
+		state = HandlerState::Closing;
+
+		HandleClose();
+
+		state = HandlerState::Closed;
+	}
+	virtual void HandleClose() {};
+
+	virtual void HandlePacket_Not_Running(std::shared_ptr<GameSession>& session) {}
+
+	void HandlePacket(std::shared_ptr<GameSession>& session, unsigned char* buffer, int len)
+	{
+		if (state != HandlerState::Running)
+		{
+			HandlePacket_Not_Running(session);
+			return;
+		}
+
 		PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer);
-		return GPacketHandler[header->id](session, buffer, len);
+		PacketHandlers[header->id](session, buffer, len);
 	}
 
-{%- for pkt in parser.send_pkt %}
-	static shared_ptr<SendBuffer> MakeSendBuffer(Protocol::{{pkt.name}}& pkt) { return MakeSendBuffer(pkt, PKT_{{pkt.name}}); }
+	HandlerState GetState() { return state; }
+
+protected:
+	virtual void Handle_INVALID(std::shared_ptr<GameSession> session, unsigned char* buffer, int len) {};
+{%- for pkt in parser.recv_pkt %}
+	virtual void Handle_{{pkt.name}}(std::shared_ptr<GameSession> session, Protocol::{{pkt.name}} pkt) {};
 {%- endfor %}
 
 private:
-	template<typename PacketType, typename ProcessFunc>
-	static bool HandlePacket(ProcessFunc func, shared_ptr<GameSession>& session, unsigned char* buffer, int len)
-	{
-		PacketType pkt;
-		if (pkt.ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)) == false)
-			return false;
-
-		return func(session, pkt);
-	}
-
-	template<typename T>
-	static shared_ptr<SendBuffer> MakeSendBuffer(T& pkt, unsigned short pktId)
-	{
-		const unsigned short dataSize = static_cast<unsigned short>(pkt.ByteSizeLong());
-		const unsigned short packetSize = dataSize + sizeof(PacketHeader);
-
-		shared_ptr<SendBuffer> sendBuffer = GSendBufferManager->Open(packetSize);
-		PacketHeader* header = reinterpret_cast<PacketHeader*>(sendBuffer->Buffer());
-		header->size = packetSize;
-		header->id = pktId;
-		pkt.SerializeToArray(&header[1], dataSize);
-		sendBuffer->Close(packetSize);
-
-		return sendBuffer;
-	}
+	PacketHandlerFunc PacketHandlers[UINT16_MAX];
+	HandlerState state;
 };

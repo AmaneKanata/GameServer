@@ -1,8 +1,9 @@
 #pragma once
 
-#include "../../pch.h"
+#include <JobQueue.h>
+#include "Server_Singleton.h"
+#include "LogManager.h"
 
-class RoomBase;
 class GameSession;
 class SendBuffer;
 
@@ -15,24 +16,33 @@ enum class ClientState
 class ClientBase : public JobQueue
 {
 public:
-	ClientBase(string clientId) 
-		: state(ClientState::NORMAL)
+	ClientBase(boost::asio::io_context& ioc, std::string clientId)
+		: JobQueue(ioc)
 		, clientId(clientId)
-	{}
+		, state(ClientState::NORMAL) 
+	{
+		auto clientNum = client_num.fetch_add(1);
+		GLogManager->Log("Client Created : ", clientId, ", Client Number : ", std::to_string(clientNum + 1));
+	}
 	~ClientBase()
 	{
-		GLogManager->Log("Client Destroyed :			", clientId);
+		auto clientNum = client_num.fetch_sub(1);
+		GLogManager->Log("Client Destroyed : ", clientId, ", Client Number : ", std::to_string(clientNum - 1));
 	}
-
-	void Leave(string code);
-	void Send(shared_ptr<SendBuffer> sendBuffer);
-
-	void ReEnter(shared_ptr<GameSession> session);
 
 	void OnDisconnected();
 
-public:
-	string clientId;
+	void SetSession(std::shared_ptr<GameSession> session);
+
+	void ReEnter(std::shared_ptr<GameSession> session);
+
+	void Leave(std::string code);
+
+	void Send(std::shared_ptr<SendBuffer> sendBuffer);
+
+	const std::string clientId;
+
+private:
+	std::weak_ptr<GameSession> session;
 	ClientState state;
-	shared_ptr<GameSession> session;
 };

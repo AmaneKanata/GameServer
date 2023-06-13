@@ -4,7 +4,13 @@ file(GLOB_RECURSE src ./src/*.h ./src/*.cpp ./src/*.cc)
 
 add_executable (Server ${src})
 
-target_include_directories(Server PRIVATE ../CoreLib/src ./Include)
+target_include_directories(Server PUBLIC ../CoreLib/src ./Include)
+
+target_include_directories(Server PUBLIC src)
+target_include_directories(Server PUBLIC src/Contents src/Contents/Base src/Contents/GameObject)
+target_include_directories(Server PUBLIC src/Protocol)
+target_include_directories(Server PUBLIC src/Session)
+target_include_directories(Server PUBLIC src/Util)
 
 target_link_libraries(Server PRIVATE CoreLib)
 

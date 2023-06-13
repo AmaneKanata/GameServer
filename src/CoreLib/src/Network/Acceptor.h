@@ -2,18 +2,15 @@
 
 #include <boost/asio.hpp>
 
-using namespace std;
-using namespace boost::asio;
-
 class Session;
 class Service;
 
-using SessionFactory = function<shared_ptr<Session>(io_context& ioc)>;
+using SessionFactory = std::function<std::shared_ptr<Session>(boost::asio::io_context& ioc)>;
 
 class Acceptor
 {
 public:
-	Acceptor(io_context& ioc, ip::tcp::endpoint& ep, SessionFactory sessionFactory) 
+	Acceptor(boost::asio::io_context& ioc, boost::asio::ip::tcp::endpoint& ep, SessionFactory sessionFactory)
 		: ioc(ioc)
 		, ep(ep)
 		, sessionFactory(sessionFactory)
@@ -24,8 +21,8 @@ private:
 	void RegisterAccept();
 
 private:
-	io_context& ioc;
-	ip::tcp::endpoint& ep;
+	boost::asio::io_context& ioc;
+	boost::asio::ip::tcp::endpoint& ep;
 	SessionFactory sessionFactory;
-	shared_ptr<ip::tcp::acceptor> acceptor;
+	std::shared_ptr<boost::asio::ip::tcp::acceptor> acceptor;
 };

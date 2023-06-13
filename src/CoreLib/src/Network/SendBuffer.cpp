@@ -1,6 +1,6 @@
-#include "../pch.h"
 #include "SendBuffer.h"
-//#include "../Memory/ObjectPool.h"
+#include "CoreLib_Singleton.h"
+#include "TLS.h"
 
 using namespace std;
 
@@ -13,18 +13,15 @@ SendBuffer::~SendBuffer()
 {
 }
 
+SendBufferChunk::~SendBufferChunk()
+{
+	cout << "test" << endl;
+}
+
 void SendBuffer::Close(unsigned int writeSize)
 {
 	this->writeSize = writeSize;
 	owner->Close(writeSize);
-}
-
-SendBufferChunk::SendBufferChunk()
-{
-}
-
-SendBufferChunk::~SendBufferChunk()
-{
 }
 
 void SendBufferChunk::Reset()
@@ -80,7 +77,14 @@ shared_ptr<SendBufferChunk> SendBufferManager::Pop()
 		}
 	}
 
-	return shared_ptr<SendBufferChunk>(new SendBufferChunk, PushGlobal);
+	return shared_ptr<SendBufferChunk>(new SendBufferChunk, [this](SendBufferChunk* buffer) {
+		this->PushGlobal(buffer);
+		});
+}
+
+SendBufferManager::~SendBufferManager()
+{
+	isDestroy = true;
 }
 
 void SendBufferManager::Push(shared_ptr<SendBufferChunk> buffer)
@@ -91,5 +95,8 @@ void SendBufferManager::Push(shared_ptr<SendBufferChunk> buffer)
 
 void SendBufferManager::PushGlobal(SendBufferChunk* buffer)
 {
-	GSendBufferManager->Push(shared_ptr<SendBufferChunk>(buffer, PushGlobal));
+	if (!isDestroy)
+		GSendBufferManager->Push(shared_ptr<SendBufferChunk>(buffer, [this](SendBufferChunk* buffer) {
+		this->PushGlobal(buffer);
+			}));
 }

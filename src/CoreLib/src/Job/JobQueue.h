@@ -1,56 +1,56 @@
 #pragma once
 
-#include <atomic>
+#include <set>
+#include <boost/asio.hpp>
 
-#include "../pch.h"
-#include "../Singleton.h"
-#include "Job.h"
-#include "LockQueue.h"
-#include "JobTimer.h"
-
-class JobQueue : public enable_shared_from_this<JobQueue>
+class JobQueue : public std::enable_shared_from_this<JobQueue>
 {
 public:
-	void DoAsync(CallbackType&& callback)
+	JobQueue(boost::asio::io_context& ioc)
+		: ioc(ioc)
+		, jobs(ioc)
+	{}
+
+	template<typename T, typename Ret, typename... Args>
+	void Post(Ret(T::* memFunc)(Args...), Args... args)
 	{
-		Push(make_shared<Job>(std::move(callback)));
+		std::shared_ptr<T> owner = std::static_pointer_cast<T>(shared_from_this());
+		jobs.post([owner, memFunc, args...]() {
+			(owner.get()->*memFunc)(args...);
+			});
 	}
 
 	template<typename T, typename Ret, typename... Args>
-	void DoAsync(Ret(T::* memFunc)(Args...), Args... args)
+	void DelayPost(int milli, Ret(T::* memFunc)(Args...), Args... args)
 	{
-		shared_ptr<T> owner = static_pointer_cast<T>(shared_from_this());
-		Push(make_shared<Job>(owner, memFunc, std::forward<Args>(args)...));
+		auto timer = std::make_shared<boost::asio::steady_timer>(ioc, std::chrono::microseconds{ milli });
+		delayedJobs.insert(timer);
+
+		std::shared_ptr<T> owner = std::static_pointer_cast<T>(shared_from_this());
+		timer->async_wait([this, timer, owner, memFunc, args...]()
+			{
+				jobs.post([owner, memFunc, args...]() {
+					(owner.get()->*memFunc)(args...);
+					});
+				delayedJobs.erase(timer);
+			}
+		);
 	}
 
-	template<typename T, typename Ret, typename... Args>
-	void DoAsyncPushOnly(Ret(T::* memFunc)(Args...), Args... args)
+	void Clear()
 	{
-		shared_ptr<T> owner = static_pointer_cast<T>(shared_from_this());
-		Push(make_shared<Job>(owner, memFunc, std::forward<Args>(args)...), true);
+		for (auto& timer : delayedJobs)
+			timer->cancel();
+		delayedJobs.clear();
 	}
 
-	void DoTimer(unsigned long long tickAfter, CallbackType&& callback)
+	boost::asio::io_context& GetIoC()
 	{
-		shared_ptr<Job> job = make_shared<Job>(std::move(callback));
-		GJobTimer->Reserve(tickAfter, shared_from_this(), job);
+		return ioc;
 	}
 
-	template<typename T, typename Ret, typename... Args>
-	void DoTimer(unsigned long long tickAfter, Ret(T::* memFunc)(Args...), Args... args)
-	{
-		shared_ptr<T> owner = static_pointer_cast<T>(shared_from_this());
-		shared_ptr<Job> job = make_shared<Job>(owner, memFunc, std::forward<Args>(args)...);
-		GJobTimer->Reserve(tickAfter, shared_from_this(), job);
-	}
-
-	void ClearJobs() { jobs.Clear(); }
-
-public:
-	void Push(shared_ptr<Job> job, bool pushOnly = false);
-	void Execute();
-
-protected:
-	LockQueue<shared_ptr<Job>> jobs;
-	atomic<int> jobCount = { 0 };
+private:
+	boost::asio::io_context& ioc;
+	boost::asio::io_context::strand jobs;
+	std::set<std::shared_ptr<boost::asio::steady_timer>> delayedJobs;
 };

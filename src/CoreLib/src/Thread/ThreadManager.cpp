@@ -39,5 +39,4 @@ void ThreadManager::Join()
 
 void ThreadManager::InitTLS()
 {
-	LThreadId = SThreadId.fetch_add(1);
 }

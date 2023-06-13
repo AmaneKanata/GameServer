@@ -1,124 +1,119 @@
 #include "RoomBase.h"
 #include "ClientBase.h"
-#include "../../Session/GameSession.h"
-#include "../../PacketManager.h"
+#include "GameSession.h"
+#include "PacketManager.h"
 
-RoomBase::RoomBase()
-	: state(RoomState::Idle)
+#include <iostream>
+
+void RoomBase::HandleInit()
 {
-	GLogManager->Log("Room Created");
-}
-
-RoomBase::~RoomBase()
-{
-	GLogManager->Log("Room Destroyed");
-}
-
-void RoomBase::Init()
-{
-	state = RoomState::Running;
-}
-
-void RoomBase::Close()
-{
-	if (state != RoomState::Running) return;
-
-	state = RoomState::Closing;
-
-	HandleClose();
-
-	state = RoomState::Closed;
+	//Custom Init
 }
 
 void RoomBase::HandleClose()
 {
 	for (const auto& [key, client] : clients)
-		client->DoAsync(&ClientBase::Leave, string("Closing"));
+		client->Post(&ClientBase::Leave, string("Closing"));
+
+	Clear();
 }
 
-void RoomBase::Handle_C_ENTER(shared_ptr<GameSession>& session, Protocol::C_ENTER& pkt) { DoAsync(&RoomBase::Enter, session, pkt); }
-void RoomBase::Handle_C_REENTER(shared_ptr<GameSession>& session, Protocol::C_REENTER& pkt) { DoAsync(&RoomBase::ReEnter, session, pkt.clientid()); }
-void RoomBase::Handle_C_LEAVE(shared_ptr<ClientBase>& client, Protocol::C_LEAVE& pkt) { client->DoAsync(&ClientBase::Leave, string("Leaved")); }
-void RoomBase::Handle_C_GET_CLIENT(shared_ptr<ClientBase>& client, Protocol::C_GET_CLIENT& pkt) { DoAsync(&RoomBase::GetClient, client); }
-
-void RoomBase::Enter(shared_ptr<GameSession> session, Protocol::C_ENTER pkt)
+void RoomBase::Handle_INVALID(std::shared_ptr<GameSession> session, unsigned char* buffer, int len)
 {
-	if (state != RoomState::Running) return;
+	//GLogManager->Log("Invalid Packet");
+}
 
-	auto duplicatedClient = clients.find(pkt.clientid());
-	if (duplicatedClient != clients.end())
+void RoomBase::Handle_C_ENTER(std::shared_ptr<GameSession> session, Protocol::C_ENTER pkt)
+{
 	{
-		duplicatedClient->second->DoAsync(&ClientBase::Leave, string("Duplicated"));
-		DoTimer(1000, &RoomBase::Enter, session, pkt);
-		return;
+		auto client = clients.find(pkt.clientid());
+		if (client != clients.end())
+		{
+			Post(&RoomBase::Leave, client->second, std::string("DUPLICATED"));
+			Post(&RoomBase::Handle_C_ENTER, session, std::move(pkt));
+			return;
+		}
 	}
-
+	
 	auto client = MakeClient(pkt.clientid());
-	client->session = session;
-	session->owner = client;
+	client->Post(&ClientBase::SetSession, session);
 
 	clients.insert({ pkt.clientid(), client });
+	GLogManager->Log("Client Added : ", pkt.clientid(), ", Client Number : ", std::to_string(clients.size()));
 
 	Protocol::S_ENTER res;
 	res.set_result("SUCCESS");
-	session->Send(PacketManager::MakeSendBuffer(res));
+	client->Post(&ClientBase::Send, MakeSendBuffer(res));
 
 	Protocol::S_ADD_CLIENT addClient;
 	auto clientInfo = addClient.add_clientinfos();
 	clientInfo->set_clientid(pkt.clientid());
-	Broadcast(PacketManager::MakeSendBuffer(addClient));
+	Broadcast(MakeSendBuffer(addClient));
 }
 
-void RoomBase::ReEnter(shared_ptr<GameSession> session, string clientId)
+void RoomBase::Handle_C_REENTER(std::shared_ptr<GameSession> session, Protocol::C_REENTER pkt)
 {
-	if (state != RoomState::Running) return;
-
-	auto client = clients.find(clientId);
+	auto client = clients.find(session->client->clientId);
 	if (client == clients.end())
-		return;
+	{
+		Protocol::S_REENTER res;
+		res.set_success(false);
+		session->Send(MakeSendBuffer(res));
 
-	client->second->DoAsync(&ClientBase::ReEnter, session);
+		session->Disconnect();
+
+		return;
+	}
+
+	session->client->Post(&ClientBase::ReEnter, session);
 }
 
-void RoomBase::Leave(shared_ptr<ClientBase> _client)
-{
-	if (state != RoomState::Running) return;
+void RoomBase::Handle_C_LEAVE(std::shared_ptr<GameSession> session, Protocol::C_LEAVE pkt) 
+{ 
+	Leave(session->client, std::string("LEAVED"));
+}
 
+void RoomBase::Handle_C_GET_CLIENT(std::shared_ptr<GameSession> session, Protocol::C_GET_CLIENT pkt)
+{
+	Protocol::S_ADD_CLIENT res;
+
+	for (const auto& [key, client] : clients)
+	{
+		auto clientInfo = res.add_clientinfos();
+		clientInfo->set_clientid(client->clientId);
+	}
+
+	session->client->Post(&ClientBase::Send, MakeSendBuffer(res));
+}
+
+void RoomBase::Leave(std::shared_ptr<ClientBase> _client, std::string code)
+{
 	auto client = clients.find(_client->clientId);
 	if (client == clients.end())
 		return;
 
 	clients.erase(client);
+	GLogManager->Log("Client Removed : ", _client->clientId, ", Client Number : ", std::to_string(clients.size()));
+
+	_client->Post(&ClientBase::Leave, code);
 
 	Protocol::S_REMOVE_CLIENT removeClient;
 	removeClient.add_clientids(_client->clientId);
-	Broadcast(PacketManager::MakeSendBuffer(removeClient));
+	Broadcast(MakeSendBuffer(removeClient));
+
+	if (CLOSE_ON_EMPTY && clients.size() == 0)
+	{
+		Post(&RoomBase::Close);
+	}
 }
 
-void RoomBase::GetClient(shared_ptr<ClientBase> client)
+std::shared_ptr<ClientBase> RoomBase::MakeClient(string clientId)
 {
-	if (state != RoomState::Running) return;
-
-	Protocol::S_ADD_CLIENT res;
-
-	for (const auto& [key, _client] : clients) 
-	{
-		auto clientInfo = res.add_clientinfos();
-		clientInfo->set_clientid(_client->clientId);
-	}
-
-	client->Send(PacketManager::MakeSendBuffer(res));
+	return std::make_shared<ClientBase>(GetIoC(), clientId);
 }
 
 void RoomBase::Broadcast(shared_ptr<SendBuffer> sendBuffer)
 {
-	if (state != RoomState::Running) return;
-
 	for (const auto& [key, client] : clients)
-		client->Send(sendBuffer);
-}
-
-shared_ptr<ClientBase> RoomBase::MakeClient(string clientId)
-{
-	return make_shared<ClientBase>(clientId);
+		client->Post(&ClientBase::Send, sendBuffer);
 }

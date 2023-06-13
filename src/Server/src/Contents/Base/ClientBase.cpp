@@ -1,58 +1,52 @@
 #include "ClientBase.h"
+#include "Server_Singleton.h"
+#include "GameSession.h"
 #include "RoomBase.h"
-#include "../../Session/GameSession.h"
-#include "../../PacketManager.h"
+#include "PacketManager.h"
 
-void ClientBase::Leave(string code)
+void ClientBase::OnDisconnected()
+{
+	GRoom->Post(&RoomBase::Leave, static_pointer_cast<ClientBase>(shared_from_this()), string("DISCONNECTED"));
+}
+
+void ClientBase::SetSession(std::shared_ptr<GameSession> _session)
+{
+	session = _session;
+	_session->SetClient(static_pointer_cast<ClientBase>(shared_from_this()));
+}
+
+void ClientBase::ReEnter(std::shared_ptr<GameSession> _session)
+{
+	SetSession(_session);
+	
+	Protocol::S_REENTER res;
+	res.set_success(true);
+	Send(MakeSendBuffer(res));
+}
+
+void ClientBase::Leave(std::string code)
 {
 	if (state == ClientState::LEAVING)
 		return;
 
 	state = ClientState::LEAVING;
 
-	GRoom->DoAsync(&RoomBase::Leave, static_pointer_cast<ClientBase>(shared_from_this()));
-
 	Protocol::S_DISCONNECT disconnect;
 	disconnect.set_code(code);
-	Send(PacketManager::MakeSendBuffer(disconnect));
+	Send(MakeSendBuffer(disconnect));
 
-	if (session != nullptr)
+	auto sp = session.lock();
+	if (sp)
 	{
-		session->Disconnect();
-		session = nullptr;
+		sp->Disconnect();
 	}
 }
 
-void ClientBase::Send(shared_ptr<SendBuffer> sendBuffer)
+void ClientBase::Send(std::shared_ptr<SendBuffer> sendBuffer)
 {
-	if (session == nullptr)
-		return;
-
-	session->Send(sendBuffer);
-}
-
-void ClientBase::ReEnter(shared_ptr<GameSession> session)
-{
-	Protocol::S_REENTER res;
-
-	if (state == ClientState::LEAVING)
+	auto sp = session.lock();
+	if (sp)
 	{
-		res.set_success(false);
-		session->Send(PacketManager::MakeSendBuffer(res));
-		return;
+		sp->Send(sendBuffer);
 	}
-
-	this->session = session;
-
-	res.set_success(true);
-	session->Send(PacketManager::MakeSendBuffer(res));
-}
-
-void ClientBase::OnDisconnected()
-{
-	if (state == ClientState::LEAVING)
-		return;
-
-	session = nullptr;
-	DoAsync(&ClientBase::Leave, string("Disconnected"));
 }

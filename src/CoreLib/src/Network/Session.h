@@ -1,19 +1,14 @@
 #pragma once
 
+#include "RecvBuffer.h"
+
 #include <mutex>
 #include <queue>
-#include <atomic>
 #include <boost/asio.hpp>
-#include <boost/thread.hpp>
 
-#include "RecvBuffer.h"
-#include "SendBuffer.h"
+class SendBuffer;
 
-using namespace boost::asio;
-
-class Service;
-
-class Session : public enable_shared_from_this<Session>
+class Session : public std::enable_shared_from_this<Session>
 {
 	enum
 	{
@@ -21,51 +16,48 @@ class Session : public enable_shared_from_this<Session>
 	};
 
 public:
-	Session(io_context& context);
-	virtual ~Session();
+	Session(boost::asio::io_context& context);
 
-	shared_ptr<ip::tcp::socket> GetSocket() { return socket; }
-
-	void Connect(ip::tcp::endpoint ep);
+	void Connect(boost::asio::ip::tcp::endpoint ep);
+	void ProcessConnect();
 	void Disconnect();
 
 	void Send(shared_ptr<SendBuffer> sendBuffer);
-	
+
+	shared_ptr<boost::asio::ip::tcp::socket> GetSocket() { return socket; }
+
+protected:
+	virtual int OnRecv(unsigned char* buffer, int len) { return len; }
+	virtual void OnConnected() {};
+	virtual void OnDisconnected() {};
+
+private:
 	void RegisterRecv();
 	void RegisterSend();
 
-	void ProcessConnect();
-
 protected:
-	virtual void OnConnected() {};
-	virtual void OnDisconnected() {};
-	virtual int OnRecv(unsigned char* buffer, int len) { return len; }
+	bool isConnected;
+	std::recursive_mutex isConnected_mtx;
 
 private:
-	recursive_mutex mtx;
+	shared_ptr<boost::asio::ip::tcp::socket> socket;
 
-	shared_ptr<ip::tcp::socket> socket;
-	shared_ptr<Service> service;
 	RecvBuffer recvBuffer;
+
+	std::atomic<bool> isSendRegistered = { false };
 	queue<shared_ptr<SendBuffer>> sendQueue;
 	vector<shared_ptr<SendBuffer>> sendBufferRefs;
-	atomic<bool> isSendRegistered = { false };
-	atomic<bool> isConnected = { false };
-};
-
-struct PacketHeader
-{
-	unsigned short size;
-	unsigned short id;
+	std::recursive_mutex send_mtx;
 };
 
 class PacketSession : public Session
 {
 public:
-	PacketSession(io_context& ioc) : Session(ioc)
+	PacketSession(boost::asio::io_context& ioc) : Session(ioc)
 	{}
 	virtual ~PacketSession() {};
 
+protected:
 	virtual int OnRecv(unsigned char* buffer, int len) final;
 	virtual void OnRecvPacket(unsigned char* buffer, int len) = 0;
 };

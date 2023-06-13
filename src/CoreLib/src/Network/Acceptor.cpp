@@ -1,15 +1,11 @@
 #include <boost/asio.hpp>
-#include <iostream>
 
 #include "Acceptor.h"
 #include "Session.h"
 
-using namespace std;
-using namespace boost::asio;
-
 bool Acceptor::StartAccept()
 {
-	acceptor = make_shared<ip::tcp::acceptor>(ioc, ep.protocol());
+	acceptor = std::make_shared<boost::asio::ip::tcp::acceptor>(ioc, ep.protocol());
 	acceptor->bind(ep);
 	acceptor->listen();
 

@@ -1,7 +1,8 @@
 #pragma once
 
-#include "../../pch.h"
-#include "../../Protocols.h"
+#include "Protocols.h"
+#include "Server_Singleton.h"
+#include "LogManager.h"
 
 class GameObject
 {
@@ -15,13 +16,13 @@ public:
 		, rotation_y(0)
 		, rotation_z(0)
 	{
-		GLogManager->Log("GameObject Created :			", to_string(gameObjectId));
+		GLogManager->Log("GameObject Created : ", std::to_string(gameObjectId));
 	};
 	~GameObject()
-	{
-		GLogManager->Log("GameObject Destroyed :		", to_string(gameObjectId));
+	{	
+		GLogManager->Log("GameObject Destroyed : ", std::to_string(gameObjectId));
 	}
-	
+
 	void MakeGameObjectInfo(Protocol::S_ADD_GAME_OBJECT_GameObjectInfo* gameObjectInfo)
 	{
 		gameObjectInfo->set_id(gameObjectId);
@@ -69,7 +70,7 @@ public:
 	}
 
 	int gameObjectId;
-	
+
 	float position_x;
 	float position_y;
 	float position_z;
@@ -78,4 +79,3 @@ public:
 	float rotation_y;
 	float rotation_z;
 };
-

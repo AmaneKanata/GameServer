@@ -1,39 +1,18 @@
 #include "Session.h"
-#include "../pch.h"
+#include "SendBuffer.h"
+#include "PacketHeader.h"
 
-#include <iostream>
-#include <boost/asio.hpp>
-#include <boost/bind/bind.hpp>
-
-using namespace std;
-using namespace boost::asio;
-
-Session::Session(io_context& context) 
-	: socket(make_shared<ip::tcp::socket>(context))
+Session::Session(boost::asio::io_context& context) 
+	: socket(make_shared<boost::asio::ip::tcp::socket>(context))
 	, recvBuffer(BUFFER_SIZE)
 {
 }
 
-Session::~Session()
-{
-	GLogManager->Log("Socket Destroyed");
-}
-
-void Session::Connect(ip::tcp::endpoint ep)
+void Session::Connect(boost::asio::ip::tcp::endpoint ep)
 {
 	socket->connect(ep);
 
 	ProcessConnect();
-}
-
-void Session::Disconnect()
-{
-	if (isConnected.exchange(false) == false)
-		return;
-
-	socket->close();
-
-	OnDisconnected();
 }
 
 void Session::ProcessConnect()
@@ -41,16 +20,33 @@ void Session::ProcessConnect()
 	boost::asio::socket_base::linger option(true, 100);
 	socket->set_option(option);
 
-	isConnected.store(true);
-	
+	{
+		lock_guard<recursive_mutex> lock(isConnected_mtx);
+		isConnected = true;
+	}
+
 	OnConnected();
 
 	RegisterRecv();
 }
 
+void Session::Disconnect()
+{
+	lock_guard<recursive_mutex> lock(isConnected_mtx);
+
+	if(!isConnected)
+		return;
+
+	isConnected = false;
+
+	socket->close();
+
+	OnDisconnected();
+}
+
 void Session::RegisterRecv()
 {
-	mutable_buffer buffer(reinterpret_cast<char*>(recvBuffer.WritePos()), recvBuffer.FreeSize());
+	boost::asio::mutable_buffer buffer(reinterpret_cast<char*>(recvBuffer.WritePos()), recvBuffer.FreeSize());
 
 	auto ref = shared_from_this();
 
@@ -87,7 +83,7 @@ void Session::Send(std::shared_ptr<SendBuffer> sendBuffer)
 	bool registerSend = false;
 
 	{
-		lock_guard<recursive_mutex> lock(mtx);
+		lock_guard<recursive_mutex> lock(send_mtx);
 
 		sendQueue.push(sendBuffer);
 
@@ -102,7 +98,7 @@ void Session::Send(std::shared_ptr<SendBuffer> sendBuffer)
 void Session::RegisterSend()
 {
 	{
-		lock_guard<recursive_mutex> lock(mtx);
+		lock_guard<recursive_mutex> lock(send_mtx);
 
 		sendBufferRefs.reserve(sendQueue.size());
 
@@ -124,12 +120,6 @@ void Session::RegisterSend()
 		
 		sendBufferRefs.clear();
 
-		if (!isConnected)
-			return;
-
-		if (error)
-			return;
-
 		if (bytes_transferred == 0)
 		{
 			Disconnect();
@@ -137,7 +127,7 @@ void Session::RegisterSend()
 		}
 
 		{
-			lock_guard<recursive_mutex> lock(mtx);
+			lock_guard<recursive_mutex> lock(send_mtx);
 			if (sendQueue.empty())
 				isSendRegistered.store(false);
 			else

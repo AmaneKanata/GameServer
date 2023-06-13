@@ -4,6 +4,8 @@
 #include <vector>
 #include <boost/thread.hpp>
 
+#include <iostream>
+
 using namespace std;
 
 class SendBufferChunk;
@@ -34,7 +36,6 @@ class SendBufferChunk : public enable_shared_from_this<SendBufferChunk>
 	};
 
 public:
-	SendBufferChunk();
 	~SendBufferChunk();
 
 	void Reset();
@@ -54,14 +55,16 @@ private:
 class SendBufferManager
 {
 public:
+	~SendBufferManager();
 	shared_ptr<SendBuffer> Open(unsigned int size);
+	void PushGlobal(SendBufferChunk* buffer);
 
 private:
 	shared_ptr<SendBufferChunk>	Pop();
 	void Push(shared_ptr<SendBufferChunk> buffer);
-	static void PushGlobal(SendBufferChunk* buffer);
 
 private:
 	mutex mtx;
 	vector<shared_ptr<SendBufferChunk>> sendBufferChunks;
+	bool isDestroy = false;
 };

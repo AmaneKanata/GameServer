@@ -1,17 +1,25 @@
 #pragma once
-#include "../pch.h"
+
+#include <boost/asio.hpp>
+#include <Session.h>
+#include <JobQueue.h>
+
+#include "Server_Singleton.h"
 
 class ClientBase;
 
 class GameSession : public PacketSession
 {
 public:
-	GameSession(io_context& ioc) : PacketSession(ioc)
-	{}
-	~GameSession() { owner = nullptr; }
+	GameSession(boost::asio::io_context& ioc);
+	~GameSession();
 
-	virtual void OnDisconnected() override;
+	void SetClient(std::shared_ptr<ClientBase> client);
+
+	std::shared_ptr<ClientBase> client;
+
+protected:
 	virtual void OnRecvPacket(unsigned char* buffer, int len) override;
-
-	shared_ptr<ClientBase> owner;
+	virtual void OnConnected() override;
+	virtual void OnDisconnected() override;
 };

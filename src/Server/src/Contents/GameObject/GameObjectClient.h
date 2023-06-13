@@ -1,12 +1,15 @@
-#include "../Base/ClientBase.h"
+#pragma once
+
+#include "ClientBase.h"
 
 class GameObject;
 
 class GameObjectClient : public ClientBase
 {
 public:
-	GameObjectClient(string clientId) : ClientBase(clientId)
+	GameObjectClient(boost::asio::io_context& ioc, std::string clientId) 
+		: ClientBase(ioc, clientId)
 	{}
-	
-	shared_ptr<GameObject> gameObject;
+
+	std::shared_ptr<GameObject> gameObject;
 };
