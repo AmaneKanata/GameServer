@@ -16,7 +16,7 @@ GameSession::~GameSession()
 	}
 	else
 	{
-		GLogManager->Log("Session Destroyed, Session Number ", std::to_string(sessionNumber - 1));
+		GLogManager->Log("Session Destroyed, Session Number : ", std::to_string(sessionNumber - 1));
 	}
 }
 

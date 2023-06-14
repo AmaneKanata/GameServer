@@ -90,4 +90,8 @@ int main()
 	}
 
 	GThreadManager->Join();
+
+	//after server finish
+	//handle remain jobs, than terminate
+	ioc.run();
 }

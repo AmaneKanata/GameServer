@@ -1,3 +1,5 @@
+#pragma once
+
 #include <memory>
 
 extern std::shared_ptr<class RoomBase> GRoom;
