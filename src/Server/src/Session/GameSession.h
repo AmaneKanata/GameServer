@@ -22,4 +22,7 @@ protected:
 	virtual void OnRecvPacket(unsigned char* buffer, int len) override;
 	virtual void OnConnected() override;
 	virtual void OnDisconnected() override;
+
+private:
+	bool isRegistered;
 };

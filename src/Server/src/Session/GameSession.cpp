@@ -3,13 +3,19 @@
 #include "RoomBase.h"
 #include "ClientBase.h"
 
-GameSession::GameSession(boost::asio::io_context& ioc) : PacketSession(ioc)
+GameSession::GameSession(boost::asio::io_context& ioc) 
+	: PacketSession(ioc)
+	, isRegistered(false)
 {
 }
 
 GameSession::~GameSession()
 {
+	if (!isRegistered)
+		return;
+
 	auto sessionNumber = session_num.fetch_sub(1);
+
 	if (client != nullptr)
 	{
 		GLogManager->Log("Session Destroyed : ", client->clientId, ", Session Number : ", std::to_string(sessionNumber - 1));
@@ -42,6 +48,7 @@ void GameSession::OnConnected()
 {
 	auto sessionNumber = session_num.fetch_add(1);
 	GLogManager->Log("Session Created, Session Number : ", std::to_string(sessionNumber + 1));
+	isRegistered = true;
 }
 
 void GameSession::OnDisconnected()
