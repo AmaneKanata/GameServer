@@ -41,6 +41,7 @@ void GameSession::SetClient(std::shared_ptr<ClientBase> _client)
 
 void GameSession::OnRecvPacket(unsigned char* buffer, int len)
 {
+	lastMessageArrived = std::time(0);
 	GRoom->HandlePacket(std::static_pointer_cast<GameSession>(shared_from_this()), buffer, len);
 }
 

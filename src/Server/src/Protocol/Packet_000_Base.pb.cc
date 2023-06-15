@@ -147,8 +147,19 @@ struct S_DISCONNECTDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_DISCONNECTDefaultTypeInternal _S_DISCONNECT_default_instance_;
+PROTOBUF_CONSTEXPR C_HEARTBEAT::C_HEARTBEAT(
+    ::_pbi::ConstantInitialized) {}
+struct C_HEARTBEATDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR C_HEARTBEATDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~C_HEARTBEATDefaultTypeInternal() {}
+  union {
+    C_HEARTBEAT _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_HEARTBEATDefaultTypeInternal _C_HEARTBEAT_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_Packet_5f000_5fBase_2eproto[10];
+static ::_pb::Metadata file_level_metadata_Packet_5f000_5fBase_2eproto[11];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Packet_5f000_5fBase_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Packet_5f000_5fBase_2eproto = nullptr;
 
@@ -221,6 +232,12 @@ const uint32_t TableStruct_Packet_5f000_5fBase_2eproto::offsets[] PROTOBUF_SECTI
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_DISCONNECT, _impl_.code_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::C_HEARTBEAT, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::Protocol::C_ENTER)},
@@ -233,6 +250,7 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 47, -1, -1, sizeof(::Protocol::S_ADD_CLIENT)},
   { 54, -1, -1, sizeof(::Protocol::S_REMOVE_CLIENT)},
   { 61, -1, -1, sizeof(::Protocol::S_DISCONNECT)},
+  { 68, -1, -1, sizeof(::Protocol::C_HEARTBEAT)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -246,6 +264,7 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_S_ADD_CLIENT_default_instance_._instance,
   &::Protocol::_S_REMOVE_CLIENT_default_instance_._instance,
   &::Protocol::_S_DISCONNECT_default_instance_._instance,
+  &::Protocol::_C_HEARTBEAT_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Packet_5f000_5fBase_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -257,13 +276,14 @@ const char descriptor_table_protodef_Packet_5f000_5fBase_2eproto[] PROTOBUF_SECT
   "entInfos\030\001 \003(\0132!.Protocol.S_ADD_CLIENT.C"
   "lientInfo\032\036\n\nClientInfo\022\020\n\010clientId\030\001 \001("
   "\t\"$\n\017S_REMOVE_CLIENT\022\021\n\tclientIds\030\001 \003(\t\""
-  "\034\n\014S_DISCONNECT\022\014\n\004code\030\001 \001(\tb\006proto3"
+  "\034\n\014S_DISCONNECT\022\014\n\004code\030\001 \001(\t\"\r\n\013C_HEART"
+  "BEATb\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Packet_5f000_5fBase_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Packet_5f000_5fBase_2eproto = {
-    false, false, 357, descriptor_table_protodef_Packet_5f000_5fBase_2eproto,
+    false, false, 372, descriptor_table_protodef_Packet_5f000_5fBase_2eproto,
     "Packet_000_Base.proto",
-    &descriptor_table_Packet_5f000_5fBase_2eproto_once, nullptr, 0, 10,
+    &descriptor_table_Packet_5f000_5fBase_2eproto_once, nullptr, 0, 11,
     schemas, file_default_instances, TableStruct_Packet_5f000_5fBase_2eproto::offsets,
     file_level_metadata_Packet_5f000_5fBase_2eproto, file_level_enum_descriptors_Packet_5f000_5fBase_2eproto,
     file_level_service_descriptors_Packet_5f000_5fBase_2eproto,
@@ -1924,6 +1944,46 @@ void S_DISCONNECT::InternalSwap(S_DISCONNECT* other) {
       file_level_metadata_Packet_5f000_5fBase_2eproto[9]);
 }
 
+// ===================================================================
+
+class C_HEARTBEAT::_Internal {
+ public:
+};
+
+C_HEARTBEAT::C_HEARTBEAT(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase(arena, is_message_owned) {
+  // @@protoc_insertion_point(arena_constructor:Protocol.C_HEARTBEAT)
+}
+C_HEARTBEAT::C_HEARTBEAT(const C_HEARTBEAT& from)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  C_HEARTBEAT* const _this = this; (void)_this;
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:Protocol.C_HEARTBEAT)
+}
+
+
+
+
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData C_HEARTBEAT::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl,
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl,
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*C_HEARTBEAT::GetClassData() const { return &_class_data_; }
+
+
+
+
+
+
+
+::PROTOBUF_NAMESPACE_ID::Metadata C_HEARTBEAT::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Packet_5f000_5fBase_2eproto_getter, &descriptor_table_Packet_5f000_5fBase_2eproto_once,
+      file_level_metadata_Packet_5f000_5fBase_2eproto[10]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
@@ -1966,6 +2026,10 @@ Arena::CreateMaybeMessage< ::Protocol::S_REMOVE_CLIENT >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::Protocol::S_DISCONNECT*
 Arena::CreateMaybeMessage< ::Protocol::S_DISCONNECT >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::S_DISCONNECT >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::C_HEARTBEAT*
+Arena::CreateMaybeMessage< ::Protocol::C_HEARTBEAT >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::C_HEARTBEAT >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

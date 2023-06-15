@@ -23,15 +23,19 @@ public:
 	template<typename T, typename Ret, typename... Args>
 	void DelayPost(int milli, Ret(T::* memFunc)(Args...), Args... args)
 	{
-		auto timer = std::make_shared<boost::asio::steady_timer>(ioc, std::chrono::microseconds{ milli });
+		auto timer = std::make_shared<boost::asio::steady_timer>(ioc, std::chrono::milliseconds{ milli });
 		delayedJobs.insert(timer);
 
 		std::shared_ptr<T> owner = std::static_pointer_cast<T>(shared_from_this());
-		timer->async_wait([this, timer, owner, memFunc, args...]()
+		timer->async_wait([this, timer, owner, memFunc, args...](const boost::system::error_code& error)
 			{
-				jobs.post([owner, memFunc, args...]() {
-					(owner.get()->*memFunc)(args...);
-					});
+				if (!error)
+				{
+					jobs.post([owner, memFunc, args...]() {
+						(owner.get()->*memFunc)(args...);
+						});
+				}
+
 				delayedJobs.erase(timer);
 			}
 		);

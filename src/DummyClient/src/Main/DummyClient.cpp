@@ -22,15 +22,7 @@
 template<typename T>
 std::shared_ptr<ClientBase> MakeClient(boost::asio::io_context& ioc, boost::asio::ip::tcp::endpoint& ep, std::string clientId)
 {
-	if (clients.count(clientId))
-		return nullptr;
-
-	auto session = make_shared<GameSession>(ioc);
-
-	auto client = make_shared<T>(ioc, clientId, session);
-	session->client = client;
-
-	session->Connect(ep);
+	
 
 	return client;
 }
@@ -123,16 +115,21 @@ int main()
 			string clientId;
 			cin >> clientId;
 
-			auto client = MakeClient<GameObjectClient>(ioc, ep, clientId);
-			if (client == nullptr)
+			if (clients.count(clientId))
 			{
-				GLogManager->Log("Duplicated Client Id : ", clientId);
-				continue;
+				GLogManager->Log("Client Id \"", clientId, "\" is duplicated. Try Duplicated Login");
 			}
 
-			client->Init();
+			auto session = make_shared<GameSession>(ioc);
 
+			auto client = make_shared<GameObjectClient>(ioc, clientId, session);
+
+			session->client = client;
+			session->Connect(ep);
+
+			client->Init();
 			client->Post(&ClientBase::Enter);
+			client->DelayPost(5000, &ClientBase::CheckAlive);
 
 			continue;
 		}

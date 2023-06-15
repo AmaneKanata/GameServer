@@ -27,6 +27,8 @@ public:
 	virtual void Handle_S_REMOVE_CLIENT(std::shared_ptr<GameSession> session, Protocol::S_REMOVE_CLIENT pkt) override;
 	virtual void Handle_S_DISCONNECT(std::shared_ptr<GameSession> session, Protocol::S_DISCONNECT pkt) override;
 
+	void CheckAlive();
+
 	void Send(shared_ptr<SendBuffer> sendBuffer);
 
 	const std::string clientId;
@@ -34,4 +36,5 @@ public:
 
 private:
 	ClientState state;
+	std::time_t lastMessageSent = -1;
 };

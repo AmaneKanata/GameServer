@@ -80,6 +80,8 @@ public:
 		HandleClose();
 
 		state = HandlerState::Closed;
+		
+		Clear();
 	}
 	virtual void HandleClose() {};
 

@@ -20,6 +20,7 @@ enum : unsigned short
 	PKT_S_ADD_CLIENT = 6,
 	PKT_S_REMOVE_CLIENT = 7,
 	PKT_S_DISCONNECT = 8,
+	PKT_C_HEARTBEAT = 9,
 	PKT_C_INSTANTIATE_GAME_OBJECT = 100,
 	PKT_S_INSTANTIATE_GAME_OBJECT = 101,
 	PKT_C_GET_GAME_OBJECT = 102,
@@ -49,6 +50,7 @@ static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_ENTER& pkt) { retu
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_REENTER& pkt) { return MakeSendBuffer(pkt, PKT_C_REENTER); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_LEAVE& pkt) { return MakeSendBuffer(pkt, PKT_C_LEAVE); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_GET_CLIENT& pkt) { return MakeSendBuffer(pkt, PKT_C_GET_CLIENT); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_HEARTBEAT& pkt) { return MakeSendBuffer(pkt, PKT_C_HEARTBEAT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_INSTANTIATE_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_C_INSTANTIATE_GAME_OBJECT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_GET_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_C_GET_GAME_OBJECT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_SET_TRANSFORM& pkt) { return MakeSendBuffer(pkt, PKT_C_SET_TRANSFORM); }
@@ -145,6 +147,8 @@ public:
 		HandleClose();
 
 		state = HandlerState::Closed;
+		
+		Clear();
 	}
 	virtual void HandleClose() {};
 

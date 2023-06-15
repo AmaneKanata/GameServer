@@ -40,6 +40,8 @@ void ClientBase::Leave(std::string code)
 	{
 		sp->Disconnect();
 	}
+
+	Clear();
 }
 
 void ClientBase::Send(std::shared_ptr<SendBuffer> sendBuffer)
@@ -49,4 +51,19 @@ void ClientBase::Send(std::shared_ptr<SendBuffer> sendBuffer)
 	{
 		sp->Send(sendBuffer);
 	}
+}
+
+void ClientBase::CheckAlive(std::time_t current)
+{
+	auto sp = session.lock();
+	if (sp)
+	{
+		if (current - sp->lastMessageArrived > 10)
+		{
+			GLogManager->Log("Client Heartbeat Fail : ", clientId);
+			Post(&ClientBase::Leave, std::string("HEARTBEAT_FAIL"));
+		}
+	}
+
+	DelayPost(10000, &ClientBase::CheckAlive, time(0));
 }

@@ -40,6 +40,8 @@ public:
 
 	void Send(std::shared_ptr<SendBuffer> sendBuffer);
 
+	void CheckAlive(std::time_t current);
+
 	const std::string clientId;
 
 private:

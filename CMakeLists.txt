@@ -16,9 +16,7 @@ foreach(__proto_file ${_all_proto_files})
 endforeach(__proto_file)
 
 if (WIN32)
-    #execute_process(COMMAND Generator.exe --path=./ProtoFiles --output=${CMAKE_CURRENT_SOURCE_DIR}/src/Server/src/Contents/Base/PacketHandler.h --recv=C_ --send=S_ --template PacketHandler.h WORKING_DIRECTORY ${PROTOBUF_DIR})
     execute_process(COMMAND Generator.exe --path=./ProtoFiles --output=${CMAKE_CURRENT_SOURCE_DIR}/src/Server/src/PacketManager.h --recv=C_ --send=S_ --template PacketManager.h WORKING_DIRECTORY ${PROTOBUF_DIR})
-    #execute_process(COMMAND Generator.exe --path=./ProtoFiles --output=${CMAKE_CURRENT_SOURCE_DIR}/src/Server/src/PacketManager.cpp --recv=C_ --send=S_ --template PacketManager.cpp WORKING_DIRECTORY ${PROTOBUF_DIR})
     execute_process(COMMAND Generator.exe --path=./ProtoFiles --output=${CMAKE_CURRENT_SOURCE_DIR}/src/Server/src/Protocols.h --template Protocols.h WORKING_DIRECTORY ${PROTOBUF_DIR})
 
     execute_process(COMMAND Generator.exe --path=./ProtoFiles --output=${CMAKE_CURRENT_SOURCE_DIR}/src/DummyClient/src/PacketManager.h --recv=S_ --send=C_ --template PacketManager.h WORKING_DIRECTORY ${PROTOBUF_DIR})

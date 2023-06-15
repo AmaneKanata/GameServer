@@ -14,8 +14,6 @@ void RoomBase::HandleClose()
 {
 	for (const auto& [key, client] : clients)
 		client->Post(&ClientBase::Leave, string("Closing"));
-
-	Clear();
 }
 
 void RoomBase::Handle_INVALID(std::shared_ptr<GameSession> session, unsigned char* buffer, int len)
@@ -109,7 +107,9 @@ void RoomBase::Leave(std::shared_ptr<ClientBase> _client, std::string code)
 
 std::shared_ptr<ClientBase> RoomBase::MakeClient(string clientId)
 {
-	return std::make_shared<ClientBase>(GetIoC(), clientId);
+	auto client = std::make_shared<ClientBase>(GetIoC(), clientId);
+	client->DelayPost(10000, &ClientBase::CheckAlive, time(0));
+	return client;
 }
 
 void RoomBase::Broadcast(shared_ptr<SendBuffer> sendBuffer)

@@ -78,5 +78,7 @@ void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session
 
 std::shared_ptr<ClientBase> GameObjectRoom::MakeClient(string clientId)
 {
-	return std::make_shared<GameObjectClient>(GetIoC(), clientId);
+	auto client = std::make_shared<GameObjectClient>(GetIoC(), clientId);
+	client->DelayPost(10000, &ClientBase::CheckAlive, time(0));
+	return client;
 }

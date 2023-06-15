@@ -18,6 +18,8 @@ public:
 
 	std::shared_ptr<ClientBase> client;
 
+	std::time_t lastMessageArrived = -1;
+
 protected:
 	virtual void OnRecvPacket(unsigned char* buffer, int len) override;
 	virtual void OnConnected() override;

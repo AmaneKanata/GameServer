@@ -74,11 +74,24 @@ void ClientBase::Handle_S_DISCONNECT(std::shared_ptr<GameSession> session, Proto
 	Post(&ClientBase::Disconnect);
 }
 
+void ClientBase::CheckAlive()
+{
+	if (time(0) - lastMessageSent > 5)
+	{
+		Protocol::C_HEARTBEAT hb;
+		Send(MakeSendBuffer(hb));
+	}
+
+	DelayPost(5000, &ClientBase::CheckAlive);
+}
+
 void ClientBase::Send(shared_ptr<SendBuffer> sendBuffer)
 {
 	auto sp = session.lock();
 	if (sp)
 	{
 		sp->Send(sendBuffer);
+
+		lastMessageSent = time(0);
 	}
 }
