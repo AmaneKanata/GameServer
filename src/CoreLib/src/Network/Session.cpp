@@ -5,6 +5,7 @@
 Session::Session(boost::asio::io_context& context) 
 	: socket(make_shared<boost::asio::ip::tcp::socket>(context))
 	, recvBuffer(BUFFER_SIZE)
+	, isConnected(false)
 {
 }
 
