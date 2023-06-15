@@ -4,6 +4,12 @@ file(GLOB_RECURSE src ./src/*.h ./src/*.cpp ./src/*.cc)
 
 add_executable (DummyClient ${src})
 
+target_include_directories(DummyClient PUBLIC src)
+target_include_directories(DummyClient PUBLIC src/Contents src/Contents/Base src/Contents/GameObject)
+target_include_directories(DummyClient PUBLIC src/Protocol)
+target_include_directories(DummyClient PUBLIC src/Session)
+target_include_directories(DummyClient PUBLIC src/Util)
+
 target_include_directories(DummyClient PRIVATE ../CoreLib/src ./Include)
 
 target_link_libraries(DummyClient PRIVATE CoreLib)
