@@ -6,6 +6,9 @@
 
 void ClientBase::OnDisconnected()
 {
+	if (state == ClientState::LEAVING)
+		return;
+
 	GRoom->Post(&RoomBase::Leave, static_pointer_cast<ClientBase>(shared_from_this()), string("DISCONNECTED"));
 }
 
