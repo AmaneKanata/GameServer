@@ -26,3 +26,8 @@ void Acceptor::RegisterAccept()
 		this->RegisterAccept();
 		});
 }
+
+void Acceptor::Stop()
+{
+	acceptor->close();
+}

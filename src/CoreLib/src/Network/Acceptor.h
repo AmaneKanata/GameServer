@@ -16,6 +16,8 @@ public:
 		, sessionFactory(sessionFactory)
 	{}
 	bool StartAccept();
+	
+	void Stop();
 
 private:
 	void RegisterAccept();
