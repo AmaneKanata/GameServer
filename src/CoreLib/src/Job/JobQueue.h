@@ -20,8 +20,15 @@ public:
 			});
 	}
 
+	void Post(std::function<void()> func)
+	{
+		jobs.post([func]() {
+			func();
+			});
+	}
+
 	template<typename T, typename Ret, typename... Args>
-	void DelayPost(int milli, Ret(T::* memFunc)(Args...), Args... args)
+	std::shared_ptr<boost::asio::steady_timer> DelayPost(int milli, Ret(T::* memFunc)(Args...), Args... args)
 	{
 		auto timer = std::make_shared<boost::asio::steady_timer>(ioc, std::chrono::milliseconds{ milli });
 		delayedJobs.insert(timer);
@@ -39,6 +46,27 @@ public:
 				delayedJobs.erase(timer);
 			}
 		);
+
+		return timer;
+	}
+
+	std::shared_ptr<boost::asio::steady_timer> DelayPost(int milli, std::function<void()> func)
+	{
+		auto timer = std::make_shared<boost::asio::steady_timer>(ioc, std::chrono::milliseconds{ milli });
+		delayedJobs.insert(timer);
+
+		timer->async_wait([this, timer, func](const boost::system::error_code& error)
+			{
+				if (!error)
+				{
+					func();
+				}
+
+				delayedJobs.erase(timer);
+			}
+		);
+
+		return timer;
 	}
 
 	void Clear()
