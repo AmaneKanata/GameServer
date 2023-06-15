@@ -4,8 +4,6 @@
 
 class ClientBase;
 
-const bool CLOSE_ON_EMPTY = true;
-
 class RoomBase : public PacketHandler
 {
 public:
@@ -29,7 +27,6 @@ protected:
 
 	virtual void Broadcast(shared_ptr<SendBuffer> sendBuffer);
 
-	string roomId;
-
+protected:
 	map<string, std::shared_ptr<ClientBase>> clients;
 };
