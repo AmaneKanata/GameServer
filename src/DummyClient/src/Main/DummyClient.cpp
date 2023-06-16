@@ -19,14 +19,6 @@
 
 #include "GameSession.h"
 
-template<typename T>
-std::shared_ptr<ClientBase> MakeClient(boost::asio::io_context& ioc, boost::asio::ip::tcp::endpoint& ep, std::string clientId)
-{
-	
-
-	return client;
-}
-
 int main()
 {
 	std::string localHostIp;
@@ -104,10 +96,12 @@ int main()
 
 		if (command == "help")
 		{
-			GLogManager->Log("connect <client id> - Connect to server. And automatically send C_ENTER message");
-			GLogManager->Log("leave <client id> - Send C_LEAVE message");
-			GLogManager->Log("disconnect <client id> - Disconnect session");
-			GLogManager->Log("move <client id> - Move game object by 1 in X direction. And send C_SET_TRANSFORM message");
+			GLogManager->Log("connect <client id> - Connect A Session to server, And Create Client");
+			GLogManager->Log("disconnect <client id> - Disconnect session, But Client Remains");
+			GLogManager->Log("remove <client id> - Remove Client");
+			GLogManager->Log("reenter <client id> - Try ReEnter with Client <client id>");
+			GLogManager->Log("leave <client id> - Leave Client");
+			GLogManager->Log("move <client id> - Move Game Object by 1 in X Direction");
 		}
 
 		if (command == "connect")
@@ -115,14 +109,18 @@ int main()
 			string clientId;
 			cin >> clientId;
 
-			if (clients.count(clientId))
 			{
-				GLogManager->Log("Client Id \"", clientId, "\" is duplicated. Try Duplicated Login");
+				std::lock_guard<std::recursive_mutex> lock(clients_mtx);
+				if (clients.count(clientId))
+				{
+					GLogManager->Log("Client Id \"", clientId, "\" is duplicated. Try Duplicated Login");
+				}
 			}
 
 			auto session = make_shared<GameSession>(ioc);
 
-			auto client = make_shared<GameObjectClient>(ioc, clientId, session);
+			auto client = make_shared<GameObjectClient>(ioc, clientId);
+			client->session = session;
 
 			session->client = client;
 			session->Connect(ep);
@@ -134,36 +132,91 @@ int main()
 			continue;
 		}
 
-		if (command == "leave")
-		{
-			string clientId;
-			cin >> clientId;
-
-			auto client = clients.find(clientId);
-			if (client == clients.end())
-			{
-				GLogManager->Log("Wrong Client Id : ", clientId);
-				continue;
-			}
-
-			client->second->Post(&ClientBase::Leave);
-
-			continue;
-		}
-
 		if (command == "disconnect")
 		{
 			string clientId;
 			cin >> clientId;
 
-			auto client = clients.find(clientId);
-			if (client == clients.end())
+			decltype(clients)::iterator client;
 			{
-				GLogManager->Log("Wrong Client Id : ", clientId);
-				continue;
+				client = clients.find(clientId);
+				std::lock_guard<std::recursive_mutex> lock(clients_mtx);
+				if (client == clients.end())
+				{
+					GLogManager->Log("Wrong Client Id : ", clientId);
+					continue;
+				}
 			}
 
 			client->second->Post(&ClientBase::Disconnect);
+
+			continue;
+		}
+
+		else if (command == "remove")
+		{
+			string clientId;
+			cin >> clientId;
+
+			decltype(clients)::iterator client;
+			{
+				client = clients.find(clientId);
+				std::lock_guard<std::recursive_mutex> lock(clients_mtx);
+				if (client == clients.end())
+				{
+					GLogManager->Log("Wrong Client Id : ", clientId);
+					continue;
+				}
+			}
+
+			auto session = make_shared<GameSession>(ioc);
+
+			client->second->Post(&ClientBase::Remove);
+		}
+
+		else if (command == "reenter")
+		{
+			string clientId;
+			cin >> clientId;
+
+			decltype(clients)::iterator client;
+			{
+				client = clients.find(clientId);
+				std::lock_guard<std::recursive_mutex> lock(clients_mtx);
+				if (client == clients.end())
+				{
+					GLogManager->Log("Wrong Client Id : ", clientId);
+					continue;
+				}
+			}
+
+			auto session = make_shared<GameSession>(ioc);
+
+			client->second->session = session;
+
+			session->client = client->second;
+			session->Connect(ep);
+			
+			client->second->Post(&ClientBase::ReEnter);
+		}
+
+		if (command == "leave")
+		{
+			string clientId;
+			cin >> clientId;
+
+			decltype(clients)::iterator client;
+			{
+				client = clients.find(clientId);
+				std::lock_guard<std::recursive_mutex> lock(clients_mtx);
+				if (client == clients.end())
+				{
+					GLogManager->Log("Wrong Client Id : ", clientId);
+					continue;
+				}
+			}
+
+			client->second->Post(&ClientBase::Leave);
 
 			continue;
 		}
@@ -173,11 +226,15 @@ int main()
 			string clientId;
 			cin >> clientId;
 
-			auto client = clients.find(clientId);
-			if (client == clients.end())
+			decltype(clients)::iterator client;
 			{
-				GLogManager->Log("Wrong Client Id : ", clientId);
-				continue;
+				client = clients.find(clientId);
+				std::lock_guard<std::recursive_mutex> lock(clients_mtx);
+				if (client == clients.end())
+				{
+					GLogManager->Log("Wrong Client Id : ", clientId);
+					continue;
+				}
 			}
 
 			shared_ptr<GameObjectClient> gClient = dynamic_pointer_cast<GameObjectClient>(client->second);
