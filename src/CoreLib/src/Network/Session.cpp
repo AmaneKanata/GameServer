@@ -18,8 +18,13 @@ void Session::Connect(boost::asio::ip::tcp::endpoint ep)
 
 void Session::ProcessConnect()
 {
-	boost::asio::socket_base::linger option(true, 100);
-	socket->set_option(option);
+	boost::asio::socket_base::linger linger(true, 100);
+	socket->set_option(linger);
+	
+	//boost::asio::socket_base::keep_alive keepAlive();
+
+	boost::asio::ip::tcp::no_delay noDelay(true);
+	socket->set_option(noDelay);
 
 	{
 		lock_guard<recursive_mutex> lock(isConnected_mtx);
