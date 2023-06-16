@@ -51,7 +51,7 @@ void RoomBase::Handle_C_ENTER(std::shared_ptr<GameSession> session, Protocol::C_
 
 void RoomBase::Handle_C_REENTER(std::shared_ptr<GameSession> session, Protocol::C_REENTER pkt)
 {
-	auto client = clients.find(session->client->clientId);
+	auto client = clients.find(pkt.clientid());
 	if (client == clients.end())
 	{
 		Protocol::S_REENTER res;
@@ -63,7 +63,7 @@ void RoomBase::Handle_C_REENTER(std::shared_ptr<GameSession> session, Protocol::
 		return;
 	}
 
-	session->client->Post(&ClientBase::ReEnter, session);
+	client->second->Post(&ClientBase::ReEnter, session);
 }
 
 void RoomBase::Handle_C_LEAVE(std::shared_ptr<GameSession> session, Protocol::C_LEAVE pkt) 
@@ -86,14 +86,14 @@ void RoomBase::Handle_C_GET_CLIENT(std::shared_ptr<GameSession> session, Protoco
 
 void RoomBase::Leave(std::shared_ptr<ClientBase> _client, std::string code)
 {
+	_client->Post(&ClientBase::Leave, code);
+
 	auto client = clients.find(_client->clientId);
-	if (client == clients.end())
+	if (client == clients.end() || _client.get() != client->second.get())
 		return;
 
 	clients.erase(client);
 	GLogManager->Log("Client Removed : ", _client->clientId, ", Client Number : ", std::to_string(clients.size()));
-
-	_client->Post(&ClientBase::Leave, code);
 
 	Protocol::S_REMOVE_CLIENT removeClient;
 	removeClient.add_clientids(_client->clientId);

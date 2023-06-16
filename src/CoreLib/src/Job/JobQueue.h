@@ -43,6 +43,7 @@ public:
 						});
 				}
 
+				std::lock_guard<std::recursive_mutex> lock(removeJob_mtx);
 				delayedJobs.erase(timer);
 			}
 		);
@@ -62,6 +63,7 @@ public:
 					func();
 				}
 
+				std::lock_guard<std::recursive_mutex> lock(removeJob_mtx);
 				delayedJobs.erase(timer);
 			}
 		);
@@ -69,8 +71,18 @@ public:
 		return timer;
 	}
 
+	void Cancel(std::shared_ptr<boost::asio::steady_timer> timer)
+	{
+		timer->cancel();
+
+		std::lock_guard<std::recursive_mutex> lock(removeJob_mtx);
+		delayedJobs.erase(timer);
+	}
+
 	void Clear()
 	{
+		std::lock_guard<std::recursive_mutex> lock(removeJob_mtx);
+
 		for (auto& timer : delayedJobs)
 			timer->cancel();
 		delayedJobs.clear();
@@ -85,4 +97,5 @@ private:
 	boost::asio::io_context& ioc;
 	boost::asio::io_context::strand jobs;
 	std::set<std::shared_ptr<boost::asio::steady_timer>> delayedJobs;
+	std::recursive_mutex removeJob_mtx;
 };

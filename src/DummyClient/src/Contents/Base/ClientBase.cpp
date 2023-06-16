@@ -10,6 +10,13 @@ void ClientBase::Enter()
 	Send(MakeSendBuffer(enter));
 }
 
+void ClientBase::ReEnter()
+{
+	Protocol::C_REENTER reEnter;
+	reEnter.set_clientid(clientId);
+	Send(MakeSendBuffer(reEnter));
+}
+
 void ClientBase::Leave()
 {
 	Protocol::C_LEAVE leave;
@@ -18,10 +25,21 @@ void ClientBase::Leave()
 
 void ClientBase::Disconnect()
 {
-	if (state == ClientState::DISCONNECTED)
-		return;
+	auto sp = session.lock();
+	if (sp)
+	{
+		sp->Disconnect();
+		GLogManager->Log("[Client ", clientId, "]	Disconnected by Command");
+	}
+	else
+	{
+		GLogManager->Log("[Client ", clientId, "]	Already Disconnected");
+	}
+}
 
-	state = ClientState::DISCONNECTED;
+void ClientBase::Remove()
+{
+	GLogManager->Log("[Client ", clientId, "]	Deleted");
 
 	auto sp = session.lock();
 	if (sp)
@@ -33,8 +51,6 @@ void ClientBase::Disconnect()
 		std::lock_guard<std::recursive_mutex> lock(clients_mtx);
 		clients.erase(clientId);
 	}
-
-	Post(&ClientBase::Close);
 }
 
 void ClientBase::Handle_S_ENTER(std::shared_ptr<GameSession> session, Protocol::S_ENTER pkt)
@@ -44,6 +60,25 @@ void ClientBase::Handle_S_ENTER(std::shared_ptr<GameSession> session, Protocol::
 	{
 		std::lock_guard<std::recursive_mutex> lock(clients_mtx);
 		clients.insert({ clientId, static_pointer_cast<ClientBase>(shared_from_this()) });
+	}
+}
+
+void ClientBase::Handle_S_REENTER(std::shared_ptr<GameSession> session, Protocol::S_REENTER pkt)
+{
+	if (pkt.success())
+	{
+		GLogManager->Log("[Client ", clientId, "]	ReEntered");
+
+		{
+			std::lock_guard<std::recursive_mutex> lock(clients_mtx);
+			clients.insert({ clientId, static_pointer_cast<ClientBase>(shared_from_this()) });
+		}
+	}
+	else
+	{
+		GLogManager->Log("[Client ", clientId, "]	ReEnter Fail");
+
+		Post(&ClientBase::Remove);
 	}
 }
 
@@ -71,7 +106,7 @@ void ClientBase::Handle_S_DISCONNECT(std::shared_ptr<GameSession> session, Proto
 {
 	GLogManager->Log("[Client ", clientId, "]	Disconnected : ", pkt.code());
 	
-	Post(&ClientBase::Disconnect);
+	Post(&ClientBase::Remove);
 }
 
 void ClientBase::CheckAlive()

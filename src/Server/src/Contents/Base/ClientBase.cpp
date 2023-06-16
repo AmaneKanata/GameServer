@@ -9,7 +9,17 @@ void ClientBase::OnDisconnected()
 	if (state == ClientState::LEAVING)
 		return;
 
-	GRoom->Post(&RoomBase::Leave, static_pointer_cast<ClientBase>(shared_from_this()), string("DISCONNECTED"));
+	if (disconnectedTimer != nullptr)
+		return;
+
+	if (DISCONNECTED_WAIT_TIME > 0)
+	{
+		disconnectedTimer = GRoom->DelayPost(DISCONNECTED_WAIT_TIME, &RoomBase::Leave, static_pointer_cast<ClientBase>(shared_from_this()), string("DISCONNECTED"));
+	}
+	else
+	{
+		GRoom->Post(&RoomBase::Leave, static_pointer_cast<ClientBase>(shared_from_this()), string("DISCONNECTED"));
+	}
 }
 
 void ClientBase::SetSession(std::shared_ptr<GameSession> _session)
@@ -20,6 +30,9 @@ void ClientBase::SetSession(std::shared_ptr<GameSession> _session)
 
 void ClientBase::ReEnter(std::shared_ptr<GameSession> _session)
 {
+	GRoom->Cancel(disconnectedTimer);
+	disconnectedTimer = nullptr;
+
 	SetSession(_session);
 	
 	Protocol::S_REENTER res;

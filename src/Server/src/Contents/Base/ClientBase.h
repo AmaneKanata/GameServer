@@ -47,4 +47,6 @@ public:
 private:
 	std::weak_ptr<GameSession> session;
 	ClientState state;
+
+	std::shared_ptr<boost::asio::steady_timer> disconnectedTimer = nullptr;
 };
