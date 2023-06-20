@@ -10,6 +10,8 @@ public:
 		, clientId(clientId)
 	{}
 
+	~ClientBase();
+
 	virtual void Enter();
 	virtual void ReEnter();
 	virtual void Leave();

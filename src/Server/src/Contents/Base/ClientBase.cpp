@@ -30,8 +30,11 @@ void ClientBase::SetSession(std::shared_ptr<GameSession> _session)
 
 void ClientBase::ReEnter(std::shared_ptr<GameSession> _session)
 {
-	GRoom->Cancel(disconnectedTimer);
-	disconnectedTimer = nullptr;
+	if (disconnectedTimer)
+	{
+		GRoom->Cancel(disconnectedTimer);
+		disconnectedTimer = nullptr;
+	}
 
 	SetSession(_session);
 	
@@ -46,6 +49,12 @@ void ClientBase::Leave(std::string code)
 		return;
 
 	state = ClientState::LEAVING;
+
+	if (disconnectedTimer)
+	{
+		GRoom->Cancel(disconnectedTimer);
+		disconnectedTimer = nullptr;
+	}
 
 	Protocol::S_DISCONNECT disconnect;
 	disconnect.set_code(code);

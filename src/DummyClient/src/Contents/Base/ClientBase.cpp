@@ -3,6 +3,11 @@
 #include "DummyClient_Singleton.h"
 #include "LogManager.h"
 
+ClientBase::~ClientBase()
+{
+	GLogManager->Log("[Client ", clientId, "]	Destroyed");
+}
+
 void ClientBase::Enter()
 {
 	Protocol::C_ENTER enter;
@@ -49,8 +54,12 @@ void ClientBase::Remove()
 
 	{
 		std::lock_guard<std::recursive_mutex> lock(clients_mtx);
-		clients.erase(clientId);
+		auto client = clients.find(clientId);
+		if(client->second.get() == this)
+			clients.erase(clientId);
 	}
+
+	Close();
 }
 
 void ClientBase::Handle_S_ENTER(std::shared_ptr<GameSession> session, Protocol::S_ENTER pkt)
@@ -59,7 +68,17 @@ void ClientBase::Handle_S_ENTER(std::shared_ptr<GameSession> session, Protocol::
 
 	{
 		std::lock_guard<std::recursive_mutex> lock(clients_mtx);
-		clients.insert({ clientId, static_pointer_cast<ClientBase>(shared_from_this()) });
+		auto client = clients.find(clientId);
+		if (client != clients.end())
+		{
+			GLogManager->Log("Replace ", clientId);
+			client->second->Post(&ClientBase::Remove);
+			client->second = static_pointer_cast<ClientBase>(shared_from_this());
+		}
+		else
+		{
+			clients.insert({ clientId, static_pointer_cast<ClientBase>(shared_from_this()) });
+		}
 	}
 }
 
