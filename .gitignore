@@ -26,16 +26,6 @@
 *.a
 *.lib
 
-!src/Server/Lib/*.lib
-!src/Server/Lib/Win/Release/*.lib
-!src/Server/Lib/Win/Debug/*.lib
-
-!src/DummyClient/Lib/*.lib
-!src/DummyClient/Lib/Win/Release/*.lib
-!src/DummyClient/Lib/Win/Debug/*.lib
-
-!src/CoreLib/boost/stage/lib/*.lib
-
 # Executables
 *.exe
 !src/ProtoBuf/*.exe

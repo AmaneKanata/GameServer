@@ -10,24 +10,15 @@ target_include_directories(DummyClient PUBLIC src/Protocol)
 target_include_directories(DummyClient PUBLIC src/Session)
 target_include_directories(DummyClient PUBLIC src/Util)
 
-target_include_directories(DummyClient PRIVATE ../CoreLib/src ./Include)
+target_include_directories(DummyClient PRIVATE ../CoreLib/src)
 
 target_link_libraries(DummyClient PRIVATE CoreLib)
 
 if (WIN32)
-    file(GLOB common_libs ./Lib/Win/*.lib)
-
-    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-        file(GLOB platform_libs ./Lib/Win/Debug/*.lib)
-    elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
-        file(GLOB platform_libs ./Lib/Win/Release/*.lib)
-    endif()
-
-    target_link_libraries(DummyClient PRIVATE ${common_libs} ${platform_libs})
+    set(CMAKE_PREFIX_PATH "C:/Program Files/gRPC" ${CMAKE_PREFIX_PATH})
+    set(CMAKE_PREFIX_PATH "C:/Program Files/agones" ${CMAKE_PREFIX_PATH})
 endif (WIN32)
 
-if (UNIX)
-    find_package(Protobuf REQUIRED)
-    include_directories(${Protobuf_INCLUDE_DIRS})
-    target_link_libraries(DummyClient PRIVATE ${Protobuf_LIBRARIES})
-endif (UNIX)
+find_package(Protobuf REQUIRED)
+target_include_directories(DummyClient PRIVATE ${Protobuf_INCLUDE_DIRS})
+target_link_libraries(DummyClient PRIVATE ${Protobuf_LIBRARIES})
