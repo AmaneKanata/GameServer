@@ -86,7 +86,7 @@ void ClientBase::CheckAlive(std::time_t current)
 		if (current - sp->lastMessageArrived > 10)
 		{
 			GLogManager->Log("Client Heartbeat Fail : ", clientId);
-			Post(&ClientBase::Leave, std::string("HEARTBEAT_FAIL"));
+			GRoom->Post(&RoomBase::Leave, static_pointer_cast<ClientBase>(shared_from_this()), std::string("HEARTBEAT_FAIL"));
 		}
 	}
 
