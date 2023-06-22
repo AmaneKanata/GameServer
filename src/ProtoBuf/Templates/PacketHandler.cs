@@ -9,7 +9,7 @@ namespace Framework.Network
         public Dictionary<ushort, Action<IMessage>> Handlers = new();
 
         {%- for pkt in parser.recv_pkt %}
-        Action<Protocol.{{pkt.name}} > {{pkt.name}}_Handler;
+        private Action<Protocol.{{pkt.name}}> {{pkt.name}}_Handler;
         {%- endfor %}
 
         public PacketHandler()
@@ -28,7 +28,7 @@ namespace Framework.Network
         {
             {{pkt.name}}_Handler -= handler;
         }
-        private void _Handle_{{pkt.name}} (IMessage message )
+        private void _Handle_{{pkt.name}}( IMessage message )
         {
             {{pkt.name}}_Handler?.Invoke((Protocol.{{pkt.name}})message);
         }

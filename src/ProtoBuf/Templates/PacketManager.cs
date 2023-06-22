@@ -1,5 +1,5 @@
-using Protocol;
 using Google.Protobuf;
+using Protocol;
 using System;
 using System.Collections.Generic;
 
@@ -19,7 +19,7 @@ namespace Framework.Network
         static PacketManager()
         {
             {%- for pkt in parser.recv_pkt %}
-            onRecv.Add((ushort)MsgId.PKT_{{pkt.name}}, MakePacket <{{pkt.name}}>);
+            onRecv.Add((ushort)MsgId.PKT_{{pkt.name}}, MakePacket<{{pkt.name}}>);
             {%- endfor %}
         }
 

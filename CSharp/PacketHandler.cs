@@ -7,15 +7,15 @@ namespace Framework.Network
     public class PacketHandler
     {
         public Dictionary<ushort, Action<IMessage>> Handlers = new();
-        Action<Protocol.S_ENTER > S_ENTER_Handler;
-        Action<Protocol.S_REENTER > S_REENTER_Handler;
-        Action<Protocol.S_ADD_CLIENT > S_ADD_CLIENT_Handler;
-        Action<Protocol.S_REMOVE_CLIENT > S_REMOVE_CLIENT_Handler;
-        Action<Protocol.S_DISCONNECT > S_DISCONNECT_Handler;
-        Action<Protocol.S_INSTANTIATE_GAME_OBJECT > S_INSTANTIATE_GAME_OBJECT_Handler;
-        Action<Protocol.S_ADD_GAME_OBJECT > S_ADD_GAME_OBJECT_Handler;
-        Action<Protocol.S_REMOVE_GAME_OBJECT > S_REMOVE_GAME_OBJECT_Handler;
-        Action<Protocol.S_SET_TRANSFORM > S_SET_TRANSFORM_Handler;
+        private Action<Protocol.S_ENTER> S_ENTER_Handler;
+        private Action<Protocol.S_REENTER> S_REENTER_Handler;
+        private Action<Protocol.S_ADD_CLIENT> S_ADD_CLIENT_Handler;
+        private Action<Protocol.S_REMOVE_CLIENT> S_REMOVE_CLIENT_Handler;
+        private Action<Protocol.S_DISCONNECT> S_DISCONNECT_Handler;
+        private Action<Protocol.S_INSTANTIATE_GAME_OBJECT> S_INSTANTIATE_GAME_OBJECT_Handler;
+        private Action<Protocol.S_ADD_GAME_OBJECT> S_ADD_GAME_OBJECT_Handler;
+        private Action<Protocol.S_REMOVE_GAME_OBJECT> S_REMOVE_GAME_OBJECT_Handler;
+        private Action<Protocol.S_SET_TRANSFORM> S_SET_TRANSFORM_Handler;
 
         public PacketHandler()
         {
@@ -37,7 +37,7 @@ namespace Framework.Network
         {
             S_ENTER_Handler -= handler;
         }
-        private void _Handle_S_ENTER (IMessage message )
+        private void _Handle_S_ENTER( IMessage message )
         {
             S_ENTER_Handler?.Invoke((Protocol.S_ENTER)message);
         }
@@ -49,7 +49,7 @@ namespace Framework.Network
         {
             S_REENTER_Handler -= handler;
         }
-        private void _Handle_S_REENTER (IMessage message )
+        private void _Handle_S_REENTER( IMessage message )
         {
             S_REENTER_Handler?.Invoke((Protocol.S_REENTER)message);
         }
@@ -61,7 +61,7 @@ namespace Framework.Network
         {
             S_ADD_CLIENT_Handler -= handler;
         }
-        private void _Handle_S_ADD_CLIENT (IMessage message )
+        private void _Handle_S_ADD_CLIENT( IMessage message )
         {
             S_ADD_CLIENT_Handler?.Invoke((Protocol.S_ADD_CLIENT)message);
         }
@@ -73,7 +73,7 @@ namespace Framework.Network
         {
             S_REMOVE_CLIENT_Handler -= handler;
         }
-        private void _Handle_S_REMOVE_CLIENT (IMessage message )
+        private void _Handle_S_REMOVE_CLIENT( IMessage message )
         {
             S_REMOVE_CLIENT_Handler?.Invoke((Protocol.S_REMOVE_CLIENT)message);
         }
@@ -85,7 +85,7 @@ namespace Framework.Network
         {
             S_DISCONNECT_Handler -= handler;
         }
-        private void _Handle_S_DISCONNECT (IMessage message )
+        private void _Handle_S_DISCONNECT( IMessage message )
         {
             S_DISCONNECT_Handler?.Invoke((Protocol.S_DISCONNECT)message);
         }
@@ -97,7 +97,7 @@ namespace Framework.Network
         {
             S_INSTANTIATE_GAME_OBJECT_Handler -= handler;
         }
-        private void _Handle_S_INSTANTIATE_GAME_OBJECT (IMessage message )
+        private void _Handle_S_INSTANTIATE_GAME_OBJECT( IMessage message )
         {
             S_INSTANTIATE_GAME_OBJECT_Handler?.Invoke((Protocol.S_INSTANTIATE_GAME_OBJECT)message);
         }
@@ -109,7 +109,7 @@ namespace Framework.Network
         {
             S_ADD_GAME_OBJECT_Handler -= handler;
         }
-        private void _Handle_S_ADD_GAME_OBJECT (IMessage message )
+        private void _Handle_S_ADD_GAME_OBJECT( IMessage message )
         {
             S_ADD_GAME_OBJECT_Handler?.Invoke((Protocol.S_ADD_GAME_OBJECT)message);
         }
@@ -121,7 +121,7 @@ namespace Framework.Network
         {
             S_REMOVE_GAME_OBJECT_Handler -= handler;
         }
-        private void _Handle_S_REMOVE_GAME_OBJECT (IMessage message )
+        private void _Handle_S_REMOVE_GAME_OBJECT( IMessage message )
         {
             S_REMOVE_GAME_OBJECT_Handler?.Invoke((Protocol.S_REMOVE_GAME_OBJECT)message);
         }
@@ -133,7 +133,7 @@ namespace Framework.Network
         {
             S_SET_TRANSFORM_Handler -= handler;
         }
-        private void _Handle_S_SET_TRANSFORM (IMessage message )
+        private void _Handle_S_SET_TRANSFORM( IMessage message )
         {
             S_SET_TRANSFORM_Handler?.Invoke((Protocol.S_SET_TRANSFORM)message);
         }

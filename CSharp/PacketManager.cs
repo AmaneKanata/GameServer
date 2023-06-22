@@ -1,5 +1,5 @@
-using Protocol;
 using Google.Protobuf;
+using Protocol;
 using System;
 using System.Collections.Generic;
 
@@ -32,15 +32,15 @@ namespace Framework.Network
 
         static PacketManager()
         {
-            onRecv.Add((ushort)MsgId.PKT_S_ENTER, MakePacket <S_ENTER>);
-            onRecv.Add((ushort)MsgId.PKT_S_REENTER, MakePacket <S_REENTER>);
-            onRecv.Add((ushort)MsgId.PKT_S_ADD_CLIENT, MakePacket <S_ADD_CLIENT>);
-            onRecv.Add((ushort)MsgId.PKT_S_REMOVE_CLIENT, MakePacket <S_REMOVE_CLIENT>);
-            onRecv.Add((ushort)MsgId.PKT_S_DISCONNECT, MakePacket <S_DISCONNECT>);
-            onRecv.Add((ushort)MsgId.PKT_S_INSTANTIATE_GAME_OBJECT, MakePacket <S_INSTANTIATE_GAME_OBJECT>);
-            onRecv.Add((ushort)MsgId.PKT_S_ADD_GAME_OBJECT, MakePacket <S_ADD_GAME_OBJECT>);
-            onRecv.Add((ushort)MsgId.PKT_S_REMOVE_GAME_OBJECT, MakePacket <S_REMOVE_GAME_OBJECT>);
-            onRecv.Add((ushort)MsgId.PKT_S_SET_TRANSFORM, MakePacket <S_SET_TRANSFORM>);
+            onRecv.Add((ushort)MsgId.PKT_S_ENTER, MakePacket<S_ENTER>);
+            onRecv.Add((ushort)MsgId.PKT_S_REENTER, MakePacket<S_REENTER>);
+            onRecv.Add((ushort)MsgId.PKT_S_ADD_CLIENT, MakePacket<S_ADD_CLIENT>);
+            onRecv.Add((ushort)MsgId.PKT_S_REMOVE_CLIENT, MakePacket<S_REMOVE_CLIENT>);
+            onRecv.Add((ushort)MsgId.PKT_S_DISCONNECT, MakePacket<S_DISCONNECT>);
+            onRecv.Add((ushort)MsgId.PKT_S_INSTANTIATE_GAME_OBJECT, MakePacket<S_INSTANTIATE_GAME_OBJECT>);
+            onRecv.Add((ushort)MsgId.PKT_S_ADD_GAME_OBJECT, MakePacket<S_ADD_GAME_OBJECT>);
+            onRecv.Add((ushort)MsgId.PKT_S_REMOVE_GAME_OBJECT, MakePacket<S_REMOVE_GAME_OBJECT>);
+            onRecv.Add((ushort)MsgId.PKT_S_SET_TRANSFORM, MakePacket<S_SET_TRANSFORM>);
         }
 
         public static void OnRecv( ArraySegment<byte> buffer, PacketQueue packetQueue )
