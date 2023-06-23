@@ -31,7 +31,10 @@ public:
 	std::shared_ptr<boost::asio::steady_timer> DelayPost(int milli, Ret(T::* memFunc)(Args...), Args... args)
 	{
 		auto timer = std::make_shared<boost::asio::steady_timer>(ioc, std::chrono::milliseconds{ milli });
-		delayedJobs.insert(timer);
+		{
+			std::lock_guard<std::recursive_mutex> lock(delayedJob_mtx);
+			delayedJobs.insert(timer);
+		}
 
 		std::shared_ptr<T> owner = std::static_pointer_cast<T>(shared_from_this());
 		timer->async_wait([this, timer, owner, memFunc, args...](const boost::system::error_code& error)
@@ -43,7 +46,7 @@ public:
 						});
 				}
 
-				std::lock_guard<std::recursive_mutex> lock(removeJob_mtx);
+				std::lock_guard<std::recursive_mutex> lock(delayedJob_mtx);
 				delayedJobs.erase(timer);
 			}
 		);
@@ -54,7 +57,10 @@ public:
 	std::shared_ptr<boost::asio::steady_timer> DelayPost(int milli, std::function<void()> func)
 	{
 		auto timer = std::make_shared<boost::asio::steady_timer>(ioc, std::chrono::milliseconds{ milli });
-		delayedJobs.insert(timer);
+		{
+			std::lock_guard<std::recursive_mutex> lock(delayedJob_mtx);
+			delayedJobs.insert(timer);
+		}
 
 		timer->async_wait([this, timer, func](const boost::system::error_code& error)
 			{
@@ -63,7 +69,7 @@ public:
 					func();
 				}
 
-				std::lock_guard<std::recursive_mutex> lock(removeJob_mtx);
+				std::lock_guard<std::recursive_mutex> lock(delayedJob_mtx);
 				delayedJobs.erase(timer);
 			}
 		);
@@ -75,13 +81,13 @@ public:
 	{
 		timer->cancel();
 
-		std::lock_guard<std::recursive_mutex> lock(removeJob_mtx);
+		std::lock_guard<std::recursive_mutex> lock(delayedJob_mtx);
 		delayedJobs.erase(timer);
 	}
 
 	void Clear()
 	{
-		std::lock_guard<std::recursive_mutex> lock(removeJob_mtx);
+		std::lock_guard<std::recursive_mutex> lock(delayedJob_mtx);
 
 		for (auto& timer : delayedJobs)
 			timer->cancel();
@@ -97,5 +103,5 @@ private:
 	boost::asio::io_context& ioc;
 	boost::asio::io_context::strand jobs;
 	std::set<std::shared_ptr<boost::asio::steady_timer>> delayedJobs;
-	std::recursive_mutex removeJob_mtx;
+	std::recursive_mutex delayedJob_mtx;
 };
