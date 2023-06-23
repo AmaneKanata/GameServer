@@ -18,7 +18,7 @@ void Session::Connect(boost::asio::ip::tcp::endpoint ep)
 
 void Session::ProcessConnect()
 {
-	boost::asio::socket_base::linger linger(true, 100);
+	boost::asio::socket_base::linger linger(true, 30);
 	socket->set_option(linger);
 	
 	//boost::asio::socket_base::keep_alive keepAlive();
@@ -45,7 +45,8 @@ void Session::Disconnect()
 
 	isConnected = false;
 
-	socket->close();
+	boost::system::error_code ec;
+	socket->shutdown(boost::asio::ip::tcp::socket::shutdown_receive, ec);
 
 	OnDisconnected();
 }
