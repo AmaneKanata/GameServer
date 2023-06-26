@@ -88,7 +88,9 @@ void ClientBase::CheckAlive(std::time_t current)
 			GLogManager->Log("Client Heartbeat Fail : ", clientId);
 			GRoom->Post(&RoomBase::Leave, static_pointer_cast<ClientBase>(shared_from_this()), std::string("HEARTBEAT_FAIL"));
 		}
+		else
+		{
+			DelayPost(10000, &ClientBase::CheckAlive, time(0));
+		}
 	}
-
-	DelayPost(10000, &ClientBase::CheckAlive, time(0));
 }
