@@ -60,26 +60,35 @@ void ClientBase::Leave(std::string code)
 	disconnect.set_code(code);
 	Send(MakeSendBuffer(disconnect));
 
-	session->Disconnect();
-	session = nullptr;
+	auto sp = session.lock();
+	if (sp)
+	{
+		sp->Disconnect();
+	}
 
 	Clear();
 }
 
 void ClientBase::Send(std::shared_ptr<SendBuffer> sendBuffer)
 {
-	session->Send(sendBuffer);
+	auto sp = session.lock();
+	if (sp)
+	{
+		sp->Send(sendBuffer);
+	}
 }
 
 void ClientBase::CheckAlive(std::time_t current)
 {
-	if (session != nullptr && current - session->lastMessageArrived <= 10)
+	auto sp = session.lock();
+	if (sp)
 	{
-		DelayPost(10000, &ClientBase::CheckAlive, time(0));
+		if (current - sp->lastMessageArrived > 10)
+		{
+			GLogManager->Log("Client Heartbeat Fail : ", clientId);
+			GRoom->Post(&RoomBase::Leave, static_pointer_cast<ClientBase>(shared_from_this()), std::string("HEARTBEAT_FAIL"));
+		}
 	}
-	else
-	{
-		GLogManager->Log("Client Heartbeat Fail : ", clientId);
-		GRoom->Post(&RoomBase::Leave, static_pointer_cast<ClientBase>(shared_from_this()), std::string("HEARTBEAT_FAIL"));
-	}
+
+	DelayPost(10000, &ClientBase::CheckAlive, time(0));
 }
