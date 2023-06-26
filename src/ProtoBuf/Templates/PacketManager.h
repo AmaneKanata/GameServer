@@ -57,9 +57,9 @@ public:
 		{% for pkt in parser.recv_pkt %}
 		PacketHandlers[PKT_{{pkt.name}}] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
 		{ 
-			Protocol::{{pkt.name}} pkt;
-			if (pkt.ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_{{pkt.name}}, session, std::move(pkt));
+			std::shared_ptr<Protocol::{{pkt.name}}> pkt = std::make_shared<Protocol::{{pkt.name}}>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_{{pkt.name}}, session, pkt);
 		};
 		{%- endfor %}
 	}
@@ -104,7 +104,7 @@ public:
 protected:
 	virtual void Handle_INVALID(std::shared_ptr<GameSession> session, unsigned char* buffer, int len) {};
 {%- for pkt in parser.recv_pkt %}
-	virtual void Handle_{{pkt.name}}(std::shared_ptr<GameSession> session, Protocol::{{pkt.name}} pkt) {};
+	virtual void Handle_{{pkt.name}}(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::{{pkt.name}}> pkt) {};
 {%- endfor %}
 
 private:

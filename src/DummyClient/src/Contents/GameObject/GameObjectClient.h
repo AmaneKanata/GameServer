@@ -22,11 +22,11 @@ public:
 	void InstantiateGameObject();
 	void Move();
 
-	virtual void Handle_S_ENTER(std::shared_ptr<GameSession> session, Protocol::S_ENTER pkt) override;
-	virtual void Handle_S_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::S_INSTANTIATE_GAME_OBJECT pkt) override;
-	virtual void Handle_S_ADD_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::S_ADD_GAME_OBJECT pkt) override;
-	virtual void Handle_S_REMOVE_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::S_REMOVE_GAME_OBJECT pkt) override;
-	virtual void Handle_S_SET_TRANSFORM(std::shared_ptr<GameSession> session, Protocol::S_SET_TRANSFORM pkt) override;
+	virtual void Handle_S_ENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ENTER> pkt) override;
+	virtual void Handle_S_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_INSTANTIATE_GAME_OBJECT> pkt) override;
+	virtual void Handle_S_ADD_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ADD_GAME_OBJECT> pkt) override;
+	virtual void Handle_S_REMOVE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_REMOVE_GAME_OBJECT> pkt) override;
+	virtual void Handle_S_SET_TRANSFORM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SET_TRANSFORM> pkt) override;
 
 private:
 	GameObject go;

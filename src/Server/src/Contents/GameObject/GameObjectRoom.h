@@ -13,9 +13,9 @@ public:
 	virtual void Leave(std::shared_ptr<ClientBase> client, std::string code) override;
 
 protected:
-	virtual void Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::C_INSTANTIATE_GAME_OBJECT pkt) override;
-	virtual void Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::C_GET_GAME_OBJECT pkt) override;
-	virtual void Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session, Protocol::C_SET_TRANSFORM pkt) override;
+	virtual void Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_INSTANTIATE_GAME_OBJECT> pkt) override;
+	virtual void Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_GET_GAME_OBJECT> pkt) override;
+	virtual void Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_TRANSFORM> pkt) override;
 
 	virtual std::shared_ptr<ClientBase> MakeClient(string clientId) override;
 

@@ -18,11 +18,11 @@ public:
 	virtual void Disconnect();
 	virtual void Remove();
 
-	virtual void Handle_S_ENTER(std::shared_ptr<GameSession> session, Protocol::S_ENTER pkt) override;
-	virtual void Handle_S_REENTER(std::shared_ptr<GameSession> session, Protocol::S_REENTER pkt) override;
-	virtual void Handle_S_ADD_CLIENT(std::shared_ptr<GameSession> session, Protocol::S_ADD_CLIENT pkt) override;
-	virtual void Handle_S_REMOVE_CLIENT(std::shared_ptr<GameSession> session, Protocol::S_REMOVE_CLIENT pkt) override;
-	virtual void Handle_S_DISCONNECT(std::shared_ptr<GameSession> session, Protocol::S_DISCONNECT pkt) override;
+	virtual void Handle_S_ENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ENTER> pkt) override;
+	virtual void Handle_S_REENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_REENTER> pkt) override;
+	virtual void Handle_S_ADD_CLIENT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ADD_CLIENT> pkt) override;
+	virtual void Handle_S_REMOVE_CLIENT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_REMOVE_CLIENT> pkt) override;
+	virtual void Handle_S_DISCONNECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_DISCONNECT> pkt) override;
 
 	void CheckAlive();
 

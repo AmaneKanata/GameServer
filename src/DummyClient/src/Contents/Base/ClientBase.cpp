@@ -62,7 +62,7 @@ void ClientBase::Remove()
 	Close();
 }
 
-void ClientBase::Handle_S_ENTER(std::shared_ptr<GameSession> session, Protocol::S_ENTER pkt)
+void ClientBase::Handle_S_ENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ENTER> pkt)
 {
 	GLogManager->Log("[Client ", clientId, "]	Entered");
 
@@ -82,9 +82,9 @@ void ClientBase::Handle_S_ENTER(std::shared_ptr<GameSession> session, Protocol::
 	}
 }
 
-void ClientBase::Handle_S_REENTER(std::shared_ptr<GameSession> session, Protocol::S_REENTER pkt)
+void ClientBase::Handle_S_REENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_REENTER> pkt)
 {
-	if (pkt.success())
+	if (pkt->success())
 	{
 		GLogManager->Log("[Client ", clientId, "]	ReEntered");
 
@@ -101,29 +101,29 @@ void ClientBase::Handle_S_REENTER(std::shared_ptr<GameSession> session, Protocol
 	}
 }
 
-void ClientBase::Handle_S_ADD_CLIENT(std::shared_ptr<GameSession> session, Protocol::S_ADD_CLIENT pkt)
+void ClientBase::Handle_S_ADD_CLIENT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ADD_CLIENT> pkt)
 {
 	std::stringstream ss;
-	for (int i = 0; i < pkt.clientinfos_size(); i++)
+	for (int i = 0; i < pkt->clientinfos_size(); i++)
 	{
-		ss << pkt.clientinfos()[i].clientid() << " ";
+		ss << pkt->clientinfos()[i].clientid() << " ";
 	}
 	GLogManager->Log("[Client ", clientId, "]	Add Clients : ", ss.str());
 }
 
-void ClientBase::Handle_S_REMOVE_CLIENT(std::shared_ptr<GameSession> session, Protocol::S_REMOVE_CLIENT pkt)
+void ClientBase::Handle_S_REMOVE_CLIENT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_REMOVE_CLIENT> pkt)
 {
 	std::stringstream ss;
-	for (int i = 0; i < pkt.clientids_size(); i++)
+	for (int i = 0; i < pkt->clientids_size(); i++)
 	{
-		ss << pkt.clientids()[i] << " ";
+		ss << pkt->clientids()[i] << " ";
 	}
 	GLogManager->Log("[Client ", clientId, "]	Remove Clients : ", ss.str());
 }
 
-void ClientBase::Handle_S_DISCONNECT(std::shared_ptr<GameSession> session, Protocol::S_DISCONNECT pkt)
+void ClientBase::Handle_S_DISCONNECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_DISCONNECT> pkt)
 {
-	GLogManager->Log("[Client ", clientId, "]	Disconnected : ", pkt.code());
+	GLogManager->Log("[Client ", clientId, "]	Disconnected : ", pkt->code());
 	
 	Post(&ClientBase::Remove);
 }

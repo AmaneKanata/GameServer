@@ -77,57 +77,57 @@ public:
 		
 		PacketHandlers[PKT_S_ENTER] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
 		{ 
-			Protocol::S_ENTER pkt;
-			if (pkt.ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_S_ENTER, session, std::move(pkt));
+			std::shared_ptr<Protocol::S_ENTER> pkt = std::make_shared<Protocol::S_ENTER>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_ENTER, session, pkt);
 		};
 		PacketHandlers[PKT_S_REENTER] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
 		{ 
-			Protocol::S_REENTER pkt;
-			if (pkt.ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_S_REENTER, session, std::move(pkt));
+			std::shared_ptr<Protocol::S_REENTER> pkt = std::make_shared<Protocol::S_REENTER>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_REENTER, session, pkt);
 		};
 		PacketHandlers[PKT_S_ADD_CLIENT] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
 		{ 
-			Protocol::S_ADD_CLIENT pkt;
-			if (pkt.ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_S_ADD_CLIENT, session, std::move(pkt));
+			std::shared_ptr<Protocol::S_ADD_CLIENT> pkt = std::make_shared<Protocol::S_ADD_CLIENT>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_ADD_CLIENT, session, pkt);
 		};
 		PacketHandlers[PKT_S_REMOVE_CLIENT] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
 		{ 
-			Protocol::S_REMOVE_CLIENT pkt;
-			if (pkt.ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_S_REMOVE_CLIENT, session, std::move(pkt));
+			std::shared_ptr<Protocol::S_REMOVE_CLIENT> pkt = std::make_shared<Protocol::S_REMOVE_CLIENT>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_REMOVE_CLIENT, session, pkt);
 		};
 		PacketHandlers[PKT_S_DISCONNECT] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
 		{ 
-			Protocol::S_DISCONNECT pkt;
-			if (pkt.ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_S_DISCONNECT, session, std::move(pkt));
+			std::shared_ptr<Protocol::S_DISCONNECT> pkt = std::make_shared<Protocol::S_DISCONNECT>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_DISCONNECT, session, pkt);
 		};
 		PacketHandlers[PKT_S_INSTANTIATE_GAME_OBJECT] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
 		{ 
-			Protocol::S_INSTANTIATE_GAME_OBJECT pkt;
-			if (pkt.ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_S_INSTANTIATE_GAME_OBJECT, session, std::move(pkt));
+			std::shared_ptr<Protocol::S_INSTANTIATE_GAME_OBJECT> pkt = std::make_shared<Protocol::S_INSTANTIATE_GAME_OBJECT>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_INSTANTIATE_GAME_OBJECT, session, pkt);
 		};
 		PacketHandlers[PKT_S_ADD_GAME_OBJECT] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
 		{ 
-			Protocol::S_ADD_GAME_OBJECT pkt;
-			if (pkt.ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_S_ADD_GAME_OBJECT, session, std::move(pkt));
+			std::shared_ptr<Protocol::S_ADD_GAME_OBJECT> pkt = std::make_shared<Protocol::S_ADD_GAME_OBJECT>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_ADD_GAME_OBJECT, session, pkt);
 		};
 		PacketHandlers[PKT_S_REMOVE_GAME_OBJECT] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
 		{ 
-			Protocol::S_REMOVE_GAME_OBJECT pkt;
-			if (pkt.ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_S_REMOVE_GAME_OBJECT, session, std::move(pkt));
+			std::shared_ptr<Protocol::S_REMOVE_GAME_OBJECT> pkt = std::make_shared<Protocol::S_REMOVE_GAME_OBJECT>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_REMOVE_GAME_OBJECT, session, pkt);
 		};
 		PacketHandlers[PKT_S_SET_TRANSFORM] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
 		{ 
-			Protocol::S_SET_TRANSFORM pkt;
-			if (pkt.ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_S_SET_TRANSFORM, session, std::move(pkt));
+			std::shared_ptr<Protocol::S_SET_TRANSFORM> pkt = std::make_shared<Protocol::S_SET_TRANSFORM>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_SET_TRANSFORM, session, pkt);
 		};
 	}
 
@@ -170,15 +170,15 @@ public:
 
 protected:
 	virtual void Handle_INVALID(std::shared_ptr<GameSession> session, unsigned char* buffer, int len) {};
-	virtual void Handle_S_ENTER(std::shared_ptr<GameSession> session, Protocol::S_ENTER pkt) {};
-	virtual void Handle_S_REENTER(std::shared_ptr<GameSession> session, Protocol::S_REENTER pkt) {};
-	virtual void Handle_S_ADD_CLIENT(std::shared_ptr<GameSession> session, Protocol::S_ADD_CLIENT pkt) {};
-	virtual void Handle_S_REMOVE_CLIENT(std::shared_ptr<GameSession> session, Protocol::S_REMOVE_CLIENT pkt) {};
-	virtual void Handle_S_DISCONNECT(std::shared_ptr<GameSession> session, Protocol::S_DISCONNECT pkt) {};
-	virtual void Handle_S_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::S_INSTANTIATE_GAME_OBJECT pkt) {};
-	virtual void Handle_S_ADD_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::S_ADD_GAME_OBJECT pkt) {};
-	virtual void Handle_S_REMOVE_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::S_REMOVE_GAME_OBJECT pkt) {};
-	virtual void Handle_S_SET_TRANSFORM(std::shared_ptr<GameSession> session, Protocol::S_SET_TRANSFORM pkt) {};
+	virtual void Handle_S_ENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ENTER> pkt) {};
+	virtual void Handle_S_REENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_REENTER> pkt) {};
+	virtual void Handle_S_ADD_CLIENT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ADD_CLIENT> pkt) {};
+	virtual void Handle_S_REMOVE_CLIENT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_REMOVE_CLIENT> pkt) {};
+	virtual void Handle_S_DISCONNECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_DISCONNECT> pkt) {};
+	virtual void Handle_S_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_INSTANTIATE_GAME_OBJECT> pkt) {};
+	virtual void Handle_S_ADD_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ADD_GAME_OBJECT> pkt) {};
+	virtual void Handle_S_REMOVE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_REMOVE_GAME_OBJECT> pkt) {};
+	virtual void Handle_S_SET_TRANSFORM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SET_TRANSFORM> pkt) {};
 
 private:
 	PacketHandlerFunc PacketHandlers[UINT16_MAX];

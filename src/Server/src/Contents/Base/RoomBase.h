@@ -18,10 +18,10 @@ public:
 protected:
 	virtual void Handle_INVALID(std::shared_ptr<GameSession> session, unsigned char* buffer, int len) override;
 
-	virtual void Handle_C_ENTER(std::shared_ptr<GameSession> session, Protocol::C_ENTER pkt) override;
-	virtual void Handle_C_REENTER(std::shared_ptr<GameSession> session, Protocol::C_REENTER pkt) override;
-	virtual void Handle_C_LEAVE(std::shared_ptr<GameSession> session, Protocol::C_LEAVE pkt) override;
-	virtual void Handle_C_GET_CLIENT(std::shared_ptr<GameSession> session, Protocol::C_GET_CLIENT pkt) override;
+	virtual void Handle_C_ENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_ENTER> pkt) override;
+	virtual void Handle_C_REENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_REENTER> pkt) override;
+	virtual void Handle_C_LEAVE(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_LEAVE> pkt) override;
+	virtual void Handle_C_GET_CLIENT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_GET_CLIENT> pkt) override;
 
 	virtual std::shared_ptr<ClientBase> MakeClient(string clientId);
 

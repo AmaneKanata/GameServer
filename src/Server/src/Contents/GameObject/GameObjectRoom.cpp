@@ -24,11 +24,11 @@ void GameObjectRoom::Leave(std::shared_ptr<ClientBase> client, std::string code)
 	RoomBase::Leave(client, code);
 }
 
-void GameObjectRoom::Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::C_INSTANTIATE_GAME_OBJECT pkt)
+void GameObjectRoom::Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_INSTANTIATE_GAME_OBJECT> pkt)
 {
 	auto gameObject = make_shared<GameObject>(idGenerator++);
-	gameObject->SetPosition(pkt.position());
-	gameObject->SetRotation(pkt.rotation());
+	gameObject->SetPosition(pkt->position());
+	gameObject->SetRotation(pkt->rotation());
 
 	auto gClient = static_pointer_cast<GameObjectClient>(session->client);
 	gClient->gameObject = gameObject;
@@ -47,7 +47,7 @@ void GameObjectRoom::Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSessio
 	Broadcast(MakeSendBuffer(addGameObject));
 }
 
-void GameObjectRoom::Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::C_GET_GAME_OBJECT pkt)
+void GameObjectRoom::Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_GET_GAME_OBJECT> pkt)
 {
 	Protocol::S_ADD_GAME_OBJECT addGameObject;
 
@@ -60,19 +60,19 @@ void GameObjectRoom::Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> sessi
 	session->client->Post(&ClientBase::Send, MakeSendBuffer(addGameObject));
 }
 
-void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session, Protocol::C_SET_TRANSFORM pkt)
+void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_TRANSFORM> pkt)
 {
-	auto gameObject = gameObjects.find(pkt.gameobjectid());
+	auto gameObject = gameObjects.find(pkt->gameobjectid());
 	if (gameObject == gameObjects.end())
 		return;
 
-	gameObject->second->SetPosition(pkt.position());
-	gameObject->second->SetRotation(pkt.rotation());
+	gameObject->second->SetPosition(pkt->position());
+	gameObject->second->SetRotation(pkt->rotation());
 
 	Protocol::S_SET_TRANSFORM setTransform;
-	setTransform.set_gameobjectid(pkt.gameobjectid());
-	setTransform.set_allocated_position(pkt.release_position());
-	setTransform.set_allocated_rotation(pkt.release_rotation());
+	setTransform.set_gameobjectid(pkt->gameobjectid());
+	setTransform.set_allocated_position(pkt->release_position());
+	setTransform.set_allocated_rotation(pkt->release_rotation());
 	Broadcast(MakeSendBuffer(setTransform));
 }
 

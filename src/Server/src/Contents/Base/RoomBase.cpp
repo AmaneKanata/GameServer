@@ -21,10 +21,10 @@ void RoomBase::Handle_INVALID(std::shared_ptr<GameSession> session, unsigned cha
 	//GLogManager->Log("Invalid Packet");
 }
 
-void RoomBase::Handle_C_ENTER(std::shared_ptr<GameSession> session, Protocol::C_ENTER pkt)
+void RoomBase::Handle_C_ENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_ENTER> pkt)
 {
 	{
-		auto client = clients.find(pkt.clientid());
+		auto client = clients.find(pkt->clientid());
 		if (client != clients.end())
 		{
 			Post(&RoomBase::Leave, client->second, std::string("DUPLICATED"));
@@ -33,11 +33,11 @@ void RoomBase::Handle_C_ENTER(std::shared_ptr<GameSession> session, Protocol::C_
 		}
 	}
 	
-	auto client = MakeClient(pkt.clientid());
+	auto client = MakeClient(pkt->clientid());
 	client->Post(&ClientBase::SetSession, session);
 
-	clients.insert({ pkt.clientid(), client });
-	GLogManager->Log("Client Added : ", pkt.clientid(), ", Client Number : ", std::to_string(clients.size()));
+	clients.insert({ pkt->clientid(), client });
+	GLogManager->Log("Client Added : ", pkt->clientid(), ", Client Number : ", std::to_string(clients.size()));
 
 	Protocol::S_ENTER res;
 	res.set_result("SUCCESS");
@@ -45,13 +45,13 @@ void RoomBase::Handle_C_ENTER(std::shared_ptr<GameSession> session, Protocol::C_
 
 	Protocol::S_ADD_CLIENT addClient;
 	auto clientInfo = addClient.add_clientinfos();
-	clientInfo->set_clientid(pkt.clientid());
+	clientInfo->set_clientid(pkt->clientid());
 	Broadcast(MakeSendBuffer(addClient));
 }
 
-void RoomBase::Handle_C_REENTER(std::shared_ptr<GameSession> session, Protocol::C_REENTER pkt)
+void RoomBase::Handle_C_REENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_REENTER> pkt)
 {
-	auto client = clients.find(pkt.clientid());
+	auto client = clients.find(pkt->clientid());
 	if (client == clients.end())
 	{
 		Protocol::S_REENTER res;
@@ -66,12 +66,12 @@ void RoomBase::Handle_C_REENTER(std::shared_ptr<GameSession> session, Protocol::
 	client->second->Post(&ClientBase::ReEnter, session);
 }
 
-void RoomBase::Handle_C_LEAVE(std::shared_ptr<GameSession> session, Protocol::C_LEAVE pkt) 
+void RoomBase::Handle_C_LEAVE(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_LEAVE> pkt)
 { 
 	Leave(session->client, std::string("LEAVED"));
 }
 
-void RoomBase::Handle_C_GET_CLIENT(std::shared_ptr<GameSession> session, Protocol::C_GET_CLIENT pkt)
+void RoomBase::Handle_C_GET_CLIENT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_GET_CLIENT> pkt)
 {
 	Protocol::S_ADD_CLIENT res;
 

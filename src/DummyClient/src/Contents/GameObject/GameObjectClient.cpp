@@ -33,53 +33,53 @@ void GameObjectClient::Move()
 	Send(MakeSendBuffer(setTransform));
 }
 
-void GameObjectClient::Handle_S_ENTER(std::shared_ptr<GameSession> session, Protocol::S_ENTER pkt)
+void GameObjectClient::Handle_S_ENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ENTER> pkt)
 {
 	ClientBase::Handle_S_ENTER(session, pkt);
 
 	Post(&GameObjectClient::InstantiateGameObject);
 }
 
-void GameObjectClient::Handle_S_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::S_INSTANTIATE_GAME_OBJECT pkt)
+void GameObjectClient::Handle_S_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_INSTANTIATE_GAME_OBJECT> pkt)
 {
-	go.id = pkt.gameobjectid();
+	go.id = pkt->gameobjectid();
 }
 
-void GameObjectClient::Handle_S_ADD_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::S_ADD_GAME_OBJECT pkt)
+void GameObjectClient::Handle_S_ADD_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ADD_GAME_OBJECT> pkt)
 {
 	std::stringstream ss;
-	for (int i = 0; i < pkt.gameobjects_size(); i++)
+	for (int i = 0; i < pkt->gameobjects_size(); i++)
 	{
 		ss << "\n	" 
 			<< "Object Id : " 
-			<< std::to_string(pkt.gameobjects()[i].id()) 
+			<< std::to_string(pkt->gameobjects()[i].id()) 
 			<< ", Position : [ "
-			<< pkt.gameobjects()[i].position().x() << ", "
-			<< pkt.gameobjects()[i].position().y() << ". "
-			<< pkt.gameobjects()[i].position().z() << " ]";
+			<< pkt->gameobjects()[i].position().x() << ", "
+			<< pkt->gameobjects()[i].position().y() << ". "
+			<< pkt->gameobjects()[i].position().z() << " ]";
 	}
 	GLogManager->Log("[Client ", clientId, "]	Add GameObjects :", ss.str());
 }
 
-void GameObjectClient::Handle_S_REMOVE_GAME_OBJECT(std::shared_ptr<GameSession> session, Protocol::S_REMOVE_GAME_OBJECT pkt)
+void GameObjectClient::Handle_S_REMOVE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_REMOVE_GAME_OBJECT> pkt)
 {
 	std::stringstream ss;
 	ss << "Object Ids : ";
-	for (int i = 0; i < pkt.gameobjects_size(); i++)
+	for (int i = 0; i < pkt->gameobjects_size(); i++)
 	{
-		ss << std::to_string(pkt.gameobjects()[i]) << " ";
+		ss << std::to_string(pkt->gameobjects()[i]) << " ";
 	}
 	GLogManager->Log("[Client ", clientId, "]	Remove GameObjects :\n	", ss.str());
 }
 
-void GameObjectClient::Handle_S_SET_TRANSFORM(std::shared_ptr<GameSession> session, Protocol::S_SET_TRANSFORM pkt)
+void GameObjectClient::Handle_S_SET_TRANSFORM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SET_TRANSFORM> pkt)
 {
 	std::stringstream ss;
 	GLogManager->Log("[Client ", clientId, "]	Set Transform :"
-		, " Object Id : ", std::to_string(pkt.gameobjectid())
+		, " Object Id : ", std::to_string(pkt->gameobjectid())
 		, ", Position : [ "
-		, std::to_string(pkt.position().x()), " "
-		, std::to_string(pkt.position().y()), " "
-		, std::to_string(pkt.position().z()), " ]"
+		, std::to_string(pkt->position().x()), " "
+		, std::to_string(pkt->position().y()), " "
+		, std::to_string(pkt->position().z()), " ]"
 	);
 }
