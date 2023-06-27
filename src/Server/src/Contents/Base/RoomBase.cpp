@@ -84,6 +84,16 @@ void RoomBase::Handle_C_GET_CLIENT(std::shared_ptr<GameSession> session, std::sh
 	session->client->Post(&ClientBase::Send, MakeSendBuffer(res));
 }
 
+void RoomBase::Handle_C_TEST(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_TEST> pkt)
+{
+	for (int i = 0; i < 100; ++i)
+	{
+		Protocol::S_TEST res;
+		res.set_message("TEST : " + std::to_string(i));
+		session->client->Post(&ClientBase::Send, MakeSendBuffer(res));
+	}
+}
+
 void RoomBase::Leave(std::shared_ptr<ClientBase> _client, std::string code)
 {
 	_client->Post(&ClientBase::Leave, code);

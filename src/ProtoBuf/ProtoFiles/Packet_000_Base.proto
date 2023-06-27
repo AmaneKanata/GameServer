@@ -51,3 +51,12 @@ message S_DISCONNECT
 message C_HEARTBEAT
 {
 }
+
+message C_TEST
+{
+}
+
+message S_TEST
+{
+	string message = 1;
+}
