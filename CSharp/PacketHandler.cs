@@ -12,6 +12,7 @@ namespace Framework.Network
         private Action<Protocol.S_ADD_CLIENT> S_ADD_CLIENT_Handler;
         private Action<Protocol.S_REMOVE_CLIENT> S_REMOVE_CLIENT_Handler;
         private Action<Protocol.S_DISCONNECT> S_DISCONNECT_Handler;
+        private Action<Protocol.S_TEST> S_TEST_Handler;
         private Action<Protocol.S_INSTANTIATE_GAME_OBJECT> S_INSTANTIATE_GAME_OBJECT_Handler;
         private Action<Protocol.S_ADD_GAME_OBJECT> S_ADD_GAME_OBJECT_Handler;
         private Action<Protocol.S_REMOVE_GAME_OBJECT> S_REMOVE_GAME_OBJECT_Handler;
@@ -24,6 +25,7 @@ namespace Framework.Network
             Handlers.Add(6, _Handle_S_ADD_CLIENT);
             Handlers.Add(7, _Handle_S_REMOVE_CLIENT);
             Handlers.Add(8, _Handle_S_DISCONNECT);
+            Handlers.Add(11, _Handle_S_TEST);
             Handlers.Add(101, _Handle_S_INSTANTIATE_GAME_OBJECT);
             Handlers.Add(103, _Handle_S_ADD_GAME_OBJECT);
             Handlers.Add(104, _Handle_S_REMOVE_GAME_OBJECT);
@@ -88,6 +90,18 @@ namespace Framework.Network
         private void _Handle_S_DISCONNECT( IMessage message )
         {
             S_DISCONNECT_Handler?.Invoke((Protocol.S_DISCONNECT)message);
+        }
+        public void AddHandler( Action<Protocol.S_TEST> handler )
+        {
+            S_TEST_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_TEST> handler )
+        {
+            S_TEST_Handler -= handler;
+        }
+        private void _Handle_S_TEST( IMessage message )
+        {
+            S_TEST_Handler?.Invoke((Protocol.S_TEST)message);
         }
         public void AddHandler( Action<Protocol.S_INSTANTIATE_GAME_OBJECT> handler )
         {
