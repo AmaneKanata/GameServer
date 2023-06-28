@@ -84,7 +84,7 @@ int main()
 			{
 				while (GRoom->GetState() != HandlerState::Closed)
 				{
-					ioc.run_for(std::chrono::milliseconds{ 50 });
+					ioc.run();
 				}
 			});
 	}

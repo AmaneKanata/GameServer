@@ -8,21 +8,21 @@ class JobQueue : public std::enable_shared_from_this<JobQueue>
 public:
 	JobQueue(boost::asio::io_context& ioc)
 		: ioc(ioc)
-		, jobs(ioc)
+		, jobs(ioc.get_executor())
 	{}
 
 	template<typename T, typename Ret, typename... Args>
 	void Post(Ret(T::* memFunc)(Args...), Args... args)
 	{
 		std::shared_ptr<T> owner = std::static_pointer_cast<T>(shared_from_this());
-		jobs.post([owner, memFunc, args...]() {
+		boost::asio::post(jobs, [owner, memFunc, args...]() {
 			(owner.get()->*memFunc)(args...);
 			});
 	}
 
 	void Post(std::function<void()> func)
 	{
-		jobs.post([func]() {
+		boost::asio::post(jobs, [func]() {
 			func();
 			});
 	}
@@ -41,7 +41,7 @@ public:
 			{
 				if (!error)
 				{
-					jobs.post([owner, memFunc, args...]() {
+					boost::asio::post(jobs, [owner, memFunc, args...]() {
 						(owner.get()->*memFunc)(args...);
 						});
 				}
@@ -66,7 +66,9 @@ public:
 			{
 				if (!error)
 				{
-					func();
+					boost::asio::post(jobs, [func]() {
+						func();
+						});
 				}
 
 				std::lock_guard<std::recursive_mutex> lock(delayedJob_mtx);
@@ -101,7 +103,7 @@ public:
 
 private:
 	boost::asio::io_context& ioc;
-	boost::asio::io_context::strand jobs;
+	boost::asio::strand<boost::asio::io_context::executor_type> jobs;
 	std::set<std::shared_ptr<boost::asio::steady_timer>> delayedJobs;
 	std::recursive_mutex delayedJob_mtx;
 };
