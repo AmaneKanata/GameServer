@@ -3,7 +3,7 @@
 #include "RecvBuffer.h"
 
 #include <mutex>
-#include <queue>
+#include <deque>
 #include <boost/asio.hpp>
 
 class SendBuffer;
@@ -45,8 +45,7 @@ private:
 	RecvBuffer recvBuffer;
 
 	std::atomic<bool> isSendRegistered = { false };
-	queue<shared_ptr<SendBuffer>> sendQueue;
-	vector<shared_ptr<SendBuffer>> sendBufferRefs;
+	std::deque<shared_ptr<SendBuffer>> pendingSendBuffers;
 	std::recursive_mutex send_mtx;
 };
 

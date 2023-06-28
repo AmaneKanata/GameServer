@@ -92,7 +92,7 @@ void Session::Send(std::shared_ptr<SendBuffer> sendBuffer)
 	{
 		lock_guard<recursive_mutex> lock(send_mtx);
 
-		sendQueue.push(sendBuffer);
+		pendingSendBuffers.push_back(sendBuffer);
 
 		if (isSendRegistered.exchange(true) == false)
 			registerSend = true;
@@ -104,32 +104,22 @@ void Session::Send(std::shared_ptr<SendBuffer> sendBuffer)
 
 void Session::RegisterSend()
 {
+	shared_ptr<deque<shared_ptr<SendBuffer>>> temp_pendingSendBuffers = std::make_shared<deque<shared_ptr<SendBuffer>>>();
+	vector<boost::asio::const_buffer> sendBuffers;
+
 	{
 		lock_guard<recursive_mutex> lock(send_mtx);
-
-		sendBufferRefs.reserve(sendQueue.size());
-
-		int totalSize = 0;
-
-		while (!sendQueue.empty() && totalSize + sendQueue.front()->WriteSize() < 1000)
-		{
-			totalSize += sendBufferRefs.front()->WriteSize();
-
-			sendBufferRefs.emplace_back(sendQueue.front());
-			sendQueue.pop();
-		}
+		temp_pendingSendBuffers->swap(pendingSendBuffers);
 	}
 
-	vector<boost::asio::const_buffer> sendBuffers = vector<boost::asio::const_buffer>();
-	
-	for (shared_ptr<SendBuffer> sendBuffer : sendBufferRefs)
+	for(auto sendBuffer : *temp_pendingSendBuffers)
+	{
 		sendBuffers.emplace_back(sendBuffer->Buffer(), sendBuffer->WriteSize());
+	}
 
 	auto ref = shared_from_this();
 
-	socket->async_send(sendBuffers, [this, ref](const boost::system::error_code& error, std::size_t bytes_transferred) {
-		
-		sendBufferRefs.clear();
+	socket->async_send(sendBuffers, [this, ref, temp_pendingSendBuffers](const boost::system::error_code& error, std::size_t bytes_transferred) {
 
 		if (bytes_transferred == 0)
 		{
@@ -137,9 +127,29 @@ void Session::RegisterSend()
 			return;
 		}
 
+		std::size_t byte_total = 0;
+		std::size_t unsent_start_index = 0;
+
+		for (auto& sendBuffer : *temp_pendingSendBuffers)
+		{
+			byte_total += sendBuffer->WriteSize();
+
+			if (byte_total > bytes_transferred)
+			{
+				break;
+			}
+
+			++unsent_start_index;
+		}
+
 		{
 			lock_guard<recursive_mutex> lock(send_mtx);
-			if (sendQueue.empty())
+
+			pendingSendBuffers.insert(pendingSendBuffers.begin(),
+				temp_pendingSendBuffers->begin() + unsent_start_index,
+				temp_pendingSendBuffers->end());
+
+			if (pendingSendBuffers.empty())
 				isSendRegistered.store(false);
 			else
 				RegisterSend();
