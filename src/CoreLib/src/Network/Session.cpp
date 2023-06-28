@@ -109,8 +109,12 @@ void Session::RegisterSend()
 
 		sendBufferRefs.reserve(sendQueue.size());
 
-		while (sendQueue.empty() == false)
+		int totalSize = 0;
+
+		while (!sendQueue.empty() && totalSize + sendQueue.front()->WriteSize() < 1000)
 		{
+			totalSize += sendBufferRefs.front()->WriteSize();
+
 			sendBufferRefs.emplace_back(sendQueue.front());
 			sendQueue.pop();
 		}
