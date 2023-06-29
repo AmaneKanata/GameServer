@@ -36,6 +36,18 @@ void Session::ProcessConnect()
 	RegisterRecv();
 }
 
+void Session::RegisterDisconnect()
+{
+	lock_guard<recursive_mutex> lock(send_mtx);
+
+	isDisconnectedRegistered.store(true);
+
+	if (!isSendRegistered)
+	{
+		Disconnect();
+	}
+}
+
 void Session::Disconnect()
 {
 	lock_guard<recursive_mutex> lock(isConnected_mtx);
@@ -60,13 +72,13 @@ void Session::RegisterRecv()
 
 		if (bytes_transferred == 0)
 		{
-			Disconnect();
+			RegisterDisconnect();
 			return;
 		}
 
 		if (recvBuffer.OnWrite(bytes_transferred) == false)
 		{
-			Disconnect();
+			RegisterDisconnect();
 			return;
 		}
 
@@ -74,7 +86,7 @@ void Session::RegisterRecv()
 		int processLen = OnRecv(recvBuffer.ReadPos(), dataSize);
 		if (processLen < 0 || dataSize < processLen || recvBuffer.OnRead(processLen) == false)
 		{
-			Disconnect();
+			RegisterDisconnect();
 			return;
 		}
 
@@ -90,6 +102,9 @@ void Session::Send(std::shared_ptr<SendBuffer> sendBuffer)
 
 	{
 		lock_guard<recursive_mutex> lock(send_mtx);
+
+		if (isDisconnectedRegistered)
+			return;
 
 		pendingSendBuffers.push_back(sendBuffer);
 
@@ -149,9 +164,18 @@ void Session::RegisterSend()
 				temp_pendingSendBuffers->end());
 
 			if (pendingSendBuffers.empty())
+			{
 				isSendRegistered.store(false);
+
+				if (isDisconnectedRegistered == true)
+				{
+					Disconnect();
+				}
+			}	
 			else
+			{
 				RegisterSend();
+			}
 		}
 
 		});

@@ -20,6 +20,7 @@ public:
 
 	void Connect(boost::asio::ip::tcp::endpoint ep);
 	void ProcessConnect();
+	void RegisterDisconnect();
 	void Disconnect();
 
 	void Send(shared_ptr<SendBuffer> sendBuffer);
@@ -45,6 +46,7 @@ private:
 	RecvBuffer recvBuffer;
 
 	std::atomic<bool> isSendRegistered = { false };
+	std::atomic<bool> isDisconnectedRegistered = { false };
 	std::deque<shared_ptr<SendBuffer>> pendingSendBuffers;
 	std::recursive_mutex send_mtx;
 };

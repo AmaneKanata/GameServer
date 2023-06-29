@@ -63,7 +63,7 @@ void ClientBase::Leave(std::string code)
 	auto sp = session.lock();
 	if (sp)
 	{
-		sp->Disconnect();
+		sp->RegisterDisconnect();
 	}
 
 	Clear();
