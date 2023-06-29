@@ -45,8 +45,7 @@ void Session::Disconnect()
 
 	isConnected = false;
 
-	boost::system::error_code ec;
-	socket->shutdown(boost::asio::ip::tcp::socket::shutdown_receive, ec);
+	socket->close();
 
 	OnDisconnected();
 }
