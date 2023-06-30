@@ -8,6 +8,8 @@
 
 class SendBuffer;
 
+const int LINGER_TIME = 5;
+
 class Session : public std::enable_shared_from_this<Session>
 {
 	enum
@@ -49,6 +51,8 @@ private:
 	std::atomic<bool> isDisconnectedRegistered = { false };
 	std::deque<shared_ptr<SendBuffer>> pendingSendBuffers;
 	std::recursive_mutex send_mtx;
+
+	boost::asio::steady_timer timer;
 };
 
 class PacketSession : public Session

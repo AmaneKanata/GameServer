@@ -6,6 +6,7 @@ Session::Session(boost::asio::io_context& context)
 	: socket(make_shared<boost::asio::ip::tcp::socket>(context))
 	, recvBuffer(BUFFER_SIZE)
 	, isConnected(false)
+	, timer(context, std::chrono::milliseconds{ LINGER_TIME*1000 })
 {
 }
 
@@ -18,7 +19,7 @@ void Session::Connect(boost::asio::ip::tcp::endpoint ep)
 
 void Session::ProcessConnect()
 {
-	boost::asio::socket_base::linger linger(true, 30);
+	boost::asio::socket_base::linger linger(true, LINGER_TIME);
 	socket->set_option(linger);
 	
 	//boost::asio::socket_base::keep_alive keepAlive();
@@ -57,7 +58,11 @@ void Session::Disconnect()
 
 	isConnected = false;
 
+	socket->shutdown(boost::asio::ip::tcp::socket::shutdown_both);
 	socket->close();
+
+	auto ref = shared_from_this();
+	timer.async_wait([ref](const boost::system::error_code& error) {});
 
 	OnDisconnected();
 }
