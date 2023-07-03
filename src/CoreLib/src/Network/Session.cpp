@@ -10,6 +10,11 @@ Session::Session(boost::asio::io_context& context)
 {
 }
 
+Session::~Session()
+{
+	socket->close();
+}
+
 void Session::Connect(boost::asio::ip::tcp::endpoint ep)
 {
 	socket->connect(ep);
@@ -58,11 +63,7 @@ void Session::Disconnect()
 
 	isConnected = false;
 
-	socket->shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-	socket->close();
-
-	auto ref = shared_from_this();
-	timer.async_wait([ref](const boost::system::error_code& error) {});
+	socket->shutdown(boost::asio::ip::tcp::socket::shutdown_send);
 
 	OnDisconnected();
 }

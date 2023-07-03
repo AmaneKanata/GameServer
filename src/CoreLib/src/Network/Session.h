@@ -19,6 +19,7 @@ class Session : public std::enable_shared_from_this<Session>
 
 public:
 	Session(boost::asio::io_context& context);
+	~Session();
 
 	void Connect(boost::asio::ip::tcp::endpoint ep);
 	void ProcessConnect();
