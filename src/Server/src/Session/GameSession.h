@@ -8,23 +8,33 @@
 
 class ClientBase;
 
+const int DISCONNECTED_INTERVAL = 10000;
+const int CHECK_ALIVE_INTERVAL = 10000;
+
 class GameSession : public PacketSession
 {
 public:
-	GameSession(boost::asio::io_context& ioc);
+	GameSession(boost::asio::io_context& ioc) : PacketSession(ioc) 
+	{}
 	~GameSession();
 
 	void SetClient(std::shared_ptr<ClientBase> client);
+	void ReleaseClient();
 
+	virtual void OnConnected() override;
+
+	virtual void OnDisconnected() override;
+	void ProcessDisconnect();
+
+	virtual void OnRecvPacket(unsigned char* buffer, int len) override;
+
+	void CheckAlive(std::time_t current);
+
+public:
 	std::shared_ptr<ClientBase> client;
 
+private:
 	std::time_t lastMessageArrived = -1;
 
-protected:
-	virtual void OnRecvPacket(unsigned char* buffer, int len) override;
-	virtual void OnConnected() override;
-	virtual void OnDisconnected() override;
-
-private:
-	bool isRegistered;
+	string clientId;
 };

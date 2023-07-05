@@ -4,11 +4,14 @@
 
 class ClientBase;
 
+const bool CLOSE_ON_EMPTY = false;
+
 class RoomBase : public PacketHandler
 {
 public:
 	RoomBase(boost::asio::io_context& ioc) : PacketHandler(ioc)
 	{}
+	virtual ~RoomBase() {};
 
 	virtual void HandleInit();
 	virtual void HandleClose();
@@ -25,7 +28,7 @@ protected:
 
 	virtual void Handle_C_TEST(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_TEST> pkt) override;
 
-	virtual std::shared_ptr<ClientBase> MakeClient(string clientId);
+	virtual std::shared_ptr<ClientBase> MakeClient(string clientId, std::shared_ptr<GameSession> session);
 
 	virtual void Broadcast(shared_ptr<SendBuffer> sendBuffer);
 

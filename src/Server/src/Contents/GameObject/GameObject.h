@@ -16,11 +16,11 @@ public:
 		, rotation_y(0)
 		, rotation_z(0)
 	{
-		GLogManager->Log("GameObject Created : ", std::to_string(gameObjectId));
+		//GLogManager->Log("GameObject Created : ", std::to_string(gameObjectId));
 	};
 	~GameObject()
 	{	
-		GLogManager->Log("GameObject Destroyed : ", std::to_string(gameObjectId));
+		//GLogManager->Log("GameObject Destroyed : ", std::to_string(gameObjectId));
 	}
 
 	void MakeGameObjectInfo(Protocol::S_ADD_GAME_OBJECT_GameObjectInfo* gameObjectInfo)

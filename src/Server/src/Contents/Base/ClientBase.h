@@ -13,40 +13,29 @@ enum class ClientState
 	LEAVING
 };
 
-class ClientBase : public JobQueue
+class ClientBase : public std::enable_shared_from_this<ClientBase>
 {
 public:
-	ClientBase(boost::asio::io_context& ioc, std::string clientId)
-		: JobQueue(ioc)
-		, clientId(clientId)
-		, state(ClientState::NORMAL) 
+	ClientBase(std::string clientId)
+		: clientId(clientId)
 	{
 		auto clientNum = client_num.fetch_add(1);
 		GLogManager->Log("Client Created : ", clientId, ", Client Number : ", std::to_string(clientNum + 1));
 	}
-	~ClientBase()
+	virtual ~ClientBase()
 	{
 		auto clientNum = client_num.fetch_sub(1);
 		GLogManager->Log("Client Destroyed : ", clientId, ", Client Number : ", std::to_string(clientNum - 1));
 	}
 
+	void Disconnect();
 	void OnDisconnected();
 
 	void SetSession(std::shared_ptr<GameSession> session);
-
-	void ReEnter(std::shared_ptr<GameSession> session);
-
-	void Leave(std::string code);
-
 	void Send(std::shared_ptr<SendBuffer> sendBuffer);
-
-	void CheckAlive(std::time_t current);
 
 	const std::string clientId;
 
 private:
-	std::weak_ptr<GameSession> session;
-	ClientState state;
-
-	std::shared_ptr<boost::asio::steady_timer> disconnectedTimer = nullptr;
+	std::shared_ptr<GameSession> session;
 };

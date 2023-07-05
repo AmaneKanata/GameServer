@@ -17,7 +17,7 @@ protected:
 	virtual void Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_GET_GAME_OBJECT> pkt) override;
 	virtual void Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_TRANSFORM> pkt) override;
 
-	virtual std::shared_ptr<ClientBase> MakeClient(string clientId) override;
+	virtual std::shared_ptr<ClientBase> MakeClient(string clientId, std::shared_ptr<GameSession> session) override;
 
 	std::map<int, std::shared_ptr<GameObject>> gameObjects;
 };

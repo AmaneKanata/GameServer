@@ -13,7 +13,7 @@ void RoomBase::HandleInit()
 void RoomBase::HandleClose()
 {
 	for (const auto& [key, client] : clients)
-		client->Post(&ClientBase::Leave, string("Closing"));
+		Post(&RoomBase::Leave, client, std::string("CLOSING"));
 }
 
 void RoomBase::Handle_INVALID(std::shared_ptr<GameSession> session, unsigned char* buffer, int len)
@@ -33,15 +33,14 @@ void RoomBase::Handle_C_ENTER(std::shared_ptr<GameSession> session, std::shared_
 		}
 	}
 	
-	auto client = MakeClient(pkt->clientid());
-	client->Post(&ClientBase::SetSession, session);
+	auto client = MakeClient(pkt->clientid(), session);
 
 	clients.insert({ pkt->clientid(), client });
-	GLogManager->Log("Client Added : ", pkt->clientid(), ", Client Number : ", std::to_string(clients.size()));
+	//GLogManager->Log("Client Added : ", pkt->clientid(), ",				Client Number : ", std::to_string(clients.size()));
 
 	Protocol::S_ENTER res;
 	res.set_result("SUCCESS");
-	client->Post(&ClientBase::Send, MakeSendBuffer(res));
+	client->Send(MakeSendBuffer(res));
 
 	Protocol::S_ADD_CLIENT addClient;
 	auto clientInfo = addClient.add_clientinfos();
@@ -51,19 +50,22 @@ void RoomBase::Handle_C_ENTER(std::shared_ptr<GameSession> session, std::shared_
 
 void RoomBase::Handle_C_REENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_REENTER> pkt)
 {
+	Protocol::S_REENTER res;
+
 	auto client = clients.find(pkt->clientid());
 	if (client == clients.end())
 	{
-		Protocol::S_REENTER res;
 		res.set_success(false);
-		session->Send(MakeSendBuffer(res));
-
-		session->Disconnect();
-
+		session->Post(&Session::Send, MakeSendBuffer(res));
+		session->Post(&GameSession::ReleaseClient);
+		session->Post(&GameSession::RegisterDisconnect);
 		return;
 	}
 
-	client->second->Post(&ClientBase::ReEnter, session);
+	client->second->SetSession(session);
+
+	res.set_success(true);
+	client->second->Send(MakeSendBuffer(res));
 }
 
 void RoomBase::Handle_C_LEAVE(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_LEAVE> pkt)
@@ -81,7 +83,7 @@ void RoomBase::Handle_C_GET_CLIENT(std::shared_ptr<GameSession> session, std::sh
 		clientInfo->set_clientid(client->clientId);
 	}
 
-	session->client->Post(&ClientBase::Send, MakeSendBuffer(res));
+	session->client->Send(MakeSendBuffer(res));
 }
 
 void RoomBase::Handle_C_TEST(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_TEST> pkt)
@@ -91,14 +93,21 @@ void RoomBase::Handle_C_TEST(std::shared_ptr<GameSession> session, std::shared_p
 
 void RoomBase::Leave(std::shared_ptr<ClientBase> _client, std::string code)
 {
-	_client->Post(&ClientBase::Leave, code);
-
 	auto client = clients.find(_client->clientId);
 	if (client == clients.end() || _client.get() != client->second.get())
+	{
+		_client->Disconnect();
 		return;
+	}
+
+	Protocol::S_DISCONNECT disconnect;
+	disconnect.set_code(code);
+	client->second->Send(MakeSendBuffer(disconnect));
+
+	client->second->Disconnect();
 
 	clients.erase(client);
-	GLogManager->Log("Client Removed : ", _client->clientId, ", Client Number : ", std::to_string(clients.size()));
+	//GLogManager->Log("Client Removed : ", _client->clientId, ",			Client Number : ", std::to_string(clients.size()));
 
 	Protocol::S_REMOVE_CLIENT removeClient;
 	removeClient.add_clientids(_client->clientId);
@@ -110,15 +119,15 @@ void RoomBase::Leave(std::shared_ptr<ClientBase> _client, std::string code)
 	}
 }
 
-std::shared_ptr<ClientBase> RoomBase::MakeClient(string clientId)
+std::shared_ptr<ClientBase> RoomBase::MakeClient(string clientId, std::shared_ptr<GameSession> session)
 {
-	auto client = std::make_shared<ClientBase>(GetIoC(), clientId);
-	client->DelayPost(10000, &ClientBase::CheckAlive, time(0));
+	auto client = std::make_shared<ClientBase>(clientId);
+	client->SetSession(session);
 	return client;
 }
 
 void RoomBase::Broadcast(shared_ptr<SendBuffer> sendBuffer)
 {
 	for (const auto& [key, client] : clients)
-		client->Post(&ClientBase::Send, sendBuffer);
+		client->Send(sendBuffer);
 }

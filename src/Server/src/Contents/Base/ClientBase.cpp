@@ -4,93 +4,33 @@
 #include "RoomBase.h"
 #include "PacketManager.h"
 
+void ClientBase::Disconnect()
+{
+	session->Post(&GameSession::ReleaseClient);
+	session->Post(&GameSession::RegisterDisconnect);
+}
+
 void ClientBase::OnDisconnected()
 {
-	if (state == ClientState::LEAVING)
-		return;
-
-	if (disconnectedTimer != nullptr)
-		return;
-
-	if (DISCONNECTED_WAIT_TIME > 0)
-	{
-		disconnectedTimer = GRoom->DelayPost(DISCONNECTED_WAIT_TIME, &RoomBase::Leave, static_pointer_cast<ClientBase>(shared_from_this()), string("DISCONNECTED"));
-	}
-	else
-	{
-		GRoom->Post(&RoomBase::Leave, static_pointer_cast<ClientBase>(shared_from_this()), string("DISCONNECTED"));
-	}
+	GRoom->Post(&RoomBase::Leave, static_pointer_cast<ClientBase>(shared_from_this()), std::string("DISCONNECTED"));
 }
 
-void ClientBase::SetSession(std::shared_ptr<GameSession> _session)
+void ClientBase::SetSession(std::shared_ptr<GameSession> session)
 {
-	session = _session;
-	_session->SetClient(static_pointer_cast<ClientBase>(shared_from_this()));
-}
-
-void ClientBase::ReEnter(std::shared_ptr<GameSession> _session)
-{
-	if (disconnectedTimer)
+	if (this->session != nullptr)
 	{
-		GRoom->Cancel(disconnectedTimer);
-		disconnectedTimer = nullptr;
+		this->session->Post(&GameSession::ReleaseClient);
+		this->session->Post(&GameSession::RegisterDisconnect);
 	}
 
-	SetSession(_session);
-	
-	Protocol::S_REENTER res;
-	res.set_success(true);
-	Send(MakeSendBuffer(res));
-}
-
-void ClientBase::Leave(std::string code)
-{
-	if (state == ClientState::LEAVING)
-		return;
-
-	state = ClientState::LEAVING;
-
-	if (disconnectedTimer)
-	{
-		GRoom->Cancel(disconnectedTimer);
-		disconnectedTimer = nullptr;
-	}
-
-	Protocol::S_DISCONNECT disconnect;
-	disconnect.set_code(code);
-	Send(MakeSendBuffer(disconnect));
-
-	auto sp = session.lock();
-	if (sp)
-	{
-		sp->RegisterDisconnect();
-	}
-
-	Clear();
+	this->session = session;
+	this->session->Post(&GameSession::SetClient, static_pointer_cast<ClientBase>(shared_from_this()));
 }
 
 void ClientBase::Send(std::shared_ptr<SendBuffer> sendBuffer)
 {
-	auto sp = session.lock();
-	if (sp)
-	{
-		sp->Send(sendBuffer);
-	}
-}
+	if (session == nullptr)
+		return;
 
-void ClientBase::CheckAlive(std::time_t current)
-{
-	auto sp = session.lock();
-	if (sp)
-	{
-		if (current - sp->lastMessageArrived > 10)
-		{
-			GLogManager->Log("Client Heartbeat Fail : ", clientId);
-			GRoom->Post(&RoomBase::Leave, static_pointer_cast<ClientBase>(shared_from_this()), std::string("HEARTBEAT_FAIL"));
-		}
-		else
-		{
-			DelayPost(10000, &ClientBase::CheckAlive, time(0));
-		}
-	}
+	session->Post(&Session::Send, sendBuffer);
 }

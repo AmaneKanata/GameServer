@@ -12,7 +12,7 @@ void GameObjectRoom::Leave(std::shared_ptr<ClientBase> client, std::string code)
 	if (gClient->gameObject != nullptr)
 	{
 		gameObjects.erase(gClient->gameObject->gameObjectId);
-		GLogManager->Log("GameObject Removed : ", std::to_string(gClient->gameObject->gameObjectId), ", GameObject Number : ", std::to_string(gameObjects.size()));
+		//GLogManager->Log("GameObject Removed : ", std::to_string(gClient->gameObject->gameObjectId), ", GameObject Number : ", std::to_string(gameObjects.size()));
 
 		Protocol::S_REMOVE_GAME_OBJECT removeGameObject;
 		removeGameObject.add_gameobjects(gClient->gameObject->gameObjectId);
@@ -34,12 +34,12 @@ void GameObjectRoom::Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSessio
 	gClient->gameObject = gameObject;
 
 	gameObjects.insert({ gameObject->gameObjectId, gameObject });
-	GLogManager->Log("GameObject Added : ", std::to_string(gameObject->gameObjectId), ", GameObject Number : ", std::to_string(gameObjects.size()));
+	//GLogManager->Log("GameObject Added : ", std::to_string(gameObject->gameObjectId), ", GameObject Number : ", std::to_string(gameObjects.size()));
 
 	Protocol::S_INSTANTIATE_GAME_OBJECT res;
 	res.set_success(true);
 	res.set_gameobjectid(gameObject->gameObjectId);
-	session->client->Post(&ClientBase::Send ,MakeSendBuffer(res));
+	session->client->Send(MakeSendBuffer(res));
 
 	Protocol::S_ADD_GAME_OBJECT addGameObject;
 	auto gameObjectInfo = addGameObject.add_gameobjects();
@@ -57,7 +57,7 @@ void GameObjectRoom::Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> sessi
 		gameObject->MakeGameObjectInfo(gameObjectInfo);
 	}
 
-	session->client->Post(&ClientBase::Send, MakeSendBuffer(addGameObject));
+	session->client->Send(MakeSendBuffer(addGameObject));
 }
 
 void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_TRANSFORM> pkt)
@@ -76,9 +76,9 @@ void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session
 	Broadcast(MakeSendBuffer(setTransform));
 }
 
-std::shared_ptr<ClientBase> GameObjectRoom::MakeClient(string clientId)
+std::shared_ptr<ClientBase> GameObjectRoom::MakeClient(string clientId, std::shared_ptr<GameSession> session)
 {
-	auto client = std::make_shared<GameObjectClient>(GetIoC(), clientId);
-	client->DelayPost(10000, &ClientBase::CheckAlive, time(0));
+	auto client = std::make_shared<GameObjectClient>(clientId);
+	client->SetSession(session);
 	return client;
 }

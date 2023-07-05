@@ -2,13 +2,11 @@
 #include "SendBuffer.h"
 #include "PacketHeader.h"
 
-Session::Session(boost::asio::io_context& context) 
-	: socket(make_shared<boost::asio::ip::tcp::socket>(context))
+Session::Session(boost::asio::io_context& context)
+	: JobQueue(context)
+	, socket(make_shared<boost::asio::ip::tcp::socket>(context))
 	, recvBuffer(BUFFER_SIZE)
-	, isConnected(false)
-	, timer(context, std::chrono::milliseconds{ LINGER_TIME*1000 })
-{
-}
+{}
 
 Session::~Session()
 {
@@ -26,16 +24,11 @@ void Session::ProcessConnect()
 {
 	boost::asio::socket_base::linger linger(true, LINGER_TIME);
 	socket->set_option(linger);
-	
-	//boost::asio::socket_base::keep_alive keepAlive();
 
 	boost::asio::ip::tcp::no_delay noDelay(true);
 	socket->set_option(noDelay);
 
-	{
-		lock_guard<recursive_mutex> lock(isConnected_mtx);
-		isConnected = true;
-	}
+	isConnected = true;
 
 	OnConnected();
 
@@ -44,9 +37,10 @@ void Session::ProcessConnect()
 
 void Session::RegisterDisconnect()
 {
-	lock_guard<recursive_mutex> lock(send_mtx);
+	if (!isConnected || isDisconnectRegistered)
+		return;
 
-	isDisconnectedRegistered.store(true);
+	isDisconnectRegistered = true;
 
 	if (!isSendRegistered)
 	{
@@ -56,9 +50,7 @@ void Session::RegisterDisconnect()
 
 void Session::Disconnect()
 {
-	lock_guard<recursive_mutex> lock(isConnected_mtx);
-
-	if(!isConnected)
+	if (!isConnected)
 		return;
 
 	isConnected = false;
@@ -68,123 +60,121 @@ void Session::Disconnect()
 	OnDisconnected();
 }
 
-void Session::RegisterRecv()
-{
-	boost::asio::mutable_buffer buffer(reinterpret_cast<char*>(recvBuffer.WritePos()), recvBuffer.FreeSize());
-
-	auto ref = shared_from_this();
-
-	socket->async_receive(buffer, [this, ref](const boost::system::error_code& error, std::size_t bytes_transferred) {
-
-		if (bytes_transferred == 0)
-		{
-			RegisterDisconnect();
-			return;
-		}
-
-		if (recvBuffer.OnWrite(bytes_transferred) == false)
-		{
-			RegisterDisconnect();
-			return;
-		}
-
-		int dataSize = recvBuffer.DataSize();
-		int processLen = OnRecv(recvBuffer.ReadPos(), dataSize);
-		if (processLen < 0 || dataSize < processLen || recvBuffer.OnRead(processLen) == false)
-		{
-			RegisterDisconnect();
-			return;
-		}
-
-		recvBuffer.Clean();
-
-		RegisterRecv();
-		});
-}
-
 void Session::Send(std::shared_ptr<SendBuffer> sendBuffer)
 {
-	bool registerSend = false;
+	if (!isConnected || isDisconnectRegistered)
+		return;
 
+	pendingSendBuffers.push_back(sendBuffer);
+
+	if (!isSendRegistered)
 	{
-		lock_guard<recursive_mutex> lock(send_mtx);
-
-		if (isDisconnectedRegistered)
-			return;
-
-		pendingSendBuffers.push_back(sendBuffer);
-
-		if (isSendRegistered.exchange(true) == false)
-			registerSend = true;
+		isSendRegistered = true;
+		Post(&Session::RegisterSend);
 	}
-
-	if (registerSend)
-		RegisterSend();
 }
 
 void Session::RegisterSend()
 {
-	shared_ptr<deque<shared_ptr<SendBuffer>>> temp_pendingSendBuffers = std::make_shared<deque<shared_ptr<SendBuffer>>>();
+	inFlightSendBuffers.swap(pendingSendBuffers);
+
 	vector<boost::asio::const_buffer> sendBuffers;
-
-	{
-		lock_guard<recursive_mutex> lock(send_mtx);
-		temp_pendingSendBuffers->swap(pendingSendBuffers);
-	}
-
-	for(auto sendBuffer : *temp_pendingSendBuffers)
+	for (auto& sendBuffer : inFlightSendBuffers)
 	{
 		sendBuffers.emplace_back(sendBuffer->Buffer(), sendBuffer->WriteSize());
 	}
 
 	auto ref = shared_from_this();
 
-	socket->async_send(sendBuffers, [this, ref, temp_pendingSendBuffers](const boost::system::error_code& error, std::size_t bytes_transferred) {
+	socket->async_send(sendBuffers, [this, ref](const boost::system::error_code& error, std::size_t bytes_transferred)
+		{
+			this->Post(&Session::ProcessSend, bytes_transferred);
+		}
+	);
+}
 
-		if (bytes_transferred == 0)
+void Session::ProcessSend(std::size_t bytes_transferred)
+{
+	if (bytes_transferred == 0)
+	{
+		isSendRegistered = false;
+		Disconnect();
+		return;
+	}
+
+	std::size_t byte_total = 0;
+	std::size_t unsent_start_index = 0;
+
+	for (auto& sendBuffer : inFlightSendBuffers)
+	{
+		byte_total += sendBuffer->WriteSize();
+
+		if (byte_total > bytes_transferred)
+		{
+			break;
+		}
+
+		++unsent_start_index;
+	}
+
+	pendingSendBuffers.insert(pendingSendBuffers.begin(),
+		inFlightSendBuffers.begin() + unsent_start_index,
+		inFlightSendBuffers.end());
+
+	inFlightSendBuffers.clear();
+
+	if (pendingSendBuffers.empty())
+	{
+		isSendRegistered = false;
+		if (isDisconnectRegistered)
 		{
 			Disconnect();
-			return;
 		}
+	}
+	else
+	{
+		Post(&Session::RegisterSend);
+	}
+}
 
-		std::size_t byte_total = 0;
-		std::size_t unsent_start_index = 0;
+void Session::RegisterRecv()
+{
+	boost::asio::mutable_buffer buffer(reinterpret_cast<char*>(recvBuffer.WritePos()), recvBuffer.FreeSize());
 
-		for (auto& sendBuffer : *temp_pendingSendBuffers)
+	auto ref = shared_from_this();
+
+	socket->async_receive(buffer, [this, ref](const boost::system::error_code& error, std::size_t bytes_transferred)
 		{
-			byte_total += sendBuffer->WriteSize();
-
-			if (byte_total > bytes_transferred)
-			{
-				break;
-			}
-
-			++unsent_start_index;
+			this->Post(&Session::ProcessRecv, bytes_transferred);
 		}
+	);
+}
 
-		{
-			lock_guard<recursive_mutex> lock(send_mtx);
+void Session::ProcessRecv(std::size_t bytes_transferred)
+{
+	if (bytes_transferred == 0)
+	{
+		RegisterDisconnect();
+		return;
+	}
 
-			pendingSendBuffers.insert(pendingSendBuffers.begin(),
-				temp_pendingSendBuffers->begin() + unsent_start_index,
-				temp_pendingSendBuffers->end());
+	if (recvBuffer.OnWrite(bytes_transferred) == false)
+	{
+		RegisterDisconnect();
+		return;
+	}
 
-			if (pendingSendBuffers.empty())
-			{
-				isSendRegistered.store(false);
+	int dataSize = recvBuffer.DataSize();
+	int processLen = OnRecv(recvBuffer.ReadPos(), dataSize);
+	if (processLen < 0 || dataSize < processLen || recvBuffer.OnRead(processLen) == false)
+	{
+		RegisterDisconnect();
+		return;
+	}
 
-				if (isDisconnectedRegistered == true)
-				{
-					Disconnect();
-				}
-			}	
-			else
-			{
-				RegisterSend();
-			}
-		}
+	recvBuffer.Clean();
 
-		});
+	RegisterRecv();
 }
 
 int PacketSession::OnRecv(unsigned char* buffer, int len)

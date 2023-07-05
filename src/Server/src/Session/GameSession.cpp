@@ -3,59 +3,95 @@
 #include "RoomBase.h"
 #include "ClientBase.h"
 
-GameSession::GameSession(boost::asio::io_context& ioc) 
-	: PacketSession(ioc)
-	, isRegistered(false)
-{
-}
-
 GameSession::~GameSession()
 {
-	if (!isRegistered)
-		return;
-
 	auto sessionNumber = session_num.fetch_sub(1);
-
-	if (client != nullptr)
-	{
-		GLogManager->Log("Session Destroyed : ", client->clientId, ", Session Number : ", std::to_string(sessionNumber - 1));
-	}
-	else
-	{
-		GLogManager->Log("Session Destroyed, Session Number : ", std::to_string(sessionNumber - 1));
-	}
+	if (!clientId.empty())
+		GLogManager->Log("Session Destroyed : ", clientId, ", Session Number : ", std::to_string(sessionNumber - 1));
 }
 
-void GameSession::SetClient(std::shared_ptr<ClientBase> _client)
+void GameSession::SetClient(std::shared_ptr<ClientBase> client)
 {
-	std::lock_guard<std::recursive_mutex> lock(isConnected_mtx);
-
-	if (!isConnected)
+	if (!isConnected || isDisconnectRegistered)
 	{
-		_client->Post(&ClientBase::OnDisconnected);
+		client->OnDisconnected();
 		return;
 	}
 
-	client = _client;
+	this->client = client;
+	clientId = client->clientId;
+}
+
+void GameSession::ReleaseClient()
+{
+	this->client = nullptr;
 }
 
 void GameSession::OnRecvPacket(unsigned char* buffer, int len)
 {
+	if (!isConnected || isDisconnectRegistered)
+		return;
+
 	lastMessageArrived = std::time(0);
+
 	GRoom->HandlePacket(std::static_pointer_cast<GameSession>(shared_from_this()), buffer, len);
+}
+
+void GameSession::CheckAlive(std::time_t current)
+{
+	if (!isConnected || isDisconnectRegistered)
+		return;
+
+	if (current - lastMessageArrived > CHECK_ALIVE_INTERVAL/1000)
+	{
+		if (client != nullptr)
+		{
+			GLogManager->Log("Client Heartbeat Fail : ", client->clientId);
+			GRoom->Post(&RoomBase::Leave, client, std::string("HEARTBEAT_FAIL"));
+		}
+		else
+		{
+			Post(&Session::RegisterDisconnect);
+		}
+	}
+	else
+	{
+		DelayPost(CHECK_ALIVE_INTERVAL, &GameSession::CheckAlive, time(0));
+	}
 }
 
 void GameSession::OnConnected()
 {
 	auto sessionNumber = session_num.fetch_add(1);
 	GLogManager->Log("Session Created, Session Number : ", std::to_string(sessionNumber + 1));
-	isRegistered = true;
+
+	DelayPost(CHECK_ALIVE_INTERVAL, &GameSession::CheckAlive, time(0));
 }
 
 void GameSession::OnDisconnected()
 {
+	if (!clientId.empty())
+	{
+		GLogManager->Log("Session Disconnected : ", clientId);
+	}
+
+	if (DISCONNECTED_INTERVAL == 0 || client == nullptr)
+	{
+		ProcessDisconnect();
+	}
+	else
+	{
+		DelayPost(DISCONNECTED_INTERVAL, &GameSession::ProcessDisconnect);
+	}
+}
+
+void GameSession::ProcessDisconnect()
+{
 	if (client != nullptr)
 	{
-		client->Post(&ClientBase::OnDisconnected);
+		client->OnDisconnected();
+		client = nullptr;
 	}
+
+	Clear();
 }

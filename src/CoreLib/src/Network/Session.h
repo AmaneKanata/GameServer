@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RecvBuffer.h"
+#include "JobQueue.h"
 
 #include <mutex>
 #include <deque>
@@ -10,7 +11,7 @@ class SendBuffer;
 
 const int LINGER_TIME = 5;
 
-class Session : public std::enable_shared_from_this<Session>
+class Session : public JobQueue
 {
 	enum
 	{
@@ -19,41 +20,37 @@ class Session : public std::enable_shared_from_this<Session>
 
 public:
 	Session(boost::asio::io_context& context);
-	~Session();
-
-	void Connect(boost::asio::ip::tcp::endpoint ep);
-	void ProcessConnect();
-	void RegisterDisconnect();
-	void Disconnect();
-
-	void Send(shared_ptr<SendBuffer> sendBuffer);
+	virtual ~Session();
 
 	shared_ptr<boost::asio::ip::tcp::socket> GetSocket() { return socket; }
 
-protected:
-	virtual int OnRecv(unsigned char* buffer, int len) { return len; }
+	void Connect(boost::asio::ip::tcp::endpoint ep);
+	void ProcessConnect();
 	virtual void OnConnected() {};
+
+	void RegisterDisconnect();
+	void Disconnect();
 	virtual void OnDisconnected() {};
 
-private:
-	void RegisterRecv();
+	void Send(shared_ptr<SendBuffer> sendBuffer);
 	void RegisterSend();
+	void ProcessSend(std::size_t bytes_transferred);
+
+	void RegisterRecv();
+	void ProcessRecv(std::size_t bytes_transferred);
+	virtual int OnRecv(unsigned char* buffer, int len) { return len; }
 
 protected:
-	bool isConnected;
-	std::recursive_mutex isConnected_mtx;
+	bool isConnected = false;
+	bool isDisconnectRegistered = false;
 
 private:
 	shared_ptr<boost::asio::ip::tcp::socket> socket;
-
 	RecvBuffer recvBuffer;
-
-	std::atomic<bool> isSendRegistered = { false };
-	std::atomic<bool> isDisconnectedRegistered = { false };
 	std::deque<shared_ptr<SendBuffer>> pendingSendBuffers;
-	std::recursive_mutex send_mtx;
+	std::deque<shared_ptr<SendBuffer>> inFlightSendBuffers;
 
-	boost::asio::steady_timer timer;
+	bool isSendRegistered = false;
 };
 
 class PacketSession : public Session

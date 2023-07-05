@@ -7,8 +7,8 @@ class GameObject;
 class GameObjectClient : public ClientBase
 {
 public:
-	GameObjectClient(boost::asio::io_context& ioc, std::string clientId) 
-		: ClientBase(ioc, clientId)
+	GameObjectClient(std::string clientId) 
+		: ClientBase(clientId)
 	{}
 
 	std::shared_ptr<GameObject> gameObject;
