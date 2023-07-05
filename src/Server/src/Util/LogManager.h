@@ -12,7 +12,7 @@ private:
 	void AppendToString(std::stringstream& ss) { return; }
 
 	template <typename String, typename... Strings>
-	void AppendToString(std::stringstream& ss, const String& s, Strings... strs) {
+	void AppendToString(std::stringstream& ss, String&& s, Strings&&... strs) {
 		ss << s;
 		AppendToString(ss, strs...);
 	}
@@ -22,7 +22,7 @@ public:
 	{}
 
 	template <typename String, typename... Strings>
-	void Log(const String& s, Strings... strs)
+	void Log(String&& s, Strings&&... strs)
 	{
 		std::stringstream ss;
 
@@ -44,6 +44,6 @@ public:
 private:
 	void PrintLog(std::string log)
 	{
-		std::cout << log << std::endl;
+		std::cout << log << "\n";
 	}
 };
