@@ -4,8 +4,6 @@
 
 class ClientBase;
 
-const bool CLOSE_ON_EMPTY = false;
-
 class RoomBase : public PacketHandler
 {
 public:

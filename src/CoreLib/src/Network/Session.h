@@ -9,8 +9,6 @@
 
 class SendBuffer;
 
-const int LINGER_TIME = 5;
-
 class Session : public JobQueue
 {
 	enum

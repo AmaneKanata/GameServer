@@ -1,6 +1,7 @@
 #include "Session.h"
 #include "SendBuffer.h"
 #include "PacketHeader.h"
+#include "CoreLib_Singleton.h"
 
 Session::Session(boost::asio::io_context& context)
 	: JobQueue(context)

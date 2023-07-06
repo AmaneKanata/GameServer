@@ -5,6 +5,8 @@
 ThreadManager* GThreadManager = nullptr;
 SendBufferManager* GSendBufferManager = nullptr;
 
+int LINGER_TIME = 5;
+
 class CoreGlobal
 {
 public:

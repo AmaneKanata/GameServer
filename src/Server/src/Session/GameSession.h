@@ -8,9 +8,6 @@
 
 class ClientBase;
 
-const int DISCONNECTED_INTERVAL = 10000;
-const int CHECK_ALIVE_INTERVAL = 10000;
-
 class GameSession : public PacketSession
 {
 public:
