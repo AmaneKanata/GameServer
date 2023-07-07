@@ -93,27 +93,27 @@ void RoomBase::Handle_C_TEST(std::shared_ptr<GameSession> session, std::shared_p
 
 void RoomBase::Leave(std::shared_ptr<ClientBase> _client, std::string code)
 {
+	Protocol::S_DISCONNECT disconnect;
+	disconnect.set_code(code);
+	_client->Send(MakeSendBuffer(disconnect));
+
 	auto client = clients.find(_client->clientId);
 	if (client == clients.end() || _client.get() != client->second.get())
 	{
 		_client->Disconnect();
-		return;
+	}
+	else
+	{
+		client->second->Disconnect();
+
+		clients.erase(client);
+
+		Protocol::S_REMOVE_CLIENT removeClient;
+		removeClient.add_clientids(_client->clientId);
+		Broadcast(MakeSendBuffer(removeClient));
 	}
 
-	Protocol::S_DISCONNECT disconnect;
-	disconnect.set_code(code);
-	client->second->Send(MakeSendBuffer(disconnect));
-
-	client->second->Disconnect();
-
-	clients.erase(client);
-	//GLogManager->Log("Client Removed : ", _client->clientId, ",			Client Number : ", std::to_string(clients.size()));
-
-	Protocol::S_REMOVE_CLIENT removeClient;
-	removeClient.add_clientids(_client->clientId);
-	Broadcast(MakeSendBuffer(removeClient));
-
-	if (CLOSE_ON_EMPTY && clients.size() == 0)
+	if (code != "DUPLICATED" && CLOSE_ON_EMPTY && clients.size() == 0)
 	{
 		GLogManager->Log("All Client Leaved, Close Room");
 		Post(&RoomBase::Close);
