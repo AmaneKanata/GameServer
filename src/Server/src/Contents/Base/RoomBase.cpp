@@ -115,6 +115,7 @@ void RoomBase::Leave(std::shared_ptr<ClientBase> _client, std::string code)
 
 	if (CLOSE_ON_EMPTY && clients.size() == 0)
 	{
+		GLogManager->Log("All Client Leaved, Close Room");
 		Post(&RoomBase::Close);
 	}
 }

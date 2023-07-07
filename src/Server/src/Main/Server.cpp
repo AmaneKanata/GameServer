@@ -84,16 +84,19 @@ int main()
 			{
 				while (GRoom->GetState() != HandlerState::Closed)
 				{
-					ioc.run();
+					ioc.run_for(std::chrono::milliseconds{1000});
 				}
 			});
 	}
 
 	GThreadManager->Join();
-	//after server finish
+	
+	//Close Server
 
 	acceptor->Stop();
 
-	//handle remain jobs
-	ioc.run();
+	ioc.run(); //handle remain jobs
+
+	GLogManager = nullptr;
+	GRoom = nullptr;
 }
