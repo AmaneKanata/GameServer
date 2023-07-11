@@ -1,5 +1,6 @@
 #pragma once
 
+#include <map>
 #include "ClientBase.h"
 
 class GameObject;
@@ -11,5 +12,5 @@ public:
 		: ClientBase(clientId)
 	{}
 
-	std::shared_ptr<GameObject> gameObject;
+	std::map<int, std::shared_ptr<GameObject>> gameObjects;
 };

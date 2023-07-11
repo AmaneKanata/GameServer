@@ -9,17 +9,17 @@ void GameObjectRoom::Leave(std::shared_ptr<ClientBase> client, std::string code)
 {
 	auto gClient = static_pointer_cast<GameObjectClient>(client);
 
-	if (gClient->gameObject != nullptr)
+	for (auto& [gameObjectId, gameObject] : gClient->gameObjects)
 	{
-		gameObjects.erase(gClient->gameObject->gameObjectId);
+		gameObjects.erase(gameObjectId);
 		//GLogManager->Log("GameObject Removed : ", std::to_string(gClient->gameObject->gameObjectId), ", GameObject Number : ", std::to_string(gameObjects.size()));
 
 		Protocol::S_REMOVE_GAME_OBJECT removeGameObject;
-		removeGameObject.add_gameobjects(gClient->gameObject->gameObjectId);
+		removeGameObject.add_gameobjects(gameObjectId);
 		Broadcast(MakeSendBuffer(removeGameObject));
-
-		gClient->gameObject = nullptr;
 	}
+
+	gClient->gameObjects.clear();
 
 	RoomBase::Leave(client, code);
 }
@@ -31,7 +31,7 @@ void GameObjectRoom::Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSessio
 	gameObject->SetRotation(pkt->rotation());
 
 	auto gClient = static_pointer_cast<GameObjectClient>(session->client);
-	gClient->gameObject = gameObject;
+	gClient->gameObjects.insert({ gameObject->gameObjectId, gameObject });
 
 	gameObjects.insert({ gameObject->gameObjectId, gameObject });
 	//GLogManager->Log("GameObject Added : ", std::to_string(gameObject->gameObjectId), ", GameObject Number : ", std::to_string(gameObjects.size()));
