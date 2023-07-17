@@ -10,8 +10,9 @@ message Vector3
 
 message C_INSTANTIATE_GAME_OBJECT
 {
-	Vector3 position = 1;
-	Vector3 rotation = 2;
+	string prefabName = 1;
+	Vector3 position = 2;
+	Vector3 rotation = 3;
 }
 
 message S_INSTANTIATE_GAME_OBJECT
@@ -29,15 +30,45 @@ message S_ADD_GAME_OBJECT
 	message GameObjectInfo
 	{
 		int32 Id = 1;
-		Vector3 position = 2;
-		Vector3 rotation = 3;
+		string prefabName = 2;
+		Vector3 position = 3;
+		Vector3 rotation = 4;
 	}
 	repeated GameObjectInfo gameObjects = 1;
+}
+
+message C_DESTORY_GAME_OBJECT
+{
+	int32 gameObjectId = 1;
+}
+
+message S_DESTORY_GAME_OBJECT
+{
+	bool success = 1;
+	int32 gameObjectId = 2;
 }
 
 message S_REMOVE_GAME_OBJECT
 {
 	repeated int32 gameObjects = 1;
+}
+
+message C_CHANGE_GMAE_OBJECT
+{
+	int32 gameObjectId = 1;
+	string prefabName = 2;
+}
+
+message S_CHANGE_GMAE_OBJECT
+{
+	int32 gameObjectId = 1;
+	bool success = 2;
+}
+
+message S_CHANGE_GMAE_OBJECT_NOTICE
+{
+	int32 gameObjectId = 1;
+	string prefabName = 2;
 }
 
 message C_SET_TRANSFORM
@@ -52,4 +83,24 @@ message S_SET_TRANSFORM
 	int32 gameObjectId = 1;
 	Vector3 position = 2;
 	Vector3 rotation = 3;
+}
+
+message AnimationParameter {
+  oneof param {
+    bool bool_param = 1;
+    int32 int_param = 2;
+    float float_param = 3;
+  }
+}
+
+message C_SET_ANIMATION
+{
+	int32 gameObjectId = 1;
+	map<string, AnimationParameter> params = 2;
+}
+
+message S_SET_ANIMATION
+{
+	int32 gameObjectId = 1;
+	map<string, AnimationParameter> params = 2;
 }
