@@ -76,7 +76,8 @@ int main()
 			{
 				while (state)
 				{
-					ioc.run_for(std::chrono::milliseconds{ 50 });
+					ioc.run();
+					this_thread::sleep_for(std::chrono::milliseconds{ 10 });
 				}
 			});
 	}
@@ -96,12 +97,11 @@ int main()
 
 		if (command == "help")
 		{
-			GLogManager->Log("connect <client id> - Connect A Session to server, And Create Client");
-			GLogManager->Log("disconnect <client id> - Disconnect session, But Client Remains");
-			GLogManager->Log("remove <client id> - Remove Client");
-			GLogManager->Log("reenter <client id> - Try ReEnter with Client <client id>");
-			GLogManager->Log("leave <client id> - Leave Client");
-			GLogManager->Log("move <client id> - Move Game Object by 1 in X Direction");
+			GLogManager->Log("connect <client id>");
+			GLogManager->Log("reconnect <client id>");
+			GLogManager->Log("disconnect <client id>");
+			GLogManager->Log("leave <client id>");
+			GLogManager->Log("move <client id>");
 		}
 
 		if (command == "connect")
@@ -120,7 +120,7 @@ int main()
 			auto session = make_shared<GameSession>(ioc);
 
 			auto client = make_shared<GameObjectClient>(ioc, clientId);
-			client->session = session;
+			client->Post(&ClientBase::SetSession, session);
 
 			session->client = client;
 			session->Connect(ep);
@@ -130,6 +130,34 @@ int main()
 			client->DelayPost(5000, &ClientBase::CheckAlive);
 
 			continue;
+		}
+
+		else if (command == "reconnect")
+		{
+			string clientId;
+			cin >> clientId;
+
+			decltype(clients)::iterator client;
+			{
+				client = clients.find(clientId);
+				std::lock_guard<std::recursive_mutex> lock(clients_mtx);
+				if (client == clients.end())
+				{
+					GLogManager->Log("Wrong Client Id : ", clientId);
+					continue;
+				}
+			}
+
+			client->second->Post(&ClientBase::Disconnect);
+
+			auto session = make_shared<GameSession>(ioc);
+
+			client->second->Post(&ClientBase::SetSession, session);
+
+			session->client = client->second;
+			session->Connect(ep);
+
+			client->second->Post(&ClientBase::ReEnter);
 		}
 
 		if (command == "disconnect")
@@ -148,56 +176,9 @@ int main()
 				}
 			}
 
-			client->second->Post(&ClientBase::Disconnect);
+			client->second->Post(&ClientBase::Close);
 
 			continue;
-		}
-
-		else if (command == "remove")
-		{
-			string clientId;
-			cin >> clientId;
-
-			decltype(clients)::iterator client;
-			{
-				client = clients.find(clientId);
-				std::lock_guard<std::recursive_mutex> lock(clients_mtx);
-				if (client == clients.end())
-				{
-					GLogManager->Log("Wrong Client Id : ", clientId);
-					continue;
-				}
-			}
-
-			auto session = make_shared<GameSession>(ioc);
-
-			client->second->Post(&ClientBase::Remove);
-		}
-
-		else if (command == "reenter")
-		{
-			string clientId;
-			cin >> clientId;
-
-			decltype(clients)::iterator client;
-			{
-				client = clients.find(clientId);
-				std::lock_guard<std::recursive_mutex> lock(clients_mtx);
-				if (client == clients.end())
-				{
-					GLogManager->Log("Wrong Client Id : ", clientId);
-					continue;
-				}
-			}
-
-			auto session = make_shared<GameSession>(ioc);
-
-			client->second->session = session;
-
-			session->client = client->second;
-			session->Connect(ep);
-			
-			client->second->Post(&ClientBase::ReEnter);
 		}
 
 		if (command == "leave")

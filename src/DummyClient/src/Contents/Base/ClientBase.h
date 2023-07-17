@@ -12,11 +12,14 @@ public:
 
 	~ClientBase();
 
+	virtual void HandleClose() override;
+
+	virtual void SetSession(std::shared_ptr<GameSession> session);
+
 	virtual void Enter();
 	virtual void ReEnter();
 	virtual void Leave();
 	virtual void Disconnect();
-	virtual void Remove();
 
 	virtual void Handle_S_ENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ENTER> pkt) override;
 	virtual void Handle_S_REENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_REENTER> pkt) override;
@@ -30,7 +33,7 @@ public:
 
 public:
 	const std::string clientId;
-	std::weak_ptr<GameSession> session;
+	std::shared_ptr<GameSession> session;
 
 private:
 	std::time_t lastMessageSent = -1;

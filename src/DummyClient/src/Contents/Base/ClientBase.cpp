@@ -5,7 +5,26 @@
 
 ClientBase::~ClientBase()
 {
-	GLogManager->Log("[Client ", clientId, "]	Destroyed");
+	GLogManager->Log("[Client ", clientId, "]	Client Destroyed");
+}
+
+void ClientBase::HandleClose()
+{
+	session->Post(&GameSession::RegisterDisconnect);
+	session = nullptr;
+
+	std::lock_guard<std::recursive_mutex> lock(clients_mtx);
+
+	auto client = clients.find(clientId);
+	if (client != clients.end() && this == client->second.get())
+	{
+		clients.erase(client);
+	}
+}
+
+void ClientBase::SetSession(std::shared_ptr<GameSession> session)
+{
+	this->session = session;
 }
 
 void ClientBase::Enter()
@@ -30,55 +49,24 @@ void ClientBase::Leave()
 
 void ClientBase::Disconnect()
 {
-	auto sp = session.lock();
-	if (sp)
-	{
-		sp->Disconnect();
-		GLogManager->Log("[Client ", clientId, "]	Disconnected by Command");
-	}
-	else
-	{
-		GLogManager->Log("[Client ", clientId, "]	Already Disconnected");
-	}
-}
-
-void ClientBase::Remove()
-{
-	GLogManager->Log("[Client ", clientId, "]	Deleted");
-
-	auto sp = session.lock();
-	if (sp)
-	{
-		sp->Disconnect();
-	}
-
-	{
-		std::lock_guard<std::recursive_mutex> lock(clients_mtx);
-		auto client = clients.find(clientId);
-		if(client->second.get() == this)
-			clients.erase(clientId);
-	}
-
-	Close();
+	session->Post(&GameSession::RegisterDisconnect);
 }
 
 void ClientBase::Handle_S_ENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ENTER> pkt)
 {
 	GLogManager->Log("[Client ", clientId, "]	Entered");
 
+	std::lock_guard<std::recursive_mutex> lock(clients_mtx);
+	auto client = clients.find(clientId);
+	if (client != clients.end())
 	{
-		std::lock_guard<std::recursive_mutex> lock(clients_mtx);
-		auto client = clients.find(clientId);
-		if (client != clients.end())
-		{
-			GLogManager->Log("Replace ", clientId);
-			client->second->Post(&ClientBase::Remove);
-			client->second = static_pointer_cast<ClientBase>(shared_from_this());
-		}
-		else
-		{
-			clients.insert({ clientId, static_pointer_cast<ClientBase>(shared_from_this()) });
-		}
+		GLogManager->Log("Replace ", clientId);
+		client->second->Post(&ClientBase::Close);
+		client->second = static_pointer_cast<ClientBase>(shared_from_this());
+	}
+	else
+	{
+		clients.insert({ clientId, static_pointer_cast<ClientBase>(shared_from_this()) });
 	}
 }
 
@@ -87,17 +75,12 @@ void ClientBase::Handle_S_REENTER(std::shared_ptr<GameSession> session, std::sha
 	if (pkt->success())
 	{
 		GLogManager->Log("[Client ", clientId, "]	ReEntered");
-
-		{
-			std::lock_guard<std::recursive_mutex> lock(clients_mtx);
-			clients.insert({ clientId, static_pointer_cast<ClientBase>(shared_from_this()) });
-		}
 	}
 	else
 	{
 		GLogManager->Log("[Client ", clientId, "]	ReEnter Fail");
 
-		Post(&ClientBase::Remove);
+		Post(&ClientBase::Close);
 	}
 }
 
@@ -125,7 +108,7 @@ void ClientBase::Handle_S_DISCONNECT(std::shared_ptr<GameSession> session, std::
 {
 	GLogManager->Log("[Client ", clientId, "]	Disconnected : ", pkt->code());
 	
-	Post(&ClientBase::Remove);
+	Post(&ClientBase::Close);
 }
 
 void ClientBase::CheckAlive()
@@ -141,11 +124,6 @@ void ClientBase::CheckAlive()
 
 void ClientBase::Send(shared_ptr<SendBuffer> sendBuffer)
 {
-	auto sp = session.lock();
-	if (sp)
-	{
-		sp->Send(sendBuffer);
-
-		lastMessageSent = time(0);
-	}
+	session->Send(sendBuffer);
+	lastMessageSent = time(0);
 }

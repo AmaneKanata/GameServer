@@ -9,6 +9,7 @@ class GameSession : public PacketSession
 public:
 	GameSession(boost::asio::io_context& ioc) : PacketSession(ioc)
 	{}
+	~GameSession();
 
 	std::shared_ptr<ClientBase> client;
 
