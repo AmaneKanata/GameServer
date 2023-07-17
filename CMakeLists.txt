@@ -30,7 +30,10 @@ endif (WIN32)
 
 add_subdirectory (src/CoreLib)
 add_subdirectory (src/Server)
-add_subdirectory (src/DummyClient)
 
 add_dependencies(Server CoreLib)
-add_dependencies(DummyClient CoreLib)
+
+if (WIN32)
+    add_subdirectory (src/DummyClient)
+    add_dependencies(DummyClient CoreLib)
+endif (WIN32)
