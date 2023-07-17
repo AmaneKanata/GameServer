@@ -55,7 +55,7 @@ public:
 		for (int i = 0; i < UINT16_MAX; i++)
 			PacketHandlers[i] = PacketHandlers[i] = std::bind(&PacketHandler::Handle_INVALID, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 		{% for pkt in parser.recv_pkt %}
-		PacketHandlers[PKT_{{pkt.name}}] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
+		PacketHandlers[PKT_{{pkt.name}}] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::{{pkt.name}}> pkt = std::make_shared<Protocol::{{pkt.name}}>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
@@ -87,7 +87,7 @@ public:
 
 	virtual void HandlePacket_Not_Running(std::shared_ptr<GameSession>& session) {}
 
-	void HandlePacket(std::shared_ptr<GameSession>& session, unsigned char* buffer, int len)
+	void HandlePacket(std::shared_ptr<GameSession> session, unsigned char* buffer, int len)
 	{
 		if (state != HandlerState::Running)
 		{
