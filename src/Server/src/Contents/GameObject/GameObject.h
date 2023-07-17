@@ -34,7 +34,6 @@ public:
 		_rotation->set_x(rotation_x);
 		_rotation->set_y(rotation_y);
 		_rotation->set_z(rotation_z);
-		gameObjectInfo->set_prefabname(prefabName);
 	}
 
 	Protocol::S_SET_TRANSFORM MakeTransform()
@@ -70,11 +69,7 @@ public:
 		rotation_z = rotation.z();
 	}
 
-public:
-	std::string ownerId;
-
 	int gameObjectId;
-	std::string prefabName;
 
 	float position_x;
 	float position_y;
