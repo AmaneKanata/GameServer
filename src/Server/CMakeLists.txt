@@ -19,6 +19,9 @@ if (WIN32)
     set(CMAKE_PREFIX_PATH "C:/Program Files/agones" ${CMAKE_PREFIX_PATH})
 endif (WIN32)
 
-find_package(Protobuf REQUIRED)
-target_include_directories(Server PRIVATE ${Protobuf_INCLUDE_DIRS})
-target_link_libraries(Server PRIVATE ${Protobuf_LIBRARIES})
+find_package(Protobuf CONFIG)
+target_link_libraries(Server PRIVATE protobuf::libprotobuf protobuf::libprotoc)
+
+find_package(gRPC CONFIG)
+find_package(agones CONFIG)
+target_link_libraries(Server PRIVATE gRPC::grpc++ agones)
