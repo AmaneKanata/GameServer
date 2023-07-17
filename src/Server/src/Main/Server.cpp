@@ -3,6 +3,13 @@
 #include <CoreLib_Singleton.h>
 #include <ThreadManager.h>
 
+#ifdef linux
+#include <sys/types.h>
+#include <ifaddrs.h>
+#include <netinet/in.h> 
+#include <arpa/inet.h>
+#endif
+
 #include "Server_Singleton.h"
 
 #include "LogManager.h"
