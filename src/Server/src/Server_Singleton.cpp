@@ -10,5 +10,5 @@ std::atomic<int> client_num = 0;
 
 bool CLOSE_ON_EMPTY = false;
 
-extern int DISCONNECTED_INTERVAL = 10000;
-extern int CHECK_ALIVE_INTERVAL = 10000;
+int DISCONNECTED_INTERVAL = 10000;
+int CHECK_ALIVE_INTERVAL = 10000;
