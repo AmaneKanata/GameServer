@@ -27,9 +27,16 @@ enum : unsigned short
 	PKT_S_INSTANTIATE_GAME_OBJECT = 101,
 	PKT_C_GET_GAME_OBJECT = 102,
 	PKT_S_ADD_GAME_OBJECT = 103,
-	PKT_S_REMOVE_GAME_OBJECT = 104,
-	PKT_C_SET_TRANSFORM = 105,
-	PKT_S_SET_TRANSFORM = 106,
+	PKT_C_DESTORY_GAME_OBJECT = 104,
+	PKT_S_DESTORY_GAME_OBJECT = 105,
+	PKT_S_REMOVE_GAME_OBJECT = 106,
+	PKT_C_CHANGE_GMAE_OBJECT = 107,
+	PKT_S_CHANGE_GMAE_OBJECT = 108,
+	PKT_S_CHANGE_GMAE_OBJECT_NOTICE = 109,
+	PKT_C_SET_TRANSFORM = 110,
+	PKT_S_SET_TRANSFORM = 111,
+	PKT_C_SET_ANIMATION = 112,
+	PKT_S_SET_ANIMATION = 113,
 };
 
 template<typename T>
@@ -56,7 +63,10 @@ static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_HEARTBEAT& pkt) { 
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_TEST& pkt) { return MakeSendBuffer(pkt, PKT_C_TEST); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_INSTANTIATE_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_C_INSTANTIATE_GAME_OBJECT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_GET_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_C_GET_GAME_OBJECT); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_DESTORY_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_C_DESTORY_GAME_OBJECT); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_CHANGE_GMAE_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_C_CHANGE_GMAE_OBJECT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_SET_TRANSFORM& pkt) { return MakeSendBuffer(pkt, PKT_C_SET_TRANSFORM); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_SET_ANIMATION& pkt) { return MakeSendBuffer(pkt, PKT_C_SET_ANIMATION); }
 
 enum class HandlerState
 {
@@ -126,17 +136,41 @@ public:
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_S_ADD_GAME_OBJECT, session, pkt);
 		};
+		PacketHandlers[PKT_S_DESTORY_GAME_OBJECT] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_DESTORY_GAME_OBJECT> pkt = std::make_shared<Protocol::S_DESTORY_GAME_OBJECT>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_DESTORY_GAME_OBJECT, session, pkt);
+		};
 		PacketHandlers[PKT_S_REMOVE_GAME_OBJECT] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::S_REMOVE_GAME_OBJECT> pkt = std::make_shared<Protocol::S_REMOVE_GAME_OBJECT>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_S_REMOVE_GAME_OBJECT, session, pkt);
 		};
+		PacketHandlers[PKT_S_CHANGE_GMAE_OBJECT] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_CHANGE_GMAE_OBJECT> pkt = std::make_shared<Protocol::S_CHANGE_GMAE_OBJECT>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_CHANGE_GMAE_OBJECT, session, pkt);
+		};
+		PacketHandlers[PKT_S_CHANGE_GMAE_OBJECT_NOTICE] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_CHANGE_GMAE_OBJECT_NOTICE> pkt = std::make_shared<Protocol::S_CHANGE_GMAE_OBJECT_NOTICE>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_CHANGE_GMAE_OBJECT_NOTICE, session, pkt);
+		};
 		PacketHandlers[PKT_S_SET_TRANSFORM] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::S_SET_TRANSFORM> pkt = std::make_shared<Protocol::S_SET_TRANSFORM>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_S_SET_TRANSFORM, session, pkt);
+		};
+		PacketHandlers[PKT_S_SET_ANIMATION] = [this](std::shared_ptr<GameSession>& session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_SET_ANIMATION> pkt = std::make_shared<Protocol::S_SET_ANIMATION>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_SET_ANIMATION, session, pkt);
 		};
 	}
 
@@ -187,8 +221,12 @@ protected:
 	virtual void Handle_S_TEST(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_TEST> pkt) {};
 	virtual void Handle_S_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_INSTANTIATE_GAME_OBJECT> pkt) {};
 	virtual void Handle_S_ADD_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ADD_GAME_OBJECT> pkt) {};
+	virtual void Handle_S_DESTORY_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_DESTORY_GAME_OBJECT> pkt) {};
 	virtual void Handle_S_REMOVE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_REMOVE_GAME_OBJECT> pkt) {};
+	virtual void Handle_S_CHANGE_GMAE_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_CHANGE_GMAE_OBJECT> pkt) {};
+	virtual void Handle_S_CHANGE_GMAE_OBJECT_NOTICE(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_CHANGE_GMAE_OBJECT_NOTICE> pkt) {};
 	virtual void Handle_S_SET_TRANSFORM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SET_TRANSFORM> pkt) {};
+	virtual void Handle_S_SET_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SET_ANIMATION> pkt) {};
 
 private:
 	PacketHandlerFunc PacketHandlers[UINT16_MAX];
