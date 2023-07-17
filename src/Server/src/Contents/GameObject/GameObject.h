@@ -62,6 +62,13 @@ public:
 		position_z = position.z();
 	}
 
+	void SetPosition(float positionX, float positionY, float positionZ)
+	{
+		position_x = positionX;
+		position_y = positionY;
+		position_z = positionZ;
+	}
+	
 	void SetRotation(Protocol::Vector3 rotation)
 	{
 		rotation_x = rotation.x();
@@ -69,7 +76,16 @@ public:
 		rotation_z = rotation.z();
 	}
 
+	void SetRotation(float rotationX, float rotationY, float rotationZ)
+	{
+		rotation_x = rotationX;
+		rotation_y = rotationY;
+		rotation_z = rotationZ;
+	}
+
+public:
 	int gameObjectId;
+	std::string prefabName;
 
 	float position_x;
 	float position_y;
