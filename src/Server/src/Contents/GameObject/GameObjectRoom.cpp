@@ -9,12 +9,14 @@ void GameObjectRoom::Leave(std::shared_ptr<ClientBase> client, std::string code)
 
 	for (auto& [gameObjectId, gameObject] : gClient->gameObjects)
 	{
-		gameObjects.erase(gameObjectId);
-		GLogManager->Log("GameObject Removed : ", gClient->clientId, " ", std::to_string(gameObject->gameObjectId), ", GameObject Number : ", std::to_string(gameObjects.size()));
+		if (gameObjects.erase(gameObjectId))
+		{
+			GLogManager->Log("GameObject Removed : ", gClient->clientId, " ", std::to_string(gameObject->gameObjectId), ", GameObject Number : ", std::to_string(gameObjects.size()));
 
-		Protocol::S_REMOVE_GAME_OBJECT removeGameObject;
-		removeGameObject.add_gameobjects(gameObjectId);
-		Broadcast(MakeSendBuffer(removeGameObject));
+			Protocol::S_REMOVE_GAME_OBJECT removeGameObject;
+			removeGameObject.add_gameobjects(gameObjectId);
+			Broadcast(MakeSendBuffer(removeGameObject));
+		}
 	}
 
 	gClient->gameObjects.clear();
