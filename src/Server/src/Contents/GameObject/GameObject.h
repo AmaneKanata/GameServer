@@ -34,6 +34,8 @@ public:
 		_rotation->set_x(rotation_x);
 		_rotation->set_y(rotation_y);
 		_rotation->set_z(rotation_z);
+
+		gameObjectInfo->set_prefabname(prefabName);
 	}
 
 	Protocol::S_SET_TRANSFORM MakeTransform()
