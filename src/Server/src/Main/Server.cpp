@@ -96,7 +96,6 @@ int main()
 			agones_sdk->WatchGameServer([](const agones::dev::sdk::GameServer& gameserver) {
 				agones_state = gameserver.status().state();
 				});
-			std::cout << "Watch Game Server Finish!" << std::endl;
 		});
 
 	auto acceptor = std::make_shared<Acceptor>(ioc, ep,
@@ -132,7 +131,5 @@ int main()
 	GLogManager = nullptr;
 	GRoom = nullptr;
 
-	std::this_thread::sleep_for(std::chrono::milliseconds{10000});
-
-	std::cout << "Game Server Finish!" << std::endl;
+	std::cout << "Game Server Has Exited" << std::endl;
 }
