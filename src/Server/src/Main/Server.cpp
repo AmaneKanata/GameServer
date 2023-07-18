@@ -3,6 +3,9 @@
 #include <CoreLib_Singleton.h>
 #include <ThreadManager.h>
 
+#include <agones/sdk.h>
+#include <grpc++/grpc++.h>
+
 #ifdef linux
 #include <sys/types.h>
 #include <ifaddrs.h>
@@ -76,6 +79,18 @@ int main()
 	GRoom = std::make_shared<GameObjectRoom>(ioc);
 	GRoom->Init();
 
+	auto sdk = std::make_shared<agones::SDK>();
+	if (!sdk->Connect())
+		return 0;
+
+	GThreadManager->Launch([&sdk]()
+		{
+			while (GRoom->GetState() != HandlerState::Closed) {
+				bool ok = sdk->Health();
+				std::this_thread::sleep_for(std::chrono::seconds(2));
+			}
+		});
+
 	auto acceptor = std::make_shared<Acceptor>(ioc, ep,
 		[](boost::asio::io_context& ioc) {
 			return std::make_shared<GameSession>(ioc);
@@ -96,8 +111,12 @@ int main()
 			});
 	}
 
+	grpc::Status status = sdk->Ready();
+
 	GThreadManager->Join();
 	
+	sdk->Shutdown();
+
 	//Close Server
 
 	acceptor->Stop();
