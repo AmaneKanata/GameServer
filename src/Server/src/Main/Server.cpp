@@ -96,6 +96,7 @@ int main()
 			agones_sdk->WatchGameServer([](const agones::dev::sdk::GameServer& gameserver) {
 				agones_state = gameserver.status().state();
 				});
+			std::cout << "Watch Game Server Finish!" << std::endl;
 		});
 
 	auto acceptor = std::make_shared<Acceptor>(ioc, ep,
