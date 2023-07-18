@@ -132,5 +132,7 @@ int main()
 	GLogManager = nullptr;
 	GRoom = nullptr;
 
+	std::this_thread::sleep_for(std::chrono::milliseconds{10000});
+
 	std::cout << "Game Server Finish!" << std::endl;
 }
