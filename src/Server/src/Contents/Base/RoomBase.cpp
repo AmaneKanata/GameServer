@@ -14,6 +14,8 @@ void RoomBase::HandleClose()
 {
 	for (const auto& [key, client] : clients)
 		Post(&RoomBase::Leave, client, std::string("CLOSING"));
+
+	agones_sdk->Shutdown();
 }
 
 void RoomBase::Handle_INVALID(std::shared_ptr<GameSession> session, unsigned char* buffer, int len)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <agones/sdk.h>
 
 extern std::shared_ptr<class RoomBase> GRoom;
 extern std::shared_ptr<class LogManager> GLogManager;
@@ -12,3 +13,6 @@ extern bool CLOSE_ON_EMPTY;
 
 extern int DISCONNECTED_INTERVAL;
 extern int CHECK_ALIVE_INTERVAL;
+
+extern std::shared_ptr<agones::SDK> agones_sdk;
+extern std::string agones_state;

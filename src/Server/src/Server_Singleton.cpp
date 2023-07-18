@@ -12,3 +12,6 @@ bool CLOSE_ON_EMPTY = true;
 
 int DISCONNECTED_INTERVAL = 10000;
 int CHECK_ALIVE_INTERVAL = 10000;
+
+std::shared_ptr<agones::SDK> agones_sdk = nullptr;
+std::string agones_state = "";

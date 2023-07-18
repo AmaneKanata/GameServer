@@ -79,16 +79,23 @@ int main()
 	GRoom = std::make_shared<GameObjectRoom>(ioc);
 	GRoom->Init();
 
-	auto sdk = std::make_shared<agones::SDK>();
-	if (!sdk->Connect())
+	agones_sdk = std::make_shared<agones::SDK>();
+	if (!agones_sdk->Connect())
 		return 0;
 
-	GThreadManager->Launch([&sdk]()
+	GThreadManager->Launch([]()
 		{
-			while (GRoom->GetState() != HandlerState::Closed) {
-				bool ok = sdk->Health();
+			while (agones_state != "Shutdown") {
+				bool ok = agones_sdk->Health();
 				std::this_thread::sleep_for(std::chrono::seconds(2));
 			}
+		});
+
+	GThreadManager->Launch([]()
+		{
+			agones_sdk->WatchGameServer([](const agones::dev::sdk::GameServer& gameserver) {
+				agones_state = gameserver.status().state();
+				});
 		});
 
 	auto acceptor = std::make_shared<Acceptor>(ioc, ep,
@@ -104,18 +111,16 @@ int main()
 	{
 		GThreadManager->Launch([&ioc]()
 			{
-				while (GRoom->GetState() != HandlerState::Closed)
+				while (agones_state != "Shutdown")
 				{
 					ioc.run_for(std::chrono::milliseconds{1000});
 				}
 			});
 	}
 
-	grpc::Status status = sdk->Ready();
+	agones_sdk->Ready();
 
 	GThreadManager->Join();
-	
-	sdk->Shutdown();
 
 	//Close Server
 
@@ -125,4 +130,6 @@ int main()
 
 	GLogManager = nullptr;
 	GRoom = nullptr;
+
+	std::cout << "Game Server Finish!" << std::endl;
 }
