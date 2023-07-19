@@ -52,11 +52,12 @@ message C_HEARTBEAT
 {
 }
 
-message C_TEST
+message C_PING
 {
+	int64 tick = 1;
 }
 
-message S_TEST
+message S_PING
 {
-	string message = 1;
+	int64 tick = 1;
 }

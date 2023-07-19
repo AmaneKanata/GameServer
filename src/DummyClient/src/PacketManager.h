@@ -21,8 +21,8 @@ enum : unsigned short
 	PKT_S_REMOVE_CLIENT = 7,
 	PKT_S_DISCONNECT = 8,
 	PKT_C_HEARTBEAT = 9,
-	PKT_C_TEST = 10,
-	PKT_S_TEST = 11,
+	PKT_C_PING = 10,
+	PKT_S_PING = 11,
 	PKT_C_INSTANTIATE_GAME_OBJECT = 100,
 	PKT_S_INSTANTIATE_GAME_OBJECT = 101,
 	PKT_C_GET_GAME_OBJECT = 102,
@@ -60,7 +60,7 @@ static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_REENTER& pkt) { re
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_LEAVE& pkt) { return MakeSendBuffer(pkt, PKT_C_LEAVE); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_GET_CLIENT& pkt) { return MakeSendBuffer(pkt, PKT_C_GET_CLIENT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_HEARTBEAT& pkt) { return MakeSendBuffer(pkt, PKT_C_HEARTBEAT); }
-static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_TEST& pkt) { return MakeSendBuffer(pkt, PKT_C_TEST); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_PING& pkt) { return MakeSendBuffer(pkt, PKT_C_PING); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_INSTANTIATE_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_C_INSTANTIATE_GAME_OBJECT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_GET_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_C_GET_GAME_OBJECT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_DESTORY_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_C_DESTORY_GAME_OBJECT); }
@@ -118,11 +118,11 @@ public:
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_S_DISCONNECT, session, pkt);
 		};
-		PacketHandlers[PKT_S_TEST] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		PacketHandlers[PKT_S_PING] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
-			std::shared_ptr<Protocol::S_TEST> pkt = std::make_shared<Protocol::S_TEST>();
+			std::shared_ptr<Protocol::S_PING> pkt = std::make_shared<Protocol::S_PING>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_S_TEST, session, pkt);
+				Post(&PacketHandler::Handle_S_PING, session, pkt);
 		};
 		PacketHandlers[PKT_S_INSTANTIATE_GAME_OBJECT] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
@@ -218,7 +218,7 @@ protected:
 	virtual void Handle_S_ADD_CLIENT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ADD_CLIENT> pkt) {};
 	virtual void Handle_S_REMOVE_CLIENT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_REMOVE_CLIENT> pkt) {};
 	virtual void Handle_S_DISCONNECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_DISCONNECT> pkt) {};
-	virtual void Handle_S_TEST(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_TEST> pkt) {};
+	virtual void Handle_S_PING(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_PING> pkt) {};
 	virtual void Handle_S_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_INSTANTIATE_GAME_OBJECT> pkt) {};
 	virtual void Handle_S_ADD_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ADD_GAME_OBJECT> pkt) {};
 	virtual void Handle_S_DESTORY_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_DESTORY_GAME_OBJECT> pkt) {};
