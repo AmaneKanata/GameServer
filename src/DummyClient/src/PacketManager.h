@@ -23,6 +23,7 @@ enum : unsigned short
 	PKT_C_HEARTBEAT = 9,
 	PKT_C_PING = 10,
 	PKT_S_PING = 11,
+	PKT_S_SERVERTIME = 12,
 	PKT_C_INSTANTIATE_GAME_OBJECT = 100,
 	PKT_S_INSTANTIATE_GAME_OBJECT = 101,
 	PKT_C_GET_GAME_OBJECT = 102,
@@ -124,6 +125,12 @@ public:
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_S_PING, session, pkt);
 		};
+		PacketHandlers[PKT_S_SERVERTIME] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_SERVERTIME> pkt = std::make_shared<Protocol::S_SERVERTIME>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_SERVERTIME, session, pkt);
+		};
 		PacketHandlers[PKT_S_INSTANTIATE_GAME_OBJECT] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::S_INSTANTIATE_GAME_OBJECT> pkt = std::make_shared<Protocol::S_INSTANTIATE_GAME_OBJECT>();
@@ -219,6 +226,7 @@ protected:
 	virtual void Handle_S_REMOVE_CLIENT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_REMOVE_CLIENT> pkt) {};
 	virtual void Handle_S_DISCONNECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_DISCONNECT> pkt) {};
 	virtual void Handle_S_PING(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_PING> pkt) {};
+	virtual void Handle_S_SERVERTIME(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SERVERTIME> pkt) {};
 	virtual void Handle_S_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_INSTANTIATE_GAME_OBJECT> pkt) {};
 	virtual void Handle_S_ADD_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ADD_GAME_OBJECT> pkt) {};
 	virtual void Handle_S_DESTORY_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_DESTORY_GAME_OBJECT> pkt) {};

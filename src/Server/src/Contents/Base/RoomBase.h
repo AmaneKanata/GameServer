@@ -29,6 +29,9 @@ protected:
 
 	virtual void Broadcast(shared_ptr<SendBuffer> sendBuffer);
 
+private:
+	void SendServerTime();
+
 protected:
 	map<string, std::shared_ptr<ClientBase>> clients;
 };

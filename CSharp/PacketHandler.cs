@@ -13,6 +13,7 @@ namespace Framework.Network
         private Action<Protocol.S_REMOVE_CLIENT> S_REMOVE_CLIENT_Handler;
         private Action<Protocol.S_DISCONNECT> S_DISCONNECT_Handler;
         private Action<Protocol.S_PING> S_PING_Handler;
+        private Action<Protocol.S_SERVERTIME> S_SERVERTIME_Handler;
         private Action<Protocol.S_INSTANTIATE_GAME_OBJECT> S_INSTANTIATE_GAME_OBJECT_Handler;
         private Action<Protocol.S_ADD_GAME_OBJECT> S_ADD_GAME_OBJECT_Handler;
         private Action<Protocol.S_DESTORY_GAME_OBJECT> S_DESTORY_GAME_OBJECT_Handler;
@@ -30,6 +31,7 @@ namespace Framework.Network
             Handlers.Add(7, _Handle_S_REMOVE_CLIENT);
             Handlers.Add(8, _Handle_S_DISCONNECT);
             Handlers.Add(11, _Handle_S_PING);
+            Handlers.Add(12, _Handle_S_SERVERTIME);
             Handlers.Add(101, _Handle_S_INSTANTIATE_GAME_OBJECT);
             Handlers.Add(103, _Handle_S_ADD_GAME_OBJECT);
             Handlers.Add(105, _Handle_S_DESTORY_GAME_OBJECT);
@@ -110,6 +112,18 @@ namespace Framework.Network
         private void _Handle_S_PING( IMessage message )
         {
             S_PING_Handler?.Invoke((Protocol.S_PING)message);
+        }
+        public void AddHandler( Action<Protocol.S_SERVERTIME> handler )
+        {
+            S_SERVERTIME_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_SERVERTIME> handler )
+        {
+            S_SERVERTIME_Handler -= handler;
+        }
+        private void _Handle_S_SERVERTIME( IMessage message )
+        {
+            S_SERVERTIME_Handler?.Invoke((Protocol.S_SERVERTIME)message);
         }
         public void AddHandler( Action<Protocol.S_INSTANTIATE_GAME_OBJECT> handler )
         {

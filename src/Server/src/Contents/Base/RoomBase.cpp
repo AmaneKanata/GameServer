@@ -8,6 +8,8 @@
 void RoomBase::HandleInit()
 {
 	//Custom Init
+	
+	Post(&RoomBase::SendServerTime);
 }
 
 void RoomBase::HandleClose()
@@ -133,4 +135,15 @@ void RoomBase::Broadcast(shared_ptr<SendBuffer> sendBuffer)
 {
 	for (const auto& [key, client] : clients)
 		client->Send(sendBuffer);
+}
+
+void RoomBase::SendServerTime()
+{
+	Protocol::S_SERVERTIME res;
+	res.set_tick(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
+	Broadcast(MakeSendBuffer(res));
+
+	GLogManager->Log("Server Time : ", std::to_string(res.tick()));
+
+	DelayPost(5000, &RoomBase::SendServerTime);
 }

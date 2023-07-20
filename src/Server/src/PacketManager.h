@@ -23,6 +23,7 @@ enum : unsigned short
 	PKT_C_HEARTBEAT = 9,
 	PKT_C_PING = 10,
 	PKT_S_PING = 11,
+	PKT_S_SERVERTIME = 12,
 	PKT_C_INSTANTIATE_GAME_OBJECT = 100,
 	PKT_S_INSTANTIATE_GAME_OBJECT = 101,
 	PKT_C_GET_GAME_OBJECT = 102,
@@ -61,6 +62,7 @@ static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_ADD_CLIENT& pkt) {
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_REMOVE_CLIENT& pkt) { return MakeSendBuffer(pkt, PKT_S_REMOVE_CLIENT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_DISCONNECT& pkt) { return MakeSendBuffer(pkt, PKT_S_DISCONNECT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_PING& pkt) { return MakeSendBuffer(pkt, PKT_S_PING); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_SERVERTIME& pkt) { return MakeSendBuffer(pkt, PKT_S_SERVERTIME); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_INSTANTIATE_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_S_INSTANTIATE_GAME_OBJECT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_ADD_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_S_ADD_GAME_OBJECT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_DESTORY_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_S_DESTORY_GAME_OBJECT); }

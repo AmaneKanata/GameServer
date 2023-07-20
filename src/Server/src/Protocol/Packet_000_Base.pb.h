@@ -85,6 +85,9 @@ extern S_REENTERDefaultTypeInternal _S_REENTER_default_instance_;
 class S_REMOVE_CLIENT;
 struct S_REMOVE_CLIENTDefaultTypeInternal;
 extern S_REMOVE_CLIENTDefaultTypeInternal _S_REMOVE_CLIENT_default_instance_;
+class S_SERVERTIME;
+struct S_SERVERTIMEDefaultTypeInternal;
+extern S_SERVERTIMEDefaultTypeInternal _S_SERVERTIME_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
 template<> ::Protocol::C_ENTER* Arena::CreateMaybeMessage<::Protocol::C_ENTER>(Arena*);
@@ -100,6 +103,7 @@ template<> ::Protocol::S_ENTER* Arena::CreateMaybeMessage<::Protocol::S_ENTER>(A
 template<> ::Protocol::S_PING* Arena::CreateMaybeMessage<::Protocol::S_PING>(Arena*);
 template<> ::Protocol::S_REENTER* Arena::CreateMaybeMessage<::Protocol::S_REENTER>(Arena*);
 template<> ::Protocol::S_REMOVE_CLIENT* Arena::CreateMaybeMessage<::Protocol::S_REMOVE_CLIENT>(Arena*);
+template<> ::Protocol::S_SERVERTIME* Arena::CreateMaybeMessage<::Protocol::S_SERVERTIME>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
@@ -1988,6 +1992,154 @@ class S_PING final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_Packet_5f000_5fBase_2eproto;
 };
+// -------------------------------------------------------------------
+
+class S_SERVERTIME final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_SERVERTIME) */ {
+ public:
+  inline S_SERVERTIME() : S_SERVERTIME(nullptr) {}
+  ~S_SERVERTIME() override;
+  explicit PROTOBUF_CONSTEXPR S_SERVERTIME(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S_SERVERTIME(const S_SERVERTIME& from);
+  S_SERVERTIME(S_SERVERTIME&& from) noexcept
+    : S_SERVERTIME() {
+    *this = ::std::move(from);
+  }
+
+  inline S_SERVERTIME& operator=(const S_SERVERTIME& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S_SERVERTIME& operator=(S_SERVERTIME&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S_SERVERTIME& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S_SERVERTIME* internal_default_instance() {
+    return reinterpret_cast<const S_SERVERTIME*>(
+               &_S_SERVERTIME_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    13;
+
+  friend void swap(S_SERVERTIME& a, S_SERVERTIME& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S_SERVERTIME* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S_SERVERTIME* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S_SERVERTIME* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_SERVERTIME>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S_SERVERTIME& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S_SERVERTIME& from) {
+    S_SERVERTIME::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S_SERVERTIME* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.S_SERVERTIME";
+  }
+  protected:
+  explicit S_SERVERTIME(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTickFieldNumber = 1,
+  };
+  // int64 tick = 1;
+  void clear_tick();
+  int64_t tick() const;
+  void set_tick(int64_t value);
+  private:
+  int64_t _internal_tick() const;
+  void _internal_set_tick(int64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.S_SERVERTIME)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int64_t tick_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Packet_5f000_5fBase_2eproto;
+};
 // ===================================================================
 
 
@@ -2472,9 +2624,35 @@ inline void S_PING::set_tick(int64_t value) {
   // @@protoc_insertion_point(field_set:Protocol.S_PING.tick)
 }
 
+// -------------------------------------------------------------------
+
+// S_SERVERTIME
+
+// int64 tick = 1;
+inline void S_SERVERTIME::clear_tick() {
+  _impl_.tick_ = int64_t{0};
+}
+inline int64_t S_SERVERTIME::_internal_tick() const {
+  return _impl_.tick_;
+}
+inline int64_t S_SERVERTIME::tick() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_SERVERTIME.tick)
+  return _internal_tick();
+}
+inline void S_SERVERTIME::_internal_set_tick(int64_t value) {
+  
+  _impl_.tick_ = value;
+}
+inline void S_SERVERTIME::set_tick(int64_t value) {
+  _internal_set_tick(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_SERVERTIME.tick)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
