@@ -184,6 +184,17 @@ struct S_PINGDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_PINGDefaultTypeInternal _S_PING_default_instance_;
+PROTOBUF_CONSTEXPR C_SERVERTIME::C_SERVERTIME(
+    ::_pbi::ConstantInitialized) {}
+struct C_SERVERTIMEDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR C_SERVERTIMEDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~C_SERVERTIMEDefaultTypeInternal() {}
+  union {
+    C_SERVERTIME _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_SERVERTIMEDefaultTypeInternal _C_SERVERTIME_default_instance_;
 PROTOBUF_CONSTEXPR S_SERVERTIME::S_SERVERTIME(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.tick_)*/int64_t{0}
@@ -198,7 +209,7 @@ struct S_SERVERTIMEDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 S_SERVERTIMEDefaultTypeInternal _S_SERVERTIME_default_instance_;
 }  // namespace Protocol
-static ::_pb::Metadata file_level_metadata_Packet_5f000_5fBase_2eproto[14];
+static ::_pb::Metadata file_level_metadata_Packet_5f000_5fBase_2eproto[15];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Packet_5f000_5fBase_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Packet_5f000_5fBase_2eproto = nullptr;
 
@@ -292,6 +303,12 @@ const uint32_t TableStruct_Packet_5f000_5fBase_2eproto::offsets[] PROTOBUF_SECTI
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_PING, _impl_.tick_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::Protocol::C_SERVERTIME, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_SERVERTIME, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -313,7 +330,8 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 68, -1, -1, sizeof(::Protocol::C_HEARTBEAT)},
   { 74, -1, -1, sizeof(::Protocol::C_PING)},
   { 81, -1, -1, sizeof(::Protocol::S_PING)},
-  { 88, -1, -1, sizeof(::Protocol::S_SERVERTIME)},
+  { 88, -1, -1, sizeof(::Protocol::C_SERVERTIME)},
+  { 94, -1, -1, sizeof(::Protocol::S_SERVERTIME)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -330,6 +348,7 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::Protocol::_C_HEARTBEAT_default_instance_._instance,
   &::Protocol::_C_PING_default_instance_._instance,
   &::Protocol::_S_PING_default_instance_._instance,
+  &::Protocol::_C_SERVERTIME_default_instance_._instance,
   &::Protocol::_S_SERVERTIME_default_instance_._instance,
 };
 
@@ -344,14 +363,14 @@ const char descriptor_table_protodef_Packet_5f000_5fBase_2eproto[] PROTOBUF_SECT
   "\t\"$\n\017S_REMOVE_CLIENT\022\021\n\tclientIds\030\001 \003(\t\""
   "\034\n\014S_DISCONNECT\022\014\n\004code\030\001 \001(\t\"\r\n\013C_HEART"
   "BEAT\"\026\n\006C_PING\022\014\n\004tick\030\001 \001(\003\"\026\n\006S_PING\022\014"
-  "\n\004tick\030\001 \001(\003\"\034\n\014S_SERVERTIME\022\014\n\004tick\030\001 \001"
-  "(\003b\006proto3"
+  "\n\004tick\030\001 \001(\003\"\016\n\014C_SERVERTIME\"\034\n\014S_SERVER"
+  "TIME\022\014\n\004tick\030\001 \001(\003b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Packet_5f000_5fBase_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Packet_5f000_5fBase_2eproto = {
-    false, false, 450, descriptor_table_protodef_Packet_5f000_5fBase_2eproto,
+    false, false, 466, descriptor_table_protodef_Packet_5f000_5fBase_2eproto,
     "Packet_000_Base.proto",
-    &descriptor_table_Packet_5f000_5fBase_2eproto_once, nullptr, 0, 14,
+    &descriptor_table_Packet_5f000_5fBase_2eproto_once, nullptr, 0, 15,
     schemas, file_default_instances, TableStruct_Packet_5f000_5fBase_2eproto::offsets,
     file_level_metadata_Packet_5f000_5fBase_2eproto, file_level_enum_descriptors_Packet_5f000_5fBase_2eproto,
     file_level_service_descriptors_Packet_5f000_5fBase_2eproto,
@@ -2410,6 +2429,46 @@ void S_PING::InternalSwap(S_PING* other) {
 
 // ===================================================================
 
+class C_SERVERTIME::_Internal {
+ public:
+};
+
+C_SERVERTIME::C_SERVERTIME(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase(arena, is_message_owned) {
+  // @@protoc_insertion_point(arena_constructor:Protocol.C_SERVERTIME)
+}
+C_SERVERTIME::C_SERVERTIME(const C_SERVERTIME& from)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  C_SERVERTIME* const _this = this; (void)_this;
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:Protocol.C_SERVERTIME)
+}
+
+
+
+
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData C_SERVERTIME::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl,
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl,
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*C_SERVERTIME::GetClassData() const { return &_class_data_; }
+
+
+
+
+
+
+
+::PROTOBUF_NAMESPACE_ID::Metadata C_SERVERTIME::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Packet_5f000_5fBase_2eproto_getter, &descriptor_table_Packet_5f000_5fBase_2eproto_once,
+      file_level_metadata_Packet_5f000_5fBase_2eproto[13]);
+}
+
+// ===================================================================
+
 class S_SERVERTIME::_Internal {
  public:
 };
@@ -2583,7 +2642,7 @@ void S_SERVERTIME::InternalSwap(S_SERVERTIME* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata S_SERVERTIME::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Packet_5f000_5fBase_2eproto_getter, &descriptor_table_Packet_5f000_5fBase_2eproto_once,
-      file_level_metadata_Packet_5f000_5fBase_2eproto[13]);
+      file_level_metadata_Packet_5f000_5fBase_2eproto[14]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -2640,6 +2699,10 @@ Arena::CreateMaybeMessage< ::Protocol::C_PING >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::Protocol::S_PING*
 Arena::CreateMaybeMessage< ::Protocol::S_PING >(Arena* arena) {
   return Arena::CreateMessageInternal< ::Protocol::S_PING >(arena);
+}
+template<> PROTOBUF_NOINLINE ::Protocol::C_SERVERTIME*
+Arena::CreateMaybeMessage< ::Protocol::C_SERVERTIME >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::Protocol::C_SERVERTIME >(arena);
 }
 template<> PROTOBUF_NOINLINE ::Protocol::S_SERVERTIME*
 Arena::CreateMaybeMessage< ::Protocol::S_SERVERTIME >(Arena* arena) {

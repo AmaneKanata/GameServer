@@ -31,7 +31,7 @@ namespace Framework.Network
             Handlers.Add(7, _Handle_S_REMOVE_CLIENT);
             Handlers.Add(8, _Handle_S_DISCONNECT);
             Handlers.Add(11, _Handle_S_PING);
-            Handlers.Add(12, _Handle_S_SERVERTIME);
+            Handlers.Add(13, _Handle_S_SERVERTIME);
             Handlers.Add(101, _Handle_S_INSTANTIATE_GAME_OBJECT);
             Handlers.Add(103, _Handle_S_ADD_GAME_OBJECT);
             Handlers.Add(105, _Handle_S_DESTORY_GAME_OBJECT);

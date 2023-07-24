@@ -62,6 +62,10 @@ message S_PING
 	int64 tick = 1;
 }
 
+message C_SERVERTIME
+{
+}
+
 message S_SERVERTIME
 {
 	int64 tick = 1;

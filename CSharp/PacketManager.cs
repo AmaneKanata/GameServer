@@ -19,7 +19,8 @@ namespace Framework.Network
         PKT_C_HEARTBEAT = 9,
         PKT_C_PING = 10,
         PKT_S_PING = 11,
-        PKT_S_SERVERTIME = 12,
+        PKT_C_SERVERTIME = 12,
+        PKT_S_SERVERTIME = 13,
         PKT_C_INSTANTIATE_GAME_OBJECT = 100,
         PKT_S_INSTANTIATE_GAME_OBJECT = 101,
         PKT_C_GET_GAME_OBJECT = 102,
@@ -88,6 +89,7 @@ namespace Framework.Network
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_GET_CLIENT pkt ) { return MakeSendBuffer(pkt, 5); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_HEARTBEAT pkt ) { return MakeSendBuffer(pkt, 9); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_PING pkt ) { return MakeSendBuffer(pkt, 10); }
+        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_SERVERTIME pkt ) { return MakeSendBuffer(pkt, 12); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_INSTANTIATE_GAME_OBJECT pkt ) { return MakeSendBuffer(pkt, 100); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_GET_GAME_OBJECT pkt ) { return MakeSendBuffer(pkt, 102); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_DESTORY_GAME_OBJECT pkt ) { return MakeSendBuffer(pkt, 104); }

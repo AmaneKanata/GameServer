@@ -95,6 +95,13 @@ void RoomBase::Handle_C_PING(std::shared_ptr<GameSession> session, std::shared_p
 	session->client->Send(MakeSendBuffer(res));
 }
 
+void RoomBase::Handle_C_SERVERTIME(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SERVERTIME> pkt)
+{
+	Protocol::S_SERVERTIME res;
+	res.set_tick(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
+	session->client->Send(MakeSendBuffer(res));
+}
+
 void RoomBase::Leave(std::shared_ptr<ClientBase> _client, std::string code)
 {
 	Protocol::S_DISCONNECT disconnect;
