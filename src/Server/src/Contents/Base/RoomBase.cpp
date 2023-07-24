@@ -143,7 +143,5 @@ void RoomBase::SendServerTime()
 	res.set_tick(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
 	Broadcast(MakeSendBuffer(res));
 
-	GLogManager->Log("Server Time : ", std::to_string(res.tick()));
-
 	DelayPost(5000, &RoomBase::SendServerTime);
 }

@@ -145,8 +145,10 @@ void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session
 	gameObject->second->SetRotation(pkt->rotation());
 
 	Protocol::S_SET_TRANSFORM setTransform;
+	setTransform.set_timestamp(pkt->timestamp());
 	setTransform.set_gameobjectid(pkt->gameobjectid());
 	setTransform.set_allocated_position(pkt->release_position());
+	setTransform.set_allocated_velocity(pkt->release_velocity());
 	setTransform.set_allocated_rotation(pkt->release_rotation());
 	Broadcast(MakeSendBuffer(setTransform));
 }
