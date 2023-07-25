@@ -73,16 +73,20 @@ message S_CHANGE_GMAE_OBJECT_NOTICE
 
 message C_SET_TRANSFORM
 {
-	int32 gameObjectId = 1;
-	Vector3 position = 2;
-	Vector3 rotation = 3;
+	int64 timestamp = 1;
+	int32 gameObjectId = 2;
+	Vector3 position = 3;
+	Vector3 velocity = 4;
+	Vector3 rotation = 5;
 }
 
 message S_SET_TRANSFORM
 {
-	int32 gameObjectId = 1;
-	Vector3 position = 2;
-	Vector3 rotation = 3;
+	int64 timestamp = 1;
+	int32 gameObjectId = 2;
+	Vector3 position = 3;
+	Vector3 velocity = 4;
+	Vector3 rotation = 5;
 }
 
 message AnimationParameter {

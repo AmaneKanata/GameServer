@@ -8,6 +8,8 @@
 void RoomBase::HandleInit()
 {
 	//Custom Init
+	
+	Post(&RoomBase::SendServerTime);
 }
 
 void RoomBase::HandleClose()
@@ -88,9 +90,18 @@ void RoomBase::Handle_C_GET_CLIENT(std::shared_ptr<GameSession> session, std::sh
 	session->client->Send(MakeSendBuffer(res));
 }
 
-void RoomBase::Handle_C_TEST(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_TEST> pkt)
+void RoomBase::Handle_C_PING(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_PING> pkt)
 {
-	//This is for Test
+	Protocol::S_PING res;
+	res.set_tick(pkt->tick());
+	session->client->Send(MakeSendBuffer(res));
+}
+
+void RoomBase::Handle_C_SERVERTIME(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SERVERTIME> pkt)
+{
+	Protocol::S_SERVERTIME res;
+	res.set_tick(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
+	session->client->Send(MakeSendBuffer(res));
 }
 
 void RoomBase::Leave(std::shared_ptr<ClientBase> _client, std::string code)
@@ -133,4 +144,13 @@ void RoomBase::Broadcast(shared_ptr<SendBuffer> sendBuffer)
 {
 	for (const auto& [key, client] : clients)
 		client->Send(sendBuffer);
+}
+
+void RoomBase::SendServerTime()
+{
+	Protocol::S_SERVERTIME res;
+	res.set_tick(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
+	Broadcast(MakeSendBuffer(res));
+
+	DelayPost(5000, &RoomBase::SendServerTime);
 }

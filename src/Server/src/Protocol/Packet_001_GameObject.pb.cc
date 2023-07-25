@@ -191,7 +191,9 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR C_SET_TRANSFORM::C_SET_TRANSFORM(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.position_)*/nullptr
+  , /*decltype(_impl_.velocity_)*/nullptr
   , /*decltype(_impl_.rotation_)*/nullptr
+  , /*decltype(_impl_.timestamp_)*/int64_t{0}
   , /*decltype(_impl_.gameobjectid_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct C_SET_TRANSFORMDefaultTypeInternal {
@@ -206,7 +208,9 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR S_SET_TRANSFORM::S_SET_TRANSFORM(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.position_)*/nullptr
+  , /*decltype(_impl_.velocity_)*/nullptr
   , /*decltype(_impl_.rotation_)*/nullptr
+  , /*decltype(_impl_.timestamp_)*/int64_t{0}
   , /*decltype(_impl_.gameobjectid_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct S_SET_TRANSFORMDefaultTypeInternal {
@@ -389,8 +393,10 @@ const uint32_t TableStruct_Packet_5f001_5fGameObject_2eproto::offsets[] PROTOBUF
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::C_SET_TRANSFORM, _impl_.timestamp_),
   PROTOBUF_FIELD_OFFSET(::Protocol::C_SET_TRANSFORM, _impl_.gameobjectid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::C_SET_TRANSFORM, _impl_.position_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::C_SET_TRANSFORM, _impl_.velocity_),
   PROTOBUF_FIELD_OFFSET(::Protocol::C_SET_TRANSFORM, _impl_.rotation_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_SET_TRANSFORM, _internal_metadata_),
@@ -398,8 +404,10 @@ const uint32_t TableStruct_Packet_5f001_5fGameObject_2eproto::offsets[] PROTOBUF
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::Protocol::S_SET_TRANSFORM, _impl_.timestamp_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_SET_TRANSFORM, _impl_.gameobjectid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_SET_TRANSFORM, _impl_.position_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::S_SET_TRANSFORM, _impl_.velocity_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_SET_TRANSFORM, _impl_.rotation_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::AnimationParameter, _internal_metadata_),
@@ -462,12 +470,12 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 79, -1, -1, sizeof(::Protocol::S_CHANGE_GMAE_OBJECT)},
   { 87, -1, -1, sizeof(::Protocol::S_CHANGE_GMAE_OBJECT_NOTICE)},
   { 95, -1, -1, sizeof(::Protocol::C_SET_TRANSFORM)},
-  { 104, -1, -1, sizeof(::Protocol::S_SET_TRANSFORM)},
-  { 113, -1, -1, sizeof(::Protocol::AnimationParameter)},
-  { 123, 131, -1, sizeof(::Protocol::C_SET_ANIMATION_ParamsEntry_DoNotUse)},
-  { 133, -1, -1, sizeof(::Protocol::C_SET_ANIMATION)},
-  { 141, 149, -1, sizeof(::Protocol::S_SET_ANIMATION_ParamsEntry_DoNotUse)},
-  { 151, -1, -1, sizeof(::Protocol::S_SET_ANIMATION)},
+  { 106, -1, -1, sizeof(::Protocol::S_SET_TRANSFORM)},
+  { 117, -1, -1, sizeof(::Protocol::AnimationParameter)},
+  { 127, 135, -1, sizeof(::Protocol::C_SET_ANIMATION_ParamsEntry_DoNotUse)},
+  { 137, -1, -1, sizeof(::Protocol::C_SET_ANIMATION)},
+  { 145, 153, -1, sizeof(::Protocol::S_SET_ANIMATION_ParamsEntry_DoNotUse)},
+  { 155, -1, -1, sizeof(::Protocol::S_SET_ANIMATION)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -514,28 +522,31 @@ const char descriptor_table_protodef_Packet_5f001_5fGameObject_2eproto[] PROTOBU
   "me\030\002 \001(\t\"=\n\024S_CHANGE_GMAE_OBJECT\022\024\n\014game"
   "ObjectId\030\001 \001(\005\022\017\n\007success\030\002 \001(\010\"G\n\033S_CHA"
   "NGE_GMAE_OBJECT_NOTICE\022\024\n\014gameObjectId\030\001"
-  " \001(\005\022\022\n\nprefabName\030\002 \001(\t\"q\n\017C_SET_TRANSF"
-  "ORM\022\024\n\014gameObjectId\030\001 \001(\005\022#\n\010position\030\002 "
-  "\001(\0132\021.Protocol.Vector3\022#\n\010rotation\030\003 \001(\013"
-  "2\021.Protocol.Vector3\"q\n\017S_SET_TRANSFORM\022\024"
-  "\n\014gameObjectId\030\001 \001(\005\022#\n\010position\030\002 \001(\0132\021"
-  ".Protocol.Vector3\022#\n\010rotation\030\003 \001(\0132\021.Pr"
-  "otocol.Vector3\"_\n\022AnimationParameter\022\024\n\n"
-  "bool_param\030\001 \001(\010H\000\022\023\n\tint_param\030\002 \001(\005H\000\022"
-  "\025\n\013float_param\030\003 \001(\002H\000B\007\n\005param\"\253\001\n\017C_SE"
-  "T_ANIMATION\022\024\n\014gameObjectId\030\001 \001(\005\0225\n\006par"
-  "ams\030\002 \003(\0132%.Protocol.C_SET_ANIMATION.Par"
-  "amsEntry\032K\n\013ParamsEntry\022\013\n\003key\030\001 \001(\t\022+\n\005"
-  "value\030\002 \001(\0132\034.Protocol.AnimationParamete"
-  "r:\0028\001\"\253\001\n\017S_SET_ANIMATION\022\024\n\014gameObjectI"
-  "d\030\001 \001(\005\0225\n\006params\030\002 \003(\0132%.Protocol.S_SET"
-  "_ANIMATION.ParamsEntry\032K\n\013ParamsEntry\022\013\n"
-  "\003key\030\001 \001(\t\022+\n\005value\030\002 \001(\0132\034.Protocol.Ani"
-  "mationParameter:\0028\001b\006proto3"
+  " \001(\005\022\022\n\nprefabName\030\002 \001(\t\"\251\001\n\017C_SET_TRANS"
+  "FORM\022\021\n\ttimestamp\030\001 \001(\003\022\024\n\014gameObjectId\030"
+  "\002 \001(\005\022#\n\010position\030\003 \001(\0132\021.Protocol.Vecto"
+  "r3\022#\n\010velocity\030\004 \001(\0132\021.Protocol.Vector3\022"
+  "#\n\010rotation\030\005 \001(\0132\021.Protocol.Vector3\"\251\001\n"
+  "\017S_SET_TRANSFORM\022\021\n\ttimestamp\030\001 \001(\003\022\024\n\014g"
+  "ameObjectId\030\002 \001(\005\022#\n\010position\030\003 \001(\0132\021.Pr"
+  "otocol.Vector3\022#\n\010velocity\030\004 \001(\0132\021.Proto"
+  "col.Vector3\022#\n\010rotation\030\005 \001(\0132\021.Protocol"
+  ".Vector3\"_\n\022AnimationParameter\022\024\n\nbool_p"
+  "aram\030\001 \001(\010H\000\022\023\n\tint_param\030\002 \001(\005H\000\022\025\n\013flo"
+  "at_param\030\003 \001(\002H\000B\007\n\005param\"\253\001\n\017C_SET_ANIM"
+  "ATION\022\024\n\014gameObjectId\030\001 \001(\005\0225\n\006params\030\002 "
+  "\003(\0132%.Protocol.C_SET_ANIMATION.ParamsEnt"
+  "ry\032K\n\013ParamsEntry\022\013\n\003key\030\001 \001(\t\022+\n\005value\030"
+  "\002 \001(\0132\034.Protocol.AnimationParameter:\0028\001\""
+  "\253\001\n\017S_SET_ANIMATION\022\024\n\014gameObjectId\030\001 \001("
+  "\005\0225\n\006params\030\002 \003(\0132%.Protocol.S_SET_ANIMA"
+  "TION.ParamsEntry\032K\n\013ParamsEntry\022\013\n\003key\030\001"
+  " \001(\t\022+\n\005value\030\002 \001(\0132\034.Protocol.Animation"
+  "Parameter:\0028\001b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Packet_5f001_5fGameObject_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Packet_5f001_5fGameObject_2eproto = {
-    false, false, 1547, descriptor_table_protodef_Packet_5f001_5fGameObject_2eproto,
+    false, false, 1661, descriptor_table_protodef_Packet_5f001_5fGameObject_2eproto,
     "Packet_001_GameObject.proto",
     &descriptor_table_Packet_5f001_5fGameObject_2eproto_once, nullptr, 0, 19,
     schemas, file_default_instances, TableStruct_Packet_5f001_5fGameObject_2eproto::offsets,
@@ -3123,12 +3134,17 @@ void S_CHANGE_GMAE_OBJECT_NOTICE::InternalSwap(S_CHANGE_GMAE_OBJECT_NOTICE* othe
 class C_SET_TRANSFORM::_Internal {
  public:
   static const ::Protocol::Vector3& position(const C_SET_TRANSFORM* msg);
+  static const ::Protocol::Vector3& velocity(const C_SET_TRANSFORM* msg);
   static const ::Protocol::Vector3& rotation(const C_SET_TRANSFORM* msg);
 };
 
 const ::Protocol::Vector3&
 C_SET_TRANSFORM::_Internal::position(const C_SET_TRANSFORM* msg) {
   return *msg->_impl_.position_;
+}
+const ::Protocol::Vector3&
+C_SET_TRANSFORM::_Internal::velocity(const C_SET_TRANSFORM* msg) {
+  return *msg->_impl_.velocity_;
 }
 const ::Protocol::Vector3&
 C_SET_TRANSFORM::_Internal::rotation(const C_SET_TRANSFORM* msg) {
@@ -3145,7 +3161,9 @@ C_SET_TRANSFORM::C_SET_TRANSFORM(const C_SET_TRANSFORM& from)
   C_SET_TRANSFORM* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.position_){nullptr}
+    , decltype(_impl_.velocity_){nullptr}
     , decltype(_impl_.rotation_){nullptr}
+    , decltype(_impl_.timestamp_){}
     , decltype(_impl_.gameobjectid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -3153,10 +3171,15 @@ C_SET_TRANSFORM::C_SET_TRANSFORM(const C_SET_TRANSFORM& from)
   if (from._internal_has_position()) {
     _this->_impl_.position_ = new ::Protocol::Vector3(*from._impl_.position_);
   }
+  if (from._internal_has_velocity()) {
+    _this->_impl_.velocity_ = new ::Protocol::Vector3(*from._impl_.velocity_);
+  }
   if (from._internal_has_rotation()) {
     _this->_impl_.rotation_ = new ::Protocol::Vector3(*from._impl_.rotation_);
   }
-  _this->_impl_.gameobjectid_ = from._impl_.gameobjectid_;
+  ::memcpy(&_impl_.timestamp_, &from._impl_.timestamp_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.gameobjectid_) -
+    reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.gameobjectid_));
   // @@protoc_insertion_point(copy_constructor:Protocol.C_SET_TRANSFORM)
 }
 
@@ -3166,7 +3189,9 @@ inline void C_SET_TRANSFORM::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.position_){nullptr}
+    , decltype(_impl_.velocity_){nullptr}
     , decltype(_impl_.rotation_){nullptr}
+    , decltype(_impl_.timestamp_){int64_t{0}}
     , decltype(_impl_.gameobjectid_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -3184,6 +3209,7 @@ C_SET_TRANSFORM::~C_SET_TRANSFORM() {
 inline void C_SET_TRANSFORM::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.position_;
+  if (this != internal_default_instance()) delete _impl_.velocity_;
   if (this != internal_default_instance()) delete _impl_.rotation_;
 }
 
@@ -3201,11 +3227,17 @@ void C_SET_TRANSFORM::Clear() {
     delete _impl_.position_;
   }
   _impl_.position_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.velocity_ != nullptr) {
+    delete _impl_.velocity_;
+  }
+  _impl_.velocity_ = nullptr;
   if (GetArenaForAllocation() == nullptr && _impl_.rotation_ != nullptr) {
     delete _impl_.rotation_;
   }
   _impl_.rotation_ = nullptr;
-  _impl_.gameobjectid_ = 0;
+  ::memset(&_impl_.timestamp_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.gameobjectid_) -
+      reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.gameobjectid_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -3215,25 +3247,41 @@ const char* C_SET_TRANSFORM::_InternalParse(const char* ptr, ::_pbi::ParseContex
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // int32 gameObjectId = 1;
+      // int64 timestamp = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.timestamp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 gameObjectId = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _impl_.gameobjectid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.Vector3 position = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+      // .Protocol.Vector3 position = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.Vector3 rotation = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+      // .Protocol.Vector3 velocity = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_velocity(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.Vector3 rotation = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_rotation(), ptr);
           CHK_(ptr);
         } else
@@ -3268,23 +3316,36 @@ uint8_t* C_SET_TRANSFORM::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 gameObjectId = 1;
-  if (this->_internal_gameobjectid() != 0) {
+  // int64 timestamp = 1;
+  if (this->_internal_timestamp() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_gameobjectid(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_timestamp(), target);
   }
 
-  // .Protocol.Vector3 position = 2;
+  // int32 gameObjectId = 2;
+  if (this->_internal_gameobjectid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_gameobjectid(), target);
+  }
+
+  // .Protocol.Vector3 position = 3;
   if (this->_internal_has_position()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::position(this),
+      InternalWriteMessage(3, _Internal::position(this),
         _Internal::position(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.Vector3 rotation = 3;
+  // .Protocol.Vector3 velocity = 4;
+  if (this->_internal_has_velocity()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(4, _Internal::velocity(this),
+        _Internal::velocity(this).GetCachedSize(), target, stream);
+  }
+
+  // .Protocol.Vector3 rotation = 5;
   if (this->_internal_has_rotation()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::rotation(this),
+      InternalWriteMessage(5, _Internal::rotation(this),
         _Internal::rotation(this).GetCachedSize(), target, stream);
   }
 
@@ -3304,21 +3365,33 @@ size_t C_SET_TRANSFORM::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .Protocol.Vector3 position = 2;
+  // .Protocol.Vector3 position = 3;
   if (this->_internal_has_position()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.position_);
   }
 
-  // .Protocol.Vector3 rotation = 3;
+  // .Protocol.Vector3 velocity = 4;
+  if (this->_internal_has_velocity()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.velocity_);
+  }
+
+  // .Protocol.Vector3 rotation = 5;
   if (this->_internal_has_rotation()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.rotation_);
   }
 
-  // int32 gameObjectId = 1;
+  // int64 timestamp = 1;
+  if (this->_internal_timestamp() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_timestamp());
+  }
+
+  // int32 gameObjectId = 2;
   if (this->_internal_gameobjectid() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_gameobjectid());
   }
@@ -3345,9 +3418,16 @@ void C_SET_TRANSFORM::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
     _this->_internal_mutable_position()->::Protocol::Vector3::MergeFrom(
         from._internal_position());
   }
+  if (from._internal_has_velocity()) {
+    _this->_internal_mutable_velocity()->::Protocol::Vector3::MergeFrom(
+        from._internal_velocity());
+  }
   if (from._internal_has_rotation()) {
     _this->_internal_mutable_rotation()->::Protocol::Vector3::MergeFrom(
         from._internal_rotation());
+  }
+  if (from._internal_timestamp() != 0) {
+    _this->_internal_set_timestamp(from._internal_timestamp());
   }
   if (from._internal_gameobjectid() != 0) {
     _this->_internal_set_gameobjectid(from._internal_gameobjectid());
@@ -3388,12 +3468,17 @@ void C_SET_TRANSFORM::InternalSwap(C_SET_TRANSFORM* other) {
 class S_SET_TRANSFORM::_Internal {
  public:
   static const ::Protocol::Vector3& position(const S_SET_TRANSFORM* msg);
+  static const ::Protocol::Vector3& velocity(const S_SET_TRANSFORM* msg);
   static const ::Protocol::Vector3& rotation(const S_SET_TRANSFORM* msg);
 };
 
 const ::Protocol::Vector3&
 S_SET_TRANSFORM::_Internal::position(const S_SET_TRANSFORM* msg) {
   return *msg->_impl_.position_;
+}
+const ::Protocol::Vector3&
+S_SET_TRANSFORM::_Internal::velocity(const S_SET_TRANSFORM* msg) {
+  return *msg->_impl_.velocity_;
 }
 const ::Protocol::Vector3&
 S_SET_TRANSFORM::_Internal::rotation(const S_SET_TRANSFORM* msg) {
@@ -3410,7 +3495,9 @@ S_SET_TRANSFORM::S_SET_TRANSFORM(const S_SET_TRANSFORM& from)
   S_SET_TRANSFORM* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.position_){nullptr}
+    , decltype(_impl_.velocity_){nullptr}
     , decltype(_impl_.rotation_){nullptr}
+    , decltype(_impl_.timestamp_){}
     , decltype(_impl_.gameobjectid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
@@ -3418,10 +3505,15 @@ S_SET_TRANSFORM::S_SET_TRANSFORM(const S_SET_TRANSFORM& from)
   if (from._internal_has_position()) {
     _this->_impl_.position_ = new ::Protocol::Vector3(*from._impl_.position_);
   }
+  if (from._internal_has_velocity()) {
+    _this->_impl_.velocity_ = new ::Protocol::Vector3(*from._impl_.velocity_);
+  }
   if (from._internal_has_rotation()) {
     _this->_impl_.rotation_ = new ::Protocol::Vector3(*from._impl_.rotation_);
   }
-  _this->_impl_.gameobjectid_ = from._impl_.gameobjectid_;
+  ::memcpy(&_impl_.timestamp_, &from._impl_.timestamp_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.gameobjectid_) -
+    reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.gameobjectid_));
   // @@protoc_insertion_point(copy_constructor:Protocol.S_SET_TRANSFORM)
 }
 
@@ -3431,7 +3523,9 @@ inline void S_SET_TRANSFORM::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.position_){nullptr}
+    , decltype(_impl_.velocity_){nullptr}
     , decltype(_impl_.rotation_){nullptr}
+    , decltype(_impl_.timestamp_){int64_t{0}}
     , decltype(_impl_.gameobjectid_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
@@ -3449,6 +3543,7 @@ S_SET_TRANSFORM::~S_SET_TRANSFORM() {
 inline void S_SET_TRANSFORM::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.position_;
+  if (this != internal_default_instance()) delete _impl_.velocity_;
   if (this != internal_default_instance()) delete _impl_.rotation_;
 }
 
@@ -3466,11 +3561,17 @@ void S_SET_TRANSFORM::Clear() {
     delete _impl_.position_;
   }
   _impl_.position_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.velocity_ != nullptr) {
+    delete _impl_.velocity_;
+  }
+  _impl_.velocity_ = nullptr;
   if (GetArenaForAllocation() == nullptr && _impl_.rotation_ != nullptr) {
     delete _impl_.rotation_;
   }
   _impl_.rotation_ = nullptr;
-  _impl_.gameobjectid_ = 0;
+  ::memset(&_impl_.timestamp_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.gameobjectid_) -
+      reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.gameobjectid_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -3480,25 +3581,41 @@ const char* S_SET_TRANSFORM::_InternalParse(const char* ptr, ::_pbi::ParseContex
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // int32 gameObjectId = 1;
+      // int64 timestamp = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.timestamp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 gameObjectId = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _impl_.gameobjectid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.Vector3 position = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+      // .Protocol.Vector3 position = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.Vector3 rotation = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+      // .Protocol.Vector3 velocity = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ctx->ParseMessage(_internal_mutable_velocity(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.Vector3 rotation = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_rotation(), ptr);
           CHK_(ptr);
         } else
@@ -3533,23 +3650,36 @@ uint8_t* S_SET_TRANSFORM::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 gameObjectId = 1;
-  if (this->_internal_gameobjectid() != 0) {
+  // int64 timestamp = 1;
+  if (this->_internal_timestamp() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_gameobjectid(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_timestamp(), target);
   }
 
-  // .Protocol.Vector3 position = 2;
+  // int32 gameObjectId = 2;
+  if (this->_internal_gameobjectid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_gameobjectid(), target);
+  }
+
+  // .Protocol.Vector3 position = 3;
   if (this->_internal_has_position()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::position(this),
+      InternalWriteMessage(3, _Internal::position(this),
         _Internal::position(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.Vector3 rotation = 3;
+  // .Protocol.Vector3 velocity = 4;
+  if (this->_internal_has_velocity()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(4, _Internal::velocity(this),
+        _Internal::velocity(this).GetCachedSize(), target, stream);
+  }
+
+  // .Protocol.Vector3 rotation = 5;
   if (this->_internal_has_rotation()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::rotation(this),
+      InternalWriteMessage(5, _Internal::rotation(this),
         _Internal::rotation(this).GetCachedSize(), target, stream);
   }
 
@@ -3569,21 +3699,33 @@ size_t S_SET_TRANSFORM::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // .Protocol.Vector3 position = 2;
+  // .Protocol.Vector3 position = 3;
   if (this->_internal_has_position()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.position_);
   }
 
-  // .Protocol.Vector3 rotation = 3;
+  // .Protocol.Vector3 velocity = 4;
+  if (this->_internal_has_velocity()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.velocity_);
+  }
+
+  // .Protocol.Vector3 rotation = 5;
   if (this->_internal_has_rotation()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.rotation_);
   }
 
-  // int32 gameObjectId = 1;
+  // int64 timestamp = 1;
+  if (this->_internal_timestamp() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_timestamp());
+  }
+
+  // int32 gameObjectId = 2;
   if (this->_internal_gameobjectid() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_gameobjectid());
   }
@@ -3610,9 +3752,16 @@ void S_SET_TRANSFORM::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
     _this->_internal_mutable_position()->::Protocol::Vector3::MergeFrom(
         from._internal_position());
   }
+  if (from._internal_has_velocity()) {
+    _this->_internal_mutable_velocity()->::Protocol::Vector3::MergeFrom(
+        from._internal_velocity());
+  }
   if (from._internal_has_rotation()) {
     _this->_internal_mutable_rotation()->::Protocol::Vector3::MergeFrom(
         from._internal_rotation());
+  }
+  if (from._internal_timestamp() != 0) {
+    _this->_internal_set_timestamp(from._internal_timestamp());
   }
   if (from._internal_gameobjectid() != 0) {
     _this->_internal_set_gameobjectid(from._internal_gameobjectid());
