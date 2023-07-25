@@ -14,6 +14,8 @@
 
 #include "LogManager.h"
 
+#include "HttpServer.h"
+
 #include "GameSession.h"
 #include "RoomBase.h"
 #include "GameObjectRoom.h"
