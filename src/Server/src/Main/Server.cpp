@@ -26,7 +26,8 @@
 int main()
 {
 	std::string localHostIp;
-	int port = 7777;
+	int socketPort = 7777;
+	int httpPort = 8080;
 
 #ifdef linux
 	struct ifaddrs* ifAddrStruct = NULL;
@@ -74,7 +75,7 @@ int main()
 	}
 
 	boost::asio::io_context ioc;
-	boost::asio::ip::tcp::endpoint ep(boost::asio::ip::address_v4::from_string(localHostIp), port);
+	boost::asio::ip::tcp::endpoint ep(boost::asio::ip::address_v4::from_string(localHostIp), socketPort);
 
 	GLogManager = std::make_shared<LogManager>(ioc);
 
@@ -119,6 +120,26 @@ int main()
 				}
 			});
 	}
+
+	HttpServer httpServer(localHostIp, httpPort);
+
+	GThreadManager->Launch([&httpServer]()
+		{
+			while (agones_state != "Shutdown")
+			{
+				httpServer.Start();
+			}
+		});
+
+	GThreadManager->Launch([&httpServer]()
+		{
+			while (agones_state != "Shutdown")
+			{
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 1000 });
+			}
+
+			httpServer.Stop();
+		});
 
 	agones_sdk->Ready();
 
