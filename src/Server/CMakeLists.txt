@@ -23,6 +23,10 @@ endif (WIN32)
 find_package(Protobuf CONFIG)
 target_link_libraries(Server PRIVATE protobuf::libprotobuf protobuf::libprotoc)
 
+if (UNIX)
+    find_package(absl CONFIG)
+endif (UNIX)
+
 find_package(gRPC CONFIG)
 find_package(agones CONFIG)
 target_link_libraries(Server PRIVATE gRPC::grpc++ agones)
