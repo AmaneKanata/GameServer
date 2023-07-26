@@ -98,6 +98,22 @@ int main()
 			});
 	}
 
+	HttpServer httpServer(localHostIp, 8080);
+
+	GThreadManager->Launch([&httpServer]()
+		{
+			httpServer.Start();
+		});
+
+	GThreadManager->Launch([&httpServer]()
+		{
+			while (GRoom->GetState() != HandlerState::Closed)
+			{
+				std::this_thread::sleep_for(std::chrono::milliseconds{ 1000 });
+			}
+			httpServer.Stop();
+		});
+
 	GThreadManager->Join();
 	
 	//Close Server
