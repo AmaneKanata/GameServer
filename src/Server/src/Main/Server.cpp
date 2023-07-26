@@ -27,7 +27,7 @@ int main()
 {
 	std::string localHostIp;
 	int socketPort = 7777;
-	int httpPort = 8080;
+	int httpPort = 7778;
 
 #ifdef linux
 	struct ifaddrs* ifAddrStruct = NULL;
