@@ -125,10 +125,7 @@ int main()
 
 	GThreadManager->Launch([&httpServer]()
 		{
-			while (agones_state != "Shutdown")
-			{
-				httpServer.Start();
-			}
+			httpServer.Start();
 		});
 
 	GThreadManager->Launch([&httpServer]()
