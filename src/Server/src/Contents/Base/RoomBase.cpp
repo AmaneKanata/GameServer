@@ -7,9 +7,10 @@
 
 void RoomBase::HandleInit()
 {
-	//Custom Init
-	
 	Post(&RoomBase::SendServerTime);
+	
+	if(CLOSE_ON_IDLE)
+		DelayPost(CHECK_IDEL_INTERVAL, &RoomBase::CheckIdle);
 }
 
 void RoomBase::HandleClose()
@@ -153,4 +154,10 @@ void RoomBase::SendServerTime()
 	Broadcast(MakeSendBuffer(res));
 
 	DelayPost(5000, &RoomBase::SendServerTime);
+}
+
+void RoomBase::CheckIdle()
+{
+	if(clients.size() == 0)
+		Post(&RoomBase::Close);
 }

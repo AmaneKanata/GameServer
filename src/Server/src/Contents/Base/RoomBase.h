@@ -32,6 +32,7 @@ protected:
 
 private:
 	void SendServerTime();
+	void CheckIdle();
 
 protected:
 	map<string, std::shared_ptr<ClientBase>> clients;

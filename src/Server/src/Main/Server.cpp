@@ -74,14 +74,6 @@ int main()
 		return 0;
 	}
 
-	boost::asio::io_context ioc;
-	boost::asio::ip::tcp::endpoint ep(boost::asio::ip::address_v4::from_string(localHostIp), socketPort);
-
-	GLogManager = std::make_shared<LogManager>(ioc);
-
-	GRoom = std::make_shared<GameObjectRoom>(ioc);
-	GRoom->Init();
-
 	agones_sdk = std::make_shared<agones::SDK>();
 	if (!agones_sdk->Connect())
 		return 0;
@@ -100,6 +92,21 @@ int main()
 				agones_state = gameserver.status().state();
 				});
 		});
+
+	agones_sdk->Ready();
+
+	while (agones_state != "Allocated")
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
+	}
+
+	boost::asio::io_context ioc;
+	boost::asio::ip::tcp::endpoint ep(boost::asio::ip::address_v4::from_string(localHostIp), socketPort);
+
+	GLogManager = std::make_shared<LogManager>(ioc);
+
+	GRoom = std::make_shared<GameObjectRoom>(ioc);
+	GRoom->Init();
 
 	auto acceptor = std::make_shared<Acceptor>(ioc, ep,
 		[](boost::asio::io_context& ioc) {
@@ -137,8 +144,6 @@ int main()
 
 			httpServer.Stop();
 		});
-
-	agones_sdk->Ready();
 
 	GThreadManager->Join();
 

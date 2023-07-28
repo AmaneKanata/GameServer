@@ -10,6 +10,8 @@ extern std::atomic<int> session_num;
 extern std::atomic<int> client_num;
 
 extern bool CLOSE_ON_EMPTY;
+extern bool CLOSE_ON_IDLE;
+extern int CHECK_IDEL_INTERVAL;
 
 extern int DISCONNECTED_INTERVAL;
 extern int CHECK_ALIVE_INTERVAL;

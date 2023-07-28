@@ -53,7 +53,7 @@ public:
 		, state(HandlerState::Idle)
 	{
 		for (int i = 0; i < UINT16_MAX; i++)
-			PacketHandlers[i] = PacketHandlers[i] = std::bind(&PacketHandler::Handle_INVALID, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+			PacketHandlers[i] = std::bind(&PacketHandler::Handle_INVALID, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 		{% for pkt in parser.recv_pkt %}
 		PacketHandlers[PKT_{{pkt.name}}] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
