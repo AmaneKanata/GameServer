@@ -16,6 +16,8 @@ public:
 
 	virtual void Leave(std::shared_ptr<ClientBase> client, std::string code);
 
+	virtual void Broadcast(shared_ptr<SendBuffer> sendBuffer);
+
 protected:
 	virtual void Handle_INVALID(std::shared_ptr<GameSession> session, unsigned char* buffer, int len) override;
 
@@ -27,8 +29,6 @@ protected:
 	virtual void Handle_C_SERVERTIME(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SERVERTIME> pkt) override;
 
 	virtual std::shared_ptr<ClientBase> MakeClient(string clientId, std::shared_ptr<GameSession> session);
-
-	virtual void Broadcast(shared_ptr<SendBuffer> sendBuffer);
 
 private:
 	void SendServerTime();
