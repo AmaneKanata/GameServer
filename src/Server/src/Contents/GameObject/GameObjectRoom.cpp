@@ -15,7 +15,7 @@ void GameObjectRoom::Leave(std::shared_ptr<ClientBase> client, std::string code)
 
 			Protocol::S_REMOVE_GAME_OBJECT removeGameObject;
 			removeGameObject.add_gameobjects(gameObjectId);
-			Broadcast(MakeSendBuffer(removeGameObject));
+			Post(Broadcast, MakeSendBuffer(removeGameObject));
 		}
 	}
 
