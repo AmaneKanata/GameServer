@@ -60,6 +60,8 @@ public:
 			std::shared_ptr<Protocol::{{pkt.name}}> pkt = std::make_shared<Protocol::{{pkt.name}}>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_{{pkt.name}}, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
 		{%- endfor %}
 	}

@@ -98,78 +98,104 @@ public:
 			std::shared_ptr<Protocol::C_ENTER> pkt = std::make_shared<Protocol::C_ENTER>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_ENTER, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
 		PacketHandlers[PKT_C_REENTER] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::C_REENTER> pkt = std::make_shared<Protocol::C_REENTER>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_REENTER, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
 		PacketHandlers[PKT_C_LEAVE] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::C_LEAVE> pkt = std::make_shared<Protocol::C_LEAVE>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_LEAVE, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
 		PacketHandlers[PKT_C_GET_CLIENT] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::C_GET_CLIENT> pkt = std::make_shared<Protocol::C_GET_CLIENT>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_GET_CLIENT, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
 		PacketHandlers[PKT_C_HEARTBEAT] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::C_HEARTBEAT> pkt = std::make_shared<Protocol::C_HEARTBEAT>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_HEARTBEAT, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
 		PacketHandlers[PKT_C_PING] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::C_PING> pkt = std::make_shared<Protocol::C_PING>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_PING, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
 		PacketHandlers[PKT_C_SERVERTIME] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::C_SERVERTIME> pkt = std::make_shared<Protocol::C_SERVERTIME>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_SERVERTIME, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
 		PacketHandlers[PKT_C_INSTANTIATE_GAME_OBJECT] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::C_INSTANTIATE_GAME_OBJECT> pkt = std::make_shared<Protocol::C_INSTANTIATE_GAME_OBJECT>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_INSTANTIATE_GAME_OBJECT, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
 		PacketHandlers[PKT_C_GET_GAME_OBJECT] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::C_GET_GAME_OBJECT> pkt = std::make_shared<Protocol::C_GET_GAME_OBJECT>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_GET_GAME_OBJECT, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
 		PacketHandlers[PKT_C_DESTORY_GAME_OBJECT] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::C_DESTORY_GAME_OBJECT> pkt = std::make_shared<Protocol::C_DESTORY_GAME_OBJECT>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_DESTORY_GAME_OBJECT, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
 		PacketHandlers[PKT_C_CHANGE_GMAE_OBJECT] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::C_CHANGE_GMAE_OBJECT> pkt = std::make_shared<Protocol::C_CHANGE_GMAE_OBJECT>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_CHANGE_GMAE_OBJECT, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
 		PacketHandlers[PKT_C_SET_TRANSFORM] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::C_SET_TRANSFORM> pkt = std::make_shared<Protocol::C_SET_TRANSFORM>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_SET_TRANSFORM, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
 		PacketHandlers[PKT_C_SET_ANIMATION] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::C_SET_ANIMATION> pkt = std::make_shared<Protocol::C_SET_ANIMATION>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_SET_ANIMATION, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
 	}
 
