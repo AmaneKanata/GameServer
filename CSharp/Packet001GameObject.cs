@@ -43,24 +43,26 @@ namespace Protocol {
             "bWUYAiABKAkiPQoUU19DSEFOR0VfR01BRV9PQkpFQ1QSFAoMZ2FtZU9iamVj",
             "dElkGAEgASgFEg8KB3N1Y2Nlc3MYAiABKAgiRwobU19DSEFOR0VfR01BRV9P",
             "QkpFQ1RfTk9USUNFEhQKDGdhbWVPYmplY3RJZBgBIAEoBRISCgpwcmVmYWJO",
-            "YW1lGAIgASgJIqkBCg9DX1NFVF9UUkFOU0ZPUk0SEQoJdGltZXN0YW1wGAEg",
+            "YW1lGAIgASgJItUBCg9DX1NFVF9UUkFOU0ZPUk0SEQoJdGltZXN0YW1wGAEg",
             "ASgDEhQKDGdhbWVPYmplY3RJZBgCIAEoBRIjCghwb3NpdGlvbhgDIAEoCzIR",
             "LlByb3RvY29sLlZlY3RvcjMSIwoIdmVsb2NpdHkYBCABKAsyES5Qcm90b2Nv",
             "bC5WZWN0b3IzEiMKCHJvdGF0aW9uGAUgASgLMhEuUHJvdG9jb2wuVmVjdG9y",
-            "MyKpAQoPU19TRVRfVFJBTlNGT1JNEhEKCXRpbWVzdGFtcBgBIAEoAxIUCgxn",
-            "YW1lT2JqZWN0SWQYAiABKAUSIwoIcG9zaXRpb24YAyABKAsyES5Qcm90b2Nv",
-            "bC5WZWN0b3IzEiMKCHZlbG9jaXR5GAQgASgLMhEuUHJvdG9jb2wuVmVjdG9y",
-            "MxIjCghyb3RhdGlvbhgFIAEoCzIRLlByb3RvY29sLlZlY3RvcjMiXwoSQW5p",
-            "bWF0aW9uUGFyYW1ldGVyEhQKCmJvb2xfcGFyYW0YASABKAhIABITCglpbnRf",
-            "cGFyYW0YAiABKAVIABIVCgtmbG9hdF9wYXJhbRgDIAEoAkgAQgcKBXBhcmFt",
-            "IqsBCg9DX1NFVF9BTklNQVRJT04SFAoMZ2FtZU9iamVjdElkGAEgASgFEjUK",
-            "BnBhcmFtcxgCIAMoCzIlLlByb3RvY29sLkNfU0VUX0FOSU1BVElPTi5QYXJh",
-            "bXNFbnRyeRpLCgtQYXJhbXNFbnRyeRILCgNrZXkYASABKAkSKwoFdmFsdWUY",
-            "AiABKAsyHC5Qcm90b2NvbC5BbmltYXRpb25QYXJhbWV0ZXI6AjgBIqsBCg9T",
-            "X1NFVF9BTklNQVRJT04SFAoMZ2FtZU9iamVjdElkGAEgASgFEjUKBnBhcmFt",
-            "cxgCIAMoCzIlLlByb3RvY29sLlNfU0VUX0FOSU1BVElPTi5QYXJhbXNFbnRy",
-            "eRpLCgtQYXJhbXNFbnRyeRILCgNrZXkYASABKAkSKwoFdmFsdWUYAiABKAsy",
-            "HC5Qcm90b2NvbC5BbmltYXRpb25QYXJhbWV0ZXI6AjgBYgZwcm90bzM="));
+            "MxIqCg9hbmd1bGFyVmVsb2NpdHkYBiABKAsyES5Qcm90b2NvbC5WZWN0b3Iz",
+            "ItUBCg9TX1NFVF9UUkFOU0ZPUk0SEQoJdGltZXN0YW1wGAEgASgDEhQKDGdh",
+            "bWVPYmplY3RJZBgCIAEoBRIjCghwb3NpdGlvbhgDIAEoCzIRLlByb3RvY29s",
+            "LlZlY3RvcjMSIwoIdmVsb2NpdHkYBCABKAsyES5Qcm90b2NvbC5WZWN0b3Iz",
+            "EiMKCHJvdGF0aW9uGAUgASgLMhEuUHJvdG9jb2wuVmVjdG9yMxIqCg9hbmd1",
+            "bGFyVmVsb2NpdHkYBiABKAsyES5Qcm90b2NvbC5WZWN0b3IzIl8KEkFuaW1h",
+            "dGlvblBhcmFtZXRlchIUCgpib29sX3BhcmFtGAEgASgISAASEwoJaW50X3Bh",
+            "cmFtGAIgASgFSAASFQoLZmxvYXRfcGFyYW0YAyABKAJIAEIHCgVwYXJhbSKr",
+            "AQoPQ19TRVRfQU5JTUFUSU9OEhQKDGdhbWVPYmplY3RJZBgBIAEoBRI1CgZw",
+            "YXJhbXMYAiADKAsyJS5Qcm90b2NvbC5DX1NFVF9BTklNQVRJT04uUGFyYW1z",
+            "RW50cnkaSwoLUGFyYW1zRW50cnkSCwoDa2V5GAEgASgJEisKBXZhbHVlGAIg",
+            "ASgLMhwuUHJvdG9jb2wuQW5pbWF0aW9uUGFyYW1ldGVyOgI4ASKrAQoPU19T",
+            "RVRfQU5JTUFUSU9OEhQKDGdhbWVPYmplY3RJZBgBIAEoBRI1CgZwYXJhbXMY",
+            "AiADKAsyJS5Qcm90b2NvbC5TX1NFVF9BTklNQVRJT04uUGFyYW1zRW50cnka",
+            "SwoLUGFyYW1zRW50cnkSCwoDa2V5GAEgASgJEisKBXZhbHVlGAIgASgLMhwu",
+            "UHJvdG9jb2wuQW5pbWF0aW9uUGFyYW1ldGVyOgI4AWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -75,8 +77,8 @@ namespace Protocol {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_CHANGE_GMAE_OBJECT), global::Protocol.C_CHANGE_GMAE_OBJECT.Parser, new[]{ "GameObjectId", "PrefabName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_CHANGE_GMAE_OBJECT), global::Protocol.S_CHANGE_GMAE_OBJECT.Parser, new[]{ "GameObjectId", "Success" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_CHANGE_GMAE_OBJECT_NOTICE), global::Protocol.S_CHANGE_GMAE_OBJECT_NOTICE.Parser, new[]{ "GameObjectId", "PrefabName" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_SET_TRANSFORM), global::Protocol.C_SET_TRANSFORM.Parser, new[]{ "Timestamp", "GameObjectId", "Position", "Velocity", "Rotation" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_SET_TRANSFORM), global::Protocol.S_SET_TRANSFORM.Parser, new[]{ "Timestamp", "GameObjectId", "Position", "Velocity", "Rotation" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_SET_TRANSFORM), global::Protocol.C_SET_TRANSFORM.Parser, new[]{ "Timestamp", "GameObjectId", "Position", "Velocity", "Rotation", "AngularVelocity" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_SET_TRANSFORM), global::Protocol.S_SET_TRANSFORM.Parser, new[]{ "Timestamp", "GameObjectId", "Position", "Velocity", "Rotation", "AngularVelocity" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.AnimationParameter), global::Protocol.AnimationParameter.Parser, new[]{ "BoolParam", "IntParam", "FloatParam" }, new[]{ "Param" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_SET_ANIMATION), global::Protocol.C_SET_ANIMATION.Parser, new[]{ "GameObjectId", "Params" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_SET_ANIMATION), global::Protocol.S_SET_ANIMATION.Parser, new[]{ "GameObjectId", "Params" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, })
@@ -2824,6 +2826,7 @@ namespace Protocol {
       position_ = other.position_ != null ? other.position_.Clone() : null;
       velocity_ = other.velocity_ != null ? other.velocity_.Clone() : null;
       rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
+      angularVelocity_ = other.angularVelocity_ != null ? other.angularVelocity_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2893,6 +2896,18 @@ namespace Protocol {
       }
     }
 
+    /// <summary>Field number for the "angularVelocity" field.</summary>
+    public const int AngularVelocityFieldNumber = 6;
+    private global::Protocol.Vector3 angularVelocity_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Protocol.Vector3 AngularVelocity {
+      get { return angularVelocity_; }
+      set {
+        angularVelocity_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -2913,6 +2928,7 @@ namespace Protocol {
       if (!object.Equals(Position, other.Position)) return false;
       if (!object.Equals(Velocity, other.Velocity)) return false;
       if (!object.Equals(Rotation, other.Rotation)) return false;
+      if (!object.Equals(AngularVelocity, other.AngularVelocity)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2925,6 +2941,7 @@ namespace Protocol {
       if (position_ != null) hash ^= Position.GetHashCode();
       if (velocity_ != null) hash ^= Velocity.GetHashCode();
       if (rotation_ != null) hash ^= Rotation.GetHashCode();
+      if (angularVelocity_ != null) hash ^= AngularVelocity.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2963,6 +2980,10 @@ namespace Protocol {
         output.WriteRawTag(42);
         output.WriteMessage(Rotation);
       }
+      if (angularVelocity_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(AngularVelocity);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2993,6 +3014,10 @@ namespace Protocol {
         output.WriteRawTag(42);
         output.WriteMessage(Rotation);
       }
+      if (angularVelocity_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(AngularVelocity);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -3017,6 +3042,9 @@ namespace Protocol {
       }
       if (rotation_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Rotation);
+      }
+      if (angularVelocity_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(AngularVelocity);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3053,6 +3081,12 @@ namespace Protocol {
           Rotation = new global::Protocol.Vector3();
         }
         Rotation.MergeFrom(other.Rotation);
+      }
+      if (other.angularVelocity_ != null) {
+        if (angularVelocity_ == null) {
+          AngularVelocity = new global::Protocol.Vector3();
+        }
+        AngularVelocity.MergeFrom(other.AngularVelocity);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -3098,6 +3132,13 @@ namespace Protocol {
             input.ReadMessage(Rotation);
             break;
           }
+          case 50: {
+            if (angularVelocity_ == null) {
+              AngularVelocity = new global::Protocol.Vector3();
+            }
+            input.ReadMessage(AngularVelocity);
+            break;
+          }
         }
       }
     #endif
@@ -3140,6 +3181,13 @@ namespace Protocol {
               Rotation = new global::Protocol.Vector3();
             }
             input.ReadMessage(Rotation);
+            break;
+          }
+          case 50: {
+            if (angularVelocity_ == null) {
+              AngularVelocity = new global::Protocol.Vector3();
+            }
+            input.ReadMessage(AngularVelocity);
             break;
           }
         }
@@ -3188,6 +3236,7 @@ namespace Protocol {
       position_ = other.position_ != null ? other.position_.Clone() : null;
       velocity_ = other.velocity_ != null ? other.velocity_.Clone() : null;
       rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
+      angularVelocity_ = other.angularVelocity_ != null ? other.angularVelocity_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3257,6 +3306,18 @@ namespace Protocol {
       }
     }
 
+    /// <summary>Field number for the "angularVelocity" field.</summary>
+    public const int AngularVelocityFieldNumber = 6;
+    private global::Protocol.Vector3 angularVelocity_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Protocol.Vector3 AngularVelocity {
+      get { return angularVelocity_; }
+      set {
+        angularVelocity_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -3277,6 +3338,7 @@ namespace Protocol {
       if (!object.Equals(Position, other.Position)) return false;
       if (!object.Equals(Velocity, other.Velocity)) return false;
       if (!object.Equals(Rotation, other.Rotation)) return false;
+      if (!object.Equals(AngularVelocity, other.AngularVelocity)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3289,6 +3351,7 @@ namespace Protocol {
       if (position_ != null) hash ^= Position.GetHashCode();
       if (velocity_ != null) hash ^= Velocity.GetHashCode();
       if (rotation_ != null) hash ^= Rotation.GetHashCode();
+      if (angularVelocity_ != null) hash ^= AngularVelocity.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3327,6 +3390,10 @@ namespace Protocol {
         output.WriteRawTag(42);
         output.WriteMessage(Rotation);
       }
+      if (angularVelocity_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(AngularVelocity);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -3357,6 +3424,10 @@ namespace Protocol {
         output.WriteRawTag(42);
         output.WriteMessage(Rotation);
       }
+      if (angularVelocity_ != null) {
+        output.WriteRawTag(50);
+        output.WriteMessage(AngularVelocity);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -3381,6 +3452,9 @@ namespace Protocol {
       }
       if (rotation_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Rotation);
+      }
+      if (angularVelocity_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(AngularVelocity);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3417,6 +3491,12 @@ namespace Protocol {
           Rotation = new global::Protocol.Vector3();
         }
         Rotation.MergeFrom(other.Rotation);
+      }
+      if (other.angularVelocity_ != null) {
+        if (angularVelocity_ == null) {
+          AngularVelocity = new global::Protocol.Vector3();
+        }
+        AngularVelocity.MergeFrom(other.AngularVelocity);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -3462,6 +3542,13 @@ namespace Protocol {
             input.ReadMessage(Rotation);
             break;
           }
+          case 50: {
+            if (angularVelocity_ == null) {
+              AngularVelocity = new global::Protocol.Vector3();
+            }
+            input.ReadMessage(AngularVelocity);
+            break;
+          }
         }
       }
     #endif
@@ -3504,6 +3591,13 @@ namespace Protocol {
               Rotation = new global::Protocol.Vector3();
             }
             input.ReadMessage(Rotation);
+            break;
+          }
+          case 50: {
+            if (angularVelocity_ == null) {
+              AngularVelocity = new global::Protocol.Vector3();
+            }
+            input.ReadMessage(AngularVelocity);
             break;
           }
         }

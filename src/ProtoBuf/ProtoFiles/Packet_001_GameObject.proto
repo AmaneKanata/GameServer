@@ -78,6 +78,7 @@ message C_SET_TRANSFORM
 	Vector3 position = 3;
 	Vector3 velocity = 4;
 	Vector3 rotation = 5;
+	Vector3 angularVelocity = 6;
 }
 
 message S_SET_TRANSFORM
@@ -87,6 +88,7 @@ message S_SET_TRANSFORM
 	Vector3 position = 3;
 	Vector3 velocity = 4;
 	Vector3 rotation = 5;
+	Vector3 angularVelocity = 6;
 }
 
 message AnimationParameter {

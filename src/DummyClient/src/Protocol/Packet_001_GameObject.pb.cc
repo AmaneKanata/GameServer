@@ -193,6 +193,7 @@ PROTOBUF_CONSTEXPR C_SET_TRANSFORM::C_SET_TRANSFORM(
     /*decltype(_impl_.position_)*/nullptr
   , /*decltype(_impl_.velocity_)*/nullptr
   , /*decltype(_impl_.rotation_)*/nullptr
+  , /*decltype(_impl_.angularvelocity_)*/nullptr
   , /*decltype(_impl_.timestamp_)*/int64_t{0}
   , /*decltype(_impl_.gameobjectid_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
@@ -210,6 +211,7 @@ PROTOBUF_CONSTEXPR S_SET_TRANSFORM::S_SET_TRANSFORM(
     /*decltype(_impl_.position_)*/nullptr
   , /*decltype(_impl_.velocity_)*/nullptr
   , /*decltype(_impl_.rotation_)*/nullptr
+  , /*decltype(_impl_.angularvelocity_)*/nullptr
   , /*decltype(_impl_.timestamp_)*/int64_t{0}
   , /*decltype(_impl_.gameobjectid_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
@@ -398,6 +400,7 @@ const uint32_t TableStruct_Packet_5f001_5fGameObject_2eproto::offsets[] PROTOBUF
   PROTOBUF_FIELD_OFFSET(::Protocol::C_SET_TRANSFORM, _impl_.position_),
   PROTOBUF_FIELD_OFFSET(::Protocol::C_SET_TRANSFORM, _impl_.velocity_),
   PROTOBUF_FIELD_OFFSET(::Protocol::C_SET_TRANSFORM, _impl_.rotation_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::C_SET_TRANSFORM, _impl_.angularvelocity_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_SET_TRANSFORM, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -409,6 +412,7 @@ const uint32_t TableStruct_Packet_5f001_5fGameObject_2eproto::offsets[] PROTOBUF
   PROTOBUF_FIELD_OFFSET(::Protocol::S_SET_TRANSFORM, _impl_.position_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_SET_TRANSFORM, _impl_.velocity_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_SET_TRANSFORM, _impl_.rotation_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::S_SET_TRANSFORM, _impl_.angularvelocity_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::AnimationParameter, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -470,12 +474,12 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 79, -1, -1, sizeof(::Protocol::S_CHANGE_GMAE_OBJECT)},
   { 87, -1, -1, sizeof(::Protocol::S_CHANGE_GMAE_OBJECT_NOTICE)},
   { 95, -1, -1, sizeof(::Protocol::C_SET_TRANSFORM)},
-  { 106, -1, -1, sizeof(::Protocol::S_SET_TRANSFORM)},
-  { 117, -1, -1, sizeof(::Protocol::AnimationParameter)},
-  { 127, 135, -1, sizeof(::Protocol::C_SET_ANIMATION_ParamsEntry_DoNotUse)},
-  { 137, -1, -1, sizeof(::Protocol::C_SET_ANIMATION)},
-  { 145, 153, -1, sizeof(::Protocol::S_SET_ANIMATION_ParamsEntry_DoNotUse)},
-  { 155, -1, -1, sizeof(::Protocol::S_SET_ANIMATION)},
+  { 107, -1, -1, sizeof(::Protocol::S_SET_TRANSFORM)},
+  { 119, -1, -1, sizeof(::Protocol::AnimationParameter)},
+  { 129, 137, -1, sizeof(::Protocol::C_SET_ANIMATION_ParamsEntry_DoNotUse)},
+  { 139, -1, -1, sizeof(::Protocol::C_SET_ANIMATION)},
+  { 147, 155, -1, sizeof(::Protocol::S_SET_ANIMATION_ParamsEntry_DoNotUse)},
+  { 157, -1, -1, sizeof(::Protocol::S_SET_ANIMATION)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -522,31 +526,33 @@ const char descriptor_table_protodef_Packet_5f001_5fGameObject_2eproto[] PROTOBU
   "me\030\002 \001(\t\"=\n\024S_CHANGE_GMAE_OBJECT\022\024\n\014game"
   "ObjectId\030\001 \001(\005\022\017\n\007success\030\002 \001(\010\"G\n\033S_CHA"
   "NGE_GMAE_OBJECT_NOTICE\022\024\n\014gameObjectId\030\001"
-  " \001(\005\022\022\n\nprefabName\030\002 \001(\t\"\251\001\n\017C_SET_TRANS"
+  " \001(\005\022\022\n\nprefabName\030\002 \001(\t\"\325\001\n\017C_SET_TRANS"
   "FORM\022\021\n\ttimestamp\030\001 \001(\003\022\024\n\014gameObjectId\030"
   "\002 \001(\005\022#\n\010position\030\003 \001(\0132\021.Protocol.Vecto"
   "r3\022#\n\010velocity\030\004 \001(\0132\021.Protocol.Vector3\022"
-  "#\n\010rotation\030\005 \001(\0132\021.Protocol.Vector3\"\251\001\n"
-  "\017S_SET_TRANSFORM\022\021\n\ttimestamp\030\001 \001(\003\022\024\n\014g"
-  "ameObjectId\030\002 \001(\005\022#\n\010position\030\003 \001(\0132\021.Pr"
-  "otocol.Vector3\022#\n\010velocity\030\004 \001(\0132\021.Proto"
-  "col.Vector3\022#\n\010rotation\030\005 \001(\0132\021.Protocol"
-  ".Vector3\"_\n\022AnimationParameter\022\024\n\nbool_p"
-  "aram\030\001 \001(\010H\000\022\023\n\tint_param\030\002 \001(\005H\000\022\025\n\013flo"
-  "at_param\030\003 \001(\002H\000B\007\n\005param\"\253\001\n\017C_SET_ANIM"
-  "ATION\022\024\n\014gameObjectId\030\001 \001(\005\0225\n\006params\030\002 "
-  "\003(\0132%.Protocol.C_SET_ANIMATION.ParamsEnt"
-  "ry\032K\n\013ParamsEntry\022\013\n\003key\030\001 \001(\t\022+\n\005value\030"
-  "\002 \001(\0132\034.Protocol.AnimationParameter:\0028\001\""
-  "\253\001\n\017S_SET_ANIMATION\022\024\n\014gameObjectId\030\001 \001("
-  "\005\0225\n\006params\030\002 \003(\0132%.Protocol.S_SET_ANIMA"
-  "TION.ParamsEntry\032K\n\013ParamsEntry\022\013\n\003key\030\001"
-  " \001(\t\022+\n\005value\030\002 \001(\0132\034.Protocol.Animation"
-  "Parameter:\0028\001b\006proto3"
+  "#\n\010rotation\030\005 \001(\0132\021.Protocol.Vector3\022*\n\017"
+  "angularVelocity\030\006 \001(\0132\021.Protocol.Vector3"
+  "\"\325\001\n\017S_SET_TRANSFORM\022\021\n\ttimestamp\030\001 \001(\003\022"
+  "\024\n\014gameObjectId\030\002 \001(\005\022#\n\010position\030\003 \001(\0132"
+  "\021.Protocol.Vector3\022#\n\010velocity\030\004 \001(\0132\021.P"
+  "rotocol.Vector3\022#\n\010rotation\030\005 \001(\0132\021.Prot"
+  "ocol.Vector3\022*\n\017angularVelocity\030\006 \001(\0132\021."
+  "Protocol.Vector3\"_\n\022AnimationParameter\022\024"
+  "\n\nbool_param\030\001 \001(\010H\000\022\023\n\tint_param\030\002 \001(\005H"
+  "\000\022\025\n\013float_param\030\003 \001(\002H\000B\007\n\005param\"\253\001\n\017C_"
+  "SET_ANIMATION\022\024\n\014gameObjectId\030\001 \001(\005\0225\n\006p"
+  "arams\030\002 \003(\0132%.Protocol.C_SET_ANIMATION.P"
+  "aramsEntry\032K\n\013ParamsEntry\022\013\n\003key\030\001 \001(\t\022+"
+  "\n\005value\030\002 \001(\0132\034.Protocol.AnimationParame"
+  "ter:\0028\001\"\253\001\n\017S_SET_ANIMATION\022\024\n\014gameObjec"
+  "tId\030\001 \001(\005\0225\n\006params\030\002 \003(\0132%.Protocol.S_S"
+  "ET_ANIMATION.ParamsEntry\032K\n\013ParamsEntry\022"
+  "\013\n\003key\030\001 \001(\t\022+\n\005value\030\002 \001(\0132\034.Protocol.A"
+  "nimationParameter:\0028\001b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Packet_5f001_5fGameObject_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Packet_5f001_5fGameObject_2eproto = {
-    false, false, 1661, descriptor_table_protodef_Packet_5f001_5fGameObject_2eproto,
+    false, false, 1749, descriptor_table_protodef_Packet_5f001_5fGameObject_2eproto,
     "Packet_001_GameObject.proto",
     &descriptor_table_Packet_5f001_5fGameObject_2eproto_once, nullptr, 0, 19,
     schemas, file_default_instances, TableStruct_Packet_5f001_5fGameObject_2eproto::offsets,
@@ -3136,6 +3142,7 @@ class C_SET_TRANSFORM::_Internal {
   static const ::Protocol::Vector3& position(const C_SET_TRANSFORM* msg);
   static const ::Protocol::Vector3& velocity(const C_SET_TRANSFORM* msg);
   static const ::Protocol::Vector3& rotation(const C_SET_TRANSFORM* msg);
+  static const ::Protocol::Vector3& angularvelocity(const C_SET_TRANSFORM* msg);
 };
 
 const ::Protocol::Vector3&
@@ -3150,6 +3157,10 @@ const ::Protocol::Vector3&
 C_SET_TRANSFORM::_Internal::rotation(const C_SET_TRANSFORM* msg) {
   return *msg->_impl_.rotation_;
 }
+const ::Protocol::Vector3&
+C_SET_TRANSFORM::_Internal::angularvelocity(const C_SET_TRANSFORM* msg) {
+  return *msg->_impl_.angularvelocity_;
+}
 C_SET_TRANSFORM::C_SET_TRANSFORM(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -3163,6 +3174,7 @@ C_SET_TRANSFORM::C_SET_TRANSFORM(const C_SET_TRANSFORM& from)
       decltype(_impl_.position_){nullptr}
     , decltype(_impl_.velocity_){nullptr}
     , decltype(_impl_.rotation_){nullptr}
+    , decltype(_impl_.angularvelocity_){nullptr}
     , decltype(_impl_.timestamp_){}
     , decltype(_impl_.gameobjectid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
@@ -3176,6 +3188,9 @@ C_SET_TRANSFORM::C_SET_TRANSFORM(const C_SET_TRANSFORM& from)
   }
   if (from._internal_has_rotation()) {
     _this->_impl_.rotation_ = new ::Protocol::Vector3(*from._impl_.rotation_);
+  }
+  if (from._internal_has_angularvelocity()) {
+    _this->_impl_.angularvelocity_ = new ::Protocol::Vector3(*from._impl_.angularvelocity_);
   }
   ::memcpy(&_impl_.timestamp_, &from._impl_.timestamp_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.gameobjectid_) -
@@ -3191,6 +3206,7 @@ inline void C_SET_TRANSFORM::SharedCtor(
       decltype(_impl_.position_){nullptr}
     , decltype(_impl_.velocity_){nullptr}
     , decltype(_impl_.rotation_){nullptr}
+    , decltype(_impl_.angularvelocity_){nullptr}
     , decltype(_impl_.timestamp_){int64_t{0}}
     , decltype(_impl_.gameobjectid_){0}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -3211,6 +3227,7 @@ inline void C_SET_TRANSFORM::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.position_;
   if (this != internal_default_instance()) delete _impl_.velocity_;
   if (this != internal_default_instance()) delete _impl_.rotation_;
+  if (this != internal_default_instance()) delete _impl_.angularvelocity_;
 }
 
 void C_SET_TRANSFORM::SetCachedSize(int size) const {
@@ -3235,6 +3252,10 @@ void C_SET_TRANSFORM::Clear() {
     delete _impl_.rotation_;
   }
   _impl_.rotation_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.angularvelocity_ != nullptr) {
+    delete _impl_.angularvelocity_;
+  }
+  _impl_.angularvelocity_ = nullptr;
   ::memset(&_impl_.timestamp_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.gameobjectid_) -
       reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.gameobjectid_));
@@ -3283,6 +3304,14 @@ const char* C_SET_TRANSFORM::_InternalParse(const char* ptr, ::_pbi::ParseContex
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_rotation(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.Vector3 angularVelocity = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_angularvelocity(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3349,6 +3378,13 @@ uint8_t* C_SET_TRANSFORM::_InternalSerialize(
         _Internal::rotation(this).GetCachedSize(), target, stream);
   }
 
+  // .Protocol.Vector3 angularVelocity = 6;
+  if (this->_internal_has_angularvelocity()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(6, _Internal::angularvelocity(this),
+        _Internal::angularvelocity(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -3384,6 +3420,13 @@ size_t C_SET_TRANSFORM::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.rotation_);
+  }
+
+  // .Protocol.Vector3 angularVelocity = 6;
+  if (this->_internal_has_angularvelocity()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.angularvelocity_);
   }
 
   // int64 timestamp = 1;
@@ -3425,6 +3468,10 @@ void C_SET_TRANSFORM::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   if (from._internal_has_rotation()) {
     _this->_internal_mutable_rotation()->::Protocol::Vector3::MergeFrom(
         from._internal_rotation());
+  }
+  if (from._internal_has_angularvelocity()) {
+    _this->_internal_mutable_angularvelocity()->::Protocol::Vector3::MergeFrom(
+        from._internal_angularvelocity());
   }
   if (from._internal_timestamp() != 0) {
     _this->_internal_set_timestamp(from._internal_timestamp());
@@ -3470,6 +3517,7 @@ class S_SET_TRANSFORM::_Internal {
   static const ::Protocol::Vector3& position(const S_SET_TRANSFORM* msg);
   static const ::Protocol::Vector3& velocity(const S_SET_TRANSFORM* msg);
   static const ::Protocol::Vector3& rotation(const S_SET_TRANSFORM* msg);
+  static const ::Protocol::Vector3& angularvelocity(const S_SET_TRANSFORM* msg);
 };
 
 const ::Protocol::Vector3&
@@ -3484,6 +3532,10 @@ const ::Protocol::Vector3&
 S_SET_TRANSFORM::_Internal::rotation(const S_SET_TRANSFORM* msg) {
   return *msg->_impl_.rotation_;
 }
+const ::Protocol::Vector3&
+S_SET_TRANSFORM::_Internal::angularvelocity(const S_SET_TRANSFORM* msg) {
+  return *msg->_impl_.angularvelocity_;
+}
 S_SET_TRANSFORM::S_SET_TRANSFORM(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
@@ -3497,6 +3549,7 @@ S_SET_TRANSFORM::S_SET_TRANSFORM(const S_SET_TRANSFORM& from)
       decltype(_impl_.position_){nullptr}
     , decltype(_impl_.velocity_){nullptr}
     , decltype(_impl_.rotation_){nullptr}
+    , decltype(_impl_.angularvelocity_){nullptr}
     , decltype(_impl_.timestamp_){}
     , decltype(_impl_.gameobjectid_){}
     , /*decltype(_impl_._cached_size_)*/{}};
@@ -3510,6 +3563,9 @@ S_SET_TRANSFORM::S_SET_TRANSFORM(const S_SET_TRANSFORM& from)
   }
   if (from._internal_has_rotation()) {
     _this->_impl_.rotation_ = new ::Protocol::Vector3(*from._impl_.rotation_);
+  }
+  if (from._internal_has_angularvelocity()) {
+    _this->_impl_.angularvelocity_ = new ::Protocol::Vector3(*from._impl_.angularvelocity_);
   }
   ::memcpy(&_impl_.timestamp_, &from._impl_.timestamp_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.gameobjectid_) -
@@ -3525,6 +3581,7 @@ inline void S_SET_TRANSFORM::SharedCtor(
       decltype(_impl_.position_){nullptr}
     , decltype(_impl_.velocity_){nullptr}
     , decltype(_impl_.rotation_){nullptr}
+    , decltype(_impl_.angularvelocity_){nullptr}
     , decltype(_impl_.timestamp_){int64_t{0}}
     , decltype(_impl_.gameobjectid_){0}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -3545,6 +3602,7 @@ inline void S_SET_TRANSFORM::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.position_;
   if (this != internal_default_instance()) delete _impl_.velocity_;
   if (this != internal_default_instance()) delete _impl_.rotation_;
+  if (this != internal_default_instance()) delete _impl_.angularvelocity_;
 }
 
 void S_SET_TRANSFORM::SetCachedSize(int size) const {
@@ -3569,6 +3627,10 @@ void S_SET_TRANSFORM::Clear() {
     delete _impl_.rotation_;
   }
   _impl_.rotation_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.angularvelocity_ != nullptr) {
+    delete _impl_.angularvelocity_;
+  }
+  _impl_.angularvelocity_ = nullptr;
   ::memset(&_impl_.timestamp_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&_impl_.gameobjectid_) -
       reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.gameobjectid_));
@@ -3617,6 +3679,14 @@ const char* S_SET_TRANSFORM::_InternalParse(const char* ptr, ::_pbi::ParseContex
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_rotation(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .Protocol.Vector3 angularVelocity = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_angularvelocity(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3683,6 +3753,13 @@ uint8_t* S_SET_TRANSFORM::_InternalSerialize(
         _Internal::rotation(this).GetCachedSize(), target, stream);
   }
 
+  // .Protocol.Vector3 angularVelocity = 6;
+  if (this->_internal_has_angularvelocity()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(6, _Internal::angularvelocity(this),
+        _Internal::angularvelocity(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -3718,6 +3795,13 @@ size_t S_SET_TRANSFORM::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.rotation_);
+  }
+
+  // .Protocol.Vector3 angularVelocity = 6;
+  if (this->_internal_has_angularvelocity()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.angularvelocity_);
   }
 
   // int64 timestamp = 1;
@@ -3759,6 +3843,10 @@ void S_SET_TRANSFORM::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   if (from._internal_has_rotation()) {
     _this->_internal_mutable_rotation()->::Protocol::Vector3::MergeFrom(
         from._internal_rotation());
+  }
+  if (from._internal_has_angularvelocity()) {
+    _this->_internal_mutable_angularvelocity()->::Protocol::Vector3::MergeFrom(
+        from._internal_angularvelocity());
   }
   if (from._internal_timestamp() != 0) {
     _this->_internal_set_timestamp(from._internal_timestamp());

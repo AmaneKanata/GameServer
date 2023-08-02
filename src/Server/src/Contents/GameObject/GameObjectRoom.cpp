@@ -150,6 +150,7 @@ void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session
 	setTransform.set_allocated_position(pkt->release_position());
 	setTransform.set_allocated_velocity(pkt->release_velocity());
 	setTransform.set_allocated_rotation(pkt->release_rotation());
+	setTransform.set_allocated_angularvelocity(pkt->release_angularvelocity());
 	Broadcast(MakeSendBuffer(setTransform));
 }
 

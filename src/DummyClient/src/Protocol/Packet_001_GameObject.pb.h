@@ -2215,6 +2215,7 @@ class C_SET_TRANSFORM final :
     kPositionFieldNumber = 3,
     kVelocityFieldNumber = 4,
     kRotationFieldNumber = 5,
+    kAngularVelocityFieldNumber = 6,
     kTimestampFieldNumber = 1,
     kGameObjectIdFieldNumber = 2,
   };
@@ -2272,6 +2273,24 @@ class C_SET_TRANSFORM final :
       ::Protocol::Vector3* rotation);
   ::Protocol::Vector3* unsafe_arena_release_rotation();
 
+  // .Protocol.Vector3 angularVelocity = 6;
+  bool has_angularvelocity() const;
+  private:
+  bool _internal_has_angularvelocity() const;
+  public:
+  void clear_angularvelocity();
+  const ::Protocol::Vector3& angularvelocity() const;
+  PROTOBUF_NODISCARD ::Protocol::Vector3* release_angularvelocity();
+  ::Protocol::Vector3* mutable_angularvelocity();
+  void set_allocated_angularvelocity(::Protocol::Vector3* angularvelocity);
+  private:
+  const ::Protocol::Vector3& _internal_angularvelocity() const;
+  ::Protocol::Vector3* _internal_mutable_angularvelocity();
+  public:
+  void unsafe_arena_set_allocated_angularvelocity(
+      ::Protocol::Vector3* angularvelocity);
+  ::Protocol::Vector3* unsafe_arena_release_angularvelocity();
+
   // int64 timestamp = 1;
   void clear_timestamp();
   int64_t timestamp() const;
@@ -2301,6 +2320,7 @@ class C_SET_TRANSFORM final :
     ::Protocol::Vector3* position_;
     ::Protocol::Vector3* velocity_;
     ::Protocol::Vector3* rotation_;
+    ::Protocol::Vector3* angularvelocity_;
     int64_t timestamp_;
     int32_t gameobjectid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -2434,6 +2454,7 @@ class S_SET_TRANSFORM final :
     kPositionFieldNumber = 3,
     kVelocityFieldNumber = 4,
     kRotationFieldNumber = 5,
+    kAngularVelocityFieldNumber = 6,
     kTimestampFieldNumber = 1,
     kGameObjectIdFieldNumber = 2,
   };
@@ -2491,6 +2512,24 @@ class S_SET_TRANSFORM final :
       ::Protocol::Vector3* rotation);
   ::Protocol::Vector3* unsafe_arena_release_rotation();
 
+  // .Protocol.Vector3 angularVelocity = 6;
+  bool has_angularvelocity() const;
+  private:
+  bool _internal_has_angularvelocity() const;
+  public:
+  void clear_angularvelocity();
+  const ::Protocol::Vector3& angularvelocity() const;
+  PROTOBUF_NODISCARD ::Protocol::Vector3* release_angularvelocity();
+  ::Protocol::Vector3* mutable_angularvelocity();
+  void set_allocated_angularvelocity(::Protocol::Vector3* angularvelocity);
+  private:
+  const ::Protocol::Vector3& _internal_angularvelocity() const;
+  ::Protocol::Vector3* _internal_mutable_angularvelocity();
+  public:
+  void unsafe_arena_set_allocated_angularvelocity(
+      ::Protocol::Vector3* angularvelocity);
+  ::Protocol::Vector3* unsafe_arena_release_angularvelocity();
+
   // int64 timestamp = 1;
   void clear_timestamp();
   int64_t timestamp() const;
@@ -2520,6 +2559,7 @@ class S_SET_TRANSFORM final :
     ::Protocol::Vector3* position_;
     ::Protocol::Vector3* velocity_;
     ::Protocol::Vector3* rotation_;
+    ::Protocol::Vector3* angularvelocity_;
     int64_t timestamp_;
     int32_t gameobjectid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -4406,6 +4446,96 @@ inline void C_SET_TRANSFORM::set_allocated_rotation(::Protocol::Vector3* rotatio
   // @@protoc_insertion_point(field_set_allocated:Protocol.C_SET_TRANSFORM.rotation)
 }
 
+// .Protocol.Vector3 angularVelocity = 6;
+inline bool C_SET_TRANSFORM::_internal_has_angularvelocity() const {
+  return this != internal_default_instance() && _impl_.angularvelocity_ != nullptr;
+}
+inline bool C_SET_TRANSFORM::has_angularvelocity() const {
+  return _internal_has_angularvelocity();
+}
+inline void C_SET_TRANSFORM::clear_angularvelocity() {
+  if (GetArenaForAllocation() == nullptr && _impl_.angularvelocity_ != nullptr) {
+    delete _impl_.angularvelocity_;
+  }
+  _impl_.angularvelocity_ = nullptr;
+}
+inline const ::Protocol::Vector3& C_SET_TRANSFORM::_internal_angularvelocity() const {
+  const ::Protocol::Vector3* p = _impl_.angularvelocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Vector3&>(
+      ::Protocol::_Vector3_default_instance_);
+}
+inline const ::Protocol::Vector3& C_SET_TRANSFORM::angularvelocity() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_SET_TRANSFORM.angularVelocity)
+  return _internal_angularvelocity();
+}
+inline void C_SET_TRANSFORM::unsafe_arena_set_allocated_angularvelocity(
+    ::Protocol::Vector3* angularvelocity) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.angularvelocity_);
+  }
+  _impl_.angularvelocity_ = angularvelocity;
+  if (angularvelocity) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_SET_TRANSFORM.angularVelocity)
+}
+inline ::Protocol::Vector3* C_SET_TRANSFORM::release_angularvelocity() {
+  
+  ::Protocol::Vector3* temp = _impl_.angularvelocity_;
+  _impl_.angularvelocity_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::Vector3* C_SET_TRANSFORM::unsafe_arena_release_angularvelocity() {
+  // @@protoc_insertion_point(field_release:Protocol.C_SET_TRANSFORM.angularVelocity)
+  
+  ::Protocol::Vector3* temp = _impl_.angularvelocity_;
+  _impl_.angularvelocity_ = nullptr;
+  return temp;
+}
+inline ::Protocol::Vector3* C_SET_TRANSFORM::_internal_mutable_angularvelocity() {
+  
+  if (_impl_.angularvelocity_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::Vector3>(GetArenaForAllocation());
+    _impl_.angularvelocity_ = p;
+  }
+  return _impl_.angularvelocity_;
+}
+inline ::Protocol::Vector3* C_SET_TRANSFORM::mutable_angularvelocity() {
+  ::Protocol::Vector3* _msg = _internal_mutable_angularvelocity();
+  // @@protoc_insertion_point(field_mutable:Protocol.C_SET_TRANSFORM.angularVelocity)
+  return _msg;
+}
+inline void C_SET_TRANSFORM::set_allocated_angularvelocity(::Protocol::Vector3* angularvelocity) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.angularvelocity_;
+  }
+  if (angularvelocity) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(angularvelocity);
+    if (message_arena != submessage_arena) {
+      angularvelocity = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, angularvelocity, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.angularvelocity_ = angularvelocity;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.C_SET_TRANSFORM.angularVelocity)
+}
+
 // -------------------------------------------------------------------
 
 // S_SET_TRANSFORM
@@ -4718,6 +4848,96 @@ inline void S_SET_TRANSFORM::set_allocated_rotation(::Protocol::Vector3* rotatio
   }
   _impl_.rotation_ = rotation;
   // @@protoc_insertion_point(field_set_allocated:Protocol.S_SET_TRANSFORM.rotation)
+}
+
+// .Protocol.Vector3 angularVelocity = 6;
+inline bool S_SET_TRANSFORM::_internal_has_angularvelocity() const {
+  return this != internal_default_instance() && _impl_.angularvelocity_ != nullptr;
+}
+inline bool S_SET_TRANSFORM::has_angularvelocity() const {
+  return _internal_has_angularvelocity();
+}
+inline void S_SET_TRANSFORM::clear_angularvelocity() {
+  if (GetArenaForAllocation() == nullptr && _impl_.angularvelocity_ != nullptr) {
+    delete _impl_.angularvelocity_;
+  }
+  _impl_.angularvelocity_ = nullptr;
+}
+inline const ::Protocol::Vector3& S_SET_TRANSFORM::_internal_angularvelocity() const {
+  const ::Protocol::Vector3* p = _impl_.angularvelocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Vector3&>(
+      ::Protocol::_Vector3_default_instance_);
+}
+inline const ::Protocol::Vector3& S_SET_TRANSFORM::angularvelocity() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_SET_TRANSFORM.angularVelocity)
+  return _internal_angularvelocity();
+}
+inline void S_SET_TRANSFORM::unsafe_arena_set_allocated_angularvelocity(
+    ::Protocol::Vector3* angularvelocity) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.angularvelocity_);
+  }
+  _impl_.angularvelocity_ = angularvelocity;
+  if (angularvelocity) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_SET_TRANSFORM.angularVelocity)
+}
+inline ::Protocol::Vector3* S_SET_TRANSFORM::release_angularvelocity() {
+  
+  ::Protocol::Vector3* temp = _impl_.angularvelocity_;
+  _impl_.angularvelocity_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::Vector3* S_SET_TRANSFORM::unsafe_arena_release_angularvelocity() {
+  // @@protoc_insertion_point(field_release:Protocol.S_SET_TRANSFORM.angularVelocity)
+  
+  ::Protocol::Vector3* temp = _impl_.angularvelocity_;
+  _impl_.angularvelocity_ = nullptr;
+  return temp;
+}
+inline ::Protocol::Vector3* S_SET_TRANSFORM::_internal_mutable_angularvelocity() {
+  
+  if (_impl_.angularvelocity_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::Vector3>(GetArenaForAllocation());
+    _impl_.angularvelocity_ = p;
+  }
+  return _impl_.angularvelocity_;
+}
+inline ::Protocol::Vector3* S_SET_TRANSFORM::mutable_angularvelocity() {
+  ::Protocol::Vector3* _msg = _internal_mutable_angularvelocity();
+  // @@protoc_insertion_point(field_mutable:Protocol.S_SET_TRANSFORM.angularVelocity)
+  return _msg;
+}
+inline void S_SET_TRANSFORM::set_allocated_angularvelocity(::Protocol::Vector3* angularvelocity) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.angularvelocity_;
+  }
+  if (angularvelocity) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(angularvelocity);
+    if (message_arena != submessage_arena) {
+      angularvelocity = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, angularvelocity, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.angularvelocity_ = angularvelocity;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.S_SET_TRANSFORM.angularVelocity)
 }
 
 // -------------------------------------------------------------------
