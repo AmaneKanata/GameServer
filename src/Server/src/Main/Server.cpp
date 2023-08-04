@@ -23,8 +23,21 @@
 #include "RoomBase.h"
 #include "GameObjectRoom.h"
 
+#include "backward.hpp"
+backward::SignalHandling sh;
+
 int main()
 {
+#ifdef linux
+	const std::string log_path = "/mnt/coredump/";
+	auto epoch_time = std::chrono::duration_cast<std::chrono::seconds>(
+		std::chrono::system_clock::now().time_since_epoch()
+	).count();
+	std::string pod_name = std::getenv("HOSTNAME");
+	std::string log_filename = log_path + std::to_string(epoch_time) + "_" + pod_name + ".log";
+	freopen(log_filename.c_str(), "a", stdout);
+#endif
+	
 	std::string localHostIp;
 	int socketPort = 7777;
 	int httpPort = 7778;
