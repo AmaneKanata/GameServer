@@ -6,6 +6,13 @@ void HttpServer::Start()
 		res.set_content("Hello World!", "text/plain");
 		});
 
+	svr.Get("/crash", [](const httplib::Request& req, httplib::Response& res) {
+		int* p = nullptr;
+		*p = 10;
+
+		res.set_content("Hello World!", "text/plain");
+		});
+
 	svr.listen(ip.c_str(), port);
 }
 
