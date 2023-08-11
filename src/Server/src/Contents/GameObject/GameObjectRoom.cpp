@@ -3,6 +3,13 @@
 #include "GameObjectClient.h"
 #include "GameSession.h"
 
+void GameObjectRoom::HandleInit()
+{
+	Post(&GameObjectRoom::UpdateTransform);
+
+	RoomBase::HandleInit();
+}
+
 void GameObjectRoom::Leave(std::shared_ptr<ClientBase> client, std::string code)
 {
 	auto gClient = static_pointer_cast<GameObjectClient>(client);
@@ -141,17 +148,7 @@ void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session
 	if (gameObject == gameObjects.end())
 		return;
 
-	gameObject->second->SetPosition(pkt->position());
-	gameObject->second->SetRotation(pkt->rotation());
-
-	Protocol::S_SET_TRANSFORM setTransform;
-	setTransform.set_timestamp(pkt->timestamp());
-	setTransform.set_gameobjectid(pkt->gameobjectid());
-	setTransform.set_allocated_position(pkt->release_position());
-	setTransform.set_allocated_velocity(pkt->release_velocity());
-	setTransform.set_allocated_rotation(pkt->release_rotation());
-	setTransform.set_allocated_angularvelocity(pkt->release_angularvelocity());
-	Broadcast(MakeSendBuffer(setTransform));
+	gameObject->second->UpdateTransform(pkt);
 }
 
 void GameObjectRoom::Handle_C_SET_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_ANIMATION> pkt)
@@ -172,4 +169,31 @@ std::shared_ptr<ClientBase> GameObjectRoom::MakeClient(string clientId, std::sha
 	auto client = std::make_shared<GameObjectClient>(clientId);
 	client->SetSession(session);
 	return client;
+}
+
+void GameObjectRoom::UpdateTransform()
+{
+	auto start = std::chrono::system_clock::now().time_since_epoch();
+
+	for (const auto& [key, gameObject] : gameObjects)
+	{
+		if (!gameObject->isDirty)
+		{
+			continue;
+		}
+		
+		gameObject->isDirty = false;
+		Broadcast(MakeSendBuffer(gameObject->transform));
+	}
+
+	auto elapsed = (std::chrono::system_clock::now().time_since_epoch() - start).count();
+
+	if (elapsed >= 50)
+	{
+		DelayPost(50, &GameObjectRoom::UpdateTransform);
+	}
+	else
+	{
+		DelayPost(50 - elapsed, &GameObjectRoom::UpdateTransform);
+	}
 }

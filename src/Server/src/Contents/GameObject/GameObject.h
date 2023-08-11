@@ -9,12 +9,6 @@ class GameObject
 public:
 	GameObject(int gameObjectId)
 		: gameObjectId(gameObjectId)
-		, position_x(0)
-		, position_y(0)
-		, position_z(0)
-		, rotation_x(0)
-		, rotation_y(0)
-		, rotation_z(0)
 	{
 		//GLogManager->Log("GameObject Created : ", std::to_string(gameObjectId));
 	};
@@ -23,77 +17,41 @@ public:
 		//GLogManager->Log("GameObject Destroyed : ", std::to_string(gameObjectId));
 	}
 
+	void SetPosition(Protocol::Vector3 position)
+	{
+		transform.mutable_position()->CopyFrom(position);
+	}
+
+	void SetRotation(Protocol::Vector3 rotation)
+	{
+		transform.mutable_rotation()->CopyFrom(rotation);
+	}
+
 	void MakeGameObjectInfo(Protocol::S_ADD_GAME_OBJECT_GameObjectInfo* gameObjectInfo)
 	{
 		gameObjectInfo->set_id(gameObjectId);
-		auto _position = gameObjectInfo->mutable_position();
-		_position->set_x(position_x);
-		_position->set_y(position_y);
-		_position->set_z(position_z);
-		auto _rotation = gameObjectInfo->mutable_rotation();
-		_rotation->set_x(rotation_x);
-		_rotation->set_y(rotation_y);
-		_rotation->set_z(rotation_z);
-
 		gameObjectInfo->set_prefabname(prefabName);
+		gameObjectInfo->mutable_position()->CopyFrom(transform.position());
+		gameObjectInfo->mutable_rotation()->CopyFrom(transform.rotation());
 	}
 
-	Protocol::S_SET_TRANSFORM MakeTransform()
+	void UpdateTransform(std::shared_ptr<Protocol::C_SET_TRANSFORM> pkt)
 	{
-		Protocol::S_SET_TRANSFORM transform;
+		isDirty = true;
 
-		transform.set_gameobjectid(gameObjectId);
-
-		auto _position = transform.mutable_position();
-		_position->set_x(position_x);
-		_position->set_y(position_y);
-		_position->set_z(position_z);
-
-		auto _rotation = transform.mutable_rotation();
-		_rotation->set_x(rotation_x);
-		_rotation->set_y(rotation_y);
-		_rotation->set_z(rotation_z);
-
-		return transform;
-	}
-
-	void SetPosition(Protocol::Vector3 position)
-	{
-		position_x = position.x();
-		position_y = position.y();
-		position_z = position.z();
-	}
-
-	void SetPosition(float positionX, float positionY, float positionZ)
-	{
-		position_x = positionX;
-		position_y = positionY;
-		position_z = positionZ;
-	}
-	
-	void SetRotation(Protocol::Vector3 rotation)
-	{
-		rotation_x = rotation.x();
-		rotation_y = rotation.y();
-		rotation_z = rotation.z();
-	}
-
-	void SetRotation(float rotationX, float rotationY, float rotationZ)
-	{
-		rotation_x = rotationX;
-		rotation_y = rotationY;
-		rotation_z = rotationZ;
+		transform.set_timestamp(pkt->timestamp());
+		transform.set_gameobjectid(pkt->gameobjectid());
+		transform.set_allocated_position(pkt->release_position());
+		transform.set_allocated_velocity(pkt->release_velocity());
+		transform.set_allocated_rotation(pkt->release_rotation());
+		transform.set_allocated_angularvelocity(pkt->release_angularvelocity());
 	}
 
 public:
 	int gameObjectId;
 	std::string prefabName;
 
-	float position_x;
-	float position_y;
-	float position_z;
+	bool isDirty = false;
 
-	float rotation_x;
-	float rotation_y;
-	float rotation_z;
+	Protocol::S_SET_TRANSFORM transform;
 };
