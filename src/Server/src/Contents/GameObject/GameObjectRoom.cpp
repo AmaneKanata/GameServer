@@ -74,6 +74,7 @@ void GameObjectRoom::Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSessio
 	gameObject->SetPosition(pkt->position());
 	gameObject->SetRotation(pkt->rotation());
 	gameObject->prefabName = pkt->prefabname();
+	gameObject->ownerId = session->client->clientId;
 	
 	Protocol::S_INSTANTIATE_GAME_OBJECT res;
 	res.set_success(true);

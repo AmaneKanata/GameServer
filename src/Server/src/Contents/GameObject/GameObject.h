@@ -33,6 +33,7 @@ public:
 		gameObjectInfo->set_prefabname(prefabName);
 		gameObjectInfo->mutable_position()->CopyFrom(transform.position());
 		gameObjectInfo->mutable_rotation()->CopyFrom(transform.rotation());
+		gameObjectInfo->set_ownerid(ownerId);
 	}
 
 	void UpdateTransform(std::shared_ptr<Protocol::C_SET_TRANSFORM> pkt)
@@ -49,6 +50,7 @@ public:
 
 public:
 	int gameObjectId;
+	std::string ownerId;
 	std::string prefabName;
 
 	bool isDirty = false;

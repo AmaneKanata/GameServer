@@ -78,7 +78,8 @@ struct C_GET_GAME_OBJECTDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C_GET_GAME_OBJECTDefaultTypeInternal _C_GET_GAME_OBJECT_default_instance_;
 PROTOBUF_CONSTEXPR S_ADD_GAME_OBJECT_GameObjectInfo::S_ADD_GAME_OBJECT_GameObjectInfo(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.prefabname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+    /*decltype(_impl_.ownerid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.prefabname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.position_)*/nullptr
   , /*decltype(_impl_.rotation_)*/nullptr
   , /*decltype(_impl_.id_)*/0
@@ -333,6 +334,7 @@ const uint32_t TableStruct_Packet_5f001_5fGameObject_2eproto::offsets[] PROTOBUF
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_ADD_GAME_OBJECT_GameObjectInfo, _impl_.id_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::S_ADD_GAME_OBJECT_GameObjectInfo, _impl_.ownerid_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_ADD_GAME_OBJECT_GameObjectInfo, _impl_.prefabname_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_ADD_GAME_OBJECT_GameObjectInfo, _impl_.position_),
   PROTOBUF_FIELD_OFFSET(::Protocol::S_ADD_GAME_OBJECT_GameObjectInfo, _impl_.rotation_),
@@ -466,20 +468,20 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 18, -1, -1, sizeof(::Protocol::S_INSTANTIATE_GAME_OBJECT)},
   { 26, -1, -1, sizeof(::Protocol::C_GET_GAME_OBJECT)},
   { 32, -1, -1, sizeof(::Protocol::S_ADD_GAME_OBJECT_GameObjectInfo)},
-  { 42, -1, -1, sizeof(::Protocol::S_ADD_GAME_OBJECT)},
-  { 49, -1, -1, sizeof(::Protocol::C_DESTORY_GAME_OBJECT)},
-  { 56, -1, -1, sizeof(::Protocol::S_DESTORY_GAME_OBJECT)},
-  { 64, -1, -1, sizeof(::Protocol::S_REMOVE_GAME_OBJECT)},
-  { 71, -1, -1, sizeof(::Protocol::C_CHANGE_GMAE_OBJECT)},
-  { 79, -1, -1, sizeof(::Protocol::S_CHANGE_GMAE_OBJECT)},
-  { 87, -1, -1, sizeof(::Protocol::S_CHANGE_GMAE_OBJECT_NOTICE)},
-  { 95, -1, -1, sizeof(::Protocol::C_SET_TRANSFORM)},
-  { 107, -1, -1, sizeof(::Protocol::S_SET_TRANSFORM)},
-  { 119, -1, -1, sizeof(::Protocol::AnimationParameter)},
-  { 129, 137, -1, sizeof(::Protocol::C_SET_ANIMATION_ParamsEntry_DoNotUse)},
-  { 139, -1, -1, sizeof(::Protocol::C_SET_ANIMATION)},
-  { 147, 155, -1, sizeof(::Protocol::S_SET_ANIMATION_ParamsEntry_DoNotUse)},
-  { 157, -1, -1, sizeof(::Protocol::S_SET_ANIMATION)},
+  { 43, -1, -1, sizeof(::Protocol::S_ADD_GAME_OBJECT)},
+  { 50, -1, -1, sizeof(::Protocol::C_DESTORY_GAME_OBJECT)},
+  { 57, -1, -1, sizeof(::Protocol::S_DESTORY_GAME_OBJECT)},
+  { 65, -1, -1, sizeof(::Protocol::S_REMOVE_GAME_OBJECT)},
+  { 72, -1, -1, sizeof(::Protocol::C_CHANGE_GMAE_OBJECT)},
+  { 80, -1, -1, sizeof(::Protocol::S_CHANGE_GMAE_OBJECT)},
+  { 88, -1, -1, sizeof(::Protocol::S_CHANGE_GMAE_OBJECT_NOTICE)},
+  { 96, -1, -1, sizeof(::Protocol::C_SET_TRANSFORM)},
+  { 108, -1, -1, sizeof(::Protocol::S_SET_TRANSFORM)},
+  { 120, -1, -1, sizeof(::Protocol::AnimationParameter)},
+  { 130, 138, -1, sizeof(::Protocol::C_SET_ANIMATION_ParamsEntry_DoNotUse)},
+  { 140, -1, -1, sizeof(::Protocol::C_SET_ANIMATION)},
+  { 148, 156, -1, sizeof(::Protocol::S_SET_ANIMATION_ParamsEntry_DoNotUse)},
+  { 158, -1, -1, sizeof(::Protocol::S_SET_ANIMATION)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -512,47 +514,48 @@ const char descriptor_table_protodef_Packet_5f001_5fGameObject_2eproto[] PROTOBU
   "l.Vector3\022#\n\010rotation\030\003 \001(\0132\021.Protocol.V"
   "ector3\"B\n\031S_INSTANTIATE_GAME_OBJECT\022\017\n\007s"
   "uccess\030\001 \001(\010\022\024\n\014gameObjectId\030\002 \001(\005\"\023\n\021C_"
-  "GET_GAME_OBJECT\"\320\001\n\021S_ADD_GAME_OBJECT\022\?\n"
+  "GET_GAME_OBJECT\"\342\001\n\021S_ADD_GAME_OBJECT\022\?\n"
   "\013gameObjects\030\001 \003(\0132*.Protocol.S_ADD_GAME"
-  "_OBJECT.GameObjectInfo\032z\n\016GameObjectInfo"
-  "\022\n\n\002Id\030\001 \001(\005\022\022\n\nprefabName\030\002 \001(\t\022#\n\010posi"
-  "tion\030\003 \001(\0132\021.Protocol.Vector3\022#\n\010rotatio"
-  "n\030\004 \001(\0132\021.Protocol.Vector3\"-\n\025C_DESTORY_"
-  "GAME_OBJECT\022\024\n\014gameObjectId\030\001 \001(\005\">\n\025S_D"
-  "ESTORY_GAME_OBJECT\022\017\n\007success\030\001 \001(\010\022\024\n\014g"
-  "ameObjectId\030\002 \001(\005\"+\n\024S_REMOVE_GAME_OBJEC"
-  "T\022\023\n\013gameObjects\030\001 \003(\005\"@\n\024C_CHANGE_GMAE_"
-  "OBJECT\022\024\n\014gameObjectId\030\001 \001(\005\022\022\n\nprefabNa"
-  "me\030\002 \001(\t\"=\n\024S_CHANGE_GMAE_OBJECT\022\024\n\014game"
-  "ObjectId\030\001 \001(\005\022\017\n\007success\030\002 \001(\010\"G\n\033S_CHA"
-  "NGE_GMAE_OBJECT_NOTICE\022\024\n\014gameObjectId\030\001"
-  " \001(\005\022\022\n\nprefabName\030\002 \001(\t\"\325\001\n\017C_SET_TRANS"
-  "FORM\022\021\n\ttimestamp\030\001 \001(\003\022\024\n\014gameObjectId\030"
-  "\002 \001(\005\022#\n\010position\030\003 \001(\0132\021.Protocol.Vecto"
-  "r3\022#\n\010velocity\030\004 \001(\0132\021.Protocol.Vector3\022"
-  "#\n\010rotation\030\005 \001(\0132\021.Protocol.Vector3\022*\n\017"
-  "angularVelocity\030\006 \001(\0132\021.Protocol.Vector3"
-  "\"\325\001\n\017S_SET_TRANSFORM\022\021\n\ttimestamp\030\001 \001(\003\022"
-  "\024\n\014gameObjectId\030\002 \001(\005\022#\n\010position\030\003 \001(\0132"
-  "\021.Protocol.Vector3\022#\n\010velocity\030\004 \001(\0132\021.P"
-  "rotocol.Vector3\022#\n\010rotation\030\005 \001(\0132\021.Prot"
-  "ocol.Vector3\022*\n\017angularVelocity\030\006 \001(\0132\021."
-  "Protocol.Vector3\"_\n\022AnimationParameter\022\024"
-  "\n\nbool_param\030\001 \001(\010H\000\022\023\n\tint_param\030\002 \001(\005H"
-  "\000\022\025\n\013float_param\030\003 \001(\002H\000B\007\n\005param\"\253\001\n\017C_"
-  "SET_ANIMATION\022\024\n\014gameObjectId\030\001 \001(\005\0225\n\006p"
-  "arams\030\002 \003(\0132%.Protocol.C_SET_ANIMATION.P"
-  "aramsEntry\032K\n\013ParamsEntry\022\013\n\003key\030\001 \001(\t\022+"
-  "\n\005value\030\002 \001(\0132\034.Protocol.AnimationParame"
-  "ter:\0028\001\"\253\001\n\017S_SET_ANIMATION\022\024\n\014gameObjec"
-  "tId\030\001 \001(\005\0225\n\006params\030\002 \003(\0132%.Protocol.S_S"
-  "ET_ANIMATION.ParamsEntry\032K\n\013ParamsEntry\022"
-  "\013\n\003key\030\001 \001(\t\022+\n\005value\030\002 \001(\0132\034.Protocol.A"
-  "nimationParameter:\0028\001b\006proto3"
+  "_OBJECT.GameObjectInfo\032\213\001\n\016GameObjectInf"
+  "o\022\n\n\002Id\030\001 \001(\005\022\017\n\007ownerId\030\002 \001(\t\022\022\n\nprefab"
+  "Name\030\003 \001(\t\022#\n\010position\030\004 \001(\0132\021.Protocol."
+  "Vector3\022#\n\010rotation\030\005 \001(\0132\021.Protocol.Vec"
+  "tor3\"-\n\025C_DESTORY_GAME_OBJECT\022\024\n\014gameObj"
+  "ectId\030\001 \001(\005\">\n\025S_DESTORY_GAME_OBJECT\022\017\n\007"
+  "success\030\001 \001(\010\022\024\n\014gameObjectId\030\002 \001(\005\"+\n\024S"
+  "_REMOVE_GAME_OBJECT\022\023\n\013gameObjects\030\001 \003(\005"
+  "\"@\n\024C_CHANGE_GMAE_OBJECT\022\024\n\014gameObjectId"
+  "\030\001 \001(\005\022\022\n\nprefabName\030\002 \001(\t\"=\n\024S_CHANGE_G"
+  "MAE_OBJECT\022\024\n\014gameObjectId\030\001 \001(\005\022\017\n\007succ"
+  "ess\030\002 \001(\010\"G\n\033S_CHANGE_GMAE_OBJECT_NOTICE"
+  "\022\024\n\014gameObjectId\030\001 \001(\005\022\022\n\nprefabName\030\002 \001"
+  "(\t\"\325\001\n\017C_SET_TRANSFORM\022\021\n\ttimestamp\030\001 \001("
+  "\003\022\024\n\014gameObjectId\030\002 \001(\005\022#\n\010position\030\003 \001("
+  "\0132\021.Protocol.Vector3\022#\n\010velocity\030\004 \001(\0132\021"
+  ".Protocol.Vector3\022#\n\010rotation\030\005 \001(\0132\021.Pr"
+  "otocol.Vector3\022*\n\017angularVelocity\030\006 \001(\0132"
+  "\021.Protocol.Vector3\"\325\001\n\017S_SET_TRANSFORM\022\021"
+  "\n\ttimestamp\030\001 \001(\003\022\024\n\014gameObjectId\030\002 \001(\005\022"
+  "#\n\010position\030\003 \001(\0132\021.Protocol.Vector3\022#\n\010"
+  "velocity\030\004 \001(\0132\021.Protocol.Vector3\022#\n\010rot"
+  "ation\030\005 \001(\0132\021.Protocol.Vector3\022*\n\017angula"
+  "rVelocity\030\006 \001(\0132\021.Protocol.Vector3\"_\n\022An"
+  "imationParameter\022\024\n\nbool_param\030\001 \001(\010H\000\022\023"
+  "\n\tint_param\030\002 \001(\005H\000\022\025\n\013float_param\030\003 \001(\002"
+  "H\000B\007\n\005param\"\253\001\n\017C_SET_ANIMATION\022\024\n\014gameO"
+  "bjectId\030\001 \001(\005\0225\n\006params\030\002 \003(\0132%.Protocol"
+  ".C_SET_ANIMATION.ParamsEntry\032K\n\013ParamsEn"
+  "try\022\013\n\003key\030\001 \001(\t\022+\n\005value\030\002 \001(\0132\034.Protoc"
+  "ol.AnimationParameter:\0028\001\"\253\001\n\017S_SET_ANIM"
+  "ATION\022\024\n\014gameObjectId\030\001 \001(\005\0225\n\006params\030\002 "
+  "\003(\0132%.Protocol.S_SET_ANIMATION.ParamsEnt"
+  "ry\032K\n\013ParamsEntry\022\013\n\003key\030\001 \001(\t\022+\n\005value\030"
+  "\002 \001(\0132\034.Protocol.AnimationParameter:\0028\001b"
+  "\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Packet_5f001_5fGameObject_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Packet_5f001_5fGameObject_2eproto = {
-    false, false, 1749, descriptor_table_protodef_Packet_5f001_5fGameObject_2eproto,
+    false, false, 1767, descriptor_table_protodef_Packet_5f001_5fGameObject_2eproto,
     "Packet_001_GameObject.proto",
     &descriptor_table_Packet_5f001_5fGameObject_2eproto_once, nullptr, 0, 19,
     schemas, file_default_instances, TableStruct_Packet_5f001_5fGameObject_2eproto::offsets,
@@ -1406,13 +1409,22 @@ S_ADD_GAME_OBJECT_GameObjectInfo::S_ADD_GAME_OBJECT_GameObjectInfo(const S_ADD_G
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   S_ADD_GAME_OBJECT_GameObjectInfo* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.prefabname_){}
+      decltype(_impl_.ownerid_){}
+    , decltype(_impl_.prefabname_){}
     , decltype(_impl_.position_){nullptr}
     , decltype(_impl_.rotation_){nullptr}
     , decltype(_impl_.id_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.ownerid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.ownerid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_ownerid().empty()) {
+    _this->_impl_.ownerid_.Set(from._internal_ownerid(), 
+      _this->GetArenaForAllocation());
+  }
   _impl_.prefabname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.prefabname_.Set("", GetArenaForAllocation());
@@ -1436,12 +1448,17 @@ inline void S_ADD_GAME_OBJECT_GameObjectInfo::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.prefabname_){}
+      decltype(_impl_.ownerid_){}
+    , decltype(_impl_.prefabname_){}
     , decltype(_impl_.position_){nullptr}
     , decltype(_impl_.rotation_){nullptr}
     , decltype(_impl_.id_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
+  _impl_.ownerid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.ownerid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   _impl_.prefabname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.prefabname_.Set("", GetArenaForAllocation());
@@ -1459,6 +1476,7 @@ S_ADD_GAME_OBJECT_GameObjectInfo::~S_ADD_GAME_OBJECT_GameObjectInfo() {
 
 inline void S_ADD_GAME_OBJECT_GameObjectInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.ownerid_.Destroy();
   _impl_.prefabname_.Destroy();
   if (this != internal_default_instance()) delete _impl_.position_;
   if (this != internal_default_instance()) delete _impl_.rotation_;
@@ -1474,6 +1492,7 @@ void S_ADD_GAME_OBJECT_GameObjectInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  _impl_.ownerid_.ClearToEmpty();
   _impl_.prefabname_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && _impl_.position_ != nullptr) {
     delete _impl_.position_;
@@ -1501,9 +1520,19 @@ const char* S_ADD_GAME_OBJECT_GameObjectInfo::_InternalParse(const char* ptr, ::
         } else
           goto handle_unusual;
         continue;
-      // string prefabName = 2;
+      // string ownerId = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_ownerid();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "Protocol.S_ADD_GAME_OBJECT.GameObjectInfo.ownerId"));
+        } else
+          goto handle_unusual;
+        continue;
+      // string prefabName = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_prefabname();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -1511,17 +1540,17 @@ const char* S_ADD_GAME_OBJECT_GameObjectInfo::_InternalParse(const char* ptr, ::
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.Vector3 position = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+      // .Protocol.Vector3 position = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // .Protocol.Vector3 rotation = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+      // .Protocol.Vector3 rotation = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_rotation(), ptr);
           CHK_(ptr);
         } else
@@ -1562,27 +1591,37 @@ uint8_t* S_ADD_GAME_OBJECT_GameObjectInfo::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_id(), target);
   }
 
-  // string prefabName = 2;
+  // string ownerId = 2;
+  if (!this->_internal_ownerid().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_ownerid().data(), static_cast<int>(this->_internal_ownerid().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "Protocol.S_ADD_GAME_OBJECT.GameObjectInfo.ownerId");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_ownerid(), target);
+  }
+
+  // string prefabName = 3;
   if (!this->_internal_prefabname().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_prefabname().data(), static_cast<int>(this->_internal_prefabname().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "Protocol.S_ADD_GAME_OBJECT.GameObjectInfo.prefabName");
     target = stream->WriteStringMaybeAliased(
-        2, this->_internal_prefabname(), target);
+        3, this->_internal_prefabname(), target);
   }
 
-  // .Protocol.Vector3 position = 3;
+  // .Protocol.Vector3 position = 4;
   if (this->_internal_has_position()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, _Internal::position(this),
+      InternalWriteMessage(4, _Internal::position(this),
         _Internal::position(this).GetCachedSize(), target, stream);
   }
 
-  // .Protocol.Vector3 rotation = 4;
+  // .Protocol.Vector3 rotation = 5;
   if (this->_internal_has_rotation()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, _Internal::rotation(this),
+      InternalWriteMessage(5, _Internal::rotation(this),
         _Internal::rotation(this).GetCachedSize(), target, stream);
   }
 
@@ -1602,21 +1641,28 @@ size_t S_ADD_GAME_OBJECT_GameObjectInfo::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string prefabName = 2;
+  // string ownerId = 2;
+  if (!this->_internal_ownerid().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_ownerid());
+  }
+
+  // string prefabName = 3;
   if (!this->_internal_prefabname().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_prefabname());
   }
 
-  // .Protocol.Vector3 position = 3;
+  // .Protocol.Vector3 position = 4;
   if (this->_internal_has_position()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *_impl_.position_);
   }
 
-  // .Protocol.Vector3 rotation = 4;
+  // .Protocol.Vector3 rotation = 5;
   if (this->_internal_has_rotation()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -1646,6 +1692,9 @@ void S_ADD_GAME_OBJECT_GameObjectInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Messag
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (!from._internal_ownerid().empty()) {
+    _this->_internal_set_ownerid(from._internal_ownerid());
+  }
   if (!from._internal_prefabname().empty()) {
     _this->_internal_set_prefabname(from._internal_prefabname());
   }
@@ -1679,6 +1728,10 @@ void S_ADD_GAME_OBJECT_GameObjectInfo::InternalSwap(S_ADD_GAME_OBJECT_GameObject
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.ownerid_, lhs_arena,
+      &other->_impl_.ownerid_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.prefabname_, lhs_arena,
       &other->_impl_.prefabname_, rhs_arena

@@ -30,9 +30,10 @@ message S_ADD_GAME_OBJECT
 	message GameObjectInfo
 	{
 		int32 Id = 1;
-		string prefabName = 2;
-		Vector3 position = 3;
-		Vector3 rotation = 4;
+		string ownerId = 2;
+		string prefabName = 3;
+		Vector3 position = 4;
+		Vector3 rotation = 5;
 	}
 	repeated GameObjectInfo gameObjects = 1;
 }

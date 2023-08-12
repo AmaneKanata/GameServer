@@ -30,39 +30,40 @@ namespace Protocol {
             "CHBvc2l0aW9uGAIgASgLMhEuUHJvdG9jb2wuVmVjdG9yMxIjCghyb3RhdGlv",
             "bhgDIAEoCzIRLlByb3RvY29sLlZlY3RvcjMiQgoZU19JTlNUQU5USUFURV9H",
             "QU1FX09CSkVDVBIPCgdzdWNjZXNzGAEgASgIEhQKDGdhbWVPYmplY3RJZBgC",
-            "IAEoBSITChFDX0dFVF9HQU1FX09CSkVDVCLQAQoRU19BRERfR0FNRV9PQkpF",
+            "IAEoBSITChFDX0dFVF9HQU1FX09CSkVDVCLiAQoRU19BRERfR0FNRV9PQkpF",
             "Q1QSPwoLZ2FtZU9iamVjdHMYASADKAsyKi5Qcm90b2NvbC5TX0FERF9HQU1F",
-            "X09CSkVDVC5HYW1lT2JqZWN0SW5mbxp6Cg5HYW1lT2JqZWN0SW5mbxIKCgJJ",
-            "ZBgBIAEoBRISCgpwcmVmYWJOYW1lGAIgASgJEiMKCHBvc2l0aW9uGAMgASgL",
-            "MhEuUHJvdG9jb2wuVmVjdG9yMxIjCghyb3RhdGlvbhgEIAEoCzIRLlByb3Rv",
-            "Y29sLlZlY3RvcjMiLQoVQ19ERVNUT1JZX0dBTUVfT0JKRUNUEhQKDGdhbWVP",
-            "YmplY3RJZBgBIAEoBSI+ChVTX0RFU1RPUllfR0FNRV9PQkpFQ1QSDwoHc3Vj",
-            "Y2VzcxgBIAEoCBIUCgxnYW1lT2JqZWN0SWQYAiABKAUiKwoUU19SRU1PVkVf",
-            "R0FNRV9PQkpFQ1QSEwoLZ2FtZU9iamVjdHMYASADKAUiQAoUQ19DSEFOR0Vf",
-            "R01BRV9PQkpFQ1QSFAoMZ2FtZU9iamVjdElkGAEgASgFEhIKCnByZWZhYk5h",
-            "bWUYAiABKAkiPQoUU19DSEFOR0VfR01BRV9PQkpFQ1QSFAoMZ2FtZU9iamVj",
-            "dElkGAEgASgFEg8KB3N1Y2Nlc3MYAiABKAgiRwobU19DSEFOR0VfR01BRV9P",
-            "QkpFQ1RfTk9USUNFEhQKDGdhbWVPYmplY3RJZBgBIAEoBRISCgpwcmVmYWJO",
-            "YW1lGAIgASgJItUBCg9DX1NFVF9UUkFOU0ZPUk0SEQoJdGltZXN0YW1wGAEg",
-            "ASgDEhQKDGdhbWVPYmplY3RJZBgCIAEoBRIjCghwb3NpdGlvbhgDIAEoCzIR",
-            "LlByb3RvY29sLlZlY3RvcjMSIwoIdmVsb2NpdHkYBCABKAsyES5Qcm90b2Nv",
-            "bC5WZWN0b3IzEiMKCHJvdGF0aW9uGAUgASgLMhEuUHJvdG9jb2wuVmVjdG9y",
-            "MxIqCg9hbmd1bGFyVmVsb2NpdHkYBiABKAsyES5Qcm90b2NvbC5WZWN0b3Iz",
-            "ItUBCg9TX1NFVF9UUkFOU0ZPUk0SEQoJdGltZXN0YW1wGAEgASgDEhQKDGdh",
-            "bWVPYmplY3RJZBgCIAEoBRIjCghwb3NpdGlvbhgDIAEoCzIRLlByb3RvY29s",
-            "LlZlY3RvcjMSIwoIdmVsb2NpdHkYBCABKAsyES5Qcm90b2NvbC5WZWN0b3Iz",
-            "EiMKCHJvdGF0aW9uGAUgASgLMhEuUHJvdG9jb2wuVmVjdG9yMxIqCg9hbmd1",
-            "bGFyVmVsb2NpdHkYBiABKAsyES5Qcm90b2NvbC5WZWN0b3IzIl8KEkFuaW1h",
-            "dGlvblBhcmFtZXRlchIUCgpib29sX3BhcmFtGAEgASgISAASEwoJaW50X3Bh",
-            "cmFtGAIgASgFSAASFQoLZmxvYXRfcGFyYW0YAyABKAJIAEIHCgVwYXJhbSKr",
-            "AQoPQ19TRVRfQU5JTUFUSU9OEhQKDGdhbWVPYmplY3RJZBgBIAEoBRI1CgZw",
-            "YXJhbXMYAiADKAsyJS5Qcm90b2NvbC5DX1NFVF9BTklNQVRJT04uUGFyYW1z",
-            "RW50cnkaSwoLUGFyYW1zRW50cnkSCwoDa2V5GAEgASgJEisKBXZhbHVlGAIg",
-            "ASgLMhwuUHJvdG9jb2wuQW5pbWF0aW9uUGFyYW1ldGVyOgI4ASKrAQoPU19T",
-            "RVRfQU5JTUFUSU9OEhQKDGdhbWVPYmplY3RJZBgBIAEoBRI1CgZwYXJhbXMY",
-            "AiADKAsyJS5Qcm90b2NvbC5TX1NFVF9BTklNQVRJT04uUGFyYW1zRW50cnka",
-            "SwoLUGFyYW1zRW50cnkSCwoDa2V5GAEgASgJEisKBXZhbHVlGAIgASgLMhwu",
-            "UHJvdG9jb2wuQW5pbWF0aW9uUGFyYW1ldGVyOgI4AWIGcHJvdG8z"));
+            "X09CSkVDVC5HYW1lT2JqZWN0SW5mbxqLAQoOR2FtZU9iamVjdEluZm8SCgoC",
+            "SWQYASABKAUSDwoHb3duZXJJZBgCIAEoCRISCgpwcmVmYWJOYW1lGAMgASgJ",
+            "EiMKCHBvc2l0aW9uGAQgASgLMhEuUHJvdG9jb2wuVmVjdG9yMxIjCghyb3Rh",
+            "dGlvbhgFIAEoCzIRLlByb3RvY29sLlZlY3RvcjMiLQoVQ19ERVNUT1JZX0dB",
+            "TUVfT0JKRUNUEhQKDGdhbWVPYmplY3RJZBgBIAEoBSI+ChVTX0RFU1RPUllf",
+            "R0FNRV9PQkpFQ1QSDwoHc3VjY2VzcxgBIAEoCBIUCgxnYW1lT2JqZWN0SWQY",
+            "AiABKAUiKwoUU19SRU1PVkVfR0FNRV9PQkpFQ1QSEwoLZ2FtZU9iamVjdHMY",
+            "ASADKAUiQAoUQ19DSEFOR0VfR01BRV9PQkpFQ1QSFAoMZ2FtZU9iamVjdElk",
+            "GAEgASgFEhIKCnByZWZhYk5hbWUYAiABKAkiPQoUU19DSEFOR0VfR01BRV9P",
+            "QkpFQ1QSFAoMZ2FtZU9iamVjdElkGAEgASgFEg8KB3N1Y2Nlc3MYAiABKAgi",
+            "RwobU19DSEFOR0VfR01BRV9PQkpFQ1RfTk9USUNFEhQKDGdhbWVPYmplY3RJ",
+            "ZBgBIAEoBRISCgpwcmVmYWJOYW1lGAIgASgJItUBCg9DX1NFVF9UUkFOU0ZP",
+            "Uk0SEQoJdGltZXN0YW1wGAEgASgDEhQKDGdhbWVPYmplY3RJZBgCIAEoBRIj",
+            "Cghwb3NpdGlvbhgDIAEoCzIRLlByb3RvY29sLlZlY3RvcjMSIwoIdmVsb2Np",
+            "dHkYBCABKAsyES5Qcm90b2NvbC5WZWN0b3IzEiMKCHJvdGF0aW9uGAUgASgL",
+            "MhEuUHJvdG9jb2wuVmVjdG9yMxIqCg9hbmd1bGFyVmVsb2NpdHkYBiABKAsy",
+            "ES5Qcm90b2NvbC5WZWN0b3IzItUBCg9TX1NFVF9UUkFOU0ZPUk0SEQoJdGlt",
+            "ZXN0YW1wGAEgASgDEhQKDGdhbWVPYmplY3RJZBgCIAEoBRIjCghwb3NpdGlv",
+            "bhgDIAEoCzIRLlByb3RvY29sLlZlY3RvcjMSIwoIdmVsb2NpdHkYBCABKAsy",
+            "ES5Qcm90b2NvbC5WZWN0b3IzEiMKCHJvdGF0aW9uGAUgASgLMhEuUHJvdG9j",
+            "b2wuVmVjdG9yMxIqCg9hbmd1bGFyVmVsb2NpdHkYBiABKAsyES5Qcm90b2Nv",
+            "bC5WZWN0b3IzIl8KEkFuaW1hdGlvblBhcmFtZXRlchIUCgpib29sX3BhcmFt",
+            "GAEgASgISAASEwoJaW50X3BhcmFtGAIgASgFSAASFQoLZmxvYXRfcGFyYW0Y",
+            "AyABKAJIAEIHCgVwYXJhbSKrAQoPQ19TRVRfQU5JTUFUSU9OEhQKDGdhbWVP",
+            "YmplY3RJZBgBIAEoBRI1CgZwYXJhbXMYAiADKAsyJS5Qcm90b2NvbC5DX1NF",
+            "VF9BTklNQVRJT04uUGFyYW1zRW50cnkaSwoLUGFyYW1zRW50cnkSCwoDa2V5",
+            "GAEgASgJEisKBXZhbHVlGAIgASgLMhwuUHJvdG9jb2wuQW5pbWF0aW9uUGFy",
+            "YW1ldGVyOgI4ASKrAQoPU19TRVRfQU5JTUFUSU9OEhQKDGdhbWVPYmplY3RJ",
+            "ZBgBIAEoBRI1CgZwYXJhbXMYAiADKAsyJS5Qcm90b2NvbC5TX1NFVF9BTklN",
+            "QVRJT04uUGFyYW1zRW50cnkaSwoLUGFyYW1zRW50cnkSCwoDa2V5GAEgASgJ",
+            "EisKBXZhbHVlGAIgASgLMhwuUHJvdG9jb2wuQW5pbWF0aW9uUGFyYW1ldGVy",
+            "OgI4AWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -70,7 +71,7 @@ namespace Protocol {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_INSTANTIATE_GAME_OBJECT), global::Protocol.C_INSTANTIATE_GAME_OBJECT.Parser, new[]{ "PrefabName", "Position", "Rotation" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_INSTANTIATE_GAME_OBJECT), global::Protocol.S_INSTANTIATE_GAME_OBJECT.Parser, new[]{ "Success", "GameObjectId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_GET_GAME_OBJECT), global::Protocol.C_GET_GAME_OBJECT.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_ADD_GAME_OBJECT), global::Protocol.S_ADD_GAME_OBJECT.Parser, new[]{ "GameObjects" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_ADD_GAME_OBJECT.Types.GameObjectInfo), global::Protocol.S_ADD_GAME_OBJECT.Types.GameObjectInfo.Parser, new[]{ "Id", "PrefabName", "Position", "Rotation" }, null, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_ADD_GAME_OBJECT), global::Protocol.S_ADD_GAME_OBJECT.Parser, new[]{ "GameObjects" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_ADD_GAME_OBJECT.Types.GameObjectInfo), global::Protocol.S_ADD_GAME_OBJECT.Types.GameObjectInfo.Parser, new[]{ "Id", "OwnerId", "PrefabName", "Position", "Rotation" }, null, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_DESTORY_GAME_OBJECT), global::Protocol.C_DESTORY_GAME_OBJECT.Parser, new[]{ "GameObjectId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_DESTORY_GAME_OBJECT), global::Protocol.S_DESTORY_GAME_OBJECT.Parser, new[]{ "Success", "GameObjectId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_REMOVE_GAME_OBJECT), global::Protocol.S_REMOVE_GAME_OBJECT.Parser, new[]{ "GameObjects" }, null, null, null, null),
@@ -1226,6 +1227,7 @@ namespace Protocol {
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
         public GameObjectInfo(GameObjectInfo other) : this() {
           id_ = other.id_;
+          ownerId_ = other.ownerId_;
           prefabName_ = other.prefabName_;
           position_ = other.position_ != null ? other.position_.Clone() : null;
           rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
@@ -1250,8 +1252,20 @@ namespace Protocol {
           }
         }
 
+        /// <summary>Field number for the "ownerId" field.</summary>
+        public const int OwnerIdFieldNumber = 2;
+        private string ownerId_ = "";
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+        public string OwnerId {
+          get { return ownerId_; }
+          set {
+            ownerId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+          }
+        }
+
         /// <summary>Field number for the "prefabName" field.</summary>
-        public const int PrefabNameFieldNumber = 2;
+        public const int PrefabNameFieldNumber = 3;
         private string prefabName_ = "";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1263,7 +1277,7 @@ namespace Protocol {
         }
 
         /// <summary>Field number for the "position" field.</summary>
-        public const int PositionFieldNumber = 3;
+        public const int PositionFieldNumber = 4;
         private global::Protocol.Vector3 position_;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1275,7 +1289,7 @@ namespace Protocol {
         }
 
         /// <summary>Field number for the "rotation" field.</summary>
-        public const int RotationFieldNumber = 4;
+        public const int RotationFieldNumber = 5;
         private global::Protocol.Vector3 rotation_;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1302,6 +1316,7 @@ namespace Protocol {
             return true;
           }
           if (Id != other.Id) return false;
+          if (OwnerId != other.OwnerId) return false;
           if (PrefabName != other.PrefabName) return false;
           if (!object.Equals(Position, other.Position)) return false;
           if (!object.Equals(Rotation, other.Rotation)) return false;
@@ -1313,6 +1328,7 @@ namespace Protocol {
         public override int GetHashCode() {
           int hash = 1;
           if (Id != 0) hash ^= Id.GetHashCode();
+          if (OwnerId.Length != 0) hash ^= OwnerId.GetHashCode();
           if (PrefabName.Length != 0) hash ^= PrefabName.GetHashCode();
           if (position_ != null) hash ^= Position.GetHashCode();
           if (rotation_ != null) hash ^= Rotation.GetHashCode();
@@ -1338,16 +1354,20 @@ namespace Protocol {
             output.WriteRawTag(8);
             output.WriteInt32(Id);
           }
-          if (PrefabName.Length != 0) {
+          if (OwnerId.Length != 0) {
             output.WriteRawTag(18);
+            output.WriteString(OwnerId);
+          }
+          if (PrefabName.Length != 0) {
+            output.WriteRawTag(26);
             output.WriteString(PrefabName);
           }
           if (position_ != null) {
-            output.WriteRawTag(26);
+            output.WriteRawTag(34);
             output.WriteMessage(Position);
           }
           if (rotation_ != null) {
-            output.WriteRawTag(34);
+            output.WriteRawTag(42);
             output.WriteMessage(Rotation);
           }
           if (_unknownFields != null) {
@@ -1364,16 +1384,20 @@ namespace Protocol {
             output.WriteRawTag(8);
             output.WriteInt32(Id);
           }
-          if (PrefabName.Length != 0) {
+          if (OwnerId.Length != 0) {
             output.WriteRawTag(18);
+            output.WriteString(OwnerId);
+          }
+          if (PrefabName.Length != 0) {
+            output.WriteRawTag(26);
             output.WriteString(PrefabName);
           }
           if (position_ != null) {
-            output.WriteRawTag(26);
+            output.WriteRawTag(34);
             output.WriteMessage(Position);
           }
           if (rotation_ != null) {
-            output.WriteRawTag(34);
+            output.WriteRawTag(42);
             output.WriteMessage(Rotation);
           }
           if (_unknownFields != null) {
@@ -1388,6 +1412,9 @@ namespace Protocol {
           int size = 0;
           if (Id != 0) {
             size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+          }
+          if (OwnerId.Length != 0) {
+            size += 1 + pb::CodedOutputStream.ComputeStringSize(OwnerId);
           }
           if (PrefabName.Length != 0) {
             size += 1 + pb::CodedOutputStream.ComputeStringSize(PrefabName);
@@ -1412,6 +1439,9 @@ namespace Protocol {
           }
           if (other.Id != 0) {
             Id = other.Id;
+          }
+          if (other.OwnerId.Length != 0) {
+            OwnerId = other.OwnerId;
           }
           if (other.PrefabName.Length != 0) {
             PrefabName = other.PrefabName;
@@ -1448,17 +1478,21 @@ namespace Protocol {
                 break;
               }
               case 18: {
-                PrefabName = input.ReadString();
+                OwnerId = input.ReadString();
                 break;
               }
               case 26: {
+                PrefabName = input.ReadString();
+                break;
+              }
+              case 34: {
                 if (position_ == null) {
                   Position = new global::Protocol.Vector3();
                 }
                 input.ReadMessage(Position);
                 break;
               }
-              case 34: {
+              case 42: {
                 if (rotation_ == null) {
                   Rotation = new global::Protocol.Vector3();
                 }
@@ -1485,17 +1519,21 @@ namespace Protocol {
                 break;
               }
               case 18: {
-                PrefabName = input.ReadString();
+                OwnerId = input.ReadString();
                 break;
               }
               case 26: {
+                PrefabName = input.ReadString();
+                break;
+              }
+              case 34: {
                 if (position_ == null) {
                   Position = new global::Protocol.Vector3();
                 }
                 input.ReadMessage(Position);
                 break;
               }
-              case 34: {
+              case 42: {
                 if (rotation_ == null) {
                   Rotation = new global::Protocol.Vector3();
                 }

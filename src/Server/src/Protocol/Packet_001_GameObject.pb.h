@@ -893,12 +893,27 @@ class S_ADD_GAME_OBJECT_GameObjectInfo final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPrefabNameFieldNumber = 2,
-    kPositionFieldNumber = 3,
-    kRotationFieldNumber = 4,
+    kOwnerIdFieldNumber = 2,
+    kPrefabNameFieldNumber = 3,
+    kPositionFieldNumber = 4,
+    kRotationFieldNumber = 5,
     kIdFieldNumber = 1,
   };
-  // string prefabName = 2;
+  // string ownerId = 2;
+  void clear_ownerid();
+  const std::string& ownerid() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_ownerid(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_ownerid();
+  PROTOBUF_NODISCARD std::string* release_ownerid();
+  void set_allocated_ownerid(std::string* ownerid);
+  private:
+  const std::string& _internal_ownerid() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_ownerid(const std::string& value);
+  std::string* _internal_mutable_ownerid();
+  public:
+
+  // string prefabName = 3;
   void clear_prefabname();
   const std::string& prefabname() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -912,7 +927,7 @@ class S_ADD_GAME_OBJECT_GameObjectInfo final :
   std::string* _internal_mutable_prefabname();
   public:
 
-  // .Protocol.Vector3 position = 3;
+  // .Protocol.Vector3 position = 4;
   bool has_position() const;
   private:
   bool _internal_has_position() const;
@@ -930,7 +945,7 @@ class S_ADD_GAME_OBJECT_GameObjectInfo final :
       ::Protocol::Vector3* position);
   ::Protocol::Vector3* unsafe_arena_release_position();
 
-  // .Protocol.Vector3 rotation = 4;
+  // .Protocol.Vector3 rotation = 5;
   bool has_rotation() const;
   private:
   bool _internal_has_rotation() const;
@@ -965,6 +980,7 @@ class S_ADD_GAME_OBJECT_GameObjectInfo final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ownerid_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr prefabname_;
     ::Protocol::Vector3* position_;
     ::Protocol::Vector3* rotation_;
@@ -3547,7 +3563,57 @@ inline void S_ADD_GAME_OBJECT_GameObjectInfo::set_id(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.S_ADD_GAME_OBJECT.GameObjectInfo.Id)
 }
 
-// string prefabName = 2;
+// string ownerId = 2;
+inline void S_ADD_GAME_OBJECT_GameObjectInfo::clear_ownerid() {
+  _impl_.ownerid_.ClearToEmpty();
+}
+inline const std::string& S_ADD_GAME_OBJECT_GameObjectInfo::ownerid() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_ADD_GAME_OBJECT.GameObjectInfo.ownerId)
+  return _internal_ownerid();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void S_ADD_GAME_OBJECT_GameObjectInfo::set_ownerid(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.ownerid_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.S_ADD_GAME_OBJECT.GameObjectInfo.ownerId)
+}
+inline std::string* S_ADD_GAME_OBJECT_GameObjectInfo::mutable_ownerid() {
+  std::string* _s = _internal_mutable_ownerid();
+  // @@protoc_insertion_point(field_mutable:Protocol.S_ADD_GAME_OBJECT.GameObjectInfo.ownerId)
+  return _s;
+}
+inline const std::string& S_ADD_GAME_OBJECT_GameObjectInfo::_internal_ownerid() const {
+  return _impl_.ownerid_.Get();
+}
+inline void S_ADD_GAME_OBJECT_GameObjectInfo::_internal_set_ownerid(const std::string& value) {
+  
+  _impl_.ownerid_.Set(value, GetArenaForAllocation());
+}
+inline std::string* S_ADD_GAME_OBJECT_GameObjectInfo::_internal_mutable_ownerid() {
+  
+  return _impl_.ownerid_.Mutable(GetArenaForAllocation());
+}
+inline std::string* S_ADD_GAME_OBJECT_GameObjectInfo::release_ownerid() {
+  // @@protoc_insertion_point(field_release:Protocol.S_ADD_GAME_OBJECT.GameObjectInfo.ownerId)
+  return _impl_.ownerid_.Release();
+}
+inline void S_ADD_GAME_OBJECT_GameObjectInfo::set_allocated_ownerid(std::string* ownerid) {
+  if (ownerid != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.ownerid_.SetAllocated(ownerid, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.ownerid_.IsDefault()) {
+    _impl_.ownerid_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:Protocol.S_ADD_GAME_OBJECT.GameObjectInfo.ownerId)
+}
+
+// string prefabName = 3;
 inline void S_ADD_GAME_OBJECT_GameObjectInfo::clear_prefabname() {
   _impl_.prefabname_.ClearToEmpty();
 }
@@ -3597,7 +3663,7 @@ inline void S_ADD_GAME_OBJECT_GameObjectInfo::set_allocated_prefabname(std::stri
   // @@protoc_insertion_point(field_set_allocated:Protocol.S_ADD_GAME_OBJECT.GameObjectInfo.prefabName)
 }
 
-// .Protocol.Vector3 position = 3;
+// .Protocol.Vector3 position = 4;
 inline bool S_ADD_GAME_OBJECT_GameObjectInfo::_internal_has_position() const {
   return this != internal_default_instance() && _impl_.position_ != nullptr;
 }
@@ -3687,7 +3753,7 @@ inline void S_ADD_GAME_OBJECT_GameObjectInfo::set_allocated_position(::Protocol:
   // @@protoc_insertion_point(field_set_allocated:Protocol.S_ADD_GAME_OBJECT.GameObjectInfo.position)
 }
 
-// .Protocol.Vector3 rotation = 4;
+// .Protocol.Vector3 rotation = 5;
 inline bool S_ADD_GAME_OBJECT_GameObjectInfo::_internal_has_rotation() const {
   return this != internal_default_instance() && _impl_.rotation_ != nullptr;
 }
