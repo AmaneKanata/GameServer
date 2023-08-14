@@ -141,10 +141,16 @@ std::shared_ptr<ClientBase> RoomBase::MakeClient(string clientId, std::shared_pt
 	return client;
 }
 
-void RoomBase::Broadcast(shared_ptr<SendBuffer> sendBuffer)
+void RoomBase::Broadcast(std::shared_ptr<SendBuffer> sendBuffer)
 {
 	for (const auto& [key, client] : clients)
 		client->Send(sendBuffer);
+}
+
+void RoomBase::BroadcastMany(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers)
+{
+	for (const auto& [key, client] : clients)
+		client->SendMany(sendBuffers);
 }
 
 void RoomBase::SendServerTime()

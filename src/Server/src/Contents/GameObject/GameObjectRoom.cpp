@@ -176,6 +176,8 @@ void GameObjectRoom::UpdateTransform()
 {
 	auto start = std::chrono::system_clock::now().time_since_epoch();
 
+	std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers = std::make_shared<std::vector<std::shared_ptr<SendBuffer>>>();
+
 	for (const auto& [key, gameObject] : gameObjects)
 	{
 		if (!gameObject->isDirty)
@@ -184,10 +186,13 @@ void GameObjectRoom::UpdateTransform()
 		}
 		
 		gameObject->isDirty = false;
-		Broadcast(MakeSendBuffer(gameObject->transform));
+		sendBuffers->push_back(MakeSendBuffer(gameObject->transform));
 	}
 
-	auto elapsed = (std::chrono::system_clock::now().time_since_epoch() - start).count();
+	if (sendBuffers->size() > 0)
+		BroadcastMany(sendBuffers);
+
+	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch() - start).count();
 
 	if (elapsed >= 50)
 	{

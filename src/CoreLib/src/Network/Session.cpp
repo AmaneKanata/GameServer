@@ -75,6 +75,20 @@ void Session::Send(std::shared_ptr<SendBuffer> sendBuffer)
 	}
 }
 
+void Session::SendMany(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers)
+{
+	if (!isConnected || isDisconnectRegistered)
+		return;
+
+	pendingSendBuffers.insert(pendingSendBuffers.end(), sendBuffers->begin(), sendBuffers->end());
+
+	if (!isSendRegistered)
+	{
+		isSendRegistered = true;
+		Post(&Session::RegisterSend);
+	}
+}
+
 void Session::RegisterSend()
 {
 	inFlightSendBuffers.swap(pendingSendBuffers);

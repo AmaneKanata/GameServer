@@ -34,3 +34,11 @@ void ClientBase::Send(std::shared_ptr<SendBuffer> sendBuffer)
 
 	session->Post(&Session::Send, sendBuffer);
 }
+
+void ClientBase::SendMany(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers)
+{
+	if (session == nullptr)
+		return;
+
+	session->Post(&Session::SendMany, sendBuffers);
+}

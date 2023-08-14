@@ -17,6 +17,7 @@ public:
 	virtual void Leave(std::shared_ptr<ClientBase> client, std::string code);
 
 	virtual void Broadcast(shared_ptr<SendBuffer> sendBuffer);
+	virtual void BroadcastMany(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers);
 
 protected:
 	virtual void Handle_INVALID(std::shared_ptr<GameSession> session, unsigned char* buffer, int len) override;

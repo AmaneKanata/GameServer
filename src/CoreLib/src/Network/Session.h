@@ -31,6 +31,8 @@ public:
 	virtual void OnDisconnected() {};
 
 	void Send(shared_ptr<SendBuffer> sendBuffer);
+	void SendMany(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers);
+	
 	void RegisterSend();
 	void ProcessSend(std::size_t bytes_transferred);
 
