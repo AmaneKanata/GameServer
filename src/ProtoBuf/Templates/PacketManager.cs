@@ -53,10 +53,8 @@ namespace Framework.Network
                 Protocol.S_SERVERTIME serverTime = pkt as Protocol.S_SERVERTIME;
                 connection.Handle_S_SERVERTIME(serverTime);
             }
-            else
-            {
-                connection.PacketQueue.Push(id, pkt);
-            }
+
+            connection.PacketQueue.Push(id, pkt);
         }
         {% for pkt in parser.send_pkt %}
         public static ArraySegment<byte> MakeSendBuffer( Protocol.{{pkt.name}} pkt ) { return MakeSendBuffer(pkt, {{pkt.id}}); }
