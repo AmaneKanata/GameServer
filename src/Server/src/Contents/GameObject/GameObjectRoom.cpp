@@ -150,6 +150,8 @@ void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session
 		return;
 
 	gameObject->second->UpdateTransform(pkt);
+
+	GLogManager->Log("Time Gap : ", std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() - pkt->timestamp()));
 }
 
 void GameObjectRoom::Handle_C_SET_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_ANIMATION> pkt)
