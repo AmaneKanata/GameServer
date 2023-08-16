@@ -5,7 +5,7 @@
 
 void GameObjectRoom::HandleInit()
 {
-	Post(&GameObjectRoom::UpdateTransform);
+	Post(&GameObjectRoom::Update);
 
 	RoomBase::HandleInit();
 }
@@ -158,11 +158,7 @@ void GameObjectRoom::Handle_C_SET_ANIMATION(std::shared_ptr<GameSession> session
 	if (gameObject == gameObjects.end())
 		return;
 
-	Protocol::S_SET_ANIMATION setAnimation;
-	setAnimation.set_gameobjectid(pkt->gameobjectid());
-	setAnimation.mutable_params()->insert(pkt->params().begin(), pkt->params().end());
-
-	Broadcast(MakeSendBuffer(setAnimation));
+	gameObject->second->UpdateAnimation(pkt);
 }
 
 std::shared_ptr<ClientBase> GameObjectRoom::MakeClient(string clientId, std::shared_ptr<GameSession> session)
@@ -172,7 +168,7 @@ std::shared_ptr<ClientBase> GameObjectRoom::MakeClient(string clientId, std::sha
 	return client;
 }
 
-void GameObjectRoom::UpdateTransform()
+void GameObjectRoom::Update()
 {
 	auto start = std::chrono::system_clock::now().time_since_epoch();
 
@@ -180,13 +176,17 @@ void GameObjectRoom::UpdateTransform()
 
 	for (const auto& [key, gameObject] : gameObjects)
 	{
-		if (!gameObject->isDirty)
+		if (gameObject->isTransformDirty)
 		{
-			continue;
+			gameObject->isTransformDirty = false;
+			sendBuffers->push_back(MakeSendBuffer(gameObject->transform));
 		}
-		
-		gameObject->isDirty = false;
-		sendBuffers->push_back(MakeSendBuffer(gameObject->transform));
+
+		if (gameObject->isAnimationDirty)
+		{
+			gameObject->isAnimationDirty = false;
+			sendBuffers->push_back(MakeSendBuffer(gameObject->animation));
+		}
 	}
 
 	if (sendBuffers->size() > 0)
@@ -196,10 +196,10 @@ void GameObjectRoom::UpdateTransform()
 
 	if (elapsed >= 50)
 	{
-		DelayPost(50, &GameObjectRoom::UpdateTransform);
+		DelayPost(50, &GameObjectRoom::Update);
 	}
 	else
 	{
-		DelayPost(50 - elapsed, &GameObjectRoom::UpdateTransform);
+		DelayPost(50 - elapsed, &GameObjectRoom::Update);
 	}
 }

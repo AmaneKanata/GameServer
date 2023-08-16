@@ -30,7 +30,7 @@ protected:
 	virtual std::shared_ptr<ClientBase> MakeClient(string clientId, std::shared_ptr<GameSession> session) override;
 
 private:
-	void UpdateTransform();
+	void Update();
 
 private:
 	int idGenerator = 0;
