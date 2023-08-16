@@ -91,13 +91,6 @@ void RoomBase::Handle_C_GET_CLIENT(std::shared_ptr<GameSession> session, std::sh
 	session->client->Send(MakeSendBuffer(res));
 }
 
-void RoomBase::Handle_C_PING(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_PING> pkt)
-{
-	Protocol::S_PING res;
-	res.set_tick(pkt->tick());
-	session->client->Send(MakeSendBuffer(res));
-}
-
 void RoomBase::Handle_C_SERVERTIME(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SERVERTIME> pkt)
 {
 	Protocol::S_SERVERTIME res;

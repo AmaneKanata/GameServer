@@ -5,6 +5,7 @@
 #include <SendBuffer.h>
 #include <CoreLib_Singleton.h>
 
+#include "GameSession.h"
 #include "Protocols.h"
 
 class GameSession;
@@ -92,6 +93,7 @@ public:
 	{
 		for (int i = 0; i < UINT16_MAX; i++)
 			PacketHandlers[i] = std::bind(&PacketHandler::Handle_INVALID, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+
 		
 		PacketHandlers[PKT_C_ENTER] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
@@ -133,11 +135,15 @@ public:
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
-		PacketHandlers[PKT_C_PING] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
-		{ 
+		PacketHandlers[PKT_C_PING] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len)
+		{
 			std::shared_ptr<Protocol::C_PING> pkt = std::make_shared<Protocol::C_PING>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_C_PING, session, pkt);
+			{
+				Protocol::S_PING res;
+				res.set_tick(pkt->tick());
+				session->Post(&Session::Send, MakeSendBuffer(res));
+			}
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
@@ -243,7 +249,6 @@ protected:
 	virtual void Handle_C_LEAVE(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_LEAVE> pkt) {};
 	virtual void Handle_C_GET_CLIENT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_GET_CLIENT> pkt) {};
 	virtual void Handle_C_HEARTBEAT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_HEARTBEAT> pkt) {};
-	virtual void Handle_C_PING(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_PING> pkt) {};
 	virtual void Handle_C_SERVERTIME(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SERVERTIME> pkt) {};
 	virtual void Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_INSTANTIATE_GAME_OBJECT> pkt) {};
 	virtual void Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_GET_GAME_OBJECT> pkt) {};

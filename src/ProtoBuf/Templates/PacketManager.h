@@ -5,6 +5,7 @@
 #include <SendBuffer.h>
 #include <CoreLib_Singleton.h>
 
+#include "GameSession.h"
 #include "Protocols.h"
 
 class GameSession;
@@ -54,7 +55,22 @@ public:
 	{
 		for (int i = 0; i < UINT16_MAX; i++)
 			PacketHandlers[i] = std::bind(&PacketHandler::Handle_INVALID, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+
 		{% for pkt in parser.recv_pkt %}
+			{%- if (pkt.name == 'C_PING') %}
+		PacketHandlers[PKT_C_PING] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len)
+		{
+			std::shared_ptr<Protocol::C_PING> pkt = std::make_shared<Protocol::C_PING>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+			{
+				Protocol::S_PING res;
+				res.set_tick(pkt->tick());
+				session->Post(&Session::Send, MakeSendBuffer(res));
+			}
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
+		};
+			{%- else %}
 		PacketHandlers[PKT_{{pkt.name}}] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::{{pkt.name}}> pkt = std::make_shared<Protocol::{{pkt.name}}>();
@@ -63,6 +79,8 @@ public:
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
+			{%- endif %}
+
 		{%- endfor %}
 	}
 
@@ -106,7 +124,9 @@ public:
 protected:
 	virtual void Handle_INVALID(std::shared_ptr<GameSession> session, unsigned char* buffer, int len) {};
 {%- for pkt in parser.recv_pkt %}
+	{%- if (pkt.name != 'C_PING')%}
 	virtual void Handle_{{pkt.name}}(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::{{pkt.name}}> pkt) {};
+	{%- endif %}
 {%- endfor %}
 
 private:

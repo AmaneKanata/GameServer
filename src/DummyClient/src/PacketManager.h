@@ -5,6 +5,7 @@
 #include <SendBuffer.h>
 #include <CoreLib_Singleton.h>
 
+#include "GameSession.h"
 #include "Protocols.h"
 
 class GameSession;
@@ -90,6 +91,7 @@ public:
 	{
 		for (int i = 0; i < UINT16_MAX; i++)
 			PacketHandlers[i] = std::bind(&PacketHandler::Handle_INVALID, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+
 		
 		PacketHandlers[PKT_S_ENTER] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
