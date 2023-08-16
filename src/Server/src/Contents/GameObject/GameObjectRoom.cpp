@@ -143,14 +143,14 @@ void GameObjectRoom::Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> sessi
 	session->client->Send(MakeSendBuffer(addGameObject));
 }
 
-void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_TRANSFORM> pkt)
-{
-	auto gameObject = gameObjects.find(pkt->gameobjectid());
-	if (gameObject == gameObjects.end())
-		return;
-
-	gameObject->second->UpdateTransform(pkt);
-}
+//void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_TRANSFORM> pkt)
+//{
+//	auto gameObject = gameObjects.find(pkt->gameobjectid());
+//	if (gameObject == gameObjects.end())
+//		return;
+//
+//	gameObject->second->UpdateTransform(pkt);
+//}
 
 void GameObjectRoom::Handle_C_SET_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_ANIMATION> pkt)
 {
