@@ -39,7 +39,7 @@ namespace Framework.Network
 
     public static class PacketManager
     {
-        private static readonly Dictionary<ushort, Action<ArraySegment<byte>, ushort, PacketQueue>> onRecv = new();
+        private static readonly Dictionary<ushort, Action<ArraySegment<byte>, ushort, Connection>> onRecv = new();
 
         static PacketManager()
         {
@@ -60,7 +60,7 @@ namespace Framework.Network
             onRecv.Add((ushort)MsgId.PKT_S_SET_ANIMATION, MakePacket<S_SET_ANIMATION>);
         }
 
-        public static void OnRecv( ArraySegment<byte> buffer, PacketQueue packetQueue )
+        public static void OnRecv( ArraySegment<byte> buffer, Connection connection )
         {
             ushort count = 0;
 
@@ -69,18 +69,31 @@ namespace Framework.Network
             ushort id = BitConverter.ToUInt16(buffer.Array, buffer.Offset + count);
             count += 2;
 
-            if (onRecv.TryGetValue(id, out Action<ArraySegment<byte>, ushort, PacketQueue> action))
+            if (onRecv.TryGetValue(id, out Action<ArraySegment<byte>, ushort, Connection> action))
             {
-                action.Invoke(buffer, id, packetQueue);
+                action.Invoke(buffer, id, connection);
             }
         }
 
-        private static void MakePacket<T>( ArraySegment<byte> buffer, ushort id, PacketQueue packetQueue ) where T : IMessage, new()
+        private static void MakePacket<T>( ArraySegment<byte> buffer, ushort id, Connection connection ) where T : IMessage, new()
         {
             T pkt = new();
             pkt.MergeFrom(buffer.Array, buffer.Offset + 4, buffer.Count - 4);
 
-            packetQueue.Push(id, pkt);
+            if (id == (ushort)MsgId.PKT_S_PING)
+            {
+                Protocol.S_PING ping = pkt as Protocol.S_PING;
+                connection.Handle_S_PING(ping);
+            }
+            if (id == (ushort)MsgId.PKT_S_SERVERTIME)
+            {
+                Protocol.S_SERVERTIME serverTime = pkt as Protocol.S_SERVERTIME;
+                connection.Handle_S_SERVERTIME(serverTime);
+            }
+            else
+            {
+                connection.PacketQueue.Push(id, pkt);
+            }
         }
         
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_ENTER pkt ) { return MakeSendBuffer(pkt, 0); }
