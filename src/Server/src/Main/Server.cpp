@@ -35,7 +35,7 @@ int main()
 	).count();
 	std::string pod_name = std::getenv("HOSTNAME");
 	std::string log_filename = log_path + std::to_string(epoch_time) + "_" + pod_name + ".log";
-	freopen(log_filename.c_str(), "a", stdout);
+	freopen(log_filename.c_str(), "a", stderr);
 #endif
 	
 	std::string localHostIp;
