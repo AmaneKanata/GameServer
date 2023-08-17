@@ -102,8 +102,7 @@ void RoomBase::Handle_C_TEST(std::shared_ptr<GameSession> session, std::shared_p
 {
 	Protocol::S_TEST res;
 	res.set_msg(pkt->msg());
-	//session->client->Send(MakeSendBuffer(res));
-	Broadcast(MakeSendBuffer(res));
+	session->client->Send(MakeSendBuffer(res));
 }
 
 void RoomBase::Leave(std::shared_ptr<ClientBase> _client, std::string code)
