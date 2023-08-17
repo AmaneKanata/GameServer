@@ -21,6 +21,8 @@ namespace Framework.Network
         PKT_S_PING = 11,
         PKT_C_SERVERTIME = 12,
         PKT_S_SERVERTIME = 13,
+        PKT_C_TEST = 14,
+        PKT_S_TEST = 15,
         PKT_C_INSTANTIATE_GAME_OBJECT = 100,
         PKT_S_INSTANTIATE_GAME_OBJECT = 101,
         PKT_C_GET_GAME_OBJECT = 102,
@@ -50,6 +52,7 @@ namespace Framework.Network
             onRecv.Add((ushort)MsgId.PKT_S_DISCONNECT, MakePacket<S_DISCONNECT>);
             onRecv.Add((ushort)MsgId.PKT_S_PING, MakePacket<S_PING>);
             onRecv.Add((ushort)MsgId.PKT_S_SERVERTIME, MakePacket<S_SERVERTIME>);
+            onRecv.Add((ushort)MsgId.PKT_S_TEST, MakePacket<S_TEST>);
             onRecv.Add((ushort)MsgId.PKT_S_INSTANTIATE_GAME_OBJECT, MakePacket<S_INSTANTIATE_GAME_OBJECT>);
             onRecv.Add((ushort)MsgId.PKT_S_ADD_GAME_OBJECT, MakePacket<S_ADD_GAME_OBJECT>);
             onRecv.Add((ushort)MsgId.PKT_S_DESTORY_GAME_OBJECT, MakePacket<S_DESTORY_GAME_OBJECT>);
@@ -101,6 +104,7 @@ namespace Framework.Network
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_HEARTBEAT pkt ) { return MakeSendBuffer(pkt, 9); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_PING pkt ) { return MakeSendBuffer(pkt, 10); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_SERVERTIME pkt ) { return MakeSendBuffer(pkt, 12); }
+        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_TEST pkt ) { return MakeSendBuffer(pkt, 14); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_INSTANTIATE_GAME_OBJECT pkt ) { return MakeSendBuffer(pkt, 100); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_GET_GAME_OBJECT pkt ) { return MakeSendBuffer(pkt, 102); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_DESTORY_GAME_OBJECT pkt ) { return MakeSendBuffer(pkt, 104); }

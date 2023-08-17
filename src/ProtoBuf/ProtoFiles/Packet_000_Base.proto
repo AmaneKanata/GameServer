@@ -70,3 +70,13 @@ message S_SERVERTIME
 {
 	int64 tick = 1;
 }
+
+message C_TEST
+{
+	string msg = 1;
+}
+
+message S_TEST
+{
+	string msg = 1;
+}

@@ -26,6 +26,8 @@ enum : unsigned short
 	PKT_S_PING = 11,
 	PKT_C_SERVERTIME = 12,
 	PKT_S_SERVERTIME = 13,
+	PKT_C_TEST = 14,
+	PKT_S_TEST = 15,
 	PKT_C_INSTANTIATE_GAME_OBJECT = 100,
 	PKT_S_INSTANTIATE_GAME_OBJECT = 101,
 	PKT_C_GET_GAME_OBJECT = 102,
@@ -65,6 +67,7 @@ static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_REMOVE_CLIENT& pkt
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_DISCONNECT& pkt) { return MakeSendBuffer(pkt, PKT_S_DISCONNECT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_PING& pkt) { return MakeSendBuffer(pkt, PKT_S_PING); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_SERVERTIME& pkt) { return MakeSendBuffer(pkt, PKT_S_SERVERTIME); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_TEST& pkt) { return MakeSendBuffer(pkt, PKT_S_TEST); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_INSTANTIATE_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_S_INSTANTIATE_GAME_OBJECT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_ADD_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_S_ADD_GAME_OBJECT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_DESTORY_GAME_OBJECT& pkt) { return MakeSendBuffer(pkt, PKT_S_DESTORY_GAME_OBJECT); }
@@ -152,6 +155,14 @@ public:
 			std::shared_ptr<Protocol::C_SERVERTIME> pkt = std::make_shared<Protocol::C_SERVERTIME>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_SERVERTIME, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
+		};
+		PacketHandlers[PKT_C_TEST] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::C_TEST> pkt = std::make_shared<Protocol::C_TEST>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_C_TEST, session, pkt);
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
@@ -250,6 +261,7 @@ protected:
 	virtual void Handle_C_GET_CLIENT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_GET_CLIENT> pkt) {};
 	virtual void Handle_C_HEARTBEAT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_HEARTBEAT> pkt) {};
 	virtual void Handle_C_SERVERTIME(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SERVERTIME> pkt) {};
+	virtual void Handle_C_TEST(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_TEST> pkt) {};
 	virtual void Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_INSTANTIATE_GAME_OBJECT> pkt) {};
 	virtual void Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_GET_GAME_OBJECT> pkt) {};
 	virtual void Handle_C_DESTORY_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_DESTORY_GAME_OBJECT> pkt) {};
