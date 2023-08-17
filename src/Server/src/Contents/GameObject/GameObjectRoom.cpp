@@ -189,8 +189,8 @@ void GameObjectRoom::Update()
 		}
 	}
 
-	//if (sendBuffers->size() > 0)
-	//	BroadcastMany(sendBuffers);
+	if (sendBuffers->size() > 0)
+		BroadcastMany(sendBuffers);
 
 	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch() - start).count();
 
