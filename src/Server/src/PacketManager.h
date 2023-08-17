@@ -143,9 +143,18 @@ public:
 			std::shared_ptr<Protocol::C_PING> pkt = std::make_shared<Protocol::C_PING>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 			{
+				//current time in milliseconds
+				std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+
+				std::cout << "Process Ping Start : " << now.count() << std::endl;
+
 				Protocol::S_PING res;
 				res.set_tick(pkt->tick());
 				session->Post(&Session::Send, MakeSendBuffer(res));
+
+				//get elapsed time
+				std::chrono::milliseconds elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()) - now;
+				std::cout << "Ping parse time : " << elapsed.count() << std::endl;
 			}
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
@@ -200,18 +209,11 @@ public:
 		};
 		PacketHandlers[PKT_C_SET_TRANSFORM] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
-			//current time in milliseconds
-			std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-
 			std::shared_ptr<Protocol::C_SET_TRANSFORM> pkt = std::make_shared<Protocol::C_SET_TRANSFORM>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 				Post(&PacketHandler::Handle_C_SET_TRANSFORM, session, pkt);
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
-
-			//get elapsed time
-			std::chrono::milliseconds elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()) - now;
-			std::cout << "C_SET_TRANSFORM : " << elapsed.count() << std::endl;
 		};
 		PacketHandlers[PKT_C_SET_ANIMATION] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 

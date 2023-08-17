@@ -72,6 +72,9 @@ void Session::Send(std::shared_ptr<SendBuffer> sendBuffer)
 	{
 		isSendRegistered = true;
 		Post(&Session::RegisterSend);
+		
+		std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+		cout << "Send Start : " << now.count() << "\n";
 	}
 }
 
@@ -140,6 +143,9 @@ void Session::ProcessSend(std::size_t bytes_transferred)
 
 	if (pendingSendBuffers.empty())
 	{
+		std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+		cout << "Send Finish : " << now.count() << "\n";
+
 		isSendRegistered = false;
 		if (isDisconnectRegistered)
 		{
@@ -167,6 +173,9 @@ void Session::RegisterRecv()
 
 void Session::ProcessRecv(std::size_t bytes_transferred)
 {
+	std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+	cout << "Process Recv Start : " << now.count() << "\n";
+
 	if (bytes_transferred == 0)
 	{
 		RegisterDisconnect();
@@ -188,6 +197,9 @@ void Session::ProcessRecv(std::size_t bytes_transferred)
 	}
 
 	recvBuffer.Clean();
+
+	now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+	cout << "Process Recv Finish : " << now.count() << "\n";
 
 	RegisterRecv();
 }
