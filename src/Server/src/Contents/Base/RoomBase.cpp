@@ -106,7 +106,7 @@ void RoomBase::Handle_C_TEST(std::shared_ptr<GameSession> session, std::shared_p
 	//res.set_msg(pkt->msg());
 	//session->client->Send(MakeSendBuffer(res));
 
-	tests.push(pkt->msg());
+	//tests.push(pkt->msg());
 }
 
 void RoomBase::Leave(std::shared_ptr<ClientBase> _client, std::string code)
@@ -178,13 +178,9 @@ void RoomBase::Test()
 
 	std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers = std::make_shared<std::vector<std::shared_ptr<SendBuffer>>>();
 
-	while (!tests.empty())
-	{
-		Protocol::S_TEST res;
-		res.set_msg(tests.front());
-		sendBuffers->push_back(MakeSendBuffer(res));
-		tests.pop();
-	}
+	Protocol::S_TEST res;
+	res.set_msg("this is test");
+	sendBuffers->push_back(MakeSendBuffer(res));
 
 	if (sendBuffers->size() > 0)
 		BroadcastMany(sendBuffers);
