@@ -149,7 +149,7 @@ void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session
 	if (gameObject == gameObjects.end())
 		return;
 
-	//gameObject->second->UpdateTransform(pkt);
+	gameObject->second->UpdateTransform(pkt);
 }
 
 void GameObjectRoom::Handle_C_SET_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_ANIMATION> pkt)
@@ -174,23 +174,23 @@ void GameObjectRoom::Update()
 
 	std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers = std::make_shared<std::vector<std::shared_ptr<SendBuffer>>>();
 
-	for (const auto& [key, gameObject] : gameObjects)
-	{
-		if (gameObject->isTransformDirty)
-		{
-			gameObject->isTransformDirty = false;
-			sendBuffers->push_back(MakeSendBuffer(gameObject->transform));
-		}
+	//for (const auto& [key, gameObject] : gameObjects)
+	//{
+	//	if (gameObject->isTransformDirty)
+	//	{
+	//		gameObject->isTransformDirty = false;
+	//		sendBuffers->push_back(MakeSendBuffer(gameObject->transform));
+	//	}
 
-		if (gameObject->isAnimationDirty)
-		{
-			gameObject->isAnimationDirty = false;
-			sendBuffers->push_back(MakeSendBuffer(gameObject->animation));
-		}
-	}
+	//	if (gameObject->isAnimationDirty)
+	//	{
+	//		gameObject->isAnimationDirty = false;
+	//		sendBuffers->push_back(MakeSendBuffer(gameObject->animation));
+	//	}
+	//}
 
-	if (sendBuffers->size() > 0)
-		BroadcastMany(sendBuffers);
+	//if (sendBuffers->size() > 0)
+	//	BroadcastMany(sendBuffers);
 
 	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch() - start).count();
 
