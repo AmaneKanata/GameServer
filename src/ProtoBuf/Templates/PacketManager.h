@@ -65,6 +65,7 @@ public:
 			{
 				Protocol::S_PING res;
 				res.set_tick(pkt->tick());
+				res.set_id(pkt->id());
 				session->Post(&Session::Send, MakeSendBuffer(res));
 			}
 			else
