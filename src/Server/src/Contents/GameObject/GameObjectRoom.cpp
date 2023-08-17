@@ -5,7 +5,7 @@
 
 void GameObjectRoom::HandleInit()
 {
-	Post(&GameObjectRoom::Update);
+	//Post(&GameObjectRoom::Update);
 
 	RoomBase::HandleInit();
 }
@@ -150,6 +150,8 @@ void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session
 		return;
 
 	gameObject->second->UpdateTransform(pkt);
+
+	Broadcast(MakeSendBuffer(gameObject->second->transform));
 }
 
 void GameObjectRoom::Handle_C_SET_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_ANIMATION> pkt)
