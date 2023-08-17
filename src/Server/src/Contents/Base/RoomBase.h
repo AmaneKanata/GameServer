@@ -1,4 +1,5 @@
 #pragma once
+#include <queue>
 
 #include "PacketManager.h"
 
@@ -19,6 +20,8 @@ public:
 	virtual void Broadcast(shared_ptr<SendBuffer> sendBuffer);
 	virtual void BroadcastMany(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers);
 
+	void Test();
+
 protected:
 	virtual void Handle_INVALID(std::shared_ptr<GameSession> session, unsigned char* buffer, int len) override;
 
@@ -37,4 +40,7 @@ private:
 
 protected:
 	map<string, std::shared_ptr<ClientBase>> clients;
+
+private:
+	std::queue<std::string> tests;
 };
