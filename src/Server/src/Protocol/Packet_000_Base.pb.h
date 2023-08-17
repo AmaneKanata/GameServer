@@ -1832,6 +1832,7 @@ class C_PING final :
 
   enum : int {
     kTickFieldNumber = 1,
+    kIdFieldNumber = 2,
   };
   // int64 tick = 1;
   void clear_tick();
@@ -1840,6 +1841,15 @@ class C_PING final :
   private:
   int64_t _internal_tick() const;
   void _internal_set_tick(int64_t value);
+  public:
+
+  // int32 id = 2;
+  void clear_id();
+  int32_t id() const;
+  void set_id(int32_t value);
+  private:
+  int32_t _internal_id() const;
+  void _internal_set_id(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.C_PING)
@@ -1851,6 +1861,7 @@ class C_PING final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     int64_t tick_;
+    int32_t id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1980,6 +1991,7 @@ class S_PING final :
 
   enum : int {
     kTickFieldNumber = 1,
+    kIdFieldNumber = 2,
   };
   // int64 tick = 1;
   void clear_tick();
@@ -1988,6 +2000,15 @@ class S_PING final :
   private:
   int64_t _internal_tick() const;
   void _internal_set_tick(int64_t value);
+  public:
+
+  // int32 id = 2;
+  void clear_id();
+  int32_t id() const;
+  void set_id(int32_t value);
+  private:
+  int32_t _internal_id() const;
+  void _internal_set_id(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.S_PING)
@@ -1999,6 +2020,7 @@ class S_PING final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     int64_t tick_;
+    int32_t id_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -3036,6 +3058,26 @@ inline void C_PING::set_tick(int64_t value) {
   // @@protoc_insertion_point(field_set:Protocol.C_PING.tick)
 }
 
+// int32 id = 2;
+inline void C_PING::clear_id() {
+  _impl_.id_ = 0;
+}
+inline int32_t C_PING::_internal_id() const {
+  return _impl_.id_;
+}
+inline int32_t C_PING::id() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_PING.id)
+  return _internal_id();
+}
+inline void C_PING::_internal_set_id(int32_t value) {
+  
+  _impl_.id_ = value;
+}
+inline void C_PING::set_id(int32_t value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:Protocol.C_PING.id)
+}
+
 // -------------------------------------------------------------------
 
 // S_PING
@@ -3058,6 +3100,26 @@ inline void S_PING::_internal_set_tick(int64_t value) {
 inline void S_PING::set_tick(int64_t value) {
   _internal_set_tick(value);
   // @@protoc_insertion_point(field_set:Protocol.S_PING.tick)
+}
+
+// int32 id = 2;
+inline void S_PING::clear_id() {
+  _impl_.id_ = 0;
+}
+inline int32_t S_PING::_internal_id() const {
+  return _impl_.id_;
+}
+inline int32_t S_PING::id() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_PING.id)
+  return _internal_id();
+}
+inline void S_PING::_internal_set_id(int32_t value) {
+  
+  _impl_.id_ = value;
+}
+inline void S_PING::set_id(int32_t value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_PING.id)
 }
 
 // -------------------------------------------------------------------

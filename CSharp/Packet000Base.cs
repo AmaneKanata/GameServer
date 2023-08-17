@@ -32,10 +32,10 @@ namespace Protocol {
             "LlNfQUREX0NMSUVOVC5DbGllbnRJbmZvGh4KCkNsaWVudEluZm8SEAoIY2xp",
             "ZW50SWQYASABKAkiJAoPU19SRU1PVkVfQ0xJRU5UEhEKCWNsaWVudElkcxgB",
             "IAMoCSIcCgxTX0RJU0NPTk5FQ1QSDAoEY29kZRgBIAEoCSINCgtDX0hFQVJU",
-            "QkVBVCIWCgZDX1BJTkcSDAoEdGljaxgBIAEoAyIWCgZTX1BJTkcSDAoEdGlj",
-            "axgBIAEoAyIOCgxDX1NFUlZFUlRJTUUiHAoMU19TRVJWRVJUSU1FEgwKBHRp",
-            "Y2sYASABKAMiFQoGQ19URVNUEgsKA21zZxgBIAEoCSIVCgZTX1RFU1QSCwoD",
-            "bXNnGAEgASgJYgZwcm90bzM="));
+            "QkVBVCIiCgZDX1BJTkcSDAoEdGljaxgBIAEoAxIKCgJpZBgCIAEoBSIiCgZT",
+            "X1BJTkcSDAoEdGljaxgBIAEoAxIKCgJpZBgCIAEoBSIOCgxDX1NFUlZFUlRJ",
+            "TUUiHAoMU19TRVJWRVJUSU1FEgwKBHRpY2sYASABKAMiFQoGQ19URVNUEgsK",
+            "A21zZxgBIAEoCSIVCgZTX1RFU1QSCwoDbXNnGAEgASgJYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -49,8 +49,8 @@ namespace Protocol {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_REMOVE_CLIENT), global::Protocol.S_REMOVE_CLIENT.Parser, new[]{ "ClientIds" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_DISCONNECT), global::Protocol.S_DISCONNECT.Parser, new[]{ "Code" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_HEARTBEAT), global::Protocol.C_HEARTBEAT.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_PING), global::Protocol.C_PING.Parser, new[]{ "Tick" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_PING), global::Protocol.S_PING.Parser, new[]{ "Tick" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_PING), global::Protocol.C_PING.Parser, new[]{ "Tick", "Id" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_PING), global::Protocol.S_PING.Parser, new[]{ "Tick", "Id" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_SERVERTIME), global::Protocol.C_SERVERTIME.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.S_SERVERTIME), global::Protocol.S_SERVERTIME.Parser, new[]{ "Tick" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protocol.C_TEST), global::Protocol.C_TEST.Parser, new[]{ "Msg" }, null, null, null, null),
@@ -2050,6 +2050,7 @@ namespace Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public C_PING(C_PING other) : this() {
       tick_ = other.tick_;
+      id_ = other.id_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2071,6 +2072,18 @@ namespace Protocol {
       }
     }
 
+    /// <summary>Field number for the "id" field.</summary>
+    public const int IdFieldNumber = 2;
+    private int id_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Id {
+      get { return id_; }
+      set {
+        id_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -2087,6 +2100,7 @@ namespace Protocol {
         return true;
       }
       if (Tick != other.Tick) return false;
+      if (Id != other.Id) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2095,6 +2109,7 @@ namespace Protocol {
     public override int GetHashCode() {
       int hash = 1;
       if (Tick != 0L) hash ^= Tick.GetHashCode();
+      if (Id != 0) hash ^= Id.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2117,6 +2132,10 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteInt64(Tick);
       }
+      if (Id != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Id);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2131,6 +2150,10 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteInt64(Tick);
       }
+      if (Id != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Id);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2143,6 +2166,9 @@ namespace Protocol {
       int size = 0;
       if (Tick != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Tick);
+      }
+      if (Id != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2158,6 +2184,9 @@ namespace Protocol {
       }
       if (other.Tick != 0L) {
         Tick = other.Tick;
+      }
+      if (other.Id != 0) {
+        Id = other.Id;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2178,6 +2207,10 @@ namespace Protocol {
             Tick = input.ReadInt64();
             break;
           }
+          case 16: {
+            Id = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -2195,6 +2228,10 @@ namespace Protocol {
             break;
           case 8: {
             Tick = input.ReadInt64();
+            break;
+          }
+          case 16: {
+            Id = input.ReadInt32();
             break;
           }
         }
@@ -2239,6 +2276,7 @@ namespace Protocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public S_PING(S_PING other) : this() {
       tick_ = other.tick_;
+      id_ = other.id_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2260,6 +2298,18 @@ namespace Protocol {
       }
     }
 
+    /// <summary>Field number for the "id" field.</summary>
+    public const int IdFieldNumber = 2;
+    private int id_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Id {
+      get { return id_; }
+      set {
+        id_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -2276,6 +2326,7 @@ namespace Protocol {
         return true;
       }
       if (Tick != other.Tick) return false;
+      if (Id != other.Id) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2284,6 +2335,7 @@ namespace Protocol {
     public override int GetHashCode() {
       int hash = 1;
       if (Tick != 0L) hash ^= Tick.GetHashCode();
+      if (Id != 0) hash ^= Id.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2306,6 +2358,10 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteInt64(Tick);
       }
+      if (Id != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Id);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2320,6 +2376,10 @@ namespace Protocol {
         output.WriteRawTag(8);
         output.WriteInt64(Tick);
       }
+      if (Id != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Id);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -2332,6 +2392,9 @@ namespace Protocol {
       int size = 0;
       if (Tick != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Tick);
+      }
+      if (Id != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2347,6 +2410,9 @@ namespace Protocol {
       }
       if (other.Tick != 0L) {
         Tick = other.Tick;
+      }
+      if (other.Id != 0) {
+        Id = other.Id;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2367,6 +2433,10 @@ namespace Protocol {
             Tick = input.ReadInt64();
             break;
           }
+          case 16: {
+            Id = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -2384,6 +2454,10 @@ namespace Protocol {
             break;
           case 8: {
             Tick = input.ReadInt64();
+            break;
+          }
+          case 16: {
+            Id = input.ReadInt32();
             break;
           }
         }

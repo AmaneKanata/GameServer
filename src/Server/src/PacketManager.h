@@ -143,18 +143,13 @@ public:
 			std::shared_ptr<Protocol::C_PING> pkt = std::make_shared<Protocol::C_PING>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
 			{
-				//current time in milliseconds
 				std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-
-				std::cout << "Process Ping Start : " << now.count() << std::endl;
+				std::cout << "Process Ping : " << std::to_string(pkt->id()) << " " << now.count() << std::endl;
 
 				Protocol::S_PING res;
 				res.set_tick(pkt->tick());
+				res.set_id(pkt->id());
 				session->Post(&Session::Send, MakeSendBuffer(res));
-
-				//get elapsed time
-				std::chrono::milliseconds elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()) - now;
-				std::cout << "Ping parse time : " << elapsed.count() << std::endl;
 			}
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
