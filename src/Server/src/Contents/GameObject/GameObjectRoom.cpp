@@ -174,20 +174,20 @@ void GameObjectRoom::Update()
 
 	std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers = std::make_shared<std::vector<std::shared_ptr<SendBuffer>>>();
 
-	//for (const auto& [key, gameObject] : gameObjects)
-	//{
-	//	if (gameObject->isTransformDirty)
-	//	{
-	//		gameObject->isTransformDirty = false;
-	//		sendBuffers->push_back(MakeSendBuffer(gameObject->transform));
-	//	}
+	for (const auto& [key, gameObject] : gameObjects)
+	{
+		if (gameObject->isTransformDirty)
+		{
+			gameObject->isTransformDirty = false;
+			sendBuffers->push_back(MakeSendBuffer(gameObject->transform));
+		}
 
-	//	if (gameObject->isAnimationDirty)
-	//	{
-	//		gameObject->isAnimationDirty = false;
-	//		sendBuffers->push_back(MakeSendBuffer(gameObject->animation));
-	//	}
-	//}
+		if (gameObject->isAnimationDirty)
+		{
+			gameObject->isAnimationDirty = false;
+			sendBuffers->push_back(MakeSendBuffer(gameObject->animation));
+		}
+	}
 
 	//if (sendBuffers->size() > 0)
 	//	BroadcastMany(sendBuffers);
