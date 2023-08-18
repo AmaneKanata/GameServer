@@ -9,7 +9,7 @@ void RoomBase::HandleInit()
 {
 	Post(&RoomBase::SendServerTime);
 	
-	Post(&RoomBase::Test);
+	//Post(&RoomBase::Test);
 
 	if(CLOSE_ON_IDLE)
 		DelayPost(CHECK_IDEL_INTERVAL, &RoomBase::CheckIdle);
