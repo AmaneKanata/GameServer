@@ -55,13 +55,11 @@ message C_HEARTBEAT
 message C_PING
 {
 	int64 tick = 1;
-	int32 id = 2;
 }
 
 message S_PING
 {
 	int64 tick = 1;
-	int32 id = 2;
 }
 
 message C_SERVERTIME

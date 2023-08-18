@@ -161,7 +161,6 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR C_PING::C_PING(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.tick_)*/int64_t{0}
-  , /*decltype(_impl_.id_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct C_PINGDefaultTypeInternal {
   PROTOBUF_CONSTEXPR C_PINGDefaultTypeInternal()
@@ -175,7 +174,6 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR S_PING::S_PING(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.tick_)*/int64_t{0}
-  , /*decltype(_impl_.id_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct S_PINGDefaultTypeInternal {
   PROTOBUF_CONSTEXPR S_PINGDefaultTypeInternal()
@@ -323,7 +321,6 @@ const uint32_t TableStruct_Packet_5f000_5fBase_2eproto::offsets[] PROTOBUF_SECTI
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::C_PING, _impl_.tick_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::C_PING, _impl_.id_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_PING, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -331,7 +328,6 @@ const uint32_t TableStruct_Packet_5f000_5fBase_2eproto::offsets[] PROTOBUF_SECTI
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_PING, _impl_.tick_),
-  PROTOBUF_FIELD_OFFSET(::Protocol::S_PING, _impl_.id_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::C_SERVERTIME, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -373,11 +369,11 @@ static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protode
   { 61, -1, -1, sizeof(::Protocol::S_DISCONNECT)},
   { 68, -1, -1, sizeof(::Protocol::C_HEARTBEAT)},
   { 74, -1, -1, sizeof(::Protocol::C_PING)},
-  { 82, -1, -1, sizeof(::Protocol::S_PING)},
-  { 90, -1, -1, sizeof(::Protocol::C_SERVERTIME)},
-  { 96, -1, -1, sizeof(::Protocol::S_SERVERTIME)},
-  { 103, -1, -1, sizeof(::Protocol::C_TEST)},
-  { 110, -1, -1, sizeof(::Protocol::S_TEST)},
+  { 81, -1, -1, sizeof(::Protocol::S_PING)},
+  { 88, -1, -1, sizeof(::Protocol::C_SERVERTIME)},
+  { 94, -1, -1, sizeof(::Protocol::S_SERVERTIME)},
+  { 101, -1, -1, sizeof(::Protocol::C_TEST)},
+  { 108, -1, -1, sizeof(::Protocol::S_TEST)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -410,15 +406,14 @@ const char descriptor_table_protodef_Packet_5f000_5fBase_2eproto[] PROTOBUF_SECT
   "lientInfo\032\036\n\nClientInfo\022\020\n\010clientId\030\001 \001("
   "\t\"$\n\017S_REMOVE_CLIENT\022\021\n\tclientIds\030\001 \003(\t\""
   "\034\n\014S_DISCONNECT\022\014\n\004code\030\001 \001(\t\"\r\n\013C_HEART"
-  "BEAT\"\"\n\006C_PING\022\014\n\004tick\030\001 \001(\003\022\n\n\002id\030\002 \001(\005"
-  "\"\"\n\006S_PING\022\014\n\004tick\030\001 \001(\003\022\n\n\002id\030\002 \001(\005\"\016\n\014"
-  "C_SERVERTIME\"\034\n\014S_SERVERTIME\022\014\n\004tick\030\001 \001"
-  "(\003\"\025\n\006C_TEST\022\013\n\003msg\030\001 \001(\t\"\025\n\006S_TEST\022\013\n\003m"
-  "sg\030\001 \001(\tb\006proto3"
+  "BEAT\"\026\n\006C_PING\022\014\n\004tick\030\001 \001(\003\"\026\n\006S_PING\022\014"
+  "\n\004tick\030\001 \001(\003\"\016\n\014C_SERVERTIME\"\034\n\014S_SERVER"
+  "TIME\022\014\n\004tick\030\001 \001(\003\"\025\n\006C_TEST\022\013\n\003msg\030\001 \001("
+  "\t\"\025\n\006S_TEST\022\013\n\003msg\030\001 \001(\tb\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Packet_5f000_5fBase_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Packet_5f000_5fBase_2eproto = {
-    false, false, 536, descriptor_table_protodef_Packet_5f000_5fBase_2eproto,
+    false, false, 512, descriptor_table_protodef_Packet_5f000_5fBase_2eproto,
     "Packet_000_Base.proto",
     &descriptor_table_Packet_5f000_5fBase_2eproto_once, nullptr, 0, 17,
     schemas, file_default_instances, TableStruct_Packet_5f000_5fBase_2eproto::offsets,
@@ -2138,13 +2133,10 @@ C_PING::C_PING(const C_PING& from)
   C_PING* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.tick_){}
-    , decltype(_impl_.id_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.tick_, &from._impl_.tick_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.id_) -
-    reinterpret_cast<char*>(&_impl_.tick_)) + sizeof(_impl_.id_));
+  _this->_impl_.tick_ = from._impl_.tick_;
   // @@protoc_insertion_point(copy_constructor:Protocol.C_PING)
 }
 
@@ -2154,7 +2146,6 @@ inline void C_PING::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.tick_){int64_t{0}}
-    , decltype(_impl_.id_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -2182,9 +2173,7 @@ void C_PING::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.tick_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.id_) -
-      reinterpret_cast<char*>(&_impl_.tick_)) + sizeof(_impl_.id_));
+  _impl_.tick_ = int64_t{0};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2198,14 +2187,6 @@ const char* C_PING::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _impl_.tick_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 id = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2245,12 +2226,6 @@ uint8_t* C_PING::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_tick(), target);
   }
 
-  // int32 id = 2;
-  if (this->_internal_id() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_id(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2270,11 +2245,6 @@ size_t C_PING::ByteSizeLong() const {
   // int64 tick = 1;
   if (this->_internal_tick() != 0) {
     total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_tick());
-  }
-
-  // int32 id = 2;
-  if (this->_internal_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_id());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -2298,9 +2268,6 @@ void C_PING::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBU
   if (from._internal_tick() != 0) {
     _this->_internal_set_tick(from._internal_tick());
   }
-  if (from._internal_id() != 0) {
-    _this->_internal_set_id(from._internal_id());
-  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2318,12 +2285,7 @@ bool C_PING::IsInitialized() const {
 void C_PING::InternalSwap(C_PING* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(C_PING, _impl_.id_)
-      + sizeof(C_PING::_impl_.id_)
-      - PROTOBUF_FIELD_OFFSET(C_PING, _impl_.tick_)>(
-          reinterpret_cast<char*>(&_impl_.tick_),
-          reinterpret_cast<char*>(&other->_impl_.tick_));
+  swap(_impl_.tick_, other->_impl_.tick_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata C_PING::GetMetadata() const {
@@ -2349,13 +2311,10 @@ S_PING::S_PING(const S_PING& from)
   S_PING* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.tick_){}
-    , decltype(_impl_.id_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.tick_, &from._impl_.tick_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.id_) -
-    reinterpret_cast<char*>(&_impl_.tick_)) + sizeof(_impl_.id_));
+  _this->_impl_.tick_ = from._impl_.tick_;
   // @@protoc_insertion_point(copy_constructor:Protocol.S_PING)
 }
 
@@ -2365,7 +2324,6 @@ inline void S_PING::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.tick_){int64_t{0}}
-    , decltype(_impl_.id_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -2393,9 +2351,7 @@ void S_PING::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.tick_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.id_) -
-      reinterpret_cast<char*>(&_impl_.tick_)) + sizeof(_impl_.id_));
+  _impl_.tick_ = int64_t{0};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2409,14 +2365,6 @@ const char* S_PING::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _impl_.tick_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 id = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2456,12 +2404,6 @@ uint8_t* S_PING::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_tick(), target);
   }
 
-  // int32 id = 2;
-  if (this->_internal_id() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_id(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2481,11 +2423,6 @@ size_t S_PING::ByteSizeLong() const {
   // int64 tick = 1;
   if (this->_internal_tick() != 0) {
     total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_tick());
-  }
-
-  // int32 id = 2;
-  if (this->_internal_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_id());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -2509,9 +2446,6 @@ void S_PING::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBU
   if (from._internal_tick() != 0) {
     _this->_internal_set_tick(from._internal_tick());
   }
-  if (from._internal_id() != 0) {
-    _this->_internal_set_id(from._internal_id());
-  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2529,12 +2463,7 @@ bool S_PING::IsInitialized() const {
 void S_PING::InternalSwap(S_PING* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(S_PING, _impl_.id_)
-      + sizeof(S_PING::_impl_.id_)
-      - PROTOBUF_FIELD_OFFSET(S_PING, _impl_.tick_)>(
-          reinterpret_cast<char*>(&_impl_.tick_),
-          reinterpret_cast<char*>(&other->_impl_.tick_));
+  swap(_impl_.tick_, other->_impl_.tick_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata S_PING::GetMetadata() const {

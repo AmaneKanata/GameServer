@@ -8,8 +8,6 @@
 void RoomBase::HandleInit()
 {
 	Post(&RoomBase::SendServerTime);
-	
-	//Post(&RoomBase::Test);
 
 	if(CLOSE_ON_IDLE)
 		DelayPost(CHECK_IDEL_INTERVAL, &RoomBase::CheckIdle);
@@ -100,15 +98,6 @@ void RoomBase::Handle_C_SERVERTIME(std::shared_ptr<GameSession> session, std::sh
 	session->client->Send(MakeSendBuffer(res));
 }
 
-void RoomBase::Handle_C_TEST(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_TEST> pkt)
-{
-	//Protocol::S_TEST res;
-	//res.set_msg(pkt->msg());
-	//session->client->Send(MakeSendBuffer(res));
-
-	//tests.push(pkt->msg());
-}
-
 void RoomBase::Leave(std::shared_ptr<ClientBase> _client, std::string code)
 {
 	Protocol::S_DISCONNECT disconnect;
@@ -170,29 +159,4 @@ void RoomBase::CheckIdle()
 {
 	if(clients.size() == 0)
 		Post(&RoomBase::Close);
-}
-
-void RoomBase::Test()
-{
-	auto start = std::chrono::system_clock::now().time_since_epoch();
-
-	std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers = std::make_shared<std::vector<std::shared_ptr<SendBuffer>>>();
-
-	Protocol::S_TEST res;
-	res.set_msg("this is test");
-	sendBuffers->push_back(MakeSendBuffer(res));
-
-	if (sendBuffers->size() > 0)
-		BroadcastMany(sendBuffers);
-
-	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch() - start).count();
-
-	if (elapsed >= 50)
-	{
-		DelayPost(50, &RoomBase::Test);
-	}
-	else
-	{
-		DelayPost(50 - elapsed, &RoomBase::Test);
-	}
 }
