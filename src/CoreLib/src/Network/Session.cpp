@@ -63,9 +63,6 @@ void Session::Disconnect()
 
 void Session::Send(std::shared_ptr<SendBuffer> sendBuffer)
 {
-	std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-	cout << "Send Start : " << now.count() << "\n";
-
 	if (!isConnected || isDisconnectRegistered)
 		return;
 
@@ -74,17 +71,12 @@ void Session::Send(std::shared_ptr<SendBuffer> sendBuffer)
 	if (!isSendRegistered)
 	{
 		isSendRegistered = true;
-		std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-		cout << "Call Register Send : " << now.count() << "\n";
 		Post(&Session::RegisterSend);
 	}
 }
 
 void Session::SendMany(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers)
 {
-	std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-	cout << "SendMany Start : " << now.count() << "\n";
-
 	if (!isConnected || isDisconnectRegistered)
 		return;
 
@@ -93,17 +85,12 @@ void Session::SendMany(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>>
 	if (!isSendRegistered)
 	{
 		isSendRegistered = true;
-		std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-		cout << "Call Register Send : " << now.count() << "\n";
 		Post(&Session::RegisterSend);
 	}
 }
 
 void Session::RegisterSend()
 {
-	std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-	cout << "Register Send Start : " << now.count() << "\n";
-
 	inFlightSendBuffers.swap(pendingSendBuffers);
 
 	vector<boost::asio::const_buffer> sendBuffers;
@@ -116,8 +103,6 @@ void Session::RegisterSend()
 
 	socket->async_send(sendBuffers, [this, ref](const boost::system::error_code& error, std::size_t bytes_transferred)
 		{
-			std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-			cout << "Call Process Send : " << now.count() << "\n";
 			this->Post(&Session::ProcessSend, bytes_transferred);
 		}
 	);
@@ -125,9 +110,6 @@ void Session::RegisterSend()
 
 void Session::ProcessSend(std::size_t bytes_transferred)
 {
-	std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-	cout << "Process Send Start : " << now.count() << "\n";
-
 	if (bytes_transferred == 0)
 	{
 		isSendRegistered = false;
@@ -158,8 +140,6 @@ void Session::ProcessSend(std::size_t bytes_transferred)
 
 	if (pendingSendBuffers.empty())
 	{
-		std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-		cout << "Process Send Finish : " << now.count() << "\n";
 		isSendRegistered = false;
 		if (isDisconnectRegistered)
 		{
@@ -168,8 +148,6 @@ void Session::ProcessSend(std::size_t bytes_transferred)
 	}
 	else
 	{
-		std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-		cout << "Call Register Send : " << now.count() << "\n";
 		Post(&Session::RegisterSend);
 	}
 }
@@ -180,14 +158,8 @@ void Session::RegisterRecv()
 
 	auto ref = shared_from_this();
 
-	std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-	cout << "Register Recv Start : " << now.count() << "\n";
-
 	socket->async_receive(buffer, [this, ref](const boost::system::error_code& error, std::size_t bytes_transferred)
 		{
-			std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-			cout << "Recieve Success, Call ProcessRecv : " << now.count() << "\n";
-
 			this->Post(&Session::ProcessRecv, bytes_transferred);
 		}
 	);
@@ -195,9 +167,6 @@ void Session::RegisterRecv()
 
 void Session::ProcessRecv(std::size_t bytes_transferred)
 {
-	std::chrono::milliseconds now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-	cout << "Process Recv Start : " << now.count() << "\n";
-
 	if (bytes_transferred == 0)
 	{
 		RegisterDisconnect();
@@ -221,9 +190,6 @@ void Session::ProcessRecv(std::size_t bytes_transferred)
 	recvBuffer.Clean();
 
 	RegisterRecv();
-
-	now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-	cout << "Process Recv Finish : " << now.count() << "\n";
 }
 
 int PacketSession::OnRecv(unsigned char* buffer, int len)
