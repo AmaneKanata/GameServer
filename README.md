@@ -4,5 +4,6 @@ C++로 작성된 TCP 기반의 실시간 동기화 서버입니다.
 
 ## 작동 환경
 - C++ 17
-- Boost 1.82.0
-- Google Protobuf 3.21.6
+- Boost 1.83.0
+- Google Protobuf 3.21.12
+- Agones 1.34.0
