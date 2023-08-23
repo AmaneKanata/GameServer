@@ -10,7 +10,7 @@ target_include_directories(CoreLib PUBLIC src/Network)
 target_include_directories(CoreLib PUBLIC src/Thread)
 
 if (WIN32)
-	set(BOOST_ROOT "C:/Program Files/boost_1_82_0")
+	set(BOOST_ROOT "C:/Boost")
 	set(Boost_USE_STATIC_LIBS ON)
 endif (WIN32)
 
