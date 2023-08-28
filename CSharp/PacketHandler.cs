@@ -19,8 +19,8 @@ namespace Framework.Network
         private Action<Protocol.S_ADD_GAME_OBJECT> S_ADD_GAME_OBJECT_Handler;
         private Action<Protocol.S_DESTORY_GAME_OBJECT> S_DESTORY_GAME_OBJECT_Handler;
         private Action<Protocol.S_REMOVE_GAME_OBJECT> S_REMOVE_GAME_OBJECT_Handler;
-        private Action<Protocol.S_CHANGE_GMAE_OBJECT> S_CHANGE_GMAE_OBJECT_Handler;
-        private Action<Protocol.S_CHANGE_GMAE_OBJECT_NOTICE> S_CHANGE_GMAE_OBJECT_NOTICE_Handler;
+        private Action<Protocol.S_SET_GAME_OBJECT_PREFAB> S_SET_GAME_OBJECT_PREFAB_Handler;
+        private Action<Protocol.S_SET_GAME_OBJECT_OWNER> S_SET_GAME_OBJECT_OWNER_Handler;
         private Action<Protocol.S_SET_TRANSFORM> S_SET_TRANSFORM_Handler;
         private Action<Protocol.S_SET_ANIMATION> S_SET_ANIMATION_Handler;
 
@@ -38,10 +38,10 @@ namespace Framework.Network
             Handlers.Add(103, _Handle_S_ADD_GAME_OBJECT);
             Handlers.Add(105, _Handle_S_DESTORY_GAME_OBJECT);
             Handlers.Add(106, _Handle_S_REMOVE_GAME_OBJECT);
-            Handlers.Add(108, _Handle_S_CHANGE_GMAE_OBJECT);
-            Handlers.Add(109, _Handle_S_CHANGE_GMAE_OBJECT_NOTICE);
-            Handlers.Add(111, _Handle_S_SET_TRANSFORM);
-            Handlers.Add(113, _Handle_S_SET_ANIMATION);
+            Handlers.Add(108, _Handle_S_SET_GAME_OBJECT_PREFAB);
+            Handlers.Add(110, _Handle_S_SET_GAME_OBJECT_OWNER);
+            Handlers.Add(112, _Handle_S_SET_TRANSFORM);
+            Handlers.Add(114, _Handle_S_SET_ANIMATION);
         }
         public void AddHandler( Action<Protocol.S_ENTER> handler )
         {
@@ -187,29 +187,29 @@ namespace Framework.Network
         {
             S_REMOVE_GAME_OBJECT_Handler?.Invoke((Protocol.S_REMOVE_GAME_OBJECT)message);
         }
-        public void AddHandler( Action<Protocol.S_CHANGE_GMAE_OBJECT> handler )
+        public void AddHandler( Action<Protocol.S_SET_GAME_OBJECT_PREFAB> handler )
         {
-            S_CHANGE_GMAE_OBJECT_Handler += handler;
+            S_SET_GAME_OBJECT_PREFAB_Handler += handler;
         }
-        public void RemoveHandler( Action<Protocol.S_CHANGE_GMAE_OBJECT> handler )
+        public void RemoveHandler( Action<Protocol.S_SET_GAME_OBJECT_PREFAB> handler )
         {
-            S_CHANGE_GMAE_OBJECT_Handler -= handler;
+            S_SET_GAME_OBJECT_PREFAB_Handler -= handler;
         }
-        private void _Handle_S_CHANGE_GMAE_OBJECT( IMessage message )
+        private void _Handle_S_SET_GAME_OBJECT_PREFAB( IMessage message )
         {
-            S_CHANGE_GMAE_OBJECT_Handler?.Invoke((Protocol.S_CHANGE_GMAE_OBJECT)message);
+            S_SET_GAME_OBJECT_PREFAB_Handler?.Invoke((Protocol.S_SET_GAME_OBJECT_PREFAB)message);
         }
-        public void AddHandler( Action<Protocol.S_CHANGE_GMAE_OBJECT_NOTICE> handler )
+        public void AddHandler( Action<Protocol.S_SET_GAME_OBJECT_OWNER> handler )
         {
-            S_CHANGE_GMAE_OBJECT_NOTICE_Handler += handler;
+            S_SET_GAME_OBJECT_OWNER_Handler += handler;
         }
-        public void RemoveHandler( Action<Protocol.S_CHANGE_GMAE_OBJECT_NOTICE> handler )
+        public void RemoveHandler( Action<Protocol.S_SET_GAME_OBJECT_OWNER> handler )
         {
-            S_CHANGE_GMAE_OBJECT_NOTICE_Handler -= handler;
+            S_SET_GAME_OBJECT_OWNER_Handler -= handler;
         }
-        private void _Handle_S_CHANGE_GMAE_OBJECT_NOTICE( IMessage message )
+        private void _Handle_S_SET_GAME_OBJECT_OWNER( IMessage message )
         {
-            S_CHANGE_GMAE_OBJECT_NOTICE_Handler?.Invoke((Protocol.S_CHANGE_GMAE_OBJECT_NOTICE)message);
+            S_SET_GAME_OBJECT_OWNER_Handler?.Invoke((Protocol.S_SET_GAME_OBJECT_OWNER)message);
         }
         public void AddHandler( Action<Protocol.S_SET_TRANSFORM> handler )
         {

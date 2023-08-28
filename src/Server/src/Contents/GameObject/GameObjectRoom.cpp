@@ -54,28 +54,56 @@ void GameObjectRoom::DestroyGameObject(int gameObjectId)
 	Broadcast(MakeSendBuffer(removeGameObject));
 }
 
-void GameObjectRoom::ChangeGameObject(int gameObjectId, std::string prefabName)
+void GameObjectRoom::SetGameObjectPrefab(int gameObjectId, std::string prefabName)
 {
 	auto gameObject = gameObjects.find(gameObjectId);
 	if (gameObject == gameObjects.end())
 		return;
 	
+	if(gameObject->second->prefabName == prefabName)
+		return;
+
 	gameObject->second->prefabName = prefabName;
 
-	Protocol::S_CHANGE_GMAE_OBJECT_NOTICE notice;
+	Protocol::S_SET_GAME_OBJECT_PREFAB notice;
 	notice.set_gameobjectid(gameObjectId);
 	notice.set_prefabname(prefabName);
+	Broadcast(MakeSendBuffer(notice));
+}
+
+void GameObjectRoom::SetGameObjectOwner(int gameObjectId, std::string ownerId)
+{
+	auto gameObject = gameObjects.find(gameObjectId);
+	if (gameObject == gameObjects.end())
+		return;
+
+	if (gameObject->second->ownerId != "")
+	{
+		auto prevOwner = clients.find(gameObject->second->ownerId);
+		if (prevOwner != clients.end())
+		{
+			auto gClient = static_pointer_cast<GameObjectClient>(prevOwner->second);
+			gClient->gameObjects.erase(gameObjectId);
+		}
+	}
+
+	gameObject->second->ownerId = ownerId;
+
+	Protocol::S_SET_GAME_OBJECT_OWNER notice;
+	notice.set_gameobjectid(gameObjectId);
+	notice.set_ownerid(ownerId);
 	Broadcast(MakeSendBuffer(notice));
 }
 
 void GameObjectRoom::Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_INSTANTIATE_GAME_OBJECT> pkt)
 {
 	auto gameObject = make_shared<GameObject>(idGenerator++);
+	gameObject->type = static_cast<GameObjectType>(pkt->type());
+	gameObject->ownerId = session->client->clientId;
+	gameObject->prefabName = pkt->prefabname();
 	gameObject->SetPosition(pkt->position());
 	gameObject->SetRotation(pkt->rotation());
-	gameObject->prefabName = pkt->prefabname();
-	gameObject->ownerId = session->client->clientId;
-	
+
 	Protocol::S_INSTANTIATE_GAME_OBJECT res;
 	res.set_success(true);
 	res.set_gameobjectid(gameObject->gameObjectId);
@@ -105,29 +133,28 @@ void GameObjectRoom::Handle_C_DESTORY_GAME_OBJECT(std::shared_ptr<GameSession> s
 	DestroyGameObject(pkt->gameobjectid());
 }
 
-void GameObjectRoom::Handle_C_CHANGE_GMAE_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_CHANGE_GMAE_OBJECT> pkt)
+void GameObjectRoom::Handle_C_SET_GAME_OBJECT_PREFAB(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_GAME_OBJECT_PREFAB> pkt)
 {
-	Protocol::S_CHANGE_GMAE_OBJECT res;
-	
 	auto gClient = static_pointer_cast<GameObjectClient>(session->client);
 	auto gameObject = gClient->gameObjects.find(pkt->gameobjectid());
-	if (gameObject == gameObjects.end())
+	if (gameObject == gameObjects.end() || gameObject->second->ownerId != session->client->clientId)
 	{
-		res.set_gameobjectid(pkt->gameobjectid());
-		res.set_success(false);
-		gClient->Send(MakeSendBuffer(res));
 		return;
 	}
 
-	ChangeGameObject(pkt->gameobjectid(), pkt->prefabname());
+	SetGameObjectPrefab(pkt->gameobjectid(), pkt->prefabname());
+}
 
-	if(gameObject->second->prefabName != pkt->prefabname())
+void GameObjectRoom::Handle_C_SET_GAME_OBJECT_OWNER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_GAME_OBJECT_OWNER> pkt)
+{
+	auto gClient = static_pointer_cast<GameObjectClient>(session->client);
+	auto gameObject = gClient->gameObjects.find(pkt->gameobjectid());
+	if (gameObject == gameObjects.end() || gameObject->second->ownerId == session->client->clientId)
 	{
-		res.set_gameobjectid(pkt->gameobjectid());
-		res.set_success(false);
-		gClient->Send(MakeSendBuffer(res));
 		return;
 	}
+
+	SetGameObjectOwner(pkt->gameobjectid(), session->client->clientId);
 }
 
 void GameObjectRoom::Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_GET_GAME_OBJECT> pkt)
@@ -146,7 +173,7 @@ void GameObjectRoom::Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> sessi
 void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_TRANSFORM> pkt)
 {
 	auto gameObject = gameObjects.find(pkt->gameobjectid());
-	if (gameObject == gameObjects.end())
+	if (gameObject == gameObjects.end() || gameObject->second->ownerId != session->client->clientId)
 		return;
 
 	gameObject->second->UpdateTransform(pkt);
@@ -155,7 +182,7 @@ void GameObjectRoom::Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session
 void GameObjectRoom::Handle_C_SET_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_ANIMATION> pkt)
 {
 	auto gameObject = gameObjects.find(pkt->gameobjectid());
-	if (gameObject == gameObjects.end())
+	if (gameObject == gameObjects.end() || gameObject->second->ownerId != session->client->clientId)
 		return;
 
 	gameObject->second->UpdateAnimation(pkt);

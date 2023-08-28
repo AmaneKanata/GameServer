@@ -17,12 +17,14 @@ public:
 
 	virtual void InstantiateGameObject(std::shared_ptr<GameObject> gameObject);
 	virtual void DestroyGameObject(int gameObjectId);
-	virtual void ChangeGameObject(int gameObjectId, std::string prefabName);
+	virtual void SetGameObjectPrefab(int gameObjectId, std::string prefabName);
+	virtual void SetGameObjectOwner(int gameObjectId, std::string ownerId);
 	
 protected:
 	virtual void Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_INSTANTIATE_GAME_OBJECT> pkt) override;
 	virtual void Handle_C_DESTORY_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_DESTORY_GAME_OBJECT> pkt) override;
-	virtual void Handle_C_CHANGE_GMAE_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_CHANGE_GMAE_OBJECT> pkt) override;
+	virtual void Handle_C_SET_GAME_OBJECT_PREFAB(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_GAME_OBJECT_PREFAB> pkt) override;
+	virtual void Handle_C_SET_GAME_OBJECT_OWNER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_GAME_OBJECT_OWNER> pkt) override;
 	virtual void Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_GET_GAME_OBJECT> pkt) override;
 	virtual void Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_TRANSFORM> pkt) override;
 	virtual void Handle_C_SET_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_ANIMATION> pkt) override;

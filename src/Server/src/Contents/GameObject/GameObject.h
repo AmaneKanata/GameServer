@@ -4,6 +4,12 @@
 #include "Server_Singleton.h"
 #include "LogManager.h"
 
+enum class GameObjectType
+{
+	PLAYER = 1,
+	ETC = 99
+};
+
 class GameObject
 {
 public:
@@ -29,11 +35,12 @@ public:
 
 	void MakeGameObjectInfo(Protocol::S_ADD_GAME_OBJECT_GameObjectInfo* gameObjectInfo)
 	{
-		gameObjectInfo->set_id(gameObjectId);
+		gameObjectInfo->set_gameobjectid(gameObjectId);
+		gameObjectInfo->set_ownerid(ownerId);
+		gameObjectInfo->set_type((int)type);
 		gameObjectInfo->set_prefabname(prefabName);
 		gameObjectInfo->mutable_position()->CopyFrom(transform.position());
 		gameObjectInfo->mutable_rotation()->CopyFrom(transform.rotation());
-		gameObjectInfo->set_ownerid(ownerId);
 	}
 
 	void UpdateTransform(std::shared_ptr<Protocol::C_SET_TRANSFORM> pkt)
@@ -58,6 +65,7 @@ public:
 
 public:
 	int gameObjectId;
+	GameObjectType type;
 	std::string ownerId;
 	std::string prefabName;
 

@@ -8,11 +8,20 @@ message Vector3
 	float z = 3;
 }
 
+message AnimationParameter {
+  oneof param {
+    bool bool_param = 1;
+    int32 int_param = 2;
+    float float_param = 3;
+  }
+}
+
 message C_INSTANTIATE_GAME_OBJECT
 {
-	string prefabName = 1;
-	Vector3 position = 2;
-	Vector3 rotation = 3;
+	int32 type = 1;
+	string prefabName = 2;
+	Vector3 position = 3;
+	Vector3 rotation = 4;
 }
 
 message S_INSTANTIATE_GAME_OBJECT
@@ -29,11 +38,12 @@ message S_ADD_GAME_OBJECT
 {
 	message GameObjectInfo
 	{
-		int32 Id = 1;
+		int32 gameObjectId = 1;
 		string ownerId = 2;
-		string prefabName = 3;
-		Vector3 position = 4;
-		Vector3 rotation = 5;
+		int32 type = 3;
+		string prefabName = 4;
+		Vector3 position = 5;
+		Vector3 rotation = 6;
 	}
 	repeated GameObjectInfo gameObjects = 1;
 }
@@ -54,22 +64,27 @@ message S_REMOVE_GAME_OBJECT
 	repeated int32 gameObjects = 1;
 }
 
-message C_CHANGE_GMAE_OBJECT
+message C_SET_GAME_OBJECT_PREFAB
 {
 	int32 gameObjectId = 1;
 	string prefabName = 2;
 }
 
-message S_CHANGE_GMAE_OBJECT
-{
-	int32 gameObjectId = 1;
-	bool success = 2;
-}
-
-message S_CHANGE_GMAE_OBJECT_NOTICE
+message S_SET_GAME_OBJECT_PREFAB
 {
 	int32 gameObjectId = 1;
 	string prefabName = 2;
+}
+
+message C_SET_GAME_OBJECT_OWNER
+{
+	int32 gameObjectId = 1;
+}
+
+message S_SET_GAME_OBJECT_OWNER
+{
+	int32 gameObjectId = 1;
+	string ownerId = 2;
 }
 
 message C_SET_TRANSFORM
@@ -90,14 +105,6 @@ message S_SET_TRANSFORM
 	Vector3 velocity = 4;
 	Vector3 rotation = 5;
 	Vector3 angularVelocity = 6;
-}
-
-message AnimationParameter {
-  oneof param {
-    bool bool_param = 1;
-    int32 int_param = 2;
-    float float_param = 3;
-  }
 }
 
 message C_SET_ANIMATION

@@ -52,7 +52,7 @@ void GameObjectClient::Handle_S_ADD_GAME_OBJECT(std::shared_ptr<GameSession> ses
 	{
 		ss << "\n	" 
 			<< "Object Id : " 
-			<< std::to_string(pkt->gameobjects()[i].id()) 
+			<< std::to_string(pkt->gameobjects()[i].gameobjectid()) 
 			<< ", Position : [ "
 			<< pkt->gameobjects()[i].position().x() << ", "
 			<< pkt->gameobjects()[i].position().y() << ". "
