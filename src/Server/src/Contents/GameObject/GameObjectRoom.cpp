@@ -147,12 +147,28 @@ void GameObjectRoom::Handle_C_SET_GAME_OBJECT_PREFAB(std::shared_ptr<GameSession
 
 void GameObjectRoom::Handle_C_SET_GAME_OBJECT_OWNER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_GAME_OBJECT_OWNER> pkt)
 {
-	auto gClient = static_pointer_cast<GameObjectClient>(session->client);
-	auto gameObject = gClient->gameObjects.find(pkt->gameobjectid());
-	if (gameObject == gameObjects.end() || gameObject->second->ownerId == session->client->clientId)
+	auto gameObject = gameObjects.find(pkt->gameobjectid());
+	if (gameObject == gameObjects.end())
 	{
 		return;
 	}
+
+	if (gameObject->second->ownerId == session->client->clientId)
+	{
+		return;
+	}
+	else
+	{
+		auto prevOwner = clients.find(gameObject->second->ownerId);
+		if (prevOwner != clients.end())
+		{
+			static_pointer_cast<GameObjectClient>(prevOwner->second)->gameObjects.erase(pkt->gameobjectid());
+		}
+	}
+
+	auto curOwner = static_pointer_cast<GameObjectClient>(session->client);
+	gameObject->second->ownerId = curOwner->clientId;
+	curOwner->gameObjects.insert({ pkt->gameobjectid(), gameObject->second });
 
 	SetGameObjectOwner(pkt->gameobjectid(), session->client->clientId);
 }
