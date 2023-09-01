@@ -6,8 +6,16 @@
 
 void ClientBase::Disconnect()
 {
-	session->Post(&GameSession::ReleaseClient);
-	session->Post(&GameSession::RegisterDisconnect);
+	if (DELAY_SEND)
+	{
+		session->DelayPost(DELAY_SEND_INTERVAL, &GameSession::ReleaseClient);
+		session->DelayPost(DELAY_SEND_INTERVAL, &GameSession::RegisterDisconnect);
+	}
+	else
+	{
+		session->Post(&GameSession::ReleaseClient);
+		session->Post(&GameSession::RegisterDisconnect);
+	}
 }
 
 void ClientBase::OnDisconnected()
