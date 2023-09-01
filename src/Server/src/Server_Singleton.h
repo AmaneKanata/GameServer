@@ -16,5 +16,8 @@ extern int CHECK_IDEL_INTERVAL;
 extern int DISCONNECTED_INTERVAL;
 extern int CHECK_ALIVE_INTERVAL;
 
+extern bool DELAY_SEND;
+extern int DELAY_SEND_INTERVAL;
+
 extern std::shared_ptr<agones::SDK> agones_sdk;
 extern std::string agones_state;

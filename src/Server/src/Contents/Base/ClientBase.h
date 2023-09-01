@@ -32,6 +32,7 @@ public:
 	void OnDisconnected();
 
 	void SetSession(std::shared_ptr<GameSession> session);
+
 	void Send(std::shared_ptr<SendBuffer> sendBuffer);
 	void SendMany(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers);
 

@@ -15,5 +15,8 @@ int CHECK_IDEL_INTERVAL = 10000;
 int DISCONNECTED_INTERVAL = 10000;
 int CHECK_ALIVE_INTERVAL = 10000;
 
+bool DELAY_SEND = true;
+int DELAY_SEND_INTERVAL = 100;
+
 std::shared_ptr<agones::SDK> agones_sdk = nullptr;
 std::string agones_state = "";

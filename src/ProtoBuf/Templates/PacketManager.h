@@ -65,7 +65,10 @@ public:
 			{
 				Protocol::S_PING res;
 				res.set_tick(pkt->tick());
-				session->Post(&Session::Send, MakeSendBuffer(res));
+				if (DELAY_SEND)
+					session->DelayPost(DELAY_SEND_INTERVAL, &Session::Send, MakeSendBuffer(res));
+				else
+					session->Post(&Session::Send, MakeSendBuffer(res));
 			}
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);

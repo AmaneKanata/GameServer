@@ -32,7 +32,10 @@ void ClientBase::Send(std::shared_ptr<SendBuffer> sendBuffer)
 	if (session == nullptr)
 		return;
 
-	session->Post(&Session::Send, sendBuffer);
+	if(DELAY_SEND)
+		session->DelayPost(DELAY_SEND_INTERVAL, &Session::Send, sendBuffer);
+	else
+		session->Post(&Session::Send, sendBuffer);
 }
 
 void ClientBase::SendMany(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers)
@@ -40,5 +43,8 @@ void ClientBase::SendMany(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer
 	if (session == nullptr)
 		return;
 
-	session->Post(&Session::SendMany, sendBuffers);
+	if (DELAY_SEND)
+		session->DelayPost(DELAY_SEND_INTERVAL, &Session::SendMany, sendBuffers);
+	else
+		session->Post(&Session::SendMany, sendBuffers);
 }
