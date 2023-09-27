@@ -14,14 +14,14 @@ void GameObjectRoom::Leave(std::shared_ptr<ClientBase> client, std::string code)
 {
 	auto gClient = static_pointer_cast<GameObjectClient>(client);
 
-	for (auto& [gameObjectId, gameObject] : gClient->gameObjects)
+	for (auto& [id, gameObject] : gClient->gameObjects)
 	{
-		if (gameObjects.erase(gameObjectId))
+		if (gameObjects.erase(id))
 		{
-			GLogManager->Log("GameObject Removed : ", gClient->clientId, " ", std::to_string(gameObject->gameObjectId), ", GameObject Number : ", std::to_string(gameObjects.size()));
+			GLogManager->Log("GameObject Removed : ", gClient->clientId, " ", std::to_string(gameObject->id), ", GameObject Number : ", std::to_string(gameObjects.size()));
 
 			Protocol::S_REMOVE_GAME_OBJECT removeGameObject;
-			removeGameObject.add_gameobjects(gameObjectId);
+			removeGameObject.add_gameobjects(id);
 			Post(&RoomBase::Broadcast, MakeSendBuffer(removeGameObject));
 		}
 	}
@@ -33,7 +33,7 @@ void GameObjectRoom::Leave(std::shared_ptr<ClientBase> client, std::string code)
 
 void GameObjectRoom::InstantiateGameObject(std::shared_ptr<GameObject> gameObject)
 {
-	gameObjects.insert({ gameObject->gameObjectId, gameObject });
+	gameObjects.insert({ gameObject->id, gameObject });
 
 	Protocol::S_ADD_GAME_OBJECT addGameObject;
 	auto gameObjectInfo = addGameObject.add_gameobjects();
@@ -41,22 +41,22 @@ void GameObjectRoom::InstantiateGameObject(std::shared_ptr<GameObject> gameObjec
 	Broadcast(MakeSendBuffer(addGameObject));
 }
 
-void GameObjectRoom::DestroyGameObject(int gameObjectId)
+void GameObjectRoom::DestroyGameObject(int id)
 {
-	auto gameObject = gameObjects.find(gameObjectId);
+	auto gameObject = gameObjects.find(id);
 	if (gameObject == gameObjects.end())
 		return;
 
-	gameObjects.erase(gameObjectId);
+	gameObjects.erase(id);
 
 	Protocol::S_REMOVE_GAME_OBJECT removeGameObject;
-	removeGameObject.add_gameobjects(gameObjectId);
+	removeGameObject.add_gameobjects(id);
 	Broadcast(MakeSendBuffer(removeGameObject));
 }
 
-void GameObjectRoom::SetGameObjectPrefab(int gameObjectId, std::string prefabName)
+void GameObjectRoom::SetGameObjectPrefab(int id, std::string prefabName)
 {
-	auto gameObject = gameObjects.find(gameObjectId);
+	auto gameObject = gameObjects.find(id);
 	if (gameObject == gameObjects.end())
 		return;
 	
@@ -66,14 +66,14 @@ void GameObjectRoom::SetGameObjectPrefab(int gameObjectId, std::string prefabNam
 	gameObject->second->prefabName = prefabName;
 
 	Protocol::S_SET_GAME_OBJECT_PREFAB notice;
-	notice.set_gameobjectid(gameObjectId);
+	notice.set_gameobjectid(id);
 	notice.set_prefabname(prefabName);
 	Broadcast(MakeSendBuffer(notice));
 }
 
-void GameObjectRoom::SetGameObjectOwner(int gameObjectId, std::string ownerId)
+void GameObjectRoom::SetGameObjectOwner(int id, std::string ownerId)
 {
-	auto gameObject = gameObjects.find(gameObjectId);
+	auto gameObject = gameObjects.find(id);
 	if (gameObject == gameObjects.end())
 		return;
 
@@ -83,14 +83,14 @@ void GameObjectRoom::SetGameObjectOwner(int gameObjectId, std::string ownerId)
 		if (prevOwner != clients.end())
 		{
 			auto gClient = static_pointer_cast<GameObjectClient>(prevOwner->second);
-			gClient->gameObjects.erase(gameObjectId);
+			gClient->gameObjects.erase(id);
 		}
 	}
 
 	gameObject->second->ownerId = ownerId;
 
 	Protocol::S_SET_GAME_OBJECT_OWNER notice;
-	notice.set_gameobjectid(gameObjectId);
+	notice.set_gameobjectid(id);
 	notice.set_ownerid(ownerId);
 	Broadcast(MakeSendBuffer(notice));
 }
@@ -106,11 +106,11 @@ void GameObjectRoom::Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSessio
 
 	Protocol::S_INSTANTIATE_GAME_OBJECT res;
 	res.set_success(true);
-	res.set_gameobjectid(gameObject->gameObjectId);
+	res.set_gameobjectid(gameObject->id);
 	session->client->Send(MakeSendBuffer(res));
 
 	auto gClient = static_pointer_cast<GameObjectClient>(session->client);
-	gClient->gameObjects.insert({ gameObject->gameObjectId, gameObject });
+	gClient->gameObjects.insert({ gameObject->id, gameObject });
 
 	InstantiateGameObject(gameObject);
 }
@@ -228,7 +228,7 @@ void GameObjectRoom::Update()
 		if (gameObject->isAnimationDirty)
 		{
 			gameObject->isAnimationDirty = false;
-			sendBuffers->push_back(MakeSendBuffer(gameObject->animation));
+			sendBuffers->push_back(MakeSendBuffer(gameObject->setAnimation));
 		}
 	}
 

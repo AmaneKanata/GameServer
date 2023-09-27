@@ -16,9 +16,9 @@ public:
 	virtual void Leave(std::shared_ptr<ClientBase> client, std::string code) override;
 
 	virtual void InstantiateGameObject(std::shared_ptr<GameObject> gameObject);
-	virtual void DestroyGameObject(int gameObjectId);
-	virtual void SetGameObjectPrefab(int gameObjectId, std::string prefabName);
-	virtual void SetGameObjectOwner(int gameObjectId, std::string ownerId);
+	virtual void DestroyGameObject(int id);
+	virtual void SetGameObjectPrefab(int id, std::string prefabName);
+	virtual void SetGameObjectOwner(int id, std::string ownerId);
 	
 protected:
 	virtual void Handle_C_INSTANTIATE_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_INSTANTIATE_GAME_OBJECT> pkt) override;

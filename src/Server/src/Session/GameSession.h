@@ -27,11 +27,13 @@ public:
 
 	void CheckAlive(std::time_t current);
 
+	void Pong();
+
 public:
 	std::shared_ptr<ClientBase> client;
+	int ping;
 
 private:
 	std::time_t lastMessageArrived = -1;
-
 	string clientId;
 };

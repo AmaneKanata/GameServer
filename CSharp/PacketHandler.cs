@@ -23,6 +23,10 @@ namespace Framework.Network
         private Action<Protocol.S_SET_GAME_OBJECT_OWNER> S_SET_GAME_OBJECT_OWNER_Handler;
         private Action<Protocol.S_SET_TRANSFORM> S_SET_TRANSFORM_Handler;
         private Action<Protocol.S_SET_ANIMATION> S_SET_ANIMATION_Handler;
+        private Action<Protocol.S_ADD_FPS_PLAYER> S_ADD_FPS_PLAYER_Handler;
+        private Action<Protocol.S_SET_FPS_POSITION> S_SET_FPS_POSITION_Handler;
+        private Action<Protocol.S_SET_FPS_ROTATION> S_SET_FPS_ROTATION_Handler;
+        private Action<Protocol.S_ATTACKED> S_ATTACKED_Handler;
 
         public PacketHandler()
         {
@@ -42,6 +46,10 @@ namespace Framework.Network
             Handlers.Add(110, _Handle_S_SET_GAME_OBJECT_OWNER);
             Handlers.Add(112, _Handle_S_SET_TRANSFORM);
             Handlers.Add(114, _Handle_S_SET_ANIMATION);
+            Handlers.Add(201, _Handle_S_ADD_FPS_PLAYER);
+            Handlers.Add(203, _Handle_S_SET_FPS_POSITION);
+            Handlers.Add(205, _Handle_S_SET_FPS_ROTATION);
+            Handlers.Add(207, _Handle_S_ATTACKED);
         }
         public void AddHandler( Action<Protocol.S_ENTER> handler )
         {
@@ -234,6 +242,54 @@ namespace Framework.Network
         private void _Handle_S_SET_ANIMATION( IMessage message )
         {
             S_SET_ANIMATION_Handler?.Invoke((Protocol.S_SET_ANIMATION)message);
+        }
+        public void AddHandler( Action<Protocol.S_ADD_FPS_PLAYER> handler )
+        {
+            S_ADD_FPS_PLAYER_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_ADD_FPS_PLAYER> handler )
+        {
+            S_ADD_FPS_PLAYER_Handler -= handler;
+        }
+        private void _Handle_S_ADD_FPS_PLAYER( IMessage message )
+        {
+            S_ADD_FPS_PLAYER_Handler?.Invoke((Protocol.S_ADD_FPS_PLAYER)message);
+        }
+        public void AddHandler( Action<Protocol.S_SET_FPS_POSITION> handler )
+        {
+            S_SET_FPS_POSITION_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_SET_FPS_POSITION> handler )
+        {
+            S_SET_FPS_POSITION_Handler -= handler;
+        }
+        private void _Handle_S_SET_FPS_POSITION( IMessage message )
+        {
+            S_SET_FPS_POSITION_Handler?.Invoke((Protocol.S_SET_FPS_POSITION)message);
+        }
+        public void AddHandler( Action<Protocol.S_SET_FPS_ROTATION> handler )
+        {
+            S_SET_FPS_ROTATION_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_SET_FPS_ROTATION> handler )
+        {
+            S_SET_FPS_ROTATION_Handler -= handler;
+        }
+        private void _Handle_S_SET_FPS_ROTATION( IMessage message )
+        {
+            S_SET_FPS_ROTATION_Handler?.Invoke((Protocol.S_SET_FPS_ROTATION)message);
+        }
+        public void AddHandler( Action<Protocol.S_ATTACKED> handler )
+        {
+            S_ATTACKED_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_ATTACKED> handler )
+        {
+            S_ATTACKED_Handler -= handler;
+        }
+        private void _Handle_S_ATTACKED( IMessage message )
+        {
+            S_ATTACKED_Handler?.Invoke((Protocol.S_ATTACKED)message);
         }
     }
 }

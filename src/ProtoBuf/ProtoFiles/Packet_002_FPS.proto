@@ -1,0 +1,64 @@
+syntax = "proto3";
+package Protocol;
+
+import "Packet_001_GameObject.proto";
+
+message C_INSTANTIATE_FPS_PLAYER
+{
+	Vector3 position = 1;
+	Vector3 rotation = 2;
+}
+
+message S_ADD_FPS_PLAYER
+{
+	message GameObjectInfo
+	{
+		int32 playerId = 1;
+		string ownerId = 2;
+		int32 hp = 3;
+		Vector3 position = 4;
+		Vector3 velocity = 5;
+		Vector3 rotation = 6;
+	}
+	repeated GameObjectInfo gameObjects = 1;
+}
+
+message C_SET_FPS_POSITION
+{
+	int64 timestamp = 1;
+	int32 playerId = 2;
+	Vector3 position = 3;
+	Vector3 velocity = 4;
+}
+
+message S_SET_FPS_POSITION
+{
+	int64 timestamp = 1;
+	int32 playerId = 2;
+	Vector3 position = 3;
+	Vector3 velocity = 4;
+}
+
+message C_SET_FPS_ROTATION
+{
+	int32 playerId = 1;
+	Vector3 rotation = 2;
+}
+
+message S_SET_FPS_ROTATION
+{
+	int32 playerId = 1;
+	Vector3 rotation = 2;
+}
+
+message C_SHOT
+{
+	Vector3 position = 1;
+	Vector3 direction = 2;
+}
+
+message S_ATTACKED
+{
+	int32 playerid = 1;
+	int32 damage = 2;
+}

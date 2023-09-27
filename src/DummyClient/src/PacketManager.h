@@ -43,6 +43,14 @@ enum : unsigned short
 	PKT_S_SET_TRANSFORM = 112,
 	PKT_C_SET_ANIMATION = 113,
 	PKT_S_SET_ANIMATION = 114,
+	PKT_C_INSTANTIATE_FPS_PLAYER = 200,
+	PKT_S_ADD_FPS_PLAYER = 201,
+	PKT_C_SET_FPS_POSITION = 202,
+	PKT_S_SET_FPS_POSITION = 203,
+	PKT_C_SET_FPS_ROTATION = 204,
+	PKT_S_SET_FPS_ROTATION = 205,
+	PKT_C_SHOT = 206,
+	PKT_S_ATTACKED = 207,
 };
 
 template<typename T>
@@ -76,6 +84,10 @@ static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_SET_GAME_OBJECT_PR
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_SET_GAME_OBJECT_OWNER& pkt) { return MakeSendBuffer(pkt, PKT_C_SET_GAME_OBJECT_OWNER); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_SET_TRANSFORM& pkt) { return MakeSendBuffer(pkt, PKT_C_SET_TRANSFORM); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_SET_ANIMATION& pkt) { return MakeSendBuffer(pkt, PKT_C_SET_ANIMATION); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_INSTANTIATE_FPS_PLAYER& pkt) { return MakeSendBuffer(pkt, PKT_C_INSTANTIATE_FPS_PLAYER); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_SET_FPS_POSITION& pkt) { return MakeSendBuffer(pkt, PKT_C_SET_FPS_POSITION); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_SET_FPS_ROTATION& pkt) { return MakeSendBuffer(pkt, PKT_C_SET_FPS_ROTATION); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_SHOT& pkt) { return MakeSendBuffer(pkt, PKT_C_SHOT); }
 
 enum class HandlerState
 {
@@ -226,6 +238,38 @@ public:
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
+		PacketHandlers[PKT_S_ADD_FPS_PLAYER] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_ADD_FPS_PLAYER> pkt = std::make_shared<Protocol::S_ADD_FPS_PLAYER>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_ADD_FPS_PLAYER, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
+		};
+		PacketHandlers[PKT_S_SET_FPS_POSITION] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_SET_FPS_POSITION> pkt = std::make_shared<Protocol::S_SET_FPS_POSITION>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_SET_FPS_POSITION, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
+		};
+		PacketHandlers[PKT_S_SET_FPS_ROTATION] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_SET_FPS_ROTATION> pkt = std::make_shared<Protocol::S_SET_FPS_ROTATION>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_SET_FPS_ROTATION, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
+		};
+		PacketHandlers[PKT_S_ATTACKED] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_ATTACKED> pkt = std::make_shared<Protocol::S_ATTACKED>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_ATTACKED, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
+		};
 	}
 
 	void Init()
@@ -283,6 +327,10 @@ protected:
 	virtual void Handle_S_SET_GAME_OBJECT_OWNER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SET_GAME_OBJECT_OWNER> pkt) {};
 	virtual void Handle_S_SET_TRANSFORM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SET_TRANSFORM> pkt) {};
 	virtual void Handle_S_SET_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SET_ANIMATION> pkt) {};
+	virtual void Handle_S_ADD_FPS_PLAYER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ADD_FPS_PLAYER> pkt) {};
+	virtual void Handle_S_SET_FPS_POSITION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SET_FPS_POSITION> pkt) {};
+	virtual void Handle_S_SET_FPS_ROTATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SET_FPS_ROTATION> pkt) {};
+	virtual void Handle_S_ATTACKED(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ATTACKED> pkt) {};
 
 private:
 	PacketHandlerFunc PacketHandlers[UINT16_MAX];

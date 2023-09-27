@@ -60,6 +60,10 @@ void GameSession::CheckAlive(std::time_t current)
 	}
 }
 
+void GameSession::Pong()
+{
+}
+
 void GameSession::OnConnected()
 {
 	auto sessionNumber = session_num.fetch_add(1);

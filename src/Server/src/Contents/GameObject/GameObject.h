@@ -13,8 +13,8 @@ enum class GameObjectType
 class GameObject
 {
 public:
-	GameObject(int gameObjectId)
-		: gameObjectId(gameObjectId)
+	GameObject(int id)
+		: id(id)
 	{
 		//GLogManager->Log("GameObject Created : ", std::to_string(gameObjectId));
 	};
@@ -35,7 +35,7 @@ public:
 
 	void MakeGameObjectInfo(Protocol::S_ADD_GAME_OBJECT_GameObjectInfo* gameObjectInfo)
 	{
-		gameObjectInfo->set_gameobjectid(gameObjectId);
+		gameObjectInfo->set_gameobjectid(id);
 		gameObjectInfo->set_ownerid(ownerId);
 		gameObjectInfo->set_type((int)type);
 		gameObjectInfo->set_prefabname(prefabName);
@@ -59,12 +59,12 @@ public:
 	{
 		isAnimationDirty = true;
 
-		animation.set_gameobjectid(pkt->gameobjectid());
-		animation.mutable_params()->swap(*pkt->mutable_params());
+		setAnimation.set_gameobjectid(pkt->gameobjectid());
+		setAnimation.mutable_params()->swap(*pkt->mutable_params());
 	}
 
 public:
-	int gameObjectId;
+	int id;
 	GameObjectType type;
 	std::string ownerId;
 	std::string prefabName;
@@ -73,5 +73,5 @@ public:
 	bool isAnimationDirty = false;
 
 	Protocol::S_SET_TRANSFORM transform;
-	Protocol::S_SET_ANIMATION animation;
+	Protocol::S_SET_ANIMATION setAnimation;
 };
