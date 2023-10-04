@@ -39,11 +39,12 @@ protected:
 
 private:
 	void LoadMap();
+#if _WIN32
+	void InitDraw();
+#endif
 
 public:
 	std::shared_ptr<btDiscreteDynamicsWorld> dynamicsWorld;
-	float fromX, fromY, fromZ;
-	float toX, toY, toZ;
 
 private:
 	long long lastUpdated = 0;

@@ -21,3 +21,7 @@ extern int DELAY_SEND_INTERVAL;
 
 extern std::shared_ptr<agones::SDK> agones_sdk;
 extern std::string agones_state;
+
+#if _WIN32
+extern bool FPS_DRAW;
+#endif

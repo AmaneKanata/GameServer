@@ -11,13 +11,6 @@
 #include <ifaddrs.h>
 #include <netinet/in.h> 
 #include <arpa/inet.h>
-#elif _WIN32
-#include <GLFW/glfw3.h>
-#include <gl/GL.h>
-#include <gl/GLU.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 #endif
 
 #include "Server_Singleton.h"
@@ -33,15 +26,6 @@
 
 #include "backward.hpp"
 backward::SignalHandling sh;
-
-#if _WIN32
-double lastX = 320, lastY = 240;
-double yaw = -90.0f, pitch = 0.0f;
-float cameraSpeed = 0.2f;
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-#endif
 
 int main()
 {
@@ -174,96 +158,6 @@ int main()
 
 			httpServer.Stop();
 		});
-
-#if _WIN32
-	GThreadManager->Launch([]()
-		{
-			if (!glfwInit()) {
-				return -1;
-			}
-
-			GLFWwindow* window = glfwCreateWindow(1280, 720, "Bullet Debug Draw", NULL, NULL);
-			if (!window) {
-				glfwTerminate();
-				return -1;
-			}
-
-			glfwMakeContextCurrent(window);
-			
-			glEnable(GL_DEPTH_TEST);
-
-			glViewport(0, 0, 1280, 720);
-			glMatrixMode(GL_PROJECTION);
-			glLoadIdentity();
-			gluPerspective(40.0, 1280.0 / 720.0, 0.1, 1000.0);
-			glMatrixMode(GL_MODELVIEW);
-			glLoadIdentity();
-			gluLookAt(0, 2, -2, 0, 0, 10, 0, 1, 0);
-
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-			glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos) {
-				double xoffset = xpos - lastX;
-				double yoffset = lastY - ypos;
-				lastX = xpos;
-				lastY = ypos;
-
-				float sensitivity = 0.1f;
-				xoffset *= sensitivity;
-				yoffset *= sensitivity;
-
-				yaw += xoffset;
-				pitch += yoffset;
-
-				if (pitch > 89.0f)
-					pitch = 89.0f;
-				if (pitch < -89.0f)
-					pitch = -89.0f;
-
-				glm::vec3 front;
-				front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-				front.y = sin(glm::radians(pitch));
-				front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-				cameraFront = glm::normalize(front);
-				});
-
-			auto& room = std::static_pointer_cast<FPSRoom>(GRoom);
-
-			while (agones_state != "Shutdown")
-			{
-				if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-					cameraPos += cameraSpeed * cameraFront;
-				if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-					cameraPos -= cameraSpeed * cameraFront;
-				if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-					cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-				if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-					cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-
-				if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-					cameraPos.y += cameraSpeed;
-				if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-					cameraPos.y -= cameraSpeed;
-
-				glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-				glLoadIdentity();
-				glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-				glLoadMatrixf(glm::value_ptr(view));
-
-				room->dynamicsWorld->debugDrawWorld();
-
-				glfwSwapBuffers(window);
-				glfwPollEvents();
-
-				std::this_thread::sleep_for(std::chrono::milliseconds{ 1000 / 60 });
-			}
-
-			glfwDestroyWindow(window);
-			glfwTerminate();
-		});
-#endif
 
 	GThreadManager->Join();
 

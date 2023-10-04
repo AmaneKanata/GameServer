@@ -2,7 +2,7 @@
 
 file(GLOB_RECURSE src ./src/*.h ./src/*.cpp ./src/*.cc)
 
-add_executable (Server ${src}  )
+add_executable (Server ${src})
 
 target_include_directories(Server PUBLIC ./Include ../CoreLib/src)
 
@@ -36,10 +36,18 @@ target_link_libraries(Server PRIVATE gRPC::grpc++ agones)
 find_package(httplib CONFIG REQUIRED)
 target_link_libraries(Server PRIVATE httplib::httplib)
 
-target_include_directories(Server PUBLIC "C:/Program Files/BULLET_PHYSICS/include/bullet")
-target_link_libraries(Server PRIVATE "C:/Program Files/BULLET_PHYSICS/lib/LinearMath.lib")
-target_link_libraries(Server PRIVATE "C:/Program Files/BULLET_PHYSICS/lib/BulletCollision.lib")
-target_link_libraries(Server PRIVATE "C:/Program Files/BULLET_PHYSICS/lib/BulletDynamics.lib")
+if(WIN32)
+    target_include_directories(Server PUBLIC "C:/Program Files/BULLET_PHYSICS/include/bullet")
+    target_link_libraries(Server PRIVATE 
+        "C:/Program Files/BULLET_PHYSICS/lib/LinearMath.lib"
+        "C:/Program Files/BULLET_PHYSICS/lib/BulletCollision.lib"
+        "C:/Program Files/BULLET_PHYSICS/lib/BulletDynamics.lib"
+    )
+else()
+    find_package(Bullet REQUIRED)
+    target_include_directories(Server PRIVATE ${BULLET_INCLUDE_DIRS})
+    target_link_libraries(Server PRIVATE ${BULLET_LIBRARIES})
+endif()
 
 if (WIN32)
     find_package(OpenGL REQUIRED)

@@ -20,3 +20,7 @@ int DELAY_SEND_INTERVAL = std::getenv("DELAY_SEND_INTERVAL") != nullptr ? std::s
 
 std::shared_ptr<agones::SDK> agones_sdk = nullptr;
 std::string agones_state = "";
+
+#if _WIN32
+bool FPS_DRAW = true;
+#endif

@@ -27,8 +27,6 @@ public:
 			initialRotation.setEulerZYX(pkt->rotation().z() * (M_PI / 180.0f), pkt->rotation().y() * (M_PI / 180.0f) * -1, pkt->rotation().x() * (M_PI / 180.0f));
 			collisionObject->setWorldTransform(transform);
 
-			//shape = std::make_shared<btCapsuleShape>(0.5f, 1.0f);
-
 			btCapsuleShape* capsule = new btCapsuleShape(0.5f, 1.0f);
 			btBoxShape* box = new btBoxShape(btVector3(0.3f, 0.3f, 0.3f));
 			btCompoundShape* compound = new btCompoundShape();
