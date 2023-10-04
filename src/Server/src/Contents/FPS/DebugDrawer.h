@@ -1,5 +1,6 @@
 #pragma once
 
+#if _WIN32
 #include <Windows.h>
 #include <gl/GL.h>
 #include <gl/glu.h>
@@ -48,3 +49,4 @@ public:
         return m_debugMode;
     }
 };
+#endif

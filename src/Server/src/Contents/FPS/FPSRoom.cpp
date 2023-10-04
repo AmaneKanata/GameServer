@@ -5,8 +5,6 @@
 #include "FPSClient.h"
 #include "GameSession.h"
 
-#include "DebugDrawer.h"
-
 void FPSRoom::HandleInit()
 {
 	collisionConfiguration = std::make_shared<btDefaultCollisionConfiguration>();
@@ -19,13 +17,7 @@ void FPSRoom::HandleInit()
 
 #ifdef _WIN32
 	if (FPS_DRAW)
-	{
-		BulletDebugDrawer* myDebugDrawer = new BulletDebugDrawer();
-		myDebugDrawer->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
-		dynamicsWorld->setDebugDrawer(myDebugDrawer);
-
 		InitDraw();
-	}
 #endif
 
 	RoomBase::HandleInit();
@@ -233,14 +225,16 @@ std::shared_ptr<ClientBase> FPSRoom::MakeClient(string clientId, std::shared_ptr
 
 
 #if _WIN32
-#include <ThreadManager.h>
-
 #include <GLFW/glfw3.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include <ThreadManager.h>
+
+#include "DebugDrawer.h"
 
 double lastX = 320, lastY = 240;
 double yaw = -90.0f, pitch = 0.0f;
@@ -251,6 +245,10 @@ glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 void FPSRoom::InitDraw()
 {
+	BulletDebugDrawer* myDebugDrawer = new BulletDebugDrawer();
+	myDebugDrawer->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
+	dynamicsWorld->setDebugDrawer(myDebugDrawer);
+
 	GThreadManager->Launch([]()
 		{
 			if (!glfwInit()) {
