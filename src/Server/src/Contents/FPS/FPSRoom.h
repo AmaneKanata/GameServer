@@ -1,5 +1,8 @@
 #pragma once
 
+#include <queue>
+#include <vector>
+
 #include <btBulletDynamicsCommon.h>
 #include <btBulletCollisionCommon.h>
 #include <json.hpp>
@@ -20,11 +23,11 @@ public:
 
 	virtual void Leave(std::shared_ptr<ClientBase> client, std::string code) override;
 
-	virtual void RemovePlayer(int playerId);
-
-	void Draw();
-
 	void Update();
+
+#if _WIN32
+	void Draw();
+#endif
 
 protected:
 	virtual void Handle_C_INSTANTIATE_FPS_PLAYER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_INSTANTIATE_FPS_PLAYER> pkt) override;
@@ -43,6 +46,8 @@ private:
 	void InitDraw();
 #endif
 
+	virtual void RemovePlayer(int playerId);
+
 public:
 	std::shared_ptr<btDiscreteDynamicsWorld> dynamicsWorld;
 
@@ -51,6 +56,8 @@ private:
 
 	int idGenerator = 0;
 	std::map<int, std::shared_ptr<FPSPlayer>> players;
+
+	vector<queue<pair<btVector3, btVector3>>> shots;
 
 	std::shared_ptr<btDefaultCollisionConfiguration> collisionConfiguration;
 	std::shared_ptr<btCollisionDispatcher> dispatcher;

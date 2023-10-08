@@ -7,6 +7,8 @@
 
 void FPSRoom::HandleInit()
 {
+	shots = vector<queue<pair<btVector3, btVector3>>>(2);
+
 	collisionConfiguration = std::make_shared<btDefaultCollisionConfiguration>();
 	dispatcher = std::make_shared<btCollisionDispatcher>(collisionConfiguration.get());
 	broadphase = std::make_shared<btDbvtBroadphase>();
@@ -56,11 +58,6 @@ void FPSRoom::RemovePlayer(int playerId)
 	Protocol::S_REMOVE_GAME_OBJECT remove;
 	remove.add_gameobjects(playerId);
 	Broadcast(MakeSendBuffer(remove));
-}
-
-void FPSRoom::Draw()
-{
-	dynamicsWorld->debugDrawWorld();
 }
 
 void FPSRoom::Update()
@@ -194,6 +191,8 @@ void FPSRoom::Handle_C_SHOT(std::shared_ptr<GameSession> session, std::shared_pt
 
 	if(rayCallback.hasHit())
 	{
+		shots[0].push({from, rayCallback.m_hitPointWorld});
+
 		auto id = rayCallback.m_collisionObject->getUserIndex();
 
 		//GLogManager->Log("HIt : ", std::to_string(id));
@@ -213,6 +212,10 @@ void FPSRoom::Handle_C_SHOT(std::shared_ptr<GameSession> session, std::shared_pt
 		res.set_playerid(player->second->id);
 		res.set_damage(damage);
 		Broadcast(MakeSendBuffer(res));
+	}
+	else
+	{
+		shots[0].push({from, to});
 	}
 }
 
@@ -236,6 +239,32 @@ std::shared_ptr<ClientBase> FPSRoom::MakeClient(string clientId, std::shared_ptr
 
 #include "DebugDrawer.h"
 
+void FPSRoom::Draw()
+{
+	glBegin(GL_LINES);
+	glColor3f(1.0f, 0.0f, 0.0f); // 레드 컬러로 라인 그리기
+
+	for (int i = shots.size() - 1; i >= 0; i--)
+	{
+		while (!shots[i].empty())
+		{
+			auto start = shots[i].front().first;
+			auto end = shots[i].front().second;
+			shots[i].pop();
+
+			if(i + 1 != shots.size())
+				shots[i + 1].push({start, end});
+
+			glVertex3f(start.x(), start.y(), start.z());
+			glVertex3f(end.x(), end.y(), end.z());
+		}
+	}
+
+	glEnd();
+
+	dynamicsWorld->debugDrawWorld();
+}
+
 double lastX = 320, lastY = 240;
 double yaw = -90.0f, pitch = 0.0f;
 float cameraSpeed = 0.2f;
@@ -249,7 +278,7 @@ void FPSRoom::InitDraw()
 	myDebugDrawer->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
 	dynamicsWorld->setDebugDrawer(myDebugDrawer);
 
-	GThreadManager->Launch([]()
+	GThreadManager->Launch([this]()
 		{
 			if (!glfwInit()) {
 				return -1;
@@ -300,8 +329,6 @@ void FPSRoom::InitDraw()
 				cameraFront = glm::normalize(front);
 				});
 
-			auto& room = std::static_pointer_cast<FPSRoom>(GRoom);
-
 			while (agones_state != "Shutdown")
 			{
 				if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -325,7 +352,7 @@ void FPSRoom::InitDraw()
 				glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 				glLoadMatrixf(glm::value_ptr(view));
 
-				room->dynamicsWorld->debugDrawWorld();
+				Draw();
 
 				glfwSwapBuffers(window);
 				glfwPollEvents();
