@@ -80,6 +80,8 @@ void FPSRoom::Update()
 
 		player.second->transform.setOrigin(newPosition);
 		player.second->collisionObject->setWorldTransform(player.second->transform);
+
+		dynamicsWorld->updateSingleAabb(player.second->collisionObject.get());
 	}
 
 	if (sendBuffers->size() > 0)

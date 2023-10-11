@@ -21,26 +21,30 @@ public:
 			collisionObject = std::make_shared<btCollisionObject>();
 			collisionObject->setUserIndex(id);
 
+			//btCapsuleShape* capsule = new btCapsuleShape(0.5f, 1.0f);
+			//btBoxShape* box = new btBoxShape(btVector3(0.3f, 0.3f, 0.3f));
+			//btCompoundShape* compound = new btCompoundShape();
+
+			//btTransform capsuleTransform;
+			//capsuleTransform.setIdentity();
+			//compound->addChildShape(capsuleTransform, capsule);
+
+			//btTransform boxTransform;
+			//boxTransform.setIdentity();
+			//boxTransform.setOrigin(btVector3(0, 0, 0.5f));
+			//compound->addChildShape(boxTransform, box);
+
+			//btBoxShape* box = new btBoxShape(btVector3(0.5f, 1.0f, 0.5f));
+			//collisionObject->setCollisionShape(box);
+
+			btCapsuleShape* capsule = new btCapsuleShape(0.5f, 1.0f);
+			collisionObject->setCollisionShape(capsule);
+
 			btTransform transform;
 			transform.setOrigin(btVector3(pkt->position().x() * -1, pkt->position().y() + 1.0f, pkt->position().z()));
 			btQuaternion initialRotation;
 			initialRotation.setEulerZYX(pkt->rotation().z() * (M_PI / 180.0f), pkt->rotation().y() * (M_PI / 180.0f) * -1, pkt->rotation().x() * (M_PI / 180.0f));
 			collisionObject->setWorldTransform(transform);
-
-			btCapsuleShape* capsule = new btCapsuleShape(0.5f, 1.0f);
-			//btBoxShape* box = new btBoxShape(btVector3(0.3f, 0.3f, 0.3f));
-			btCompoundShape* compound = new btCompoundShape();
-
-			btTransform capsuleTransform;
-			capsuleTransform.setIdentity();
-			compound->addChildShape(capsuleTransform, capsule);
-
-			/*btTransform boxTransform;
-			boxTransform.setIdentity();
-			boxTransform.setOrigin(btVector3(0, 0, 0.5f));
-			compound->addChildShape(boxTransform, box);*/
-
-			collisionObject->setCollisionShape(compound);
 		}
 
 		long long now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
