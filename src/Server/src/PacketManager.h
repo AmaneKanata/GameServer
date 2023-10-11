@@ -50,7 +50,8 @@ enum : unsigned short
 	PKT_C_SET_FPS_ROTATION = 204,
 	PKT_S_SET_FPS_ROTATION = 205,
 	PKT_C_SHOT = 206,
-	PKT_S_ATTACKED = 207,
+	PKT_S_SHOT = 207,
+	PKT_S_ATTACKED = 208,
 };
 
 template<typename T>
@@ -88,6 +89,7 @@ static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_SET_ANIMATION& pkt
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_ADD_FPS_PLAYER& pkt) { return MakeSendBuffer(pkt, PKT_S_ADD_FPS_PLAYER); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_SET_FPS_POSITION& pkt) { return MakeSendBuffer(pkt, PKT_S_SET_FPS_POSITION); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_SET_FPS_ROTATION& pkt) { return MakeSendBuffer(pkt, PKT_S_SET_FPS_ROTATION); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_SHOT& pkt) { return MakeSendBuffer(pkt, PKT_S_SHOT); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_ATTACKED& pkt) { return MakeSendBuffer(pkt, PKT_S_ATTACKED); }
 
 enum class HandlerState

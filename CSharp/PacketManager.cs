@@ -45,7 +45,8 @@ namespace Framework.Network
         PKT_C_SET_FPS_ROTATION = 204,
         PKT_S_SET_FPS_ROTATION = 205,
         PKT_C_SHOT = 206,
-        PKT_S_ATTACKED = 207,
+        PKT_S_SHOT = 207,
+        PKT_S_ATTACKED = 208,
     }
 
     public static class PacketManager
@@ -73,6 +74,7 @@ namespace Framework.Network
             onRecv.Add((ushort)MsgId.PKT_S_ADD_FPS_PLAYER, MakePacket<S_ADD_FPS_PLAYER>);
             onRecv.Add((ushort)MsgId.PKT_S_SET_FPS_POSITION, MakePacket<S_SET_FPS_POSITION>);
             onRecv.Add((ushort)MsgId.PKT_S_SET_FPS_ROTATION, MakePacket<S_SET_FPS_ROTATION>);
+            onRecv.Add((ushort)MsgId.PKT_S_SHOT, MakePacket<S_SHOT>);
             onRecv.Add((ushort)MsgId.PKT_S_ATTACKED, MakePacket<S_ATTACKED>);
         }
 

@@ -69,9 +69,7 @@ void FPSRoom::Update()
 	for(auto& player : players)
 	{
 		if (player.second->isRotationDirty)
-		{
 			sendBuffers->push_back(MakeSendBuffer(player.second->setRotation));
-		}
 		
 		if (player.second->velocity.isZero())
 			continue;
@@ -80,10 +78,8 @@ void FPSRoom::Update()
 
 		btVector3 newPosition = player.second->position + player.second->velocity * timeGap;
 
-		btTransform transform;
-		transform.setOrigin(newPosition);
-		transform.setRotation(player.second->rotation);
-		player.second->collisionObject->setWorldTransform(transform);
+		player.second->transform.setOrigin(newPosition);
+		player.second->collisionObject->setWorldTransform(player.second->transform);
 	}
 
 	if (sendBuffers->size() > 0)
@@ -106,16 +102,25 @@ void FPSRoom::Handle_C_INSTANTIATE_FPS_PLAYER(std::shared_ptr<GameSession> sessi
 
 	dynamicsWorld->addCollisionObject(player->collisionObject.get());
 
-	Protocol::S_ADD_FPS_PLAYER res;
-	auto playerInfo = res.add_gameobjects();
-	playerInfo->mutable_position()->CopyFrom(player->setPosition.position());
-	playerInfo->mutable_velocity()->CopyFrom(player->setPosition.velocity());
-	playerInfo->mutable_rotation()->CopyFrom(player->setRotation.rotation());
-	playerInfo->set_playerid(player->id);
-	playerInfo->set_hp(player->hp);
-	playerInfo->set_ownerid(player->ownerId);
+	{
+		Protocol::S_INSTANTIATE_GAME_OBJECT res;
+		res.set_gameobjectid(player->id);
+		res.set_success(true);
+		session->Send(MakeSendBuffer(res));
+	}
 
-	Broadcast(MakeSendBuffer(res));
+	{
+		Protocol::S_ADD_FPS_PLAYER res;
+		auto playerInfo = res.add_gameobjects();
+		playerInfo->mutable_position()->CopyFrom(player->setPosition.position());
+		playerInfo->mutable_velocity()->CopyFrom(player->setPosition.velocity());
+		playerInfo->mutable_rotation()->CopyFrom(player->setRotation.rotation());
+		playerInfo->set_playerid(player->id);
+		playerInfo->set_hp(player->hp);
+		playerInfo->set_ownerid(player->ownerId);
+
+		Broadcast(MakeSendBuffer(res));
+	}
 }
 
 void FPSRoom::Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_GET_GAME_OBJECT> pkt)
@@ -127,6 +132,7 @@ void FPSRoom::Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> session, std
 		auto playerInfo = res.add_gameobjects();
 		playerInfo->mutable_position()->CopyFrom(player.second->setPosition.position());
 		playerInfo->mutable_velocity()->CopyFrom(player.second->setPosition.velocity());
+		playerInfo->mutable_rotation()->CopyFrom(player.second->setRotation.rotation());
 		playerInfo->set_playerid(player.second->id);
 		playerInfo->set_hp(player.second->hp);
 		playerInfo->set_ownerid(player.second->ownerId);
@@ -181,7 +187,15 @@ void FPSRoom::Handle_C_SET_ANIMATION(std::shared_ptr<GameSession> session, std::
 const static float rayDistance = 1000;
 const static int damage = 10;
 void FPSRoom::Handle_C_SHOT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SHOT> pkt)
-{
+{	
+	auto client = static_pointer_cast<FPSClient>(session->client);
+	if (client->player == nullptr)
+		return;
+
+	Protocol::S_SHOT res;
+	res.set_playerid(client->player->id);
+	Broadcast(MakeSendBuffer(res));
+
 	btVector3 from(pkt->position().x() * -1, pkt->position().y(), pkt->position().z());
 	btVector3 direction(pkt->direction().x() * -1, pkt->direction().y(), pkt->direction().z());
 	btVector3 to = from + direction * rayDistance;
@@ -195,7 +209,7 @@ void FPSRoom::Handle_C_SHOT(std::shared_ptr<GameSession> session, std::shared_pt
 
 		auto id = rayCallback.m_collisionObject->getUserIndex();
 
-		//GLogManager->Log("HIt : ", std::to_string(id));
+		GLogManager->Log("HIt : ", std::to_string(id));
 
 		auto player = players.find(id);
 		if (player == players.end())
@@ -205,12 +219,14 @@ void FPSRoom::Handle_C_SHOT(std::shared_ptr<GameSession> session, std::shared_pt
 
 		if(player->second->hp == 0)
 		{
-			RemovePlayer(player->second->id);
+			dynamicsWorld->removeCollisionObject(player->second->collisionObject.get());
+			players.erase(player);
 		}
 
 		Protocol::S_ATTACKED res;
 		res.set_playerid(player->second->id);
 		res.set_damage(damage);
+		res.set_hp(player->second->hp);
 		Broadcast(MakeSendBuffer(res));
 	}
 	else
@@ -242,7 +258,7 @@ std::shared_ptr<ClientBase> FPSRoom::MakeClient(string clientId, std::shared_ptr
 void FPSRoom::Draw()
 {
 	glBegin(GL_LINES);
-	glColor3f(1.0f, 0.0f, 0.0f); // 레드 컬러로 라인 그리기
+	glColor3f(1.0f, 0.0f, 0.0f);
 
 	for (int i = shots.size() - 1; i >= 0; i--)
 	{

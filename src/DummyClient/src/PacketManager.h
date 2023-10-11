@@ -50,7 +50,8 @@ enum : unsigned short
 	PKT_C_SET_FPS_ROTATION = 204,
 	PKT_S_SET_FPS_ROTATION = 205,
 	PKT_C_SHOT = 206,
-	PKT_S_ATTACKED = 207,
+	PKT_S_SHOT = 207,
+	PKT_S_ATTACKED = 208,
 };
 
 template<typename T>
@@ -262,6 +263,14 @@ public:
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
+		PacketHandlers[PKT_S_SHOT] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_SHOT> pkt = std::make_shared<Protocol::S_SHOT>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_SHOT, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
+		};
 		PacketHandlers[PKT_S_ATTACKED] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::S_ATTACKED> pkt = std::make_shared<Protocol::S_ATTACKED>();
@@ -330,6 +339,7 @@ protected:
 	virtual void Handle_S_ADD_FPS_PLAYER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ADD_FPS_PLAYER> pkt) {};
 	virtual void Handle_S_SET_FPS_POSITION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SET_FPS_POSITION> pkt) {};
 	virtual void Handle_S_SET_FPS_ROTATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SET_FPS_ROTATION> pkt) {};
+	virtual void Handle_S_SHOT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SHOT> pkt) {};
 	virtual void Handle_S_ATTACKED(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ATTACKED> pkt) {};
 
 private:

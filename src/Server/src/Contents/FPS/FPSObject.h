@@ -28,17 +28,17 @@ public:
 			collisionObject->setWorldTransform(transform);
 
 			btCapsuleShape* capsule = new btCapsuleShape(0.5f, 1.0f);
-			btBoxShape* box = new btBoxShape(btVector3(0.3f, 0.3f, 0.3f));
+			//btBoxShape* box = new btBoxShape(btVector3(0.3f, 0.3f, 0.3f));
 			btCompoundShape* compound = new btCompoundShape();
 
 			btTransform capsuleTransform;
 			capsuleTransform.setIdentity();
 			compound->addChildShape(capsuleTransform, capsule);
 
-			btTransform boxTransform;
+			/*btTransform boxTransform;
 			boxTransform.setIdentity();
 			boxTransform.setOrigin(btVector3(0, 0, 0.5f));
-			compound->addChildShape(boxTransform, box);
+			compound->addChildShape(boxTransform, box);*/
 
 			collisionObject->setCollisionShape(compound);
 		}
@@ -55,26 +55,24 @@ public:
 
 	void UpdatePosition(long long timestamp, Protocol::Vector3* position, Protocol::Vector3* velocity)
 	{
-		this->timestamp = timestamp;
-		this->position.setValue(position->x() * -1, position->y() + 1.0f, position->z());
-		this->velocity.setValue(velocity->x() * -1, velocity->y(), velocity->z());
-
 		setPosition.set_timestamp(timestamp);
 		setPosition.set_allocated_position(position);
 		setPosition.set_allocated_velocity(velocity);
+
+		this->timestamp = timestamp;
+		this->position.setValue(position->x() * -1, position->y() + 1.0f, position->z());
+		this->velocity.setValue(velocity->x() * -1, velocity->y(), velocity->z());
 	}
 
 	void UpdateRotation(Protocol::Vector3* rotation)
 	{
 		isRotationDirty = true;
+		setRotation.set_allocated_rotation(rotation);
+
 		this->rotation.setEulerZYX(rotation->z() * (M_PI / 180.0f), rotation->y() * (M_PI / 180.0f) * -1, rotation->x() * (M_PI / 180.0f));
 
-		btTransform transform;
-		transform.setOrigin(this->position);
 		transform.setRotation(this->rotation);
 		collisionObject->setWorldTransform(transform);
-
-		setRotation.set_allocated_rotation(rotation);
 	}
 
 	void UpdateAnimation(std::shared_ptr<Protocol::C_SET_ANIMATION> pkt)
@@ -89,6 +87,8 @@ public:
 	int id;
 
 	std::shared_ptr<btCollisionObject> collisionObject;
+
+	btTransform transform;
 
 	long long timestamp;
 	btVector3 position;

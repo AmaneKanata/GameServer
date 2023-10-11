@@ -57,8 +57,14 @@ message C_SHOT
 	Vector3 direction = 2;
 }
 
+message S_SHOT
+{
+	int32 playerId= 1;
+}
+
 message S_ATTACKED
 {
 	int32 playerid = 1;
 	int32 damage = 2;
+	int32 hp = 3;
 }
