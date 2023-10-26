@@ -9,6 +9,8 @@ extern std::shared_ptr<class LogManager> GLogManager;
 extern std::atomic<int> session_num;
 extern std::atomic<int> client_num;
 
+extern std::string MODE;
+
 extern bool CLOSE_ON_EMPTY;
 extern bool CLOSE_ON_IDLE;
 extern int CHECK_IDEL_INTERVAL;

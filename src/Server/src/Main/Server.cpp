@@ -119,7 +119,16 @@ int main()
 
 	GLogManager = std::make_shared<LogManager>(ioc);
 
-	GRoom = std::make_shared<FPSRoom>(ioc);
+	if (MODE == "BASE")
+		GRoom = std::make_shared<RoomBase>(ioc);
+	else if(MODE == "FPS")
+		GRoom = std::make_shared<FPSRoom>(ioc);
+	else
+	{
+		GLogManager->Log("Invalid Mode");
+		return 0;
+	}
+
 	GRoom->Init();
 
 	auto acceptor = std::make_shared<Acceptor>(ioc, ep,
