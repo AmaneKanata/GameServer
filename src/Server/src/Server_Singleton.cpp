@@ -8,7 +8,7 @@ std::shared_ptr<LogManager> GLogManager = nullptr;
 std::atomic<int> session_num = 0;
 std::atomic<int> client_num = 0;
 
-extern std::string MODE = std::getenv("MODE") != nullptr ? std::string(std::getenv("MODE")) : "BASE";
+std::string MODE = std::getenv("MODE") != nullptr ? std::string(std::getenv("MODE")) : "BASE";
 
 bool CLOSE_ON_EMPTY = std::getenv("CLOSE_ON_EMPTY") != nullptr ? bool(std::stoi(std::getenv("CLOSE_ON_EMPTY"))) : false;
 bool CLOSE_ON_IDLE = std::getenv("CLOSE_ON_IDLE") != nullptr ? bool(std::stoi(std::getenv("CLOSE_ON_IDLE"))) : false;
