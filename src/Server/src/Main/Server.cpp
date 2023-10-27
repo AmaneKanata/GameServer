@@ -119,7 +119,11 @@ int main()
 	{
 		auto labels = gameServer.object_meta().labels();
 		for (const auto& label : labels)
-			std::cout << "Label: " << label.first << " = " << label.second << std::endl;
+			if (label.first == "MODE")
+			{
+				MODE = label.second;
+				break;
+			}
 	}
 
 	boost::asio::io_context ioc;
