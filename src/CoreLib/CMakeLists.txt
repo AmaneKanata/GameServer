@@ -10,7 +10,8 @@ target_include_directories(CoreLib PUBLIC src/Network)
 target_include_directories(CoreLib PUBLIC src/Thread)
 
 if (WIN32)
-	set(BOOST_ROOT "C:/Boost")
+	#set(BOOST_ROOT "C:/Boost")
+	set(CMAKE_PREFIX_PATH "C:/Boost" ${CMAKE_PREFIX_PATH})
 	set(Boost_USE_STATIC_LIBS ON)
 endif (WIN32)
 
