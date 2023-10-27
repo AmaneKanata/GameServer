@@ -126,7 +126,7 @@ int main()
 	else
 	{
 		GLogManager->Log("Invalid Mode");
-		return 0;
+		goto EXIT;
 	}
 
 	GRoom->Init();
@@ -174,6 +174,7 @@ int main()
 
 	acceptor->Stop();
 
+EXIT:
 	ioc.run(); //handle remain jobs
 
 	GLogManager = nullptr;
