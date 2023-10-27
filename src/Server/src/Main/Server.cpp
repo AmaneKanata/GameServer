@@ -114,6 +114,14 @@ int main()
 		std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
 	}
 
+	agones::dev::sdk::GameServer gameServer;
+	if (agones_sdk->GameServer(&gameServer).ok())
+	{
+		auto labels = gameServer.object_meta().labels();
+		for (const auto& label : labels)
+			std::cout << "Label: " << label.first << " = " << label.second << std::endl;
+	}
+
 	boost::asio::io_context ioc;
 	boost::asio::ip::tcp::endpoint ep(boost::asio::ip::address_v4::from_string(localHostIp), socketPort);
 
@@ -126,7 +134,7 @@ int main()
 	else
 	{
 		GLogManager->Log("Invalid Mode");
-		goto EXIT;
+		return 0;
 	}
 
 	GRoom->Init();
@@ -174,7 +182,6 @@ int main()
 
 	acceptor->Stop();
 
-EXIT:
 	ioc.run(); //handle remain jobs
 
 	GLogManager = nullptr;
