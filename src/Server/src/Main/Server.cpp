@@ -132,7 +132,7 @@ int main()
 	GLogManager = std::make_shared<LogManager>(ioc);
 
 	if (MODE == "BASE")
-		GRoom = std::make_shared<RoomBase>(ioc);
+		GRoom = std::make_shared<GameObjectRoom>(ioc);
 	else if(MODE == "FPS")
 		GRoom = std::make_shared<FPSRoom>(ioc);
 	else
