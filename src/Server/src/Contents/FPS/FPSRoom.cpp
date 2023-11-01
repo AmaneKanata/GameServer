@@ -69,16 +69,19 @@ void FPSRoom::Update()
 	for(auto& player : players)
 	{
 		if (player.second->isRotationDirty)
+		{
 			sendBuffers->push_back(MakeSendBuffer(player.second->setRotation));
+			player.second->isRotationDirty = false;
+			player.second->transform.setRotation(player.second->rotation);
+		}
 		
-		if (player.second->velocity.isZero())
-			continue;
+		if (!player.second->velocity.isZero())
+		{
+			int timeGap = now - player.second->timestamp;
+			btVector3 newPosition = player.second->position + player.second->velocity * timeGap;
+			player.second->transform.setOrigin(newPosition);
+		}
 
-		int timeGap = now - player.second->timestamp;
-
-		btVector3 newPosition = player.second->position + player.second->velocity * timeGap;
-
-		player.second->transform.setOrigin(newPosition);
 		player.second->collisionObject->setWorldTransform(player.second->transform);
 	}
 
@@ -211,7 +214,7 @@ void FPSRoom::Handle_C_SHOT(std::shared_ptr<GameSession> session, std::shared_pt
 
 		auto id = rayCallback.m_collisionObject->getUserIndex();
 
-		GLogManager->Log("HIt : ", std::to_string(id));
+		//GLogManager->Log("HIt : ", std::to_string(id));
 
 		auto player = players.find(id);
 		if (player == players.end())
@@ -221,6 +224,10 @@ void FPSRoom::Handle_C_SHOT(std::shared_ptr<GameSession> session, std::shared_pt
 
 		if(player->second->hp == 0)
 		{
+			Protocol::S_REMOVE_GAME_OBJECT remove;
+			remove.add_gameobjects(player->second->id);
+			Broadcast(MakeSendBuffer(remove));
+
 			dynamicsWorld->removeCollisionObject(player->second->collisionObject.get());
 			players.erase(player);
 		}

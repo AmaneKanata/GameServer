@@ -8,6 +8,8 @@
 #include "Server_Singleton.h"
 #include "LogManager.h"
 
+const float ROTATION_BIAS = (M_PI / 180.0f);
+
 class FPSCharacter
 {
 public:
@@ -40,10 +42,10 @@ public:
 			btCapsuleShape* capsule = new btCapsuleShape(0.5f, 1.0f);
 			collisionObject->setCollisionShape(capsule);
 
-			btTransform transform;
+			transform.setIdentity();
 			transform.setOrigin(btVector3(pkt->position().x() * -1, pkt->position().y() + 1.0f, pkt->position().z()));
 			btQuaternion initialRotation;
-			initialRotation.setEulerZYX(pkt->rotation().z() * (M_PI / 180.0f), pkt->rotation().y() * (M_PI / 180.0f) * -1, pkt->rotation().x() * (M_PI / 180.0f));
+			initialRotation.setEulerZYX(pkt->rotation().z() * ROTATION_BIAS, pkt->rotation().y() * ROTATION_BIAS * -1, pkt->rotation().x() * ROTATION_BIAS);
 			collisionObject->setWorldTransform(transform);
 		}
 
@@ -71,12 +73,13 @@ public:
 	void UpdateRotation(Protocol::Vector3* rotation)
 	{
 		isRotationDirty = true;
+		
 		setRotation.set_allocated_rotation(rotation);
 
-		this->rotation.setEulerZYX(rotation->z() * (M_PI / 180.0f), rotation->y() * (M_PI / 180.0f) * -1, rotation->x() * (M_PI / 180.0f));
+		this->rotation.setEulerZYX(rotation->z() * ROTATION_BIAS, rotation->y() * ROTATION_BIAS * -1, rotation->x() * ROTATION_BIAS);
 
-		transform.setRotation(this->rotation);
-		collisionObject->setWorldTransform(transform);
+		//transform.setRotation(this->rotation);
+		//collisionObject->setWorldTransform(transform);
 	}
 
 	void UpdateAnimation(std::shared_ptr<Protocol::C_SET_ANIMATION> pkt)
