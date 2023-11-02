@@ -99,10 +99,43 @@ void FPSRoom::Handle_C_INSTANTIATE_FPS_PLAYER(std::shared_ptr<GameSession> sessi
 	if (client == nullptr)
 		return;
 
+	InstantiatePlayer(client, pkt);
+
+	//auto player = std::make_shared<FPSPlayer>(client->clientId, idGenerator++, pkt);
+
+	//players.insert({ player->id, player });
+	//
+	//client->player = player;
+
+	//dynamicsWorld->addCollisionObject(player->collisionObject.get());
+
+	//{
+	//	Protocol::S_INSTANTIATE_GAME_OBJECT res;
+	//	res.set_gameobjectid(player->id);
+	//	res.set_success(true);
+	//	session->Send(MakeSendBuffer(res));
+	//}
+
+	//{
+	//	Protocol::S_ADD_FPS_PLAYER res;
+	//	auto playerInfo = res.add_gameobjects();
+	//	playerInfo->mutable_position()->CopyFrom(player->setPosition.position());
+	//	playerInfo->mutable_velocity()->CopyFrom(player->setPosition.velocity());
+	//	playerInfo->mutable_rotation()->CopyFrom(player->setRotation.rotation());
+	//	playerInfo->set_playerid(player->id);
+	//	playerInfo->set_hp(player->hp);
+	//	playerInfo->set_ownerid(player->ownerId);
+
+	//	Broadcast(MakeSendBuffer(res));
+	//}
+}
+
+void FPSRoom::InstantiatePlayer(std::shared_ptr<FPSClient> client, std::shared_ptr<Protocol::C_INSTANTIATE_FPS_PLAYER> pkt)
+{
 	auto player = std::make_shared<FPSPlayer>(client->clientId, idGenerator++, pkt);
 
 	players.insert({ player->id, player });
-	
+
 	client->player = player;
 
 	dynamicsWorld->addCollisionObject(player->collisionObject.get());
@@ -111,7 +144,7 @@ void FPSRoom::Handle_C_INSTANTIATE_FPS_PLAYER(std::shared_ptr<GameSession> sessi
 		Protocol::S_INSTANTIATE_GAME_OBJECT res;
 		res.set_gameobjectid(player->id);
 		res.set_success(true);
-		session->Send(MakeSendBuffer(res));
+		client->Send(MakeSendBuffer(res));
 	}
 
 	{
@@ -228,6 +261,17 @@ void FPSRoom::Handle_C_SHOT(std::shared_ptr<GameSession> session, std::shared_pt
 			remove.add_gameobjects(player->second->id);
 			Broadcast(MakeSendBuffer(remove));
 
+			{
+				auto owner = clients.find(player->second->ownerId);
+				if (owner != clients.end())
+				{
+					std::shared_ptr<Protocol::C_INSTANTIATE_FPS_PLAYER> ins = std::make_shared<Protocol::C_INSTANTIATE_FPS_PLAYER>();
+					ins->set_allocated_position(new Protocol::Vector3());
+					ins->set_allocated_rotation(new Protocol::Vector3());
+					DelayPost(5000, &FPSRoom::InstantiatePlayer, std::static_pointer_cast<FPSClient>(owner->second), ins);
+				}
+			}
+
 			dynamicsWorld->removeCollisionObject(player->second->collisionObject.get());
 			players.erase(player);
 		}
@@ -309,7 +353,7 @@ void FPSRoom::InitDraw()
 				return -1;
 			}
 
-			GLFWwindow* window = glfwCreateWindow(1280, 720, "Bullet Debug Draw", NULL, NULL);
+			GLFWwindow* window = glfwCreateWindow(960, 540, "Bullet Debug Draw", NULL, NULL);
 			if (!window) {
 				glfwTerminate();
 				return -1;

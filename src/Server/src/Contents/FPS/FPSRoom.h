@@ -41,6 +41,8 @@ protected:
 	virtual std::shared_ptr<ClientBase> MakeClient(string clientId, std::shared_ptr<GameSession> session) override;
 
 private:
+	void InstantiatePlayer(std::shared_ptr<FPSClient> client, std::shared_ptr<Protocol::C_INSTANTIATE_FPS_PLAYER> pkt);
+
 	void LoadMap();
 #if _WIN32
 	void InitDraw();
