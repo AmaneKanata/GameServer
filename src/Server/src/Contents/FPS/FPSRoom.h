@@ -35,6 +35,13 @@ protected:
 	virtual void Handle_C_SET_FPS_POSITION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_FPS_POSITION> pkt) override;
 	virtual void Handle_C_SET_FPS_ROTATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_FPS_ROTATION> pkt) override;
 	virtual void Handle_C_SET_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_ANIMATION> pkt) override;
+	
+	virtual void Handle_C_FIRE(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FIRE> pkt) override;
+	virtual void Handle_C_LOOK(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_LOOK> pkt) override;
+	virtual void Handle_C_RELOAD(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_RELOAD> pkt) override;
+	virtual void Handle_C_LEAN(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_LEAN> pkt) override;
+	virtual void Handle_C_CHANGE_WEAPON(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_CHANGE_WEAPON> pkt) override;
+	virtual void Handle_C_AIM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_AIM> pkt) override;
 
 	virtual void Handle_C_SHOT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SHOT> pkt) override;
 

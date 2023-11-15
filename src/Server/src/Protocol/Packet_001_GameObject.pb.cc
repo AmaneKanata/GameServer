@@ -573,12 +573,12 @@ const char descriptor_table_protodef_Packet_5f001_5fGameObject_2eproto[] PROTOBU
   " \001(\0132\021.Protocol.Vector3\"\253\001\n\017C_SET_ANIMAT"
   "ION\022\024\n\014gameObjectId\030\001 \001(\005\0225\n\006params\030\002 \003("
   "\0132%.Protocol.C_SET_ANIMATION.ParamsEntry"
-  "\032K\n\013ParamsEntry\022\013\n\003key\030\001 \001(\t\022+\n\005value\030\002 "
+  "\032K\n\013ParamsEntry\022\013\n\003key\030\001 \001(\005\022+\n\005value\030\002 "
   "\001(\0132\034.Protocol.AnimationParameter:\0028\001\"\253\001"
   "\n\017S_SET_ANIMATION\022\024\n\014gameObjectId\030\001 \001(\005\022"
   "5\n\006params\030\002 \003(\0132%.Protocol.S_SET_ANIMATI"
   "ON.ParamsEntry\032K\n\013ParamsEntry\022\013\n\003key\030\001 \001"
-  "(\t\022+\n\005value\030\002 \001(\0132\034.Protocol.AnimationPa"
+  "(\005\022+\n\005value\030\002 \001(\0132\034.Protocol.AnimationPa"
   "rameter:\0028\001b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Packet_5f001_5fGameObject_2eproto_once;
@@ -4602,7 +4602,7 @@ const char* C_SET_ANIMATION::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
-      // map<string, .Protocol.AnimationParameter> params = 2;
+      // map<int32, .Protocol.AnimationParameter> params = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr -= 1;
@@ -4650,28 +4650,19 @@ uint8_t* C_SET_ANIMATION::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_gameobjectid(), target);
   }
 
-  // map<string, .Protocol.AnimationParameter> params = 2;
+  // map<int32, .Protocol.AnimationParameter> params = 2;
   if (!this->_internal_params().empty()) {
-    using MapType = ::_pb::Map<std::string, ::Protocol::AnimationParameter>;
+    using MapType = ::_pb::Map<int32_t, ::Protocol::AnimationParameter>;
     using WireHelper = C_SET_ANIMATION_ParamsEntry_DoNotUse::Funcs;
     const auto& map_field = this->_internal_params();
-    auto check_utf8 = [](const MapType::value_type& entry) {
-      (void)entry;
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-        entry.first.data(), static_cast<int>(entry.first.length()),
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-        "Protocol.C_SET_ANIMATION.ParamsEntry.key");
-    };
 
     if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
-      for (const auto& entry : ::_pbi::MapSorterPtr<MapType>(map_field)) {
+      for (const auto& entry : ::_pbi::MapSorterFlat<MapType>(map_field)) {
         target = WireHelper::InternalSerialize(2, entry.first, entry.second, target, stream);
-        check_utf8(entry);
       }
     } else {
       for (const auto& entry : map_field) {
         target = WireHelper::InternalSerialize(2, entry.first, entry.second, target, stream);
-        check_utf8(entry);
       }
     }
   }
@@ -4692,10 +4683,10 @@ size_t C_SET_ANIMATION::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // map<string, .Protocol.AnimationParameter> params = 2;
+  // map<int32, .Protocol.AnimationParameter> params = 2;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_params_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >::const_iterator
+  for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >::const_iterator
       it = this->_internal_params().begin();
       it != this->_internal_params().end(); ++it) {
     total_size += C_SET_ANIMATION_ParamsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
@@ -4858,7 +4849,7 @@ const char* S_SET_ANIMATION::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
-      // map<string, .Protocol.AnimationParameter> params = 2;
+      // map<int32, .Protocol.AnimationParameter> params = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr -= 1;
@@ -4906,28 +4897,19 @@ uint8_t* S_SET_ANIMATION::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_gameobjectid(), target);
   }
 
-  // map<string, .Protocol.AnimationParameter> params = 2;
+  // map<int32, .Protocol.AnimationParameter> params = 2;
   if (!this->_internal_params().empty()) {
-    using MapType = ::_pb::Map<std::string, ::Protocol::AnimationParameter>;
+    using MapType = ::_pb::Map<int32_t, ::Protocol::AnimationParameter>;
     using WireHelper = S_SET_ANIMATION_ParamsEntry_DoNotUse::Funcs;
     const auto& map_field = this->_internal_params();
-    auto check_utf8 = [](const MapType::value_type& entry) {
-      (void)entry;
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-        entry.first.data(), static_cast<int>(entry.first.length()),
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-        "Protocol.S_SET_ANIMATION.ParamsEntry.key");
-    };
 
     if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
-      for (const auto& entry : ::_pbi::MapSorterPtr<MapType>(map_field)) {
+      for (const auto& entry : ::_pbi::MapSorterFlat<MapType>(map_field)) {
         target = WireHelper::InternalSerialize(2, entry.first, entry.second, target, stream);
-        check_utf8(entry);
       }
     } else {
       for (const auto& entry : map_field) {
         target = WireHelper::InternalSerialize(2, entry.first, entry.second, target, stream);
-        check_utf8(entry);
       }
     }
   }
@@ -4948,10 +4930,10 @@ size_t S_SET_ANIMATION::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // map<string, .Protocol.AnimationParameter> params = 2;
+  // map<int32, .Protocol.AnimationParameter> params = 2;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_params_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >::const_iterator
+  for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >::const_iterator
       it = this->_internal_params().begin();
       it != this->_internal_params().end(); ++it) {
     total_size += S_SET_ANIMATION_ParamsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);

@@ -68,3 +68,68 @@ message S_ATTACKED
 	int32 damage = 2;
 	int32 hp = 3;
 }
+
+message C_FIRE
+{
+	bool isFiring = 1;
+}
+
+message S_FIRE
+{
+	int32 playerId = 1;
+	bool isFiring = 2;
+}
+
+message C_LOOK
+{
+	float x = 2;
+	float deltaX = 3;
+	float y = 4;
+	float deltaY = 5;
+}
+
+message S_LOOK
+{
+	int32 playerId = 1;
+	float x = 2;
+	float deltaX = 3;
+	float y = 4;
+	float deltaY = 5;
+}
+
+message C_RELOAD
+{
+}
+
+message S_RELOAD
+{
+	int32 playerId = 1;
+}
+
+message C_LEAN
+{
+	float value = 1;
+}
+
+message S_LEAN
+{
+	int32 playerId = 1;
+	float value = 2;
+}
+message C_CHANGE_WEAPON
+{
+}
+
+message S_CHANGE_WEAPON
+{
+	int32 playerId = 1;
+}
+
+message C_AIM
+{
+}
+
+message S_AIM
+{
+	int32 playerId = 1;
+}

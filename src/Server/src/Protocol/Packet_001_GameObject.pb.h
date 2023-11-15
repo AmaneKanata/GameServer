@@ -2968,13 +2968,13 @@ class S_SET_TRANSFORM final :
 // -------------------------------------------------------------------
 
 class C_SET_ANIMATION_ParamsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<C_SET_ANIMATION_ParamsEntry_DoNotUse, 
-    std::string, ::Protocol::AnimationParameter,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    int32_t, ::Protocol::AnimationParameter,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> {
 public:
   typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<C_SET_ANIMATION_ParamsEntry_DoNotUse, 
-    std::string, ::Protocol::AnimationParameter,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    int32_t, ::Protocol::AnimationParameter,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> SuperType;
   C_SET_ANIMATION_ParamsEntry_DoNotUse();
   explicit PROTOBUF_CONSTEXPR C_SET_ANIMATION_ParamsEntry_DoNotUse(
@@ -2982,9 +2982,7 @@ public:
   explicit C_SET_ANIMATION_ParamsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   void MergeFrom(const C_SET_ANIMATION_ParamsEntry_DoNotUse& other);
   static const C_SET_ANIMATION_ParamsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const C_SET_ANIMATION_ParamsEntry_DoNotUse*>(&_C_SET_ANIMATION_ParamsEntry_DoNotUse_default_instance_); }
-  static bool ValidateKey(std::string* s) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "Protocol.C_SET_ANIMATION.ParamsEntry.key");
- }
+  static bool ValidateKey(void*) { return true; }
   static bool ValidateValue(void*) { return true; }
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
   ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
@@ -3120,21 +3118,21 @@ class C_SET_ANIMATION final :
     kParamsFieldNumber = 2,
     kGameObjectIdFieldNumber = 1,
   };
-  // map<string, .Protocol.AnimationParameter> params = 2;
+  // map<int32, .Protocol.AnimationParameter> params = 2;
   int params_size() const;
   private:
   int _internal_params_size() const;
   public:
   void clear_params();
   private:
-  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >&
       _internal_params() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >*
+  ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >*
       _internal_mutable_params();
   public:
-  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >&
       params() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >*
+  ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >*
       mutable_params();
 
   // int32 gameObjectId = 1;
@@ -3156,8 +3154,8 @@ class C_SET_ANIMATION final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::MapField<
         C_SET_ANIMATION_ParamsEntry_DoNotUse,
-        std::string, ::Protocol::AnimationParameter,
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+        int32_t, ::Protocol::AnimationParameter,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> params_;
     int32_t gameobjectid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -3168,13 +3166,13 @@ class C_SET_ANIMATION final :
 // -------------------------------------------------------------------
 
 class S_SET_ANIMATION_ParamsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<S_SET_ANIMATION_ParamsEntry_DoNotUse, 
-    std::string, ::Protocol::AnimationParameter,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    int32_t, ::Protocol::AnimationParameter,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> {
 public:
   typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<S_SET_ANIMATION_ParamsEntry_DoNotUse, 
-    std::string, ::Protocol::AnimationParameter,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    int32_t, ::Protocol::AnimationParameter,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> SuperType;
   S_SET_ANIMATION_ParamsEntry_DoNotUse();
   explicit PROTOBUF_CONSTEXPR S_SET_ANIMATION_ParamsEntry_DoNotUse(
@@ -3182,9 +3180,7 @@ public:
   explicit S_SET_ANIMATION_ParamsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   void MergeFrom(const S_SET_ANIMATION_ParamsEntry_DoNotUse& other);
   static const S_SET_ANIMATION_ParamsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const S_SET_ANIMATION_ParamsEntry_DoNotUse*>(&_S_SET_ANIMATION_ParamsEntry_DoNotUse_default_instance_); }
-  static bool ValidateKey(std::string* s) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "Protocol.S_SET_ANIMATION.ParamsEntry.key");
- }
+  static bool ValidateKey(void*) { return true; }
   static bool ValidateValue(void*) { return true; }
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
   ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
@@ -3320,21 +3316,21 @@ class S_SET_ANIMATION final :
     kParamsFieldNumber = 2,
     kGameObjectIdFieldNumber = 1,
   };
-  // map<string, .Protocol.AnimationParameter> params = 2;
+  // map<int32, .Protocol.AnimationParameter> params = 2;
   int params_size() const;
   private:
   int _internal_params_size() const;
   public:
   void clear_params();
   private:
-  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >&
       _internal_params() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >*
+  ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >*
       _internal_mutable_params();
   public:
-  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >&
       params() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >*
+  ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >*
       mutable_params();
 
   // int32 gameObjectId = 1;
@@ -3356,8 +3352,8 @@ class S_SET_ANIMATION final :
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::internal::MapField<
         S_SET_ANIMATION_ParamsEntry_DoNotUse,
-        std::string, ::Protocol::AnimationParameter,
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+        int32_t, ::Protocol::AnimationParameter,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> params_;
     int32_t gameobjectid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -5432,7 +5428,7 @@ inline void C_SET_ANIMATION::set_gameobjectid(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.C_SET_ANIMATION.gameObjectId)
 }
 
-// map<string, .Protocol.AnimationParameter> params = 2;
+// map<int32, .Protocol.AnimationParameter> params = 2;
 inline int C_SET_ANIMATION::_internal_params_size() const {
   return _impl_.params_.size();
 }
@@ -5442,20 +5438,20 @@ inline int C_SET_ANIMATION::params_size() const {
 inline void C_SET_ANIMATION::clear_params() {
   _impl_.params_.Clear();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >&
 C_SET_ANIMATION::_internal_params() const {
   return _impl_.params_.GetMap();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >&
 C_SET_ANIMATION::params() const {
   // @@protoc_insertion_point(field_map:Protocol.C_SET_ANIMATION.params)
   return _internal_params();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >*
 C_SET_ANIMATION::_internal_mutable_params() {
   return _impl_.params_.MutableMap();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >*
 C_SET_ANIMATION::mutable_params() {
   // @@protoc_insertion_point(field_mutable_map:Protocol.C_SET_ANIMATION.params)
   return _internal_mutable_params();
@@ -5487,7 +5483,7 @@ inline void S_SET_ANIMATION::set_gameobjectid(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.S_SET_ANIMATION.gameObjectId)
 }
 
-// map<string, .Protocol.AnimationParameter> params = 2;
+// map<int32, .Protocol.AnimationParameter> params = 2;
 inline int S_SET_ANIMATION::_internal_params_size() const {
   return _impl_.params_.size();
 }
@@ -5497,20 +5493,20 @@ inline int S_SET_ANIMATION::params_size() const {
 inline void S_SET_ANIMATION::clear_params() {
   _impl_.params_.Clear();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >&
 S_SET_ANIMATION::_internal_params() const {
   return _impl_.params_.GetMap();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >&
 S_SET_ANIMATION::params() const {
   // @@protoc_insertion_point(field_map:Protocol.S_SET_ANIMATION.params)
   return _internal_params();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >*
 S_SET_ANIMATION::_internal_mutable_params() {
   return _impl_.params_.MutableMap();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::Protocol::AnimationParameter >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::Protocol::AnimationParameter >*
 S_SET_ANIMATION::mutable_params() {
   // @@protoc_insertion_point(field_mutable_map:Protocol.S_SET_ANIMATION.params)
   return _internal_mutable_params();

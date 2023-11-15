@@ -222,6 +222,108 @@ void FPSRoom::Handle_C_SET_ANIMATION(std::shared_ptr<GameSession> session, std::
 	Broadcast(MakeSendBuffer(player->second->setAnimation));
 }
 
+void FPSRoom::Handle_C_FIRE(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FIRE> pkt)
+{
+	auto client = static_pointer_cast<FPSClient>(session->client);
+	if (client->player == nullptr)
+		return;
+
+	auto player = players.find(client->player->id);
+	if (player == players.end())
+		return;
+
+	Protocol::S_FIRE res;
+	res.set_playerid(player->second->id);
+	res.set_isfiring(pkt->isfiring());
+
+	Broadcast(MakeSendBuffer(res));
+}
+
+void FPSRoom::Handle_C_LOOK(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_LOOK> pkt)
+{
+	auto client = static_pointer_cast<FPSClient>(session->client);
+	if (client->player == nullptr)
+		return;
+
+	auto player = players.find(client->player->id);
+	if (player == players.end())
+		return;
+
+	Protocol::S_LOOK res;
+	res.set_playerid(player->second->id);
+	res.set_x(pkt->x());
+	res.set_deltax(pkt->deltax());
+	res.set_y(pkt->y());
+	res.set_deltay(pkt->deltay());
+
+	Broadcast(MakeSendBuffer(res));
+}
+
+void FPSRoom::Handle_C_RELOAD(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_RELOAD> pkt)
+{
+	auto client = static_pointer_cast<FPSClient>(session->client);
+	if (client->player == nullptr)
+		return;
+
+	auto player = players.find(client->player->id);
+	if (player == players.end())
+		return;
+
+	Protocol::S_RELOAD res;
+	res.set_playerid(player->second->id);
+
+	Broadcast(MakeSendBuffer(res));
+}
+
+void FPSRoom::Handle_C_LEAN(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_LEAN> pkt)
+{
+	auto client = static_pointer_cast<FPSClient>(session->client);
+	if (client->player == nullptr)
+		return;
+
+	auto player = players.find(client->player->id);
+	if (player == players.end())
+		return;
+
+	Protocol::S_LEAN res;
+	res.set_playerid(player->second->id);
+	res.set_value(pkt->value());
+
+	Broadcast(MakeSendBuffer(res));
+}
+
+void FPSRoom::Handle_C_CHANGE_WEAPON(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_CHANGE_WEAPON> pkt)
+{
+	auto client = static_pointer_cast<FPSClient>(session->client);
+	if (client->player == nullptr)
+		return;
+
+	auto player = players.find(client->player->id);
+	if (player == players.end())
+		return;
+
+	Protocol::S_CHANGE_WEAPON res;
+	res.set_playerid(player->second->id);
+
+	Broadcast(MakeSendBuffer(res));
+}
+
+void FPSRoom::Handle_C_AIM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_AIM> pkt)
+{
+	auto client = static_pointer_cast<FPSClient>(session->client);
+	if (client->player == nullptr)
+		return;
+
+	auto player = players.find(client->player->id);
+	if (player == players.end())
+		return;
+
+	Protocol::S_AIM res;
+	res.set_playerid(player->second->id);
+
+	Broadcast(MakeSendBuffer(res));
+}
+
 const static float rayDistance = 1000;
 const static int damage = 10;
 void FPSRoom::Handle_C_SHOT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SHOT> pkt)

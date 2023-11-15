@@ -110,11 +110,11 @@ message S_SET_TRANSFORM
 message C_SET_ANIMATION
 {
 	int32 gameObjectId = 1;
-	map<string, AnimationParameter> params = 2;
+	map<int32, AnimationParameter> params = 2;
 }
 
 message S_SET_ANIMATION
 {
 	int32 gameObjectId = 1;
-	map<string, AnimationParameter> params = 2;
+	map<int32, AnimationParameter> params = 2;
 }

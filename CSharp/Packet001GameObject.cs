@@ -60,11 +60,11 @@ namespace Protocol {
             "ES5Qcm90b2NvbC5WZWN0b3IzIqsBCg9DX1NFVF9BTklNQVRJT04SFAoMZ2Ft",
             "ZU9iamVjdElkGAEgASgFEjUKBnBhcmFtcxgCIAMoCzIlLlByb3RvY29sLkNf",
             "U0VUX0FOSU1BVElPTi5QYXJhbXNFbnRyeRpLCgtQYXJhbXNFbnRyeRILCgNr",
-            "ZXkYASABKAkSKwoFdmFsdWUYAiABKAsyHC5Qcm90b2NvbC5BbmltYXRpb25Q",
+            "ZXkYASABKAUSKwoFdmFsdWUYAiABKAsyHC5Qcm90b2NvbC5BbmltYXRpb25Q",
             "YXJhbWV0ZXI6AjgBIqsBCg9TX1NFVF9BTklNQVRJT04SFAoMZ2FtZU9iamVj",
             "dElkGAEgASgFEjUKBnBhcmFtcxgCIAMoCzIlLlByb3RvY29sLlNfU0VUX0FO",
             "SU1BVElPTi5QYXJhbXNFbnRyeRpLCgtQYXJhbXNFbnRyeRILCgNrZXkYASAB",
-            "KAkSKwoFdmFsdWUYAiABKAsyHC5Qcm90b2NvbC5BbmltYXRpb25QYXJhbWV0",
+            "KAUSKwoFdmFsdWUYAiABKAsyHC5Qcm90b2NvbC5BbmltYXRpb25QYXJhbWV0",
             "ZXI6AjgBYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
@@ -4269,12 +4269,12 @@ namespace Protocol {
 
     /// <summary>Field number for the "params" field.</summary>
     public const int ParamsFieldNumber = 2;
-    private static readonly pbc::MapField<string, global::Protocol.AnimationParameter>.Codec _map_params_codec
-        = new pbc::MapField<string, global::Protocol.AnimationParameter>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForMessage(18, global::Protocol.AnimationParameter.Parser), 18);
-    private readonly pbc::MapField<string, global::Protocol.AnimationParameter> params_ = new pbc::MapField<string, global::Protocol.AnimationParameter>();
+    private static readonly pbc::MapField<int, global::Protocol.AnimationParameter>.Codec _map_params_codec
+        = new pbc::MapField<int, global::Protocol.AnimationParameter>.Codec(pb::FieldCodec.ForInt32(8, 0), pb::FieldCodec.ForMessage(18, global::Protocol.AnimationParameter.Parser), 18);
+    private readonly pbc::MapField<int, global::Protocol.AnimationParameter> params_ = new pbc::MapField<int, global::Protocol.AnimationParameter>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::MapField<string, global::Protocol.AnimationParameter> Params {
+    public pbc::MapField<int, global::Protocol.AnimationParameter> Params {
       get { return params_; }
     }
 
@@ -4484,12 +4484,12 @@ namespace Protocol {
 
     /// <summary>Field number for the "params" field.</summary>
     public const int ParamsFieldNumber = 2;
-    private static readonly pbc::MapField<string, global::Protocol.AnimationParameter>.Codec _map_params_codec
-        = new pbc::MapField<string, global::Protocol.AnimationParameter>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForMessage(18, global::Protocol.AnimationParameter.Parser), 18);
-    private readonly pbc::MapField<string, global::Protocol.AnimationParameter> params_ = new pbc::MapField<string, global::Protocol.AnimationParameter>();
+    private static readonly pbc::MapField<int, global::Protocol.AnimationParameter>.Codec _map_params_codec
+        = new pbc::MapField<int, global::Protocol.AnimationParameter>.Codec(pb::FieldCodec.ForInt32(8, 0), pb::FieldCodec.ForMessage(18, global::Protocol.AnimationParameter.Parser), 18);
+    private readonly pbc::MapField<int, global::Protocol.AnimationParameter> params_ = new pbc::MapField<int, global::Protocol.AnimationParameter>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::MapField<string, global::Protocol.AnimationParameter> Params {
+    public pbc::MapField<int, global::Protocol.AnimationParameter> Params {
       get { return params_; }
     }
 

@@ -52,6 +52,18 @@ enum : unsigned short
 	PKT_C_SHOT = 206,
 	PKT_S_SHOT = 207,
 	PKT_S_ATTACKED = 208,
+	PKT_C_FIRE = 209,
+	PKT_S_FIRE = 210,
+	PKT_C_LOOK = 211,
+	PKT_S_LOOK = 212,
+	PKT_C_RELOAD = 213,
+	PKT_S_RELOAD = 214,
+	PKT_C_LEAN = 215,
+	PKT_S_LEAN = 216,
+	PKT_C_CHANGE_WEAPON = 217,
+	PKT_S_CHANGE_WEAPON = 218,
+	PKT_C_AIM = 219,
+	PKT_S_AIM = 220,
 };
 
 template<typename T>
@@ -89,6 +101,12 @@ static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_INSTANTIATE_FPS_PL
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_SET_FPS_POSITION& pkt) { return MakeSendBuffer(pkt, PKT_C_SET_FPS_POSITION); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_SET_FPS_ROTATION& pkt) { return MakeSendBuffer(pkt, PKT_C_SET_FPS_ROTATION); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_SHOT& pkt) { return MakeSendBuffer(pkt, PKT_C_SHOT); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_FIRE& pkt) { return MakeSendBuffer(pkt, PKT_C_FIRE); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_LOOK& pkt) { return MakeSendBuffer(pkt, PKT_C_LOOK); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_RELOAD& pkt) { return MakeSendBuffer(pkt, PKT_C_RELOAD); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_LEAN& pkt) { return MakeSendBuffer(pkt, PKT_C_LEAN); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_CHANGE_WEAPON& pkt) { return MakeSendBuffer(pkt, PKT_C_CHANGE_WEAPON); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::C_AIM& pkt) { return MakeSendBuffer(pkt, PKT_C_AIM); }
 
 enum class HandlerState
 {
@@ -279,6 +297,54 @@ public:
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
+		PacketHandlers[PKT_S_FIRE] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_FIRE> pkt = std::make_shared<Protocol::S_FIRE>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_FIRE, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
+		};
+		PacketHandlers[PKT_S_LOOK] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_LOOK> pkt = std::make_shared<Protocol::S_LOOK>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_LOOK, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
+		};
+		PacketHandlers[PKT_S_RELOAD] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_RELOAD> pkt = std::make_shared<Protocol::S_RELOAD>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_RELOAD, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
+		};
+		PacketHandlers[PKT_S_LEAN] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_LEAN> pkt = std::make_shared<Protocol::S_LEAN>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_LEAN, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
+		};
+		PacketHandlers[PKT_S_CHANGE_WEAPON] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_CHANGE_WEAPON> pkt = std::make_shared<Protocol::S_CHANGE_WEAPON>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_CHANGE_WEAPON, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
+		};
+		PacketHandlers[PKT_S_AIM] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::S_AIM> pkt = std::make_shared<Protocol::S_AIM>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_S_AIM, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
+		};
 	}
 
 	void Init()
@@ -341,6 +407,12 @@ protected:
 	virtual void Handle_S_SET_FPS_ROTATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SET_FPS_ROTATION> pkt) {};
 	virtual void Handle_S_SHOT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_SHOT> pkt) {};
 	virtual void Handle_S_ATTACKED(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_ATTACKED> pkt) {};
+	virtual void Handle_S_FIRE(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_FIRE> pkt) {};
+	virtual void Handle_S_LOOK(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_LOOK> pkt) {};
+	virtual void Handle_S_RELOAD(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_RELOAD> pkt) {};
+	virtual void Handle_S_LEAN(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_LEAN> pkt) {};
+	virtual void Handle_S_CHANGE_WEAPON(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_CHANGE_WEAPON> pkt) {};
+	virtual void Handle_S_AIM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::S_AIM> pkt) {};
 
 private:
 	PacketHandlerFunc PacketHandlers[UINT16_MAX];

@@ -109,10 +109,10 @@ int main()
 
 	agones_sdk->Ready();
 
-	while (agones_state != "Allocated")
-	{
-		std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
-	}
+	//while (agones_state != "Allocated")
+	//{
+	//	std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
+	//}
 
 	agones::dev::sdk::GameServer gameServer;
 	if (agones_sdk->GameServer(&gameServer).ok())
@@ -131,15 +131,17 @@ int main()
 
 	GLogManager = std::make_shared<LogManager>(ioc);
 
-	if (MODE == "BASE")
-		GRoom = std::make_shared<GameObjectRoom>(ioc);
-	else if(MODE == "FPS")
-		GRoom = std::make_shared<FPSRoom>(ioc);
-	else
-	{
-		GLogManager->Log("Invalid Mode");
-		return 0;
-	}
+	//if (MODE == "BASE")
+	//	GRoom = std::make_shared<GameObjectRoom>(ioc);
+	//else if(MODE == "FPS")
+	//	GRoom = std::make_shared<FPSRoom>(ioc);
+	//else
+	//{
+	//	GLogManager->Log("Invalid Mode");
+	//	return 0;
+	//}
+
+	GRoom = std::make_shared<FPSRoom>(ioc);
 
 	GRoom->Init();
 

@@ -28,6 +28,12 @@ namespace Framework.Network
         private Action<Protocol.S_SET_FPS_ROTATION> S_SET_FPS_ROTATION_Handler;
         private Action<Protocol.S_SHOT> S_SHOT_Handler;
         private Action<Protocol.S_ATTACKED> S_ATTACKED_Handler;
+        private Action<Protocol.S_FIRE> S_FIRE_Handler;
+        private Action<Protocol.S_LOOK> S_LOOK_Handler;
+        private Action<Protocol.S_RELOAD> S_RELOAD_Handler;
+        private Action<Protocol.S_LEAN> S_LEAN_Handler;
+        private Action<Protocol.S_CHANGE_WEAPON> S_CHANGE_WEAPON_Handler;
+        private Action<Protocol.S_AIM> S_AIM_Handler;
 
         public PacketHandler()
         {
@@ -52,6 +58,12 @@ namespace Framework.Network
             Handlers.Add(205, _Handle_S_SET_FPS_ROTATION);
             Handlers.Add(207, _Handle_S_SHOT);
             Handlers.Add(208, _Handle_S_ATTACKED);
+            Handlers.Add(210, _Handle_S_FIRE);
+            Handlers.Add(212, _Handle_S_LOOK);
+            Handlers.Add(214, _Handle_S_RELOAD);
+            Handlers.Add(216, _Handle_S_LEAN);
+            Handlers.Add(218, _Handle_S_CHANGE_WEAPON);
+            Handlers.Add(220, _Handle_S_AIM);
         }
         public void AddHandler( Action<Protocol.S_ENTER> handler )
         {
@@ -304,6 +316,78 @@ namespace Framework.Network
         private void _Handle_S_ATTACKED( IMessage message )
         {
             S_ATTACKED_Handler?.Invoke((Protocol.S_ATTACKED)message);
+        }
+        public void AddHandler( Action<Protocol.S_FIRE> handler )
+        {
+            S_FIRE_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_FIRE> handler )
+        {
+            S_FIRE_Handler -= handler;
+        }
+        private void _Handle_S_FIRE( IMessage message )
+        {
+            S_FIRE_Handler?.Invoke((Protocol.S_FIRE)message);
+        }
+        public void AddHandler( Action<Protocol.S_LOOK> handler )
+        {
+            S_LOOK_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_LOOK> handler )
+        {
+            S_LOOK_Handler -= handler;
+        }
+        private void _Handle_S_LOOK( IMessage message )
+        {
+            S_LOOK_Handler?.Invoke((Protocol.S_LOOK)message);
+        }
+        public void AddHandler( Action<Protocol.S_RELOAD> handler )
+        {
+            S_RELOAD_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_RELOAD> handler )
+        {
+            S_RELOAD_Handler -= handler;
+        }
+        private void _Handle_S_RELOAD( IMessage message )
+        {
+            S_RELOAD_Handler?.Invoke((Protocol.S_RELOAD)message);
+        }
+        public void AddHandler( Action<Protocol.S_LEAN> handler )
+        {
+            S_LEAN_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_LEAN> handler )
+        {
+            S_LEAN_Handler -= handler;
+        }
+        private void _Handle_S_LEAN( IMessage message )
+        {
+            S_LEAN_Handler?.Invoke((Protocol.S_LEAN)message);
+        }
+        public void AddHandler( Action<Protocol.S_CHANGE_WEAPON> handler )
+        {
+            S_CHANGE_WEAPON_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_CHANGE_WEAPON> handler )
+        {
+            S_CHANGE_WEAPON_Handler -= handler;
+        }
+        private void _Handle_S_CHANGE_WEAPON( IMessage message )
+        {
+            S_CHANGE_WEAPON_Handler?.Invoke((Protocol.S_CHANGE_WEAPON)message);
+        }
+        public void AddHandler( Action<Protocol.S_AIM> handler )
+        {
+            S_AIM_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_AIM> handler )
+        {
+            S_AIM_Handler -= handler;
+        }
+        private void _Handle_S_AIM( IMessage message )
+        {
+            S_AIM_Handler?.Invoke((Protocol.S_AIM)message);
         }
     }
 }
