@@ -2,7 +2,7 @@
 
 file(GLOB_RECURSE src ./src/*.h ./src/*.cpp ./src/*.cc)
 
-add_executable (Server ${src})
+add_executable (Server ${src} "src/Util/Convert.h")
 
 target_include_directories(Server PUBLIC ./Include ../CoreLib/src)
 

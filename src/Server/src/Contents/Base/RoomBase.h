@@ -20,6 +20,8 @@ public:
 	virtual void Broadcast(shared_ptr<SendBuffer> sendBuffer);
 	virtual void BroadcastMany(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers);
 
+	void SendServerTime();
+
 protected:
 	virtual void Handle_INVALID(std::shared_ptr<GameSession> session, unsigned char* buffer, int len) override;
 
@@ -32,7 +34,6 @@ protected:
 	virtual std::shared_ptr<ClientBase> MakeClient(string clientId, std::shared_ptr<GameSession> session);
 
 private:
-	void SendServerTime();
 	void CheckIdle();
 
 protected:

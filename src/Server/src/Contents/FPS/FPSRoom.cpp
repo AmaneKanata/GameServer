@@ -5,32 +5,7 @@
 #include "FPSClient.h"
 #include "GameSession.h"
 
-void FPSRoom::HandleInit()
-{
-	shots = vector<queue<pair<btVector3, btVector3>>>(2);
-
-	collisionConfiguration = std::make_shared<btDefaultCollisionConfiguration>();
-	dispatcher = std::make_shared<btCollisionDispatcher>(collisionConfiguration.get());
-	broadphase = std::make_shared<btDbvtBroadphase>();
-	solver = std::make_shared<btSequentialImpulseConstraintSolver>();
-	dynamicsWorld = std::make_shared<btDiscreteDynamicsWorld>(dispatcher.get(), broadphase.get(), solver.get(), collisionConfiguration.get());
-
-	LoadMap();
-
-#ifdef _WIN32
-	if (FPS_DRAW)
-		InitDraw();
-#endif
-
-	RoomBase::HandleInit();
-
-	Post(&FPSRoom::Update);
-}
-
-void FPSRoom::HandleClose()
-{
-	RoomBase::HandleClose();
-}
+void FPSRoom::HandleInit() {}
 
 void FPSRoom::Leave(std::shared_ptr<ClientBase> client, std::string code)
 {
@@ -45,138 +20,72 @@ void FPSRoom::Leave(std::shared_ptr<ClientBase> client, std::string code)
 	RoomBase::Leave(client, code);
 }
 
-void FPSRoom::RemovePlayer(int playerId)
+void FPSRoom::Handle_C_ENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_ENTER> pkt)
 {
-	auto player = players.find(playerId);
-	if (player == players.end())
-		return;
-
-	dynamicsWorld->removeCollisionObject(player->second->collisionObject.get());
-
-	players.erase(player);
-
-	Protocol::S_REMOVE_GAME_OBJECT remove;
-	remove.add_gameobjects(playerId);
-	Broadcast(MakeSendBuffer(remove));
-}
-
-void FPSRoom::Update()
-{
-	long long now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-
-	std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers = std::make_shared<std::vector<std::shared_ptr<SendBuffer>>>();
-
-	for(auto& player : players)
+	if (roomState != RoomState::Idle)
 	{
-		if (player.second->isRotationDirty)
-		{
-			sendBuffers->push_back(MakeSendBuffer(player.second->setRotation));
-			player.second->isRotationDirty = false;
-			player.second->transform.setRotation(player.second->rotation);
-		}
-		
-		if (!player.second->velocity.isZero())
-		{
-			int timeGap = now - player.second->timestamp;
-			btVector3 newPosition = player.second->position + player.second->velocity * timeGap;
-			player.second->transform.setOrigin(newPosition);
-		}
-
-		player.second->collisionObject->setWorldTransform(player.second->transform);
+		session->Disconnect();
+		return;
 	}
 
-	dynamicsWorld->updateAabbs();
+	{
+		auto client = clients.find(pkt->clientid());
+		if (client != clients.end())
+		{
+			Post(&FPSRoom::Leave, client->second, std::string("DUPLICATED"));
+			Post(&FPSRoom::Handle_C_ENTER, session, std::move(pkt));
+			return;
+		}
+	}
 
-	if (sendBuffers->size() > 0)
-		BroadcastMany(sendBuffers);
+	auto client = MakeClient(pkt->clientid(), session);
 
-	DelayPost(50, &FPSRoom::Update);
+	clients.insert({ pkt->clientid(), client });
+
+	Protocol::S_ENTER res;
+	res.set_result("SUCCESS");
+	client->Send(MakeSendBuffer(res));
+
+	Protocol::S_ADD_CLIENT addClient;
+	auto clientInfo = addClient.add_clientinfos();
+	clientInfo->set_clientid(pkt->clientid());
+	Broadcast(MakeSendBuffer(addClient));
+
+	if (clients.size() == 2)
+	{
+		InitGame();
+
+		roomState = RoomState::Loading;
+
+		Protocol::S_FPS_LOAD load;
+		Broadcast(MakeSendBuffer(load));
+	}
 }
 
-void FPSRoom::Handle_C_INSTANTIATE_FPS_PLAYER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_INSTANTIATE_FPS_PLAYER> pkt)
+void FPSRoom::Handle_C_FPS_LOAD_COMPLETE(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_LOAD_COMPLETE> pkt)
 {
 	auto client = static_pointer_cast<FPSClient>(session->client);
 	if (client == nullptr)
 		return;
 
-	InstantiatePlayer(client, pkt);
+	loadCompleteCount++;
 
-	//auto player = std::make_shared<FPSPlayer>(client->clientId, idGenerator++, pkt);
+	std::shared_ptr<Protocol::C_INSTANTIATE_FPS_PLAYER> ins = std::make_shared<Protocol::C_INSTANTIATE_FPS_PLAYER>();
+	ins->set_allocated_position(new Protocol::Vector3());
+	ins->set_allocated_rotation(new Protocol::Vector3());
+	InstantiatePlayer(client, ins);
 
-	//players.insert({ player->id, player });
-	//
-	//client->player = player;
-
-	//dynamicsWorld->addCollisionObject(player->collisionObject.get());
-
-	//{
-	//	Protocol::S_INSTANTIATE_GAME_OBJECT res;
-	//	res.set_gameobjectid(player->id);
-	//	res.set_success(true);
-	//	session->Send(MakeSendBuffer(res));
-	//}
-
-	//{
-	//	Protocol::S_ADD_FPS_PLAYER res;
-	//	auto playerInfo = res.add_gameobjects();
-	//	playerInfo->mutable_position()->CopyFrom(player->setPosition.position());
-	//	playerInfo->mutable_velocity()->CopyFrom(player->setPosition.velocity());
-	//	playerInfo->mutable_rotation()->CopyFrom(player->setRotation.rotation());
-	//	playerInfo->set_playerid(player->id);
-	//	playerInfo->set_hp(player->hp);
-	//	playerInfo->set_ownerid(player->ownerId);
-
-	//	Broadcast(MakeSendBuffer(res));
-	//}
-}
-
-void FPSRoom::InstantiatePlayer(std::shared_ptr<FPSClient> client, std::shared_ptr<Protocol::C_INSTANTIATE_FPS_PLAYER> pkt)
-{
-	auto player = std::make_shared<FPSPlayer>(client->clientId, idGenerator++, pkt);
-
-	players.insert({ player->id, player });
-
-	client->player = player;
-
-	dynamicsWorld->addCollisionObject(player->collisionObject.get());
-
+	if (loadCompleteCount == 2)
 	{
-		Protocol::S_INSTANTIATE_GAME_OBJECT res;
-		res.set_gameobjectid(player->id);
-		res.set_success(true);
-		client->Send(MakeSendBuffer(res));
+		loadCompleteCount = 0;
+
+		StartGame();
+
+		roomState = RoomState::Playing;
+
+		Protocol::S_FPS_START start;
+		Broadcast(MakeSendBuffer(start));
 	}
-
-	{
-		Protocol::S_ADD_FPS_PLAYER res;
-		auto playerInfo = res.add_gameobjects();
-		playerInfo->mutable_position()->CopyFrom(player->setPosition.position());
-		playerInfo->mutable_velocity()->CopyFrom(player->setPosition.velocity());
-		playerInfo->mutable_rotation()->CopyFrom(player->setRotation.rotation());
-		playerInfo->set_playerid(player->id);
-		playerInfo->set_hp(player->hp);
-		playerInfo->set_ownerid(player->ownerId);
-
-		Broadcast(MakeSendBuffer(res));
-	}
-}
-
-void FPSRoom::Handle_C_GET_GAME_OBJECT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_GET_GAME_OBJECT> pkt)
-{
-	Protocol::S_ADD_FPS_PLAYER res;
-
-	for (auto& player : players)
-	{
-		auto playerInfo = res.add_gameobjects();
-		playerInfo->mutable_position()->CopyFrom(player.second->setPosition.position());
-		playerInfo->mutable_velocity()->CopyFrom(player.second->setPosition.velocity());
-		playerInfo->mutable_rotation()->CopyFrom(player.second->setRotation.rotation());
-		playerInfo->set_playerid(player.second->id);
-		playerInfo->set_hp(player.second->hp);
-		playerInfo->set_ownerid(player.second->ownerId);
-	}
-
-	session->Send(MakeSendBuffer(res));
 }
 
 void FPSRoom::Handle_C_SET_FPS_POSITION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_FPS_POSITION> pkt)
@@ -189,9 +98,17 @@ void FPSRoom::Handle_C_SET_FPS_POSITION(std::shared_ptr<GameSession> session, st
 	if (player == players.end())
 		return;
 
-	player->second->UpdatePosition(pkt->timestamp(), pkt->release_position(), pkt->release_velocity());
+	player->second->SetPosition(pkt->position());
+	player->second->SetVelocity(pkt->velocity());
+	player->second->timestamp = pkt->timestamp();
 
-	Broadcast(MakeSendBuffer(player->second->setPosition));
+	Protocol::S_SET_FPS_POSITION res;
+	res.set_playerid(player->second->id);
+	res.set_allocated_position(pkt->release_position());
+	res.set_allocated_velocity(pkt->release_velocity());
+	res.set_timestamp(pkt->timestamp());
+
+	Broadcast(MakeSendBuffer(res));
 }
 
 void FPSRoom::Handle_C_SET_FPS_ROTATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_FPS_ROTATION> pkt)
@@ -204,10 +121,16 @@ void FPSRoom::Handle_C_SET_FPS_ROTATION(std::shared_ptr<GameSession> session, st
 	if (player == players.end())
 		return;
 
-	player->second->UpdateRotation(pkt->release_rotation());
+	player->second->SetRotation(pkt->rotation());
+
+	Protocol::S_SET_FPS_ROTATION res;
+	res.set_playerid(player->second->id);
+	res.set_allocated_rotation(pkt->release_rotation());
+
+	Broadcast(MakeSendBuffer(res));
 }
 
-void FPSRoom::Handle_C_SET_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_ANIMATION> pkt)
+void FPSRoom::Handle_C_FPS_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_ANIMATION> pkt)
 {
 	auto client = static_pointer_cast<FPSClient>(session->client);
 	if (client->player == nullptr)
@@ -217,9 +140,11 @@ void FPSRoom::Handle_C_SET_ANIMATION(std::shared_ptr<GameSession> session, std::
 	if (player == players.end())
 		return;
 
-	player->second->UpdateAnimation(pkt);
+	Protocol::S_FPS_ANIMATION res;
+	res.set_playerid(player->second->id);
+	res.set_allocated_fpsanimation(pkt->release_fpsanimation());
 
-	Broadcast(MakeSendBuffer(player->second->setAnimation));
+	Broadcast(MakeSendBuffer(res));
 }
 
 void FPSRoom::Handle_C_RELOAD(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_RELOAD> pkt)
@@ -256,27 +181,8 @@ void FPSRoom::Handle_C_CHANGE_WEAPON(std::shared_ptr<GameSession> session, std::
 	Broadcast(MakeSendBuffer(res));
 }
 
-void FPSRoom::Handle_C_FPS_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_ANIMATION> pkt)
-{
-	auto client = static_pointer_cast<FPSClient>(session->client);
-	if (client->player == nullptr)
-		return;
-
-	auto player = players.find(client->player->id);
-	if (player == players.end())
-		return;
-
-	Protocol::S_FPS_ANIMATION res;
-	res.set_playerid(player->second->id);
-	res.set_allocated_fpsanimation(pkt->release_fpsanimation());
-
-	Broadcast(MakeSendBuffer(res));
-}
-
-const static float rayDistance = 1000;
-const static int damage = 10;
 void FPSRoom::Handle_C_SHOOT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SHOOT> pkt)
-{	
+{
 	auto client = static_pointer_cast<FPSClient>(session->client);
 	if (client->player == nullptr)
 		return;
@@ -292,13 +198,11 @@ void FPSRoom::Handle_C_SHOOT(std::shared_ptr<GameSession> session, std::shared_p
 	btCollisionWorld::ClosestRayResultCallback rayCallback(from, to);
 	dynamicsWorld->rayTest(from, to, rayCallback);
 
-	if(rayCallback.hasHit())
+	if (rayCallback.hasHit())
 	{
-		shots[0].push({from, rayCallback.m_hitPointWorld});
+		shots[0].push({ from, rayCallback.m_hitPointWorld });
 
 		auto id = rayCallback.m_collisionObject->getUserIndex();
-
-		//GLogManager->Log("HIt : ", std::to_string(id));
 
 		auto player = players.find(id);
 		if (player == players.end())
@@ -306,7 +210,7 @@ void FPSRoom::Handle_C_SHOOT(std::shared_ptr<GameSession> session, std::shared_p
 
 		player->second->hp -= damage;
 
-		if(player->second->hp == 0)
+		if (player->second->hp == 0)
 		{
 			Protocol::S_REMOVE_GAME_OBJECT remove;
 			remove.add_gameobjects(player->second->id);
@@ -315,16 +219,23 @@ void FPSRoom::Handle_C_SHOOT(std::shared_ptr<GameSession> session, std::shared_p
 			{
 				auto owner = clients.find(player->second->ownerId);
 				if (owner != clients.end())
-				{
-					std::shared_ptr<Protocol::C_INSTANTIATE_FPS_PLAYER> ins = std::make_shared<Protocol::C_INSTANTIATE_FPS_PLAYER>();
-					ins->set_allocated_position(new Protocol::Vector3());
-					ins->set_allocated_rotation(new Protocol::Vector3());
-					DelayPost(5000, &FPSRoom::InstantiatePlayer, std::static_pointer_cast<FPSClient>(owner->second), ins);
-				}
+					DelayPost(5000, 
+						&FPSRoom::InstantiatePlayer, 
+						std::static_pointer_cast<FPSClient>(owner->second),
+						btVector3(0, 0, 0),
+						btQuaternion(0, 0, 0, 0));
 			}
 
 			dynamicsWorld->removeCollisionObject(player->second->collisionObject.get());
 			players.erase(player);
+
+			if (player->second->id == occupierId)
+			{
+				GLogManager->Log("Player ", std::to_string(client->player->id), " Scored!");
+				itemState = ItemState::Respawning;
+				DelayPost(5000, &FPSRoom::SpawnItem, btVector3(0, 1, 7));
+				occupierId = -1;
+			}
 		}
 
 		Protocol::S_ATTACKED res;
@@ -335,8 +246,226 @@ void FPSRoom::Handle_C_SHOOT(std::shared_ptr<GameSession> session, std::shared_p
 	}
 	else
 	{
-		shots[0].push({from, to});
+		shots[0].push({ from, to });
 	}
+}
+
+void FPSRoom::InstantiatePlayer(std::shared_ptr<FPSClient> client, btVector3 position, btQuaternion rotation)
+{
+	auto player = std::make_shared<FPSPlayer>(client->clientId, idGenerator++, position, rotation);
+
+	players.insert({ player->id, player });
+
+	client->player = player;
+
+	dynamicsWorld->addCollisionObject(player->collisionObject.get());
+
+	{
+		Protocol::S_INSTANTIATE_GAME_OBJECT res;
+		res.set_gameobjectid(player->id);
+		res.set_success(true);
+		client->Send(MakeSendBuffer(res));
+	}
+
+	{
+		Protocol::S_ADD_FPS_PLAYER res;
+		auto playerInfo = res.add_gameobjects();
+		playerInfo->set_allocated_position(ConvertVector3(position));
+		playerInfo->set_allocated_rotation(ConvertQuaternion(rotation));
+		playerInfo->set_playerid(player->id);
+		playerInfo->set_hp(player->hp);
+		playerInfo->set_ownerid(player->ownerId);
+
+		Broadcast(MakeSendBuffer(res));
+	}
+}
+
+void FPSRoom::RemovePlayer(int playerId)
+{
+	auto player = players.find(playerId);
+	if (player == players.end())
+		return;
+
+	dynamicsWorld->removeCollisionObject(player->second->collisionObject.get());
+
+	players.erase(player);
+
+	Protocol::S_REMOVE_GAME_OBJECT remove;
+	remove.add_gameobjects(playerId);
+	Broadcast(MakeSendBuffer(remove));
+}
+
+void FPSRoom::SpawnItem(btVector3 position)
+{
+	itemPosition = position;
+	itemState = ItemState::Idle;
+	currentOccupyTime = 0;
+
+	Protocol::S_FPS_SPAWN_ITEM spawn;
+	auto itemPosition = spawn.mutable_position();
+	itemPosition->set_x(position.x());
+	itemPosition->set_y(position.y());
+	itemPosition->set_z(position.z());
+	Broadcast(MakeSendBuffer(spawn));
+}
+
+void FPSRoom::InitGame()
+{
+	shots = vector<queue<pair<btVector3, btVector3>>>(2);
+
+	collisionConfiguration = std::make_shared<btDefaultCollisionConfiguration>();
+	dispatcher = std::make_shared<btCollisionDispatcher>(collisionConfiguration.get());
+	broadphase = std::make_shared<btDbvtBroadphase>();
+	solver = std::make_shared<btSequentialImpulseConstraintSolver>();
+	
+	dynamicsWorld = std::make_shared<btDiscreteDynamicsWorld>(dispatcher.get(), broadphase.get(), solver.get(), collisionConfiguration.get());
+
+	LoadMap();
+
+#ifdef _WIN32
+	if (FPS_DRAW)
+		InitDraw();
+#endif
+}
+
+void FPSRoom::StartGame()
+{
+	Post(&RoomBase::SendServerTime);
+	Post(&FPSRoom::Update);
+
+	Protocol::S_FPS_ANNOUNCE anno;
+	anno.set_message("Item Spawn after 5 Second");
+	Broadcast(MakeSendBuffer(anno));
+	
+	DelayPost(5000, &FPSRoom::SpawnItem, btVector3(0, 1, 7));
+}
+
+void FPSRoom::Update()
+{
+	long long now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+
+	std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers = std::make_shared<std::vector<std::shared_ptr<SendBuffer>>>();
+
+	switch (itemState)
+	{
+	case ItemState::Idle:
+	{
+		int cnt = 0;
+		for (auto& player : players)
+		{
+			if ((player.second->position - itemPosition).length() < occupyDistance)
+				cnt++;
+		}
+
+		if (cnt > 0)
+			itemState = ItemState::BeingOccupied;
+		else
+		{
+			int prevOccupyTime = currentOccupyTime;
+
+			if (currentOccupyTime >= occupyTimeCap)
+				currentOccupyTime = max(currentOccupyTime - 50, occupyTimeCap);
+			else
+				currentOccupyTime = max(currentOccupyTime - 50, 0);
+
+			if (prevOccupyTime != currentOccupyTime)
+			{
+				Protocol::S_FPS_ITEM_OCCUPY_PROGRESS_STATE progress;
+				progress.set_occupyprogressstate(currentOccupyTime);
+				sendBuffers->push_back(MakeSendBuffer(progress));
+			}
+		}
+
+		break;
+	}
+	case ItemState::BeingOccupied:
+	{
+		std::shared_ptr<FPSPlayer> occupier = nullptr;
+		int cnt = 0;
+		for (auto& player : players)
+		{
+			if ((player.second->position - itemPosition).length() < occupyDistance)
+			{
+				if (occupier == nullptr)
+				{
+					cnt++;
+					occupier = player.second;
+				}
+				else
+				{
+					cnt++;
+					break;
+				}
+			}
+		}
+
+		if (cnt == 0)
+		{
+			itemState = ItemState::Idle;
+			break;
+		}
+		
+		if (cnt == 1)
+		{
+			currentOccupyTime += 50;
+
+			{
+				Protocol::S_FPS_ITEM_OCCUPY_PROGRESS_STATE progress;
+				progress.set_occupyprogressstate(currentOccupyTime);
+				sendBuffers->push_back(MakeSendBuffer(progress));
+			}
+
+			if (currentOccupyTime >= totalOccupyTime)
+			{
+				itemState = ItemState::Occupied;
+
+				occupierId = occupier->id;
+
+				Protocol::S_FPS_ITEM_OCCUPIED occupied;
+				occupied.set_occupier(occupier->id);
+				sendBuffers->push_back(MakeSendBuffer(occupied));
+			}
+		}
+
+		break;
+	}
+	case ItemState::Occupied:
+	{
+		auto player = players.find(occupierId);
+
+		if ((player->second->position - destination).length() < 1)
+		{
+			GLogManager->Log("Player ", std::to_string(occupierId), " Scored!");
+
+			itemState = ItemState::Respawning;
+
+			DelayPost(5000, &FPSRoom::SpawnItem, btVector3(0, 1, 7));
+
+			occupierId = -1;
+		}
+
+		break;
+	}
+	}
+
+	for(auto& player : players)
+	{		
+		if (!player.second->velocity.isZero())
+		{
+			int timeGap = now - player.second->timestamp;
+			btVector3 newPosition = player.second->position + player.second->velocity * timeGap;
+			player.second->transform.setOrigin(newPosition);
+		}
+
+		player.second->UpdateTransform();
+	}
+
+	dynamicsWorld->updateAabbs();
+
+	if (sendBuffers->size() > 0)
+		BroadcastMany(sendBuffers);
+
+	DelayPost(50, &FPSRoom::Update);
 }
 
 std::shared_ptr<ClientBase> FPSRoom::MakeClient(string clientId, std::shared_ptr<GameSession> session)
@@ -346,6 +475,32 @@ std::shared_ptr<ClientBase> FPSRoom::MakeClient(string clientId, std::shared_ptr
 	return client;
 }
 
+void FPSRoom::LoadMap()
+{
+	string mapJsonString = 
+		"[{ \"SizeX\": 100.00,  \"SizeY\": 0.00,  \"SizeZ\": 100.00,  \"PositionX\": 0.00,  \"PositionY\": 0.00,  \"PositionZ\": 0.00,  \"RotationX\": 0.00,  \"RotationY\": 0.00,  \"RotationZ\": 0.00   },   {  \"SizeX\": 1.00,  \"SizeY\": 3.00,  \"SizeZ\": 1.00,  \"PositionX\": 0.00,  \"PositionY\": 1.50,  \"PositionZ\": 9.25,  \"RotationX\": 0.00,  \"RotationY\": 0.00,  \"RotationZ\": 0.00   },   {  \"SizeX\": 1.00,  \"SizeY\": 5.00,  \"SizeZ\": 1.00,  \"PositionX\": -1.00,  \"PositionY\": 2.50,  \"PositionZ\": -3.50,  \"RotationX\": 0.00,  \"RotationY\": 0.00,  \"RotationZ\": 0.00 }]";
+	nlohmann::json mapJson = nlohmann::json::parse(mapJsonString);
+
+	for (int i = 0; i < mapJson.size(); i++)
+	{
+		nlohmann::json mapObject = mapJson[i];
+
+		btCollisionShape* boxShape = new btBoxShape(btVector3(mapObject["SizeX"].get<float>() / 2, mapObject["SizeY"].get<float>() / 2, mapObject["SizeZ"].get<float>() / 2));
+		btCollisionObject* boxCollisionObject = new btCollisionObject();
+
+		boxCollisionObject->setUserIndex(idGenerator++);
+
+		boxCollisionObject->setCollisionShape(boxShape);
+
+		btTransform transform;
+		transform.setIdentity();
+		transform.setOrigin(btVector3(mapObject["PositionX"].get<float>(), mapObject["PositionY"].get<float>(), mapObject["PositionZ"].get<float>()));
+		transform.setRotation(btQuaternion(mapObject["RotationX"].get<float>(), mapObject["RotationY"].get<float>(), mapObject["RotationZ"].get<float>()));
+		boxCollisionObject->setWorldTransform(transform);
+
+		dynamicsWorld->addCollisionObject(boxCollisionObject);
+	}
+}
 
 #if _WIN32
 #include <GLFW/glfw3.h>
@@ -372,8 +527,8 @@ void FPSRoom::Draw()
 			auto end = shots[i].front().second;
 			shots[i].pop();
 
-			if(i + 1 != shots.size())
-				shots[i + 1].push({start, end});
+			if (i + 1 != shots.size())
+				shots[i + 1].push({ start, end });
 
 			glVertex3f(start.x(), start.y(), start.z());
 			glVertex3f(end.x(), end.y(), end.z());
@@ -485,30 +640,3 @@ void FPSRoom::InitDraw()
 		});
 }
 #endif
-
-void FPSRoom::LoadMap()
-{
-	string mapJsonString = 
-		"[{ \"SizeX\": 100.00,  \"SizeY\": 0.00,  \"SizeZ\": 100.00,  \"PositionX\": 0.00,  \"PositionY\": 0.00,  \"PositionZ\": 0.00,  \"RotationX\": 0.00,  \"RotationY\": 0.00,  \"RotationZ\": 0.00   },   {  \"SizeX\": 1.00,  \"SizeY\": 3.00,  \"SizeZ\": 1.00,  \"PositionX\": 0.00,  \"PositionY\": 1.50,  \"PositionZ\": 9.25,  \"RotationX\": 0.00,  \"RotationY\": 0.00,  \"RotationZ\": 0.00   },   {  \"SizeX\": 1.00,  \"SizeY\": 5.00,  \"SizeZ\": 1.00,  \"PositionX\": -1.00,  \"PositionY\": 2.50,  \"PositionZ\": -3.50,  \"RotationX\": 0.00,  \"RotationY\": 0.00,  \"RotationZ\": 0.00 }]";
-	nlohmann::json mapJson = nlohmann::json::parse(mapJsonString);
-
-	for (int i = 0; i < mapJson.size(); i++)
-	{
-		nlohmann::json mapObject = mapJson[i];
-
-		btCollisionShape* boxShape = new btBoxShape(btVector3(mapObject["SizeX"].get<float>() / 2, mapObject["SizeY"].get<float>() / 2, mapObject["SizeZ"].get<float>() / 2));
-		btCollisionObject* boxCollisionObject = new btCollisionObject();
-
-		boxCollisionObject->setUserIndex(idGenerator++);
-
-		boxCollisionObject->setCollisionShape(boxShape);
-
-		btTransform transform;
-		transform.setIdentity();
-		transform.setOrigin(btVector3(mapObject["PositionX"].get<float>(), mapObject["PositionY"].get<float>(), mapObject["PositionZ"].get<float>()));
-		transform.setRotation(btQuaternion(mapObject["RotationX"].get<float>(), mapObject["RotationY"].get<float>(), mapObject["RotationZ"].get<float>()));
-		boxCollisionObject->setWorldTransform(transform);
-
-		dynamicsWorld->addCollisionObject(boxCollisionObject);
-	}
-}

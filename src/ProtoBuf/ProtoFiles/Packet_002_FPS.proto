@@ -3,10 +3,12 @@ package Protocol;
 
 import "Packet_001_GameObject.proto";
 
-message C_INSTANTIATE_FPS_PLAYER
+message Quaternion
 {
-	Vector3 position = 1;
-	Vector3 rotation = 2;
+	float x = 1;
+	float y = 2;
+	float z = 3;
+	float w = 4;
 }
 
 message S_ADD_FPS_PLAYER
@@ -17,8 +19,7 @@ message S_ADD_FPS_PLAYER
 		string ownerId = 2;
 		int32 hp = 3;
 		Vector3 position = 4;
-		Vector3 velocity = 5;
-		Vector3 rotation = 6;
+		Quaternion rotation = 5;
 	}
 	repeated GameObjectInfo gameObjects = 1;
 }
@@ -42,13 +43,13 @@ message S_SET_FPS_POSITION
 message C_SET_FPS_ROTATION
 {
 	int32 playerId = 1;
-	Vector3 rotation = 2;
+	Quaternion rotation = 2;
 }
 
 message S_SET_FPS_ROTATION
 {
 	int32 playerId = 1;
-	Vector3 rotation = 2;
+	Quaternion rotation = 2;
 }
 
 message C_SHOOT
@@ -120,4 +121,38 @@ message S_FPS_ANIMATION
 {
 	int32 playerId = 1;
 	FPS_Animation fpsAnimation = 2;
+}
+
+//Game
+
+message S_FPS_LOAD
+{
+}
+
+message S_FPS_START
+{
+}
+
+message C_FPS_LOAD_COMPLETE
+{
+}
+
+message S_FPS_ANNOUNCE
+{
+	string message = 1;
+}
+
+message S_FPS_SPAWN_ITEM
+{
+	Vector3 position = 1;
+}
+
+message S_FPS_ITEM_OCCUPY_PROGRESS_STATE
+{
+	int32 occupyProgressState = 1;
+}
+
+message S_FPS_ITEM_OCCUPIED
+{
+	int32 occupier = 1;
 }

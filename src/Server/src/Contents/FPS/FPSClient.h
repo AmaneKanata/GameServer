@@ -13,4 +13,7 @@ public:
 
 public:
 	std::shared_ptr<FPSPlayer> player;
+
+	bool isReady = false;
+	bool isLoaded = false;
 };

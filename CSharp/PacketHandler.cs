@@ -31,6 +31,12 @@ namespace Framework.Network
         private Action<Protocol.S_CHANGE_WEAPON> S_CHANGE_WEAPON_Handler;
         private Action<Protocol.S_RELOAD> S_RELOAD_Handler;
         private Action<Protocol.S_FPS_ANIMATION> S_FPS_ANIMATION_Handler;
+        private Action<Protocol.S_FPS_LOAD> S_FPS_LOAD_Handler;
+        private Action<Protocol.S_FPS_START> S_FPS_START_Handler;
+        private Action<Protocol.S_FPS_ANNOUNCE> S_FPS_ANNOUNCE_Handler;
+        private Action<Protocol.S_FPS_SPAWN_ITEM> S_FPS_SPAWN_ITEM_Handler;
+        private Action<Protocol.S_FPS_ITEM_OCCUPY_PROGRESS_STATE> S_FPS_ITEM_OCCUPY_PROGRESS_STATE_Handler;
+        private Action<Protocol.S_FPS_ITEM_OCCUPIED> S_FPS_ITEM_OCCUPIED_Handler;
 
         public PacketHandler()
         {
@@ -50,14 +56,20 @@ namespace Framework.Network
             Handlers.Add(110, _Handle_S_SET_GAME_OBJECT_OWNER);
             Handlers.Add(112, _Handle_S_SET_TRANSFORM);
             Handlers.Add(114, _Handle_S_SET_ANIMATION);
-            Handlers.Add(201, _Handle_S_ADD_FPS_PLAYER);
-            Handlers.Add(203, _Handle_S_SET_FPS_POSITION);
-            Handlers.Add(205, _Handle_S_SET_FPS_ROTATION);
-            Handlers.Add(207, _Handle_S_SHOOT);
-            Handlers.Add(208, _Handle_S_ATTACKED);
-            Handlers.Add(210, _Handle_S_CHANGE_WEAPON);
-            Handlers.Add(212, _Handle_S_RELOAD);
-            Handlers.Add(214, _Handle_S_FPS_ANIMATION);
+            Handlers.Add(200, _Handle_S_ADD_FPS_PLAYER);
+            Handlers.Add(202, _Handle_S_SET_FPS_POSITION);
+            Handlers.Add(204, _Handle_S_SET_FPS_ROTATION);
+            Handlers.Add(206, _Handle_S_SHOOT);
+            Handlers.Add(207, _Handle_S_ATTACKED);
+            Handlers.Add(209, _Handle_S_CHANGE_WEAPON);
+            Handlers.Add(211, _Handle_S_RELOAD);
+            Handlers.Add(213, _Handle_S_FPS_ANIMATION);
+            Handlers.Add(214, _Handle_S_FPS_LOAD);
+            Handlers.Add(215, _Handle_S_FPS_START);
+            Handlers.Add(217, _Handle_S_FPS_ANNOUNCE);
+            Handlers.Add(218, _Handle_S_FPS_SPAWN_ITEM);
+            Handlers.Add(219, _Handle_S_FPS_ITEM_OCCUPY_PROGRESS_STATE);
+            Handlers.Add(220, _Handle_S_FPS_ITEM_OCCUPIED);
         }
         public void AddHandler( Action<Protocol.S_ENTER> handler )
         {
@@ -346,6 +358,78 @@ namespace Framework.Network
         private void _Handle_S_FPS_ANIMATION( IMessage message )
         {
             S_FPS_ANIMATION_Handler?.Invoke((Protocol.S_FPS_ANIMATION)message);
+        }
+        public void AddHandler( Action<Protocol.S_FPS_LOAD> handler )
+        {
+            S_FPS_LOAD_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_FPS_LOAD> handler )
+        {
+            S_FPS_LOAD_Handler -= handler;
+        }
+        private void _Handle_S_FPS_LOAD( IMessage message )
+        {
+            S_FPS_LOAD_Handler?.Invoke((Protocol.S_FPS_LOAD)message);
+        }
+        public void AddHandler( Action<Protocol.S_FPS_START> handler )
+        {
+            S_FPS_START_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_FPS_START> handler )
+        {
+            S_FPS_START_Handler -= handler;
+        }
+        private void _Handle_S_FPS_START( IMessage message )
+        {
+            S_FPS_START_Handler?.Invoke((Protocol.S_FPS_START)message);
+        }
+        public void AddHandler( Action<Protocol.S_FPS_ANNOUNCE> handler )
+        {
+            S_FPS_ANNOUNCE_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_FPS_ANNOUNCE> handler )
+        {
+            S_FPS_ANNOUNCE_Handler -= handler;
+        }
+        private void _Handle_S_FPS_ANNOUNCE( IMessage message )
+        {
+            S_FPS_ANNOUNCE_Handler?.Invoke((Protocol.S_FPS_ANNOUNCE)message);
+        }
+        public void AddHandler( Action<Protocol.S_FPS_SPAWN_ITEM> handler )
+        {
+            S_FPS_SPAWN_ITEM_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_FPS_SPAWN_ITEM> handler )
+        {
+            S_FPS_SPAWN_ITEM_Handler -= handler;
+        }
+        private void _Handle_S_FPS_SPAWN_ITEM( IMessage message )
+        {
+            S_FPS_SPAWN_ITEM_Handler?.Invoke((Protocol.S_FPS_SPAWN_ITEM)message);
+        }
+        public void AddHandler( Action<Protocol.S_FPS_ITEM_OCCUPY_PROGRESS_STATE> handler )
+        {
+            S_FPS_ITEM_OCCUPY_PROGRESS_STATE_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_FPS_ITEM_OCCUPY_PROGRESS_STATE> handler )
+        {
+            S_FPS_ITEM_OCCUPY_PROGRESS_STATE_Handler -= handler;
+        }
+        private void _Handle_S_FPS_ITEM_OCCUPY_PROGRESS_STATE( IMessage message )
+        {
+            S_FPS_ITEM_OCCUPY_PROGRESS_STATE_Handler?.Invoke((Protocol.S_FPS_ITEM_OCCUPY_PROGRESS_STATE)message);
+        }
+        public void AddHandler( Action<Protocol.S_FPS_ITEM_OCCUPIED> handler )
+        {
+            S_FPS_ITEM_OCCUPIED_Handler += handler;
+        }
+        public void RemoveHandler( Action<Protocol.S_FPS_ITEM_OCCUPIED> handler )
+        {
+            S_FPS_ITEM_OCCUPIED_Handler -= handler;
+        }
+        private void _Handle_S_FPS_ITEM_OCCUPIED( IMessage message )
+        {
+            S_FPS_ITEM_OCCUPIED_Handler?.Invoke((Protocol.S_FPS_ITEM_OCCUPIED)message);
         }
     }
 }
