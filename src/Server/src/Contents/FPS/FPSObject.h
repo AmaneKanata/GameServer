@@ -4,7 +4,6 @@
 #include <math.h>
 #include <btBulletCollisionCommon.h>
 
-#include "Protocols.h"
 #include "Server_Singleton.h"
 #include "LogManager.h"
 
@@ -29,6 +28,8 @@ public:
 		//boxTransform.setIdentity();
 		//boxTransform.setOrigin(btVector3(0, 0, 0.5f));
 		//compound->addChildShape(boxTransform, box);
+		//collisionObject->setCollisionShape(compound);
+		
 		//btBoxShape* box = new btBoxShape(btVector3(0.5f, 1.0f, 0.5f));
 		//collisionObject->setCollisionShape(box);
 
@@ -46,23 +47,6 @@ public:
 		this->timestamp = now;
 		this->position = position;
 		this->velocity = btVector3(0, 0, 0);
-		this->rotation = rotation;
-	}
-
-	void SetPosition(Protocol::Vector3 position)
-	{
-		this->position.setValue(position.x() * -1, position.y() + 1.0f, position.z());
-	}
-
-	btVector3 SetVelocity(Protocol::Vector3 velocity)
-	{
-		this->velocity.setValue(velocity.x() * -1, velocity.y(), velocity.z());
-	}
-
-	btQuaternion SetRotation(Protocol::Vector3 rotation)
-	{
-		this->rotation.setEulerZYX(rotation.z() * ROTATION_BIAS, rotation.y() * ROTATION_BIAS * -1, rotation.x() * ROTATION_BIAS);
-		transform.setRotation(this->rotation);
 	}
 
 	void UpdateTransform()
@@ -78,7 +62,8 @@ public:
 	long long timestamp;
 	btVector3 position;
 	btVector3 velocity;
-	btQuaternion rotation;
+	//btQuaternion rotation;
+	//bool isRotationDirty = false;
 };
 
 class FPSPlayer : public FPSCharacter

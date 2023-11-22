@@ -68,17 +68,29 @@ void FPSRoom::Handle_C_FPS_LOAD_COMPLETE(std::shared_ptr<GameSession> session, s
 	if (client == nullptr)
 		return;
 
-	loadCompleteCount++;
+	btVector3 position(0, 0, 0);
+	btQuaternion rotation(0, 0, 0, 1);
 
-	std::shared_ptr<Protocol::C_INSTANTIATE_FPS_PLAYER> ins = std::make_shared<Protocol::C_INSTANTIATE_FPS_PLAYER>();
-	ins->set_allocated_position(new Protocol::Vector3());
-	ins->set_allocated_rotation(new Protocol::Vector3());
-	InstantiatePlayer(client, ins);
+	InstantiatePlayer(client, position, rotation);
 
-	if (loadCompleteCount == 2)
+	client->isLoaded = true;
+
+
+	bool allLoaded = true;
 	{
-		loadCompleteCount = 0;
+		for (auto& client : clients)
+		{
+			auto fClient = static_pointer_cast<FPSClient>(client.second);
+			if (!fClient->isLoaded)
+			{
+				allLoaded = false;
+				break;
+			}
+		}
+	}
 
+	if (allLoaded)
+	{
 		StartGame();
 
 		roomState = RoomState::Playing;
@@ -98,8 +110,10 @@ void FPSRoom::Handle_C_SET_FPS_POSITION(std::shared_ptr<GameSession> session, st
 	if (player == players.end())
 		return;
 
-	player->second->SetPosition(pkt->position());
-	player->second->SetVelocity(pkt->velocity());
+	auto position = ConvertVector3(pkt->position());
+	position.setY(position.y() + 1.0f);
+	player->second->position = position;
+	player->second->velocity = ConvertVector3(pkt->velocity());
 	player->second->timestamp = pkt->timestamp();
 
 	Protocol::S_SET_FPS_POSITION res;
@@ -121,7 +135,7 @@ void FPSRoom::Handle_C_SET_FPS_ROTATION(std::shared_ptr<GameSession> session, st
 	if (player == players.end())
 		return;
 
-	player->second->SetRotation(pkt->rotation());
+	player->second->transform.setRotation(ConvertQuaternion(pkt->rotation()));
 
 	Protocol::S_SET_FPS_ROTATION res;
 	res.set_playerid(player->second->id);
@@ -223,7 +237,8 @@ void FPSRoom::Handle_C_SHOOT(std::shared_ptr<GameSession> session, std::shared_p
 						&FPSRoom::InstantiatePlayer, 
 						std::static_pointer_cast<FPSClient>(owner->second),
 						btVector3(0, 0, 0),
-						btQuaternion(0, 0, 0, 0));
+						btQuaternion(0, 0, 0, 1)
+					);
 			}
 
 			dynamicsWorld->removeCollisionObject(player->second->collisionObject.get());
@@ -342,8 +357,6 @@ void FPSRoom::StartGame()
 
 void FPSRoom::Update()
 {
-	long long now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-
 	std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers = std::make_shared<std::vector<std::shared_ptr<SendBuffer>>>();
 
 	switch (itemState)
@@ -432,6 +445,8 @@ void FPSRoom::Update()
 	case ItemState::Occupied:
 	{
 		auto player = players.find(occupierId);
+		if (player == players.end())
+			break;
 
 		if ((player->second->position - destination).length() < 1)
 		{
@@ -448,8 +463,10 @@ void FPSRoom::Update()
 	}
 	}
 
+	long long now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+
 	for(auto& player : players)
-	{		
+	{	
 		if (!player.second->velocity.isZero())
 		{
 			int timeGap = now - player.second->timestamp;
