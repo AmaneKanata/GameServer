@@ -36,6 +36,8 @@ public:
 		btCapsuleShape* capsule = new btCapsuleShape(0.5f, 1.0f);
 		collisionObject->setCollisionShape(capsule);
 
+		collisionObject->setCustomDebugColor(btVector3(0, 0, 0));
+
 		transform.setIdentity();
 		position.setY(position.y() + 1);
 		transform.setOrigin(position);
@@ -47,6 +49,10 @@ public:
 		this->timestamp = now;
 		this->position = position;
 		this->velocity = btVector3(0, 0, 0);
+	}
+
+	~FPSCharacter()
+	{
 	}
 
 	void UpdateTransform()
@@ -62,8 +68,6 @@ public:
 	long long timestamp;
 	btVector3 position;
 	btVector3 velocity;
-	//btQuaternion rotation;
-	//bool isRotationDirty = false;
 };
 
 class FPSPlayer : public FPSCharacter

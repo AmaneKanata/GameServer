@@ -41,8 +41,9 @@ protected:
 	virtual std::shared_ptr<ClientBase> MakeClient(string clientId, std::shared_ptr<GameSession> session) override;
 
 	virtual void Handle_C_ENTER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_ENTER> pkt) override;
+	virtual void Handle_C_FPS_READY(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_READY> pkt) override;
 	virtual void Handle_C_FPS_LOAD_COMPLETE(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_LOAD_COMPLETE> pkt) override;
-	
+
 	virtual void Handle_C_SET_FPS_POSITION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_FPS_POSITION> pkt) override;
 	virtual void Handle_C_SET_FPS_ROTATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_FPS_ROTATION> pkt) override;
 	virtual void Handle_C_FPS_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_ANIMATION> pkt) override;
@@ -53,7 +54,6 @@ protected:
 
 private:
 	void InstantiatePlayer(std::shared_ptr<FPSClient> client, btVector3 position, btQuaternion rotation);
-	void RemovePlayer(int playerId);
 
 	void Update();
 
@@ -61,6 +61,7 @@ private:
 
 	void InitGame();
 	void StartGame();
+	void FinishGame();
 
 	void LoadMap();	
 
@@ -88,12 +89,16 @@ private:
 	int damage = 10;
 
 	btVector3 itemPosition;
-	ItemState itemState = ItemState::Idle;
+	ItemState itemState;
 	int totalOccupyTime = 3000;
-	int currentOccupyTime = 0;
+	int currentOccupyTime;
 	int occupyTimeCap = 1500;
 	int occupyDistance = 3;
-	int occupierId = -1;
+	string occupierId;
 
 	btVector3 destination;
+
+	std::vector<std::shared_ptr<DelayedJob>> delayedJobs;
+
+	std::map<string, int> scores;
 };

@@ -125,6 +125,11 @@ message S_FPS_ANIMATION
 
 //Game
 
+message C_FPS_READY
+{
+	bool isReady = 1;
+}
+
 message S_FPS_LOAD
 {
 }
@@ -134,6 +139,10 @@ message S_FPS_START
 }
 
 message C_FPS_LOAD_COMPLETE
+{
+}
+
+message S_FPS_FINISH
 {
 }
 
@@ -147,6 +156,15 @@ message S_FPS_SPAWN_ITEM
 	Vector3 position = 1;
 }
 
+message S_FPS_SPAWN_DESTINATION
+{
+	Vector3 position = 1;
+}
+
+message S_FPS_DESTROY_DESTINATION
+{
+}
+
 message S_FPS_ITEM_OCCUPY_PROGRESS_STATE
 {
 	int32 occupyProgressState = 1;
@@ -154,5 +172,10 @@ message S_FPS_ITEM_OCCUPY_PROGRESS_STATE
 
 message S_FPS_ITEM_OCCUPIED
 {
-	int32 occupier = 1;
+	string occupier = 1;
+}
+
+message S_FPS_SCORED
+{
+	string scorer = 1;
 }

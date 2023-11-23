@@ -57,13 +57,18 @@ enum : unsigned short
 	PKT_S_RELOAD = 211,
 	PKT_C_FPS_ANIMATION = 212,
 	PKT_S_FPS_ANIMATION = 213,
-	PKT_S_FPS_LOAD = 214,
-	PKT_S_FPS_START = 215,
-	PKT_C_FPS_LOAD_COMPLETE = 216,
-	PKT_S_FPS_ANNOUNCE = 217,
-	PKT_S_FPS_SPAWN_ITEM = 218,
-	PKT_S_FPS_ITEM_OCCUPY_PROGRESS_STATE = 219,
-	PKT_S_FPS_ITEM_OCCUPIED = 220,
+	PKT_C_FPS_READY = 214,
+	PKT_S_FPS_LOAD = 215,
+	PKT_S_FPS_START = 216,
+	PKT_C_FPS_LOAD_COMPLETE = 217,
+	PKT_S_FPS_FINISH = 218,
+	PKT_S_FPS_ANNOUNCE = 219,
+	PKT_S_FPS_SPAWN_ITEM = 220,
+	PKT_S_FPS_SPAWN_DESTINATION = 221,
+	PKT_S_FPS_DESTROY_DESTINATION = 222,
+	PKT_S_FPS_ITEM_OCCUPY_PROGRESS_STATE = 223,
+	PKT_S_FPS_ITEM_OCCUPIED = 224,
+	PKT_S_FPS_SCORED = 225,
 };
 
 template<typename T>
@@ -108,10 +113,14 @@ static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_RELOAD& pkt) { ret
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_ANIMATION& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_ANIMATION); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_LOAD& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_LOAD); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_START& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_START); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_FINISH& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_FINISH); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_ANNOUNCE& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_ANNOUNCE); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_SPAWN_ITEM& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_SPAWN_ITEM); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_SPAWN_DESTINATION& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_SPAWN_DESTINATION); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_DESTROY_DESTINATION& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_DESTROY_DESTINATION); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_ITEM_OCCUPY_PROGRESS_STATE& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_ITEM_OCCUPY_PROGRESS_STATE); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_ITEM_OCCUPIED& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_ITEM_OCCUPIED); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_SCORED& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_SCORED); }
 
 enum class HandlerState
 {
@@ -309,6 +318,14 @@ public:
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
+		PacketHandlers[PKT_C_FPS_READY] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		{ 
+			std::shared_ptr<Protocol::C_FPS_READY> pkt = std::make_shared<Protocol::C_FPS_READY>();
+			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
+				Post(&PacketHandler::Handle_C_FPS_READY, session, pkt);
+			else
+				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
+		};
 		PacketHandlers[PKT_C_FPS_LOAD_COMPLETE] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
 			std::shared_ptr<Protocol::C_FPS_LOAD_COMPLETE> pkt = std::make_shared<Protocol::C_FPS_LOAD_COMPLETE>();
@@ -378,6 +395,7 @@ protected:
 	virtual void Handle_C_CHANGE_WEAPON(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_CHANGE_WEAPON> pkt) {};
 	virtual void Handle_C_RELOAD(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_RELOAD> pkt) {};
 	virtual void Handle_C_FPS_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_ANIMATION> pkt) {};
+	virtual void Handle_C_FPS_READY(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_READY> pkt) {};
 	virtual void Handle_C_FPS_LOAD_COMPLETE(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_LOAD_COMPLETE> pkt) {};
 
 private:

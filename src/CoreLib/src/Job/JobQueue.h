@@ -13,6 +13,7 @@ struct DelayedJob
 
 	std::chrono::system_clock::time_point time;
 	std::function<void()> func;
+	bool isValid = true;
 };
 
 struct DelayedJobComparator {
@@ -47,7 +48,7 @@ public:
 	}
 
 	template<typename T, typename Ret, typename... Args>
-	void DelayPost(int milli, Ret(T::* memFunc)(Args...), Args... args)
+	std::shared_ptr<DelayedJob> DelayPost(int milli, Ret(T::* memFunc)(Args...), Args... args)
 	{
 		std::shared_ptr<T> owner = std::static_pointer_cast<T>(shared_from_this());
 
@@ -63,24 +64,24 @@ public:
 
 		delayedJobs.push(delayedJob);
 
-		if (delayedJobs.top()->time < delayedJob->time)
+		if (delayedJobs.top()->time >= delayedJob->time)
 		{
-			return;
+			delayedJob_timer.cancel();
+			delayedJob_timer.expires_at(delayedJobs.top()->time);
+			delayedJob_timer.async_wait([this](const boost::system::error_code& error)
+				{
+					if (!error)
+					{
+						DoDelayedJob();
+					}
+				}
+			);
 		}
 
-		delayedJob_timer.cancel();
-		delayedJob_timer.expires_at(delayedJobs.top()->time);
-		delayedJob_timer.async_wait([this](const boost::system::error_code& error)
-			{
-				if (!error)
-				{
-					DoDelayedJob();
-				}
-			}
-		);
+		return delayedJob;
 	}
 
-	void DelayPost(int milli, std::function<void()> func)
+	std::shared_ptr<DelayedJob> DelayPost(int milli, std::function<void()> func)
 	{
 		auto delayedJob = std::make_shared<DelayedJob>(
 			std::chrono::system_clock::now() + std::chrono::milliseconds(milli),
@@ -91,21 +92,21 @@ public:
 
 		delayedJobs.push(delayedJob);
 
-		if (delayedJobs.top()->time < delayedJob->time)
+		if (delayedJobs.top()->time >= delayedJob->time)
 		{
-			return;
+			delayedJob_timer.cancel();
+			delayedJob_timer.expires_at(delayedJobs.top()->time);
+			delayedJob_timer.async_wait([this](const boost::system::error_code& error)
+				{
+					if (!error)
+					{
+						DoDelayedJob();
+					}
+				}
+			);
 		}
 
-		delayedJob_timer.cancel();
-		delayedJob_timer.expires_at(delayedJobs.top()->time);
-		delayedJob_timer.async_wait([this](const boost::system::error_code& error)
-			{
-				if (!error)
-				{
-					DoDelayedJob();
-				}
-			}
-		);
+		return delayedJob;
 	}
 
 	void DoDelayedJob()
@@ -118,10 +119,12 @@ public:
 		{
 			auto job = delayedJobs.top();
 			delayedJobs.pop();
-
-			boost::asio::post(jobs, [job]() {
-				job->func();
-				});
+			if (job->isValid)
+			{
+				boost::asio::post(jobs, [job]() {
+					job->func();
+					});
+			}
 		}
 
 		if (!delayedJobs.empty())
@@ -138,11 +141,6 @@ public:
 				}
 			);
 		}
-	}
-
-	void Cancel(std::shared_ptr<boost::asio::steady_timer> timer)
-	{
-		//TODO
 	}
 
 	void Clear()

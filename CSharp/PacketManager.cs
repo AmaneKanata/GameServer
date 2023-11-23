@@ -52,13 +52,18 @@ namespace Framework.Network
         PKT_S_RELOAD = 211,
         PKT_C_FPS_ANIMATION = 212,
         PKT_S_FPS_ANIMATION = 213,
-        PKT_S_FPS_LOAD = 214,
-        PKT_S_FPS_START = 215,
-        PKT_C_FPS_LOAD_COMPLETE = 216,
-        PKT_S_FPS_ANNOUNCE = 217,
-        PKT_S_FPS_SPAWN_ITEM = 218,
-        PKT_S_FPS_ITEM_OCCUPY_PROGRESS_STATE = 219,
-        PKT_S_FPS_ITEM_OCCUPIED = 220,
+        PKT_C_FPS_READY = 214,
+        PKT_S_FPS_LOAD = 215,
+        PKT_S_FPS_START = 216,
+        PKT_C_FPS_LOAD_COMPLETE = 217,
+        PKT_S_FPS_FINISH = 218,
+        PKT_S_FPS_ANNOUNCE = 219,
+        PKT_S_FPS_SPAWN_ITEM = 220,
+        PKT_S_FPS_SPAWN_DESTINATION = 221,
+        PKT_S_FPS_DESTROY_DESTINATION = 222,
+        PKT_S_FPS_ITEM_OCCUPY_PROGRESS_STATE = 223,
+        PKT_S_FPS_ITEM_OCCUPIED = 224,
+        PKT_S_FPS_SCORED = 225,
     }
 
     public static class PacketManager
@@ -93,10 +98,14 @@ namespace Framework.Network
             onRecv.Add((ushort)MsgId.PKT_S_FPS_ANIMATION, MakePacket<S_FPS_ANIMATION>);
             onRecv.Add((ushort)MsgId.PKT_S_FPS_LOAD, MakePacket<S_FPS_LOAD>);
             onRecv.Add((ushort)MsgId.PKT_S_FPS_START, MakePacket<S_FPS_START>);
+            onRecv.Add((ushort)MsgId.PKT_S_FPS_FINISH, MakePacket<S_FPS_FINISH>);
             onRecv.Add((ushort)MsgId.PKT_S_FPS_ANNOUNCE, MakePacket<S_FPS_ANNOUNCE>);
             onRecv.Add((ushort)MsgId.PKT_S_FPS_SPAWN_ITEM, MakePacket<S_FPS_SPAWN_ITEM>);
+            onRecv.Add((ushort)MsgId.PKT_S_FPS_SPAWN_DESTINATION, MakePacket<S_FPS_SPAWN_DESTINATION>);
+            onRecv.Add((ushort)MsgId.PKT_S_FPS_DESTROY_DESTINATION, MakePacket<S_FPS_DESTROY_DESTINATION>);
             onRecv.Add((ushort)MsgId.PKT_S_FPS_ITEM_OCCUPY_PROGRESS_STATE, MakePacket<S_FPS_ITEM_OCCUPY_PROGRESS_STATE>);
             onRecv.Add((ushort)MsgId.PKT_S_FPS_ITEM_OCCUPIED, MakePacket<S_FPS_ITEM_OCCUPIED>);
+            onRecv.Add((ushort)MsgId.PKT_S_FPS_SCORED, MakePacket<S_FPS_SCORED>);
         }
 
         public static void OnRecv( ArraySegment<byte> buffer, Connection connection )
@@ -154,7 +163,8 @@ namespace Framework.Network
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_CHANGE_WEAPON pkt ) { return MakeSendBuffer(pkt, 208); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_RELOAD pkt ) { return MakeSendBuffer(pkt, 210); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_FPS_ANIMATION pkt ) { return MakeSendBuffer(pkt, 212); }
-        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_FPS_LOAD_COMPLETE pkt ) { return MakeSendBuffer(pkt, 216); }
+        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_FPS_READY pkt ) { return MakeSendBuffer(pkt, 214); }
+        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_FPS_LOAD_COMPLETE pkt ) { return MakeSendBuffer(pkt, 217); }
 
         private static ArraySegment<byte> MakeSendBuffer( IMessage pkt, ushort pktId )
         {
