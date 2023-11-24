@@ -43,24 +43,24 @@ enum : unsigned short
 	PKT_S_SET_TRANSFORM = 112,
 	PKT_C_SET_ANIMATION = 113,
 	PKT_S_SET_ANIMATION = 114,
-	PKT_S_ADD_FPS_PLAYER = 200,
-	PKT_C_SET_FPS_POSITION = 201,
-	PKT_S_SET_FPS_POSITION = 202,
-	PKT_C_SET_FPS_ROTATION = 203,
-	PKT_S_SET_FPS_ROTATION = 204,
-	PKT_C_SHOOT = 205,
-	PKT_S_SHOOT = 206,
-	PKT_S_ATTACKED = 207,
-	PKT_C_CHANGE_WEAPON = 208,
-	PKT_S_CHANGE_WEAPON = 209,
-	PKT_C_RELOAD = 210,
-	PKT_S_RELOAD = 211,
+	PKT_S_FPS_INSTANTIATE = 200,
+	PKT_C_FPS_POSITION = 201,
+	PKT_S_FPS_POSITION = 202,
+	PKT_C_FPS_ROTATION = 203,
+	PKT_S_FPS_ROTATION = 204,
+	PKT_C_FPS_SHOOT = 205,
+	PKT_S_FPS_SHOOT = 206,
+	PKT_S_FPS_ATTACKED = 207,
+	PKT_C_FPS_CHANGE_WEAPON = 208,
+	PKT_S_FPS_CHANGE_WEAPON = 209,
+	PKT_C_FPS_RELOAD = 210,
+	PKT_S_FPS_RELOAD = 211,
 	PKT_C_FPS_ANIMATION = 212,
 	PKT_S_FPS_ANIMATION = 213,
 	PKT_C_FPS_READY = 214,
 	PKT_S_FPS_LOAD = 215,
-	PKT_S_FPS_START = 216,
-	PKT_C_FPS_LOAD_COMPLETE = 217,
+	PKT_C_FPS_LOAD_COMPLETE = 216,
+	PKT_S_FPS_START = 217,
 	PKT_S_FPS_FINISH = 218,
 	PKT_S_FPS_ANNOUNCE = 219,
 	PKT_S_FPS_SPAWN_ITEM = 220,
@@ -103,13 +103,13 @@ static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_SET_GAME_OBJECT_PR
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_SET_GAME_OBJECT_OWNER& pkt) { return MakeSendBuffer(pkt, PKT_S_SET_GAME_OBJECT_OWNER); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_SET_TRANSFORM& pkt) { return MakeSendBuffer(pkt, PKT_S_SET_TRANSFORM); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_SET_ANIMATION& pkt) { return MakeSendBuffer(pkt, PKT_S_SET_ANIMATION); }
-static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_ADD_FPS_PLAYER& pkt) { return MakeSendBuffer(pkt, PKT_S_ADD_FPS_PLAYER); }
-static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_SET_FPS_POSITION& pkt) { return MakeSendBuffer(pkt, PKT_S_SET_FPS_POSITION); }
-static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_SET_FPS_ROTATION& pkt) { return MakeSendBuffer(pkt, PKT_S_SET_FPS_ROTATION); }
-static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_SHOOT& pkt) { return MakeSendBuffer(pkt, PKT_S_SHOOT); }
-static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_ATTACKED& pkt) { return MakeSendBuffer(pkt, PKT_S_ATTACKED); }
-static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_CHANGE_WEAPON& pkt) { return MakeSendBuffer(pkt, PKT_S_CHANGE_WEAPON); }
-static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_RELOAD& pkt) { return MakeSendBuffer(pkt, PKT_S_RELOAD); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_INSTANTIATE& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_INSTANTIATE); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_POSITION& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_POSITION); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_ROTATION& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_ROTATION); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_SHOOT& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_SHOOT); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_ATTACKED& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_ATTACKED); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_CHANGE_WEAPON& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_CHANGE_WEAPON); }
+static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_RELOAD& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_RELOAD); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_ANIMATION& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_ANIMATION); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_LOAD& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_LOAD); }
 static std::shared_ptr<SendBuffer> MakeSendBuffer(Protocol::S_FPS_START& pkt) { return MakeSendBuffer(pkt, PKT_S_FPS_START); }
@@ -270,43 +270,43 @@ public:
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
-		PacketHandlers[PKT_C_SET_FPS_POSITION] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		PacketHandlers[PKT_C_FPS_POSITION] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
-			std::shared_ptr<Protocol::C_SET_FPS_POSITION> pkt = std::make_shared<Protocol::C_SET_FPS_POSITION>();
+			std::shared_ptr<Protocol::C_FPS_POSITION> pkt = std::make_shared<Protocol::C_FPS_POSITION>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_C_SET_FPS_POSITION, session, pkt);
+				Post(&PacketHandler::Handle_C_FPS_POSITION, session, pkt);
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
-		PacketHandlers[PKT_C_SET_FPS_ROTATION] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		PacketHandlers[PKT_C_FPS_ROTATION] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
-			std::shared_ptr<Protocol::C_SET_FPS_ROTATION> pkt = std::make_shared<Protocol::C_SET_FPS_ROTATION>();
+			std::shared_ptr<Protocol::C_FPS_ROTATION> pkt = std::make_shared<Protocol::C_FPS_ROTATION>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_C_SET_FPS_ROTATION, session, pkt);
+				Post(&PacketHandler::Handle_C_FPS_ROTATION, session, pkt);
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
-		PacketHandlers[PKT_C_SHOOT] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		PacketHandlers[PKT_C_FPS_SHOOT] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
-			std::shared_ptr<Protocol::C_SHOOT> pkt = std::make_shared<Protocol::C_SHOOT>();
+			std::shared_ptr<Protocol::C_FPS_SHOOT> pkt = std::make_shared<Protocol::C_FPS_SHOOT>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_C_SHOOT, session, pkt);
+				Post(&PacketHandler::Handle_C_FPS_SHOOT, session, pkt);
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
-		PacketHandlers[PKT_C_CHANGE_WEAPON] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		PacketHandlers[PKT_C_FPS_CHANGE_WEAPON] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
-			std::shared_ptr<Protocol::C_CHANGE_WEAPON> pkt = std::make_shared<Protocol::C_CHANGE_WEAPON>();
+			std::shared_ptr<Protocol::C_FPS_CHANGE_WEAPON> pkt = std::make_shared<Protocol::C_FPS_CHANGE_WEAPON>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_C_CHANGE_WEAPON, session, pkt);
+				Post(&PacketHandler::Handle_C_FPS_CHANGE_WEAPON, session, pkt);
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
-		PacketHandlers[PKT_C_RELOAD] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
+		PacketHandlers[PKT_C_FPS_RELOAD] = [this](std::shared_ptr<GameSession> session, unsigned char* buffer, int len) 
 		{ 
-			std::shared_ptr<Protocol::C_RELOAD> pkt = std::make_shared<Protocol::C_RELOAD>();
+			std::shared_ptr<Protocol::C_FPS_RELOAD> pkt = std::make_shared<Protocol::C_FPS_RELOAD>();
 			if (pkt->ParseFromArray(buffer + sizeof(PacketHeader), len - sizeof(PacketHeader)))
-				Post(&PacketHandler::Handle_C_RELOAD, session, pkt);
+				Post(&PacketHandler::Handle_C_FPS_RELOAD, session, pkt);
 			else
 				Post(&PacketHandler::Handle_INVALID, session, buffer, len);
 		};
@@ -389,11 +389,11 @@ protected:
 	virtual void Handle_C_SET_GAME_OBJECT_OWNER(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_GAME_OBJECT_OWNER> pkt) {};
 	virtual void Handle_C_SET_TRANSFORM(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_TRANSFORM> pkt) {};
 	virtual void Handle_C_SET_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_ANIMATION> pkt) {};
-	virtual void Handle_C_SET_FPS_POSITION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_FPS_POSITION> pkt) {};
-	virtual void Handle_C_SET_FPS_ROTATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_FPS_ROTATION> pkt) {};
-	virtual void Handle_C_SHOOT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SHOOT> pkt) {};
-	virtual void Handle_C_CHANGE_WEAPON(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_CHANGE_WEAPON> pkt) {};
-	virtual void Handle_C_RELOAD(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_RELOAD> pkt) {};
+	virtual void Handle_C_FPS_POSITION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_POSITION> pkt) {};
+	virtual void Handle_C_FPS_ROTATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_ROTATION> pkt) {};
+	virtual void Handle_C_FPS_SHOOT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_SHOOT> pkt) {};
+	virtual void Handle_C_FPS_CHANGE_WEAPON(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_CHANGE_WEAPON> pkt) {};
+	virtual void Handle_C_FPS_RELOAD(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_RELOAD> pkt) {};
 	virtual void Handle_C_FPS_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_ANIMATION> pkt) {};
 	virtual void Handle_C_FPS_READY(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_READY> pkt) {};
 	virtual void Handle_C_FPS_LOAD_COMPLETE(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_LOAD_COMPLETE> pkt) {};

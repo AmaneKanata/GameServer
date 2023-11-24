@@ -13,7 +13,7 @@ void FPSRoom::HandleInit()
 void FPSRoom::Leave(std::shared_ptr<ClientBase> client, std::string code)
 {
 	if (roomState != RoomState::Idle)
-		FinishGame();
+		Post(&FPSRoom::FinishGame);
 
 	RoomBase::Leave(client, code);
 }
@@ -53,6 +53,8 @@ void FPSRoom::Handle_C_ENTER(std::shared_ptr<GameSession> session, std::shared_p
 void FPSRoom::Handle_C_FPS_READY(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_READY> pkt)
 {
 	auto client = static_pointer_cast<FPSClient>(session->client);
+	if (client == nullptr)
+		return;
 
 	client->isReady = pkt->isready();
 
@@ -60,15 +62,13 @@ void FPSRoom::Handle_C_FPS_READY(std::shared_ptr<GameSession> session, std::shar
 		return;
 
 	bool allReady = true;
+	for (auto& iter : clients)
 	{
-		for (auto& client : clients)
+		auto client = static_pointer_cast<FPSClient>(iter.second);
+		if (!client->isReady)
 		{
-			auto fClient = static_pointer_cast<FPSClient>(client.second);
-			if (!fClient->isReady)
-			{
-				allReady = false;
-				break;
-			}
+			allReady = false;
+			break;
 		}
 	}
 
@@ -85,33 +85,24 @@ void FPSRoom::Handle_C_FPS_READY(std::shared_ptr<GameSession> session, std::shar
 
 void FPSRoom::Handle_C_FPS_LOAD_COMPLETE(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_LOAD_COMPLETE> pkt)
 {
-	if (roomState != RoomState::Loading)
-	{
-		session->Disconnect();
-		return;
-	}
-
 	auto client = static_pointer_cast<FPSClient>(session->client);
 	if (client == nullptr)
 		return;
 
 	btVector3 position(0, 0, 0);
 	btQuaternion rotation(0, 0, 0, 1);
-
 	InstantiatePlayer(client, position, rotation);
 
 	client->isLoaded = true;
 
 	bool allLoaded = true;
+	for (auto& iter : clients)
 	{
-		for (auto& client : clients)
+		auto client = static_pointer_cast<FPSClient>(iter.second);
+		if (!client->isLoaded)
 		{
-			auto fClient = static_pointer_cast<FPSClient>(client.second);
-			if (!fClient->isLoaded)
-			{
-				allLoaded = false;
-				break;
-			}
+			allLoaded = false;
+			break;
 		}
 	}
 
@@ -126,7 +117,7 @@ void FPSRoom::Handle_C_FPS_LOAD_COMPLETE(std::shared_ptr<GameSession> session, s
 	}
 }
 
-void FPSRoom::Handle_C_SET_FPS_POSITION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_FPS_POSITION> pkt)
+void FPSRoom::Handle_C_FPS_POSITION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_POSITION> pkt)
 {
 	auto client = static_pointer_cast<FPSClient>(session->client);
 	if (client->player == nullptr)
@@ -136,13 +127,11 @@ void FPSRoom::Handle_C_SET_FPS_POSITION(std::shared_ptr<GameSession> session, st
 	if (player == players.end())
 		return;
 
-	auto position = ConvertVector3(pkt->position());
-	position.setY(position.y() + 1.0f);
-	player->second->position = position;
+	player->second->position = ConvertVector3(pkt->position()) + btVector3(0, 1, 0);
 	player->second->velocity = ConvertVector3(pkt->velocity());
 	player->second->timestamp = pkt->timestamp();
 
-	Protocol::S_SET_FPS_POSITION res;
+	Protocol::S_FPS_POSITION res;
 	res.set_playerid(player->second->id);
 	res.set_allocated_position(pkt->release_position());
 	res.set_allocated_velocity(pkt->release_velocity());
@@ -151,7 +140,7 @@ void FPSRoom::Handle_C_SET_FPS_POSITION(std::shared_ptr<GameSession> session, st
 	Broadcast(MakeSendBuffer(res));
 }
 
-void FPSRoom::Handle_C_SET_FPS_ROTATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_FPS_ROTATION> pkt)
+void FPSRoom::Handle_C_FPS_ROTATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_ROTATION> pkt)
 {
 	auto client = static_pointer_cast<FPSClient>(session->client);
 	if (client->player == nullptr)
@@ -163,7 +152,7 @@ void FPSRoom::Handle_C_SET_FPS_ROTATION(std::shared_ptr<GameSession> session, st
 
 	player->second->transform.setRotation(ConvertQuaternion(pkt->rotation()));
 
-	Protocol::S_SET_FPS_ROTATION res;
+	Protocol::S_FPS_ROTATION res;
 	res.set_playerid(player->second->id);
 	res.set_allocated_rotation(pkt->release_rotation());
 
@@ -187,7 +176,7 @@ void FPSRoom::Handle_C_FPS_ANIMATION(std::shared_ptr<GameSession> session, std::
 	Broadcast(MakeSendBuffer(res));
 }
 
-void FPSRoom::Handle_C_RELOAD(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_RELOAD> pkt)
+void FPSRoom::Handle_C_FPS_RELOAD(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_RELOAD> pkt)
 {
 	auto client = static_pointer_cast<FPSClient>(session->client);
 	if (client->player == nullptr)
@@ -197,13 +186,13 @@ void FPSRoom::Handle_C_RELOAD(std::shared_ptr<GameSession> session, std::shared_
 	if (player == players.end())
 		return;
 
-	Protocol::S_RELOAD res;
+	Protocol::S_FPS_RELOAD res;
 	res.set_playerid(player->second->id);
 
 	Broadcast(MakeSendBuffer(res));
 }
 
-void FPSRoom::Handle_C_CHANGE_WEAPON(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_CHANGE_WEAPON> pkt)
+void FPSRoom::Handle_C_FPS_CHANGE_WEAPON(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_CHANGE_WEAPON> pkt)
 {
 	auto client = static_pointer_cast<FPSClient>(session->client);
 	if (client->player == nullptr)
@@ -213,7 +202,7 @@ void FPSRoom::Handle_C_CHANGE_WEAPON(std::shared_ptr<GameSession> session, std::
 	if (player == players.end())
 		return;
 
-	Protocol::S_CHANGE_WEAPON res;
+	Protocol::S_FPS_CHANGE_WEAPON res;
 	res.set_playerid(player->second->id);
 	res.set_weaponid(pkt->weaponid());
 	res.set_timestamp(pkt->timestamp());
@@ -221,96 +210,17 @@ void FPSRoom::Handle_C_CHANGE_WEAPON(std::shared_ptr<GameSession> session, std::
 	Broadcast(MakeSendBuffer(res));
 }
 
-void FPSRoom::Handle_C_SHOOT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SHOOT> pkt)
+void FPSRoom::Handle_C_FPS_SHOOT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_SHOOT> pkt)
 {
 	auto client = static_pointer_cast<FPSClient>(session->client);
 	if (client->player == nullptr)
 		return;
 
-	Protocol::S_SHOOT res;
+	shoots.push_back({ client->clientId, ConvertVector3(pkt->position()), ConvertVector3(pkt->direction()) });
+
+	Protocol::S_FPS_SHOOT res;
 	res.set_playerid(client->player->id);
 	Broadcast(MakeSendBuffer(res));
-
-	btVector3 from(pkt->position().x() * -1, pkt->position().y(), pkt->position().z());
-	btVector3 direction(pkt->direction().x() * -1, pkt->direction().y(), pkt->direction().z());
-	btVector3 to = from + direction * rayDistance;
-
-	btCollisionWorld::ClosestRayResultCallback rayCallback(from, to);
-	dynamicsWorld->rayTest(from, to, rayCallback);
-
-	if (rayCallback.hasHit())
-	{
-		shots[0].push({ from, rayCallback.m_hitPointWorld });
-
-		auto id = rayCallback.m_collisionObject->getUserIndex();
-
-		auto player = players.find(id);
-		if (player == players.end())
-			return;
-
-		player->second->hp -= damage;
-
-		if (player->second->hp == 0)
-		{
-			if (player->second->ownerId == occupierId)
-			{
-				GLogManager->Log("Player ", client->clientId, " Scored!");
-
-				occupierId = "";
-
-				Protocol::S_FPS_SCORED scored;
-				scored.set_scorer(client->clientId);
-				Broadcast(MakeSendBuffer(scored));
-
-				scores[client->clientId]++;
-
-				Protocol::S_FPS_DESTROY_DESTINATION destroyDestination;
-				Broadcast(MakeSendBuffer(destroyDestination));
-
-				if (scores[client->clientId] >= 3)
-				{
-					DelayPost(3000, &FPSRoom::FinishGame);
-				}
-				else
-				{
-					itemState = ItemState::Respawning;
-					delayedJobs.push_back(
-						DelayPost(3000, &FPSRoom::SpawnItem, btVector3(0, 1, 7))
-					);
-				}
-			}
-
-			Protocol::S_REMOVE_GAME_OBJECT remove;
-			remove.add_gameobjects(player->second->id);
-			Broadcast(MakeSendBuffer(remove));
-
-			{
-				auto client = clients.find(player->second->ownerId);
-				if (client != clients.end())
-				{
-					auto fClient = std::static_pointer_cast<FPSClient>(client->second);
-					fClient->player = nullptr;
-					delayedJobs.push_back(
-						DelayPost(5000, &FPSRoom::InstantiatePlayer, fClient, btVector3(0, 0, 0), btQuaternion(0, 0, 0, 1))
-					);
-				}
-
-			}
-
-			dynamicsWorld->removeCollisionObject(player->second->collisionObject.get());
-			players.erase(player);
-		}
-
-		Protocol::S_ATTACKED res;
-		res.set_playerid(player->second->id);
-		res.set_damage(damage);
-		res.set_hp(player->second->hp);
-		Broadcast(MakeSendBuffer(res));
-	}
-	else
-	{
-		shots[0].push({ from, to });
-	}
 }
 
 void FPSRoom::InstantiatePlayer(std::shared_ptr<FPSClient> client, btVector3 position, btQuaternion rotation)
@@ -323,24 +233,13 @@ void FPSRoom::InstantiatePlayer(std::shared_ptr<FPSClient> client, btVector3 pos
 
 	dynamicsWorld->addCollisionObject(player->collisionObject.get());
 
-	{
-		Protocol::S_INSTANTIATE_GAME_OBJECT res;
-		res.set_gameobjectid(player->id);
-		res.set_success(true);
-		client->Send(MakeSendBuffer(res));
-	}
-
-	{
-		Protocol::S_ADD_FPS_PLAYER res;
-		auto playerInfo = res.add_gameobjects();
-		playerInfo->set_allocated_position(ConvertVector3(position));
-		playerInfo->set_allocated_rotation(ConvertQuaternion(rotation));
-		playerInfo->set_playerid(player->id);
-		playerInfo->set_hp(player->hp);
-		playerInfo->set_ownerid(player->ownerId);
-
-		Broadcast(MakeSendBuffer(res));
-	}
+	Protocol::S_FPS_INSTANTIATE instantiate;
+	instantiate.set_ownerid(player->ownerId);
+	instantiate.set_playerid(player->id);
+	instantiate.set_allocated_position(ConvertVector3(position));
+	instantiate.set_allocated_rotation(ConvertQuaternion(rotation));
+	instantiate.set_hp(player->hp);
+	Broadcast(MakeSendBuffer(instantiate));
 }
 
 void FPSRoom::SpawnItem(btVector3 position)
@@ -348,7 +247,7 @@ void FPSRoom::SpawnItem(btVector3 position)
 	itemPosition = position;
 	itemState = ItemState::Idle;
 	currentOccupyTime = 0;
-	occupierId = "";
+	occupierId = -1;
 
 	Protocol::S_FPS_SPAWN_ITEM spawn;
 	spawn.set_allocated_position(ConvertVector3(position));
@@ -357,7 +256,7 @@ void FPSRoom::SpawnItem(btVector3 position)
 
 void FPSRoom::InitGame()
 {
-	shots = vector<queue<pair<btVector3, btVector3>>>(2);
+	shoots_draw = vector<queue<pair<btVector3, btVector3>>>(2);
 
 	scores = map<string, int>();
 	for (auto& client : clients)
@@ -367,7 +266,6 @@ void FPSRoom::InitGame()
 	dispatcher = std::make_shared<btCollisionDispatcher>(collisionConfiguration.get());
 	broadphase = std::make_shared<btDbvtBroadphase>();
 	solver = std::make_shared<btSequentialImpulseConstraintSolver>();
-	
 	dynamicsWorld = std::make_shared<btDiscreteDynamicsWorld>(dispatcher.get(), broadphase.get(), solver.get(), collisionConfiguration.get());
 
 	LoadMap();
@@ -380,11 +278,8 @@ void FPSRoom::InitGame()
 
 void FPSRoom::StartGame()
 {
+	prevUpdateTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	Post(&FPSRoom::Update);
-
-	Protocol::S_FPS_ANNOUNCE anno;
-	anno.set_message("Item Spawn after 5 Second");
-	Broadcast(MakeSendBuffer(anno));
 	
 	delayedJobs.push_back(
 		DelayPost(3000, &FPSRoom::SpawnItem, btVector3(0, 1, 7))
@@ -393,30 +288,34 @@ void FPSRoom::StartGame()
 
 void FPSRoom::FinishGame()
 {
+	if(roomState == RoomState::Idle)
+		return;
+
 	for (auto& delayedJob : delayedJobs)
 		delayedJob->isValid = false;
 	delayedJobs.clear();
 
 	roomState = RoomState::Idle;
 
-	shots.clear();
+	shoots.clear();
+	shoots_draw.clear();
 	scores.clear();
 
-	for (auto client : clients)
+	for (auto& [clientId, client] : clients)
 	{
-		auto fClient = std::static_pointer_cast<FPSClient>(client.second);
-		if(fClient->player != nullptr)
-			dynamicsWorld->removeCollisionObject(fClient->player->collisionObject.get());
+		auto fClient = std::static_pointer_cast<FPSClient>(client);
+			
 		fClient->player = nullptr;
 
 		fClient->isLoaded = false;
 		fClient->isReady = false;
 	}
 
+	for (auto& [playerId, player] : players)
+		dynamicsWorld->removeCollisionObject(player->collisionObject.get());
 	players.clear();
 
 	dynamicsWorld.reset();
-
 	solver.reset();
 	broadphase.reset();
 	dispatcher.reset();
@@ -428,16 +327,84 @@ void FPSRoom::FinishGame()
 
 void FPSRoom::Update()
 {
+	currentUpdateTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+	deltaTime = currentUpdateTime - prevUpdateTime;
+
 	std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>> sendBuffers = std::make_shared<std::vector<std::shared_ptr<SendBuffer>>>();
 
+	UpdateShoot(sendBuffers);
+	UpdateItem(sendBuffers);
+	UpdatePlayerState(sendBuffers);
+	UpdateScore();
+	UpdateTransform();
+
+	if (sendBuffers->size() > 0)
+		BroadcastMany(sendBuffers);
+
+	prevUpdateTime = currentUpdateTime;
+
+	delayedJobs.push_back(
+		DelayPost(updateInterval, &FPSRoom::Update)
+	);
+}
+
+void FPSRoom::UpdateShoot(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>>& sendBuffers)
+{
+	for (auto& [shooterId, from, direction] : shoots)
+	{
+		btVector3 to = from + direction * rayDistance;
+
+		btCollisionWorld::ClosestRayResultCallback rayCallback(from, to);
+		dynamicsWorld->rayTest(from, to, rayCallback);
+
+		if (!rayCallback.hasHit())
+		{
+			shoots_draw[0].push({ from, to });
+			continue;
+		}
+
+		shoots_draw[0].push({ from, rayCallback.m_hitPointWorld });
+
+		auto attackedPlayerId = rayCallback.m_collisionObject->getUserIndex();
+		auto iter = players.find(attackedPlayerId);
+		if (iter == players.end())
+			continue;
+		auto& attackedPlayer = iter->second;
+
+		attackedPlayer->hp -= damage;
+
+		Protocol::S_FPS_ATTACKED res;
+		res.set_playerid(attackedPlayerId);
+		res.set_damage(damage);
+		res.set_hp(attackedPlayer->hp);
+		sendBuffers->push_back(MakeSendBuffer(res));
+
+		if (attackedPlayer->hp <= 0 && attackedPlayerId == occupierId)
+		{
+			scores[shooterId]++;
+			occupierId = -1;
+
+			Protocol::S_FPS_SCORED scored;
+			scored.set_scorer(shooterId);
+			sendBuffers->push_back(MakeSendBuffer(scored));
+
+			itemState = ItemState::Intercepted;
+		}
+	}
+
+	shoots.clear();
+}
+
+void FPSRoom::UpdateItem(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>>& sendBuffers)
+{
 	switch (itemState)
 	{
 	case ItemState::Idle:
 	{
 		int cnt = 0;
-		for (auto& player : players)
+		for (auto& [playerId, player] : players)
 		{
-			if ((player.second->position - itemPosition).length() < occupyDistance)
+			if ((player->position - itemPosition).length() < itemDistance)
 				cnt++;
 		}
 
@@ -448,9 +415,9 @@ void FPSRoom::Update()
 			int prevOccupyTime = currentOccupyTime;
 
 			if (currentOccupyTime >= occupyTimeCap)
-				currentOccupyTime = max(currentOccupyTime - 50, occupyTimeCap);
+				currentOccupyTime = max(currentOccupyTime - deltaTime, occupyTimeCap);
 			else
-				currentOccupyTime = max(currentOccupyTime - 50, 0);
+				currentOccupyTime = max(currentOccupyTime - deltaTime, 0);
 
 			if (prevOccupyTime != currentOccupyTime)
 			{
@@ -464,16 +431,16 @@ void FPSRoom::Update()
 	}
 	case ItemState::BeingOccupied:
 	{
-		std::shared_ptr<FPSPlayer> occupier = nullptr;
 		int cnt = 0;
-		for (auto& player : players)
+		int occupierId = -1;
+		for (auto& [playerId, player] : players)
 		{
-			if ((player.second->position - itemPosition).length() < occupyDistance)
+			if ((player->position - itemPosition).length() < itemDistance)
 			{
-				if (occupier == nullptr)
+				if (occupierId == -1)
 				{
 					cnt++;
-					occupier = player.second;
+					occupierId = player->id;
 				}
 				else
 				{
@@ -488,31 +455,29 @@ void FPSRoom::Update()
 			itemState = ItemState::Idle;
 			break;
 		}
-		
+
 		if (cnt == 1)
 		{
-			currentOccupyTime += 50;
+			currentOccupyTime += deltaTime;
 
-			{
-				Protocol::S_FPS_ITEM_OCCUPY_PROGRESS_STATE progress;
-				progress.set_occupyprogressstate(currentOccupyTime);
-				sendBuffers->push_back(MakeSendBuffer(progress));
-			}
+			Protocol::S_FPS_ITEM_OCCUPY_PROGRESS_STATE progress;
+			progress.set_occupyprogressstate(currentOccupyTime);
+			sendBuffers->push_back(MakeSendBuffer(progress));
 
 			if (currentOccupyTime >= totalOccupyTime)
 			{
 				itemState = ItemState::Occupied;
 
-				occupierId = occupier->ownerId;
+				this->occupierId = occupierId;
 
 				Protocol::S_FPS_ITEM_OCCUPIED occupied;
-				occupied.set_occupier(occupier->ownerId);
+				occupied.set_occupier(occupierId);
 				sendBuffers->push_back(MakeSendBuffer(occupied));
 
 				destination.setValue(0, 1, -7);
 				Protocol::S_FPS_SPAWN_DESTINATION destPkt;
 				destPkt.set_allocated_position(ConvertVector3(destination));
-				Broadcast(MakeSendBuffer(destPkt));
+				sendBuffers->push_back(MakeSendBuffer(destPkt));
 			}
 		}
 
@@ -520,67 +485,109 @@ void FPSRoom::Update()
 	}
 	case ItemState::Occupied:
 	{
-		auto clientIter = clients.find(occupierId);
-		if (clientIter == clients.end())
+		auto iter = players.find(occupierId);
+		if (iter == players.end())
 			break;
 
-		auto client = std::static_pointer_cast<FPSClient>(clientIter->second);
+		auto& occupier = iter->second;
 
-		if ((client->player->position - destination).length() < 1)
+		if ((occupier->position - destination).length() < destinationDistance)
 		{
-			GLogManager->Log("Player ", occupierId, " Scored!");
-
-			Protocol::S_FPS_DESTROY_DESTINATION destroyDestination;
-			Broadcast(MakeSendBuffer(destroyDestination));
-
-			occupierId = "";
+			scores[occupier->ownerId]++;
+			occupierId = -1;
 
 			Protocol::S_FPS_SCORED scored;
-			scored.set_scorer(client->clientId);
-			Broadcast(MakeSendBuffer(scored));
+			scored.set_scorer(occupier->ownerId);
+			sendBuffers->push_back(MakeSendBuffer(scored));
 
-			scores[client->clientId]++;
+			Protocol::S_FPS_DESTROY_DESTINATION destroyDestination;
+			sendBuffers->push_back(MakeSendBuffer(destroyDestination));
 
-			if (scores[client->clientId] >= 3)
-			{
-				DelayPost(3000, &FPSRoom::FinishGame);
-			}
-			else
-			{
-				itemState = ItemState::Respawning;
+			itemState = ItemState::Respawning;
 
-				delayedJobs.push_back(
-					DelayPost(5000, &FPSRoom::SpawnItem, btVector3(0, 1, 7))
-				);
-			}
+			delayedJobs.push_back(
+				DelayPost(respawnTime, &FPSRoom::SpawnItem, btVector3(0, 1, 7))
+			);
 		}
 
 		break;
 	}
+	case ItemState::Intercepted:
+	{
+		itemState = ItemState::Respawning;
+
+		Protocol::S_FPS_DESTROY_DESTINATION destroyDestination;
+		sendBuffers->push_back(MakeSendBuffer(destroyDestination));
+
+		delayedJobs.push_back(
+			DelayPost(respawnTime, &FPSRoom::SpawnItem, btVector3(0, 1, 7))
+		);
+
+		break;
 	}
+	}
+}
 
-	long long now = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+void FPSRoom::UpdatePlayerState(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>>& sendBuffers)
+{
+	for (auto iter = players.begin(); iter != players.end();)
+	{
+		auto& [playerId, player] = *iter;
 
-	for(auto& player : players)
-	{	
-		if (!player.second->velocity.isZero())
+		if (player->hp <= 0)
 		{
-			int timeGap = now - player.second->timestamp;
-			btVector3 newPosition = player.second->position + player.second->velocity * timeGap;
-			player.second->transform.setOrigin(newPosition);
+			Protocol::S_REMOVE_GAME_OBJECT remove;
+			remove.add_gameobjects(playerId);
+			sendBuffers->push_back(MakeSendBuffer(remove));
+
+			dynamicsWorld->removeCollisionObject(player->collisionObject.get());
+
+			{
+				auto iter = clients.find(player->ownerId);
+				if (iter != clients.end())
+				{
+					auto owner = std::static_pointer_cast<FPSClient>(iter->second);
+					owner->player = nullptr;
+					delayedJobs.push_back(
+						DelayPost(respawnTime, &FPSRoom::InstantiatePlayer, owner, btVector3(0, 0, 0), btQuaternion(0, 0, 0, 1))
+					);
+				}
+			}
+
+			iter = players.erase(iter);
+		}
+		else
+			iter++;
+	}
+}
+
+void FPSRoom::UpdateScore()
+{
+	for (auto& [scorer, score] : scores)
+	{
+		if (score >= scoreToWin)
+		{
+			Post(&FPSRoom::FinishGame);
+			return;
+		}
+	}
+}
+
+void FPSRoom::UpdateTransform()
+{
+	for (auto& [playerId, player] : players)
+	{
+		if (!player->velocity.isZero())
+		{
+			int timeGap = currentUpdateTime - player->timestamp;
+			btVector3 newPosition = player->position + player->velocity * timeGap;
+			player->transform.setOrigin(newPosition);
 		}
 
-		player.second->UpdateTransform();
+		player->collisionObject->setWorldTransform(player->transform);
 	}
 
 	dynamicsWorld->updateAabbs();
-
-	if (sendBuffers->size() > 0)
-		BroadcastMany(sendBuffers);
-
-	delayedJobs.push_back(
-		DelayPost(50, &FPSRoom::Update)
-	);
 }
 
 std::shared_ptr<ClientBase> FPSRoom::MakeClient(string clientId, std::shared_ptr<GameSession> session)
@@ -634,16 +641,16 @@ void FPSRoom::Draw()
 	glBegin(GL_LINES);
 	glColor3f(1.0f, 0.0f, 0.0f);
 
-	for (int i = shots.size() - 1; i >= 0; i--)
+	for (int i = shoots_draw.size() - 1; i >= 0; i--)
 	{
-		while (!shots[i].empty())
+		while (!shoots_draw[i].empty())
 		{
-			auto start = shots[i].front().first;
-			auto end = shots[i].front().second;
-			shots[i].pop();
+			auto start = shoots_draw[i].front().first;
+			auto end = shoots_draw[i].front().second;
+			shoots_draw[i].pop();
 
-			if (i + 1 != shots.size())
-				shots[i + 1].push({ start, end });
+			if (i + 1 != shoots_draw.size())
+				shoots_draw[i + 1].push({ start, end });
 
 			glVertex3f(start.x(), start.y(), start.z());
 			glVertex3f(end.x(), end.y(), end.z());
@@ -719,7 +726,7 @@ void FPSRoom::InitDraw()
 				cameraFront = glm::normalize(front);
 				});
 
-			while (agones_state != "Shutdown")
+			while (roomState == RoomState::Playing)
 			{
 				if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 					cameraPos += cameraSpeed * cameraFront;

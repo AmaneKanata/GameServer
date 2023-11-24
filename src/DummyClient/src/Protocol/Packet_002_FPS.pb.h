@@ -47,60 +47,57 @@ struct TableStruct_Packet_5f002_5fFPS_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Packet_5f002_5fFPS_2eproto;
 namespace Protocol {
-class C_CHANGE_WEAPON;
-struct C_CHANGE_WEAPONDefaultTypeInternal;
-extern C_CHANGE_WEAPONDefaultTypeInternal _C_CHANGE_WEAPON_default_instance_;
 class C_FPS_ANIMATION;
 struct C_FPS_ANIMATIONDefaultTypeInternal;
 extern C_FPS_ANIMATIONDefaultTypeInternal _C_FPS_ANIMATION_default_instance_;
+class C_FPS_CHANGE_WEAPON;
+struct C_FPS_CHANGE_WEAPONDefaultTypeInternal;
+extern C_FPS_CHANGE_WEAPONDefaultTypeInternal _C_FPS_CHANGE_WEAPON_default_instance_;
 class C_FPS_LOAD_COMPLETE;
 struct C_FPS_LOAD_COMPLETEDefaultTypeInternal;
 extern C_FPS_LOAD_COMPLETEDefaultTypeInternal _C_FPS_LOAD_COMPLETE_default_instance_;
+class C_FPS_POSITION;
+struct C_FPS_POSITIONDefaultTypeInternal;
+extern C_FPS_POSITIONDefaultTypeInternal _C_FPS_POSITION_default_instance_;
 class C_FPS_READY;
 struct C_FPS_READYDefaultTypeInternal;
 extern C_FPS_READYDefaultTypeInternal _C_FPS_READY_default_instance_;
-class C_RELOAD;
-struct C_RELOADDefaultTypeInternal;
-extern C_RELOADDefaultTypeInternal _C_RELOAD_default_instance_;
-class C_SET_FPS_POSITION;
-struct C_SET_FPS_POSITIONDefaultTypeInternal;
-extern C_SET_FPS_POSITIONDefaultTypeInternal _C_SET_FPS_POSITION_default_instance_;
-class C_SET_FPS_ROTATION;
-struct C_SET_FPS_ROTATIONDefaultTypeInternal;
-extern C_SET_FPS_ROTATIONDefaultTypeInternal _C_SET_FPS_ROTATION_default_instance_;
-class C_SHOOT;
-struct C_SHOOTDefaultTypeInternal;
-extern C_SHOOTDefaultTypeInternal _C_SHOOT_default_instance_;
-class FPS_Animation;
-struct FPS_AnimationDefaultTypeInternal;
-extern FPS_AnimationDefaultTypeInternal _FPS_Animation_default_instance_;
+class C_FPS_RELOAD;
+struct C_FPS_RELOADDefaultTypeInternal;
+extern C_FPS_RELOADDefaultTypeInternal _C_FPS_RELOAD_default_instance_;
+class C_FPS_ROTATION;
+struct C_FPS_ROTATIONDefaultTypeInternal;
+extern C_FPS_ROTATIONDefaultTypeInternal _C_FPS_ROTATION_default_instance_;
+class C_FPS_SHOOT;
+struct C_FPS_SHOOTDefaultTypeInternal;
+extern C_FPS_SHOOTDefaultTypeInternal _C_FPS_SHOOT_default_instance_;
+class FPSAnimation;
+struct FPSAnimationDefaultTypeInternal;
+extern FPSAnimationDefaultTypeInternal _FPSAnimation_default_instance_;
 class Quaternion;
 struct QuaternionDefaultTypeInternal;
 extern QuaternionDefaultTypeInternal _Quaternion_default_instance_;
-class S_ADD_FPS_PLAYER;
-struct S_ADD_FPS_PLAYERDefaultTypeInternal;
-extern S_ADD_FPS_PLAYERDefaultTypeInternal _S_ADD_FPS_PLAYER_default_instance_;
-class S_ADD_FPS_PLAYER_GameObjectInfo;
-struct S_ADD_FPS_PLAYER_GameObjectInfoDefaultTypeInternal;
-extern S_ADD_FPS_PLAYER_GameObjectInfoDefaultTypeInternal _S_ADD_FPS_PLAYER_GameObjectInfo_default_instance_;
-class S_ATTACKED;
-struct S_ATTACKEDDefaultTypeInternal;
-extern S_ATTACKEDDefaultTypeInternal _S_ATTACKED_default_instance_;
-class S_CHANGE_WEAPON;
-struct S_CHANGE_WEAPONDefaultTypeInternal;
-extern S_CHANGE_WEAPONDefaultTypeInternal _S_CHANGE_WEAPON_default_instance_;
 class S_FPS_ANIMATION;
 struct S_FPS_ANIMATIONDefaultTypeInternal;
 extern S_FPS_ANIMATIONDefaultTypeInternal _S_FPS_ANIMATION_default_instance_;
 class S_FPS_ANNOUNCE;
 struct S_FPS_ANNOUNCEDefaultTypeInternal;
 extern S_FPS_ANNOUNCEDefaultTypeInternal _S_FPS_ANNOUNCE_default_instance_;
+class S_FPS_ATTACKED;
+struct S_FPS_ATTACKEDDefaultTypeInternal;
+extern S_FPS_ATTACKEDDefaultTypeInternal _S_FPS_ATTACKED_default_instance_;
+class S_FPS_CHANGE_WEAPON;
+struct S_FPS_CHANGE_WEAPONDefaultTypeInternal;
+extern S_FPS_CHANGE_WEAPONDefaultTypeInternal _S_FPS_CHANGE_WEAPON_default_instance_;
 class S_FPS_DESTROY_DESTINATION;
 struct S_FPS_DESTROY_DESTINATIONDefaultTypeInternal;
 extern S_FPS_DESTROY_DESTINATIONDefaultTypeInternal _S_FPS_DESTROY_DESTINATION_default_instance_;
 class S_FPS_FINISH;
 struct S_FPS_FINISHDefaultTypeInternal;
 extern S_FPS_FINISHDefaultTypeInternal _S_FPS_FINISH_default_instance_;
+class S_FPS_INSTANTIATE;
+struct S_FPS_INSTANTIATEDefaultTypeInternal;
+extern S_FPS_INSTANTIATEDefaultTypeInternal _S_FPS_INSTANTIATE_default_instance_;
 class S_FPS_ITEM_OCCUPIED;
 struct S_FPS_ITEM_OCCUPIEDDefaultTypeInternal;
 extern S_FPS_ITEM_OCCUPIEDDefaultTypeInternal _S_FPS_ITEM_OCCUPIED_default_instance_;
@@ -110,9 +107,21 @@ extern S_FPS_ITEM_OCCUPY_PROGRESS_STATEDefaultTypeInternal _S_FPS_ITEM_OCCUPY_PR
 class S_FPS_LOAD;
 struct S_FPS_LOADDefaultTypeInternal;
 extern S_FPS_LOADDefaultTypeInternal _S_FPS_LOAD_default_instance_;
+class S_FPS_POSITION;
+struct S_FPS_POSITIONDefaultTypeInternal;
+extern S_FPS_POSITIONDefaultTypeInternal _S_FPS_POSITION_default_instance_;
+class S_FPS_RELOAD;
+struct S_FPS_RELOADDefaultTypeInternal;
+extern S_FPS_RELOADDefaultTypeInternal _S_FPS_RELOAD_default_instance_;
+class S_FPS_ROTATION;
+struct S_FPS_ROTATIONDefaultTypeInternal;
+extern S_FPS_ROTATIONDefaultTypeInternal _S_FPS_ROTATION_default_instance_;
 class S_FPS_SCORED;
 struct S_FPS_SCOREDDefaultTypeInternal;
 extern S_FPS_SCOREDDefaultTypeInternal _S_FPS_SCORED_default_instance_;
+class S_FPS_SHOOT;
+struct S_FPS_SHOOTDefaultTypeInternal;
+extern S_FPS_SHOOTDefaultTypeInternal _S_FPS_SHOOT_default_instance_;
 class S_FPS_SPAWN_DESTINATION;
 struct S_FPS_SPAWN_DESTINATIONDefaultTypeInternal;
 extern S_FPS_SPAWN_DESTINATIONDefaultTypeInternal _S_FPS_SPAWN_DESTINATION_default_instance_;
@@ -122,49 +131,36 @@ extern S_FPS_SPAWN_ITEMDefaultTypeInternal _S_FPS_SPAWN_ITEM_default_instance_;
 class S_FPS_START;
 struct S_FPS_STARTDefaultTypeInternal;
 extern S_FPS_STARTDefaultTypeInternal _S_FPS_START_default_instance_;
-class S_RELOAD;
-struct S_RELOADDefaultTypeInternal;
-extern S_RELOADDefaultTypeInternal _S_RELOAD_default_instance_;
-class S_SET_FPS_POSITION;
-struct S_SET_FPS_POSITIONDefaultTypeInternal;
-extern S_SET_FPS_POSITIONDefaultTypeInternal _S_SET_FPS_POSITION_default_instance_;
-class S_SET_FPS_ROTATION;
-struct S_SET_FPS_ROTATIONDefaultTypeInternal;
-extern S_SET_FPS_ROTATIONDefaultTypeInternal _S_SET_FPS_ROTATION_default_instance_;
-class S_SHOOT;
-struct S_SHOOTDefaultTypeInternal;
-extern S_SHOOTDefaultTypeInternal _S_SHOOT_default_instance_;
 }  // namespace Protocol
 PROTOBUF_NAMESPACE_OPEN
-template<> ::Protocol::C_CHANGE_WEAPON* Arena::CreateMaybeMessage<::Protocol::C_CHANGE_WEAPON>(Arena*);
 template<> ::Protocol::C_FPS_ANIMATION* Arena::CreateMaybeMessage<::Protocol::C_FPS_ANIMATION>(Arena*);
+template<> ::Protocol::C_FPS_CHANGE_WEAPON* Arena::CreateMaybeMessage<::Protocol::C_FPS_CHANGE_WEAPON>(Arena*);
 template<> ::Protocol::C_FPS_LOAD_COMPLETE* Arena::CreateMaybeMessage<::Protocol::C_FPS_LOAD_COMPLETE>(Arena*);
+template<> ::Protocol::C_FPS_POSITION* Arena::CreateMaybeMessage<::Protocol::C_FPS_POSITION>(Arena*);
 template<> ::Protocol::C_FPS_READY* Arena::CreateMaybeMessage<::Protocol::C_FPS_READY>(Arena*);
-template<> ::Protocol::C_RELOAD* Arena::CreateMaybeMessage<::Protocol::C_RELOAD>(Arena*);
-template<> ::Protocol::C_SET_FPS_POSITION* Arena::CreateMaybeMessage<::Protocol::C_SET_FPS_POSITION>(Arena*);
-template<> ::Protocol::C_SET_FPS_ROTATION* Arena::CreateMaybeMessage<::Protocol::C_SET_FPS_ROTATION>(Arena*);
-template<> ::Protocol::C_SHOOT* Arena::CreateMaybeMessage<::Protocol::C_SHOOT>(Arena*);
-template<> ::Protocol::FPS_Animation* Arena::CreateMaybeMessage<::Protocol::FPS_Animation>(Arena*);
+template<> ::Protocol::C_FPS_RELOAD* Arena::CreateMaybeMessage<::Protocol::C_FPS_RELOAD>(Arena*);
+template<> ::Protocol::C_FPS_ROTATION* Arena::CreateMaybeMessage<::Protocol::C_FPS_ROTATION>(Arena*);
+template<> ::Protocol::C_FPS_SHOOT* Arena::CreateMaybeMessage<::Protocol::C_FPS_SHOOT>(Arena*);
+template<> ::Protocol::FPSAnimation* Arena::CreateMaybeMessage<::Protocol::FPSAnimation>(Arena*);
 template<> ::Protocol::Quaternion* Arena::CreateMaybeMessage<::Protocol::Quaternion>(Arena*);
-template<> ::Protocol::S_ADD_FPS_PLAYER* Arena::CreateMaybeMessage<::Protocol::S_ADD_FPS_PLAYER>(Arena*);
-template<> ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo* Arena::CreateMaybeMessage<::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo>(Arena*);
-template<> ::Protocol::S_ATTACKED* Arena::CreateMaybeMessage<::Protocol::S_ATTACKED>(Arena*);
-template<> ::Protocol::S_CHANGE_WEAPON* Arena::CreateMaybeMessage<::Protocol::S_CHANGE_WEAPON>(Arena*);
 template<> ::Protocol::S_FPS_ANIMATION* Arena::CreateMaybeMessage<::Protocol::S_FPS_ANIMATION>(Arena*);
 template<> ::Protocol::S_FPS_ANNOUNCE* Arena::CreateMaybeMessage<::Protocol::S_FPS_ANNOUNCE>(Arena*);
+template<> ::Protocol::S_FPS_ATTACKED* Arena::CreateMaybeMessage<::Protocol::S_FPS_ATTACKED>(Arena*);
+template<> ::Protocol::S_FPS_CHANGE_WEAPON* Arena::CreateMaybeMessage<::Protocol::S_FPS_CHANGE_WEAPON>(Arena*);
 template<> ::Protocol::S_FPS_DESTROY_DESTINATION* Arena::CreateMaybeMessage<::Protocol::S_FPS_DESTROY_DESTINATION>(Arena*);
 template<> ::Protocol::S_FPS_FINISH* Arena::CreateMaybeMessage<::Protocol::S_FPS_FINISH>(Arena*);
+template<> ::Protocol::S_FPS_INSTANTIATE* Arena::CreateMaybeMessage<::Protocol::S_FPS_INSTANTIATE>(Arena*);
 template<> ::Protocol::S_FPS_ITEM_OCCUPIED* Arena::CreateMaybeMessage<::Protocol::S_FPS_ITEM_OCCUPIED>(Arena*);
 template<> ::Protocol::S_FPS_ITEM_OCCUPY_PROGRESS_STATE* Arena::CreateMaybeMessage<::Protocol::S_FPS_ITEM_OCCUPY_PROGRESS_STATE>(Arena*);
 template<> ::Protocol::S_FPS_LOAD* Arena::CreateMaybeMessage<::Protocol::S_FPS_LOAD>(Arena*);
+template<> ::Protocol::S_FPS_POSITION* Arena::CreateMaybeMessage<::Protocol::S_FPS_POSITION>(Arena*);
+template<> ::Protocol::S_FPS_RELOAD* Arena::CreateMaybeMessage<::Protocol::S_FPS_RELOAD>(Arena*);
+template<> ::Protocol::S_FPS_ROTATION* Arena::CreateMaybeMessage<::Protocol::S_FPS_ROTATION>(Arena*);
 template<> ::Protocol::S_FPS_SCORED* Arena::CreateMaybeMessage<::Protocol::S_FPS_SCORED>(Arena*);
+template<> ::Protocol::S_FPS_SHOOT* Arena::CreateMaybeMessage<::Protocol::S_FPS_SHOOT>(Arena*);
 template<> ::Protocol::S_FPS_SPAWN_DESTINATION* Arena::CreateMaybeMessage<::Protocol::S_FPS_SPAWN_DESTINATION>(Arena*);
 template<> ::Protocol::S_FPS_SPAWN_ITEM* Arena::CreateMaybeMessage<::Protocol::S_FPS_SPAWN_ITEM>(Arena*);
 template<> ::Protocol::S_FPS_START* Arena::CreateMaybeMessage<::Protocol::S_FPS_START>(Arena*);
-template<> ::Protocol::S_RELOAD* Arena::CreateMaybeMessage<::Protocol::S_RELOAD>(Arena*);
-template<> ::Protocol::S_SET_FPS_POSITION* Arena::CreateMaybeMessage<::Protocol::S_SET_FPS_POSITION>(Arena*);
-template<> ::Protocol::S_SET_FPS_ROTATION* Arena::CreateMaybeMessage<::Protocol::S_SET_FPS_ROTATION>(Arena*);
-template<> ::Protocol::S_SHOOT* Arena::CreateMaybeMessage<::Protocol::S_SHOOT>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
@@ -351,24 +347,24 @@ class Quaternion final :
 };
 // -------------------------------------------------------------------
 
-class S_ADD_FPS_PLAYER_GameObjectInfo final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo) */ {
+class S_FPS_INSTANTIATE final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_FPS_INSTANTIATE) */ {
  public:
-  inline S_ADD_FPS_PLAYER_GameObjectInfo() : S_ADD_FPS_PLAYER_GameObjectInfo(nullptr) {}
-  ~S_ADD_FPS_PLAYER_GameObjectInfo() override;
-  explicit PROTOBUF_CONSTEXPR S_ADD_FPS_PLAYER_GameObjectInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline S_FPS_INSTANTIATE() : S_FPS_INSTANTIATE(nullptr) {}
+  ~S_FPS_INSTANTIATE() override;
+  explicit PROTOBUF_CONSTEXPR S_FPS_INSTANTIATE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  S_ADD_FPS_PLAYER_GameObjectInfo(const S_ADD_FPS_PLAYER_GameObjectInfo& from);
-  S_ADD_FPS_PLAYER_GameObjectInfo(S_ADD_FPS_PLAYER_GameObjectInfo&& from) noexcept
-    : S_ADD_FPS_PLAYER_GameObjectInfo() {
+  S_FPS_INSTANTIATE(const S_FPS_INSTANTIATE& from);
+  S_FPS_INSTANTIATE(S_FPS_INSTANTIATE&& from) noexcept
+    : S_FPS_INSTANTIATE() {
     *this = ::std::move(from);
   }
 
-  inline S_ADD_FPS_PLAYER_GameObjectInfo& operator=(const S_ADD_FPS_PLAYER_GameObjectInfo& from) {
+  inline S_FPS_INSTANTIATE& operator=(const S_FPS_INSTANTIATE& from) {
     CopyFrom(from);
     return *this;
   }
-  inline S_ADD_FPS_PLAYER_GameObjectInfo& operator=(S_ADD_FPS_PLAYER_GameObjectInfo&& from) noexcept {
+  inline S_FPS_INSTANTIATE& operator=(S_FPS_INSTANTIATE&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -391,20 +387,20 @@ class S_ADD_FPS_PLAYER_GameObjectInfo final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const S_ADD_FPS_PLAYER_GameObjectInfo& default_instance() {
+  static const S_FPS_INSTANTIATE& default_instance() {
     return *internal_default_instance();
   }
-  static inline const S_ADD_FPS_PLAYER_GameObjectInfo* internal_default_instance() {
-    return reinterpret_cast<const S_ADD_FPS_PLAYER_GameObjectInfo*>(
-               &_S_ADD_FPS_PLAYER_GameObjectInfo_default_instance_);
+  static inline const S_FPS_INSTANTIATE* internal_default_instance() {
+    return reinterpret_cast<const S_FPS_INSTANTIATE*>(
+               &_S_FPS_INSTANTIATE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(S_ADD_FPS_PLAYER_GameObjectInfo& a, S_ADD_FPS_PLAYER_GameObjectInfo& b) {
+  friend void swap(S_FPS_INSTANTIATE& a, S_FPS_INSTANTIATE& b) {
     a.Swap(&b);
   }
-  inline void Swap(S_ADD_FPS_PLAYER_GameObjectInfo* other) {
+  inline void Swap(S_FPS_INSTANTIATE* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -417,7 +413,7 @@ class S_ADD_FPS_PLAYER_GameObjectInfo final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(S_ADD_FPS_PLAYER_GameObjectInfo* other) {
+  void UnsafeArenaSwap(S_FPS_INSTANTIATE* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -425,14 +421,14 @@ class S_ADD_FPS_PLAYER_GameObjectInfo final :
 
   // implements Message ----------------------------------------------
 
-  S_ADD_FPS_PLAYER_GameObjectInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_ADD_FPS_PLAYER_GameObjectInfo>(arena);
+  S_FPS_INSTANTIATE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_FPS_INSTANTIATE>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_ADD_FPS_PLAYER_GameObjectInfo& from);
+  void CopyFrom(const S_FPS_INSTANTIATE& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_ADD_FPS_PLAYER_GameObjectInfo& from) {
-    S_ADD_FPS_PLAYER_GameObjectInfo::MergeImpl(*this, from);
+  void MergeFrom( const S_FPS_INSTANTIATE& from) {
+    S_FPS_INSTANTIATE::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -450,15 +446,15 @@ class S_ADD_FPS_PLAYER_GameObjectInfo final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(S_ADD_FPS_PLAYER_GameObjectInfo* other);
+  void InternalSwap(S_FPS_INSTANTIATE* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.S_ADD_FPS_PLAYER.GameObjectInfo";
+    return "Protocol.S_FPS_INSTANTIATE";
   }
   protected:
-  explicit S_ADD_FPS_PLAYER_GameObjectInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit S_FPS_INSTANTIATE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -472,13 +468,13 @@ class S_ADD_FPS_PLAYER_GameObjectInfo final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kOwnerIdFieldNumber = 2,
-    kPositionFieldNumber = 4,
-    kRotationFieldNumber = 5,
-    kPlayerIdFieldNumber = 1,
-    kHpFieldNumber = 3,
+    kOwnerIdFieldNumber = 1,
+    kPositionFieldNumber = 3,
+    kRotationFieldNumber = 4,
+    kPlayerIdFieldNumber = 2,
+    kHpFieldNumber = 5,
   };
-  // string ownerId = 2;
+  // string ownerId = 1;
   void clear_ownerid();
   const std::string& ownerid() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -492,7 +488,7 @@ class S_ADD_FPS_PLAYER_GameObjectInfo final :
   std::string* _internal_mutable_ownerid();
   public:
 
-  // .Protocol.Vector3 position = 4;
+  // .Protocol.Vector3 position = 3;
   bool has_position() const;
   private:
   bool _internal_has_position() const;
@@ -510,7 +506,7 @@ class S_ADD_FPS_PLAYER_GameObjectInfo final :
       ::Protocol::Vector3* position);
   ::Protocol::Vector3* unsafe_arena_release_position();
 
-  // .Protocol.Quaternion rotation = 5;
+  // .Protocol.Quaternion rotation = 4;
   bool has_rotation() const;
   private:
   bool _internal_has_rotation() const;
@@ -528,7 +524,7 @@ class S_ADD_FPS_PLAYER_GameObjectInfo final :
       ::Protocol::Quaternion* rotation);
   ::Protocol::Quaternion* unsafe_arena_release_rotation();
 
-  // int32 playerId = 1;
+  // int32 playerId = 2;
   void clear_playerid();
   int32_t playerid() const;
   void set_playerid(int32_t value);
@@ -537,7 +533,7 @@ class S_ADD_FPS_PLAYER_GameObjectInfo final :
   void _internal_set_playerid(int32_t value);
   public:
 
-  // int32 hp = 3;
+  // int32 hp = 5;
   void clear_hp();
   int32_t hp() const;
   void set_hp(int32_t value);
@@ -546,7 +542,7 @@ class S_ADD_FPS_PLAYER_GameObjectInfo final :
   void _internal_set_hp(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo)
+  // @@protoc_insertion_point(class_scope:Protocol.S_FPS_INSTANTIATE)
  private:
   class _Internal;
 
@@ -566,24 +562,24 @@ class S_ADD_FPS_PLAYER_GameObjectInfo final :
 };
 // -------------------------------------------------------------------
 
-class S_ADD_FPS_PLAYER final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_ADD_FPS_PLAYER) */ {
+class C_FPS_POSITION final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.C_FPS_POSITION) */ {
  public:
-  inline S_ADD_FPS_PLAYER() : S_ADD_FPS_PLAYER(nullptr) {}
-  ~S_ADD_FPS_PLAYER() override;
-  explicit PROTOBUF_CONSTEXPR S_ADD_FPS_PLAYER(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline C_FPS_POSITION() : C_FPS_POSITION(nullptr) {}
+  ~C_FPS_POSITION() override;
+  explicit PROTOBUF_CONSTEXPR C_FPS_POSITION(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  S_ADD_FPS_PLAYER(const S_ADD_FPS_PLAYER& from);
-  S_ADD_FPS_PLAYER(S_ADD_FPS_PLAYER&& from) noexcept
-    : S_ADD_FPS_PLAYER() {
+  C_FPS_POSITION(const C_FPS_POSITION& from);
+  C_FPS_POSITION(C_FPS_POSITION&& from) noexcept
+    : C_FPS_POSITION() {
     *this = ::std::move(from);
   }
 
-  inline S_ADD_FPS_PLAYER& operator=(const S_ADD_FPS_PLAYER& from) {
+  inline C_FPS_POSITION& operator=(const C_FPS_POSITION& from) {
     CopyFrom(from);
     return *this;
   }
-  inline S_ADD_FPS_PLAYER& operator=(S_ADD_FPS_PLAYER&& from) noexcept {
+  inline C_FPS_POSITION& operator=(C_FPS_POSITION&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -606,20 +602,20 @@ class S_ADD_FPS_PLAYER final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const S_ADD_FPS_PLAYER& default_instance() {
+  static const C_FPS_POSITION& default_instance() {
     return *internal_default_instance();
   }
-  static inline const S_ADD_FPS_PLAYER* internal_default_instance() {
-    return reinterpret_cast<const S_ADD_FPS_PLAYER*>(
-               &_S_ADD_FPS_PLAYER_default_instance_);
+  static inline const C_FPS_POSITION* internal_default_instance() {
+    return reinterpret_cast<const C_FPS_POSITION*>(
+               &_C_FPS_POSITION_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     2;
 
-  friend void swap(S_ADD_FPS_PLAYER& a, S_ADD_FPS_PLAYER& b) {
+  friend void swap(C_FPS_POSITION& a, C_FPS_POSITION& b) {
     a.Swap(&b);
   }
-  inline void Swap(S_ADD_FPS_PLAYER* other) {
+  inline void Swap(C_FPS_POSITION* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -632,7 +628,7 @@ class S_ADD_FPS_PLAYER final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(S_ADD_FPS_PLAYER* other) {
+  void UnsafeArenaSwap(C_FPS_POSITION* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -640,14 +636,14 @@ class S_ADD_FPS_PLAYER final :
 
   // implements Message ----------------------------------------------
 
-  S_ADD_FPS_PLAYER* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_ADD_FPS_PLAYER>(arena);
+  C_FPS_POSITION* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_FPS_POSITION>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_ADD_FPS_PLAYER& from);
+  void CopyFrom(const C_FPS_POSITION& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_ADD_FPS_PLAYER& from) {
-    S_ADD_FPS_PLAYER::MergeImpl(*this, from);
+  void MergeFrom( const C_FPS_POSITION& from) {
+    C_FPS_POSITION::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -665,15 +661,15 @@ class S_ADD_FPS_PLAYER final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(S_ADD_FPS_PLAYER* other);
+  void InternalSwap(C_FPS_POSITION* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.S_ADD_FPS_PLAYER";
+    return "Protocol.C_FPS_POSITION";
   }
   protected:
-  explicit S_ADD_FPS_PLAYER(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit C_FPS_POSITION(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -684,32 +680,59 @@ class S_ADD_FPS_PLAYER final :
 
   // nested types ----------------------------------------------------
 
-  typedef S_ADD_FPS_PLAYER_GameObjectInfo GameObjectInfo;
-
   // accessors -------------------------------------------------------
 
   enum : int {
-    kGameObjectsFieldNumber = 1,
+    kPositionFieldNumber = 2,
+    kVelocityFieldNumber = 3,
+    kTimestampFieldNumber = 1,
   };
-  // repeated .Protocol.S_ADD_FPS_PLAYER.GameObjectInfo gameObjects = 1;
-  int gameobjects_size() const;
+  // .Protocol.Vector3 position = 2;
+  bool has_position() const;
   private:
-  int _internal_gameobjects_size() const;
+  bool _internal_has_position() const;
   public:
-  void clear_gameobjects();
-  ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo* mutable_gameobjects(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo >*
-      mutable_gameobjects();
+  void clear_position();
+  const ::Protocol::Vector3& position() const;
+  PROTOBUF_NODISCARD ::Protocol::Vector3* release_position();
+  ::Protocol::Vector3* mutable_position();
+  void set_allocated_position(::Protocol::Vector3* position);
   private:
-  const ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo& _internal_gameobjects(int index) const;
-  ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo* _internal_add_gameobjects();
+  const ::Protocol::Vector3& _internal_position() const;
+  ::Protocol::Vector3* _internal_mutable_position();
   public:
-  const ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo& gameobjects(int index) const;
-  ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo* add_gameobjects();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo >&
-      gameobjects() const;
+  void unsafe_arena_set_allocated_position(
+      ::Protocol::Vector3* position);
+  ::Protocol::Vector3* unsafe_arena_release_position();
 
-  // @@protoc_insertion_point(class_scope:Protocol.S_ADD_FPS_PLAYER)
+  // .Protocol.Vector3 velocity = 3;
+  bool has_velocity() const;
+  private:
+  bool _internal_has_velocity() const;
+  public:
+  void clear_velocity();
+  const ::Protocol::Vector3& velocity() const;
+  PROTOBUF_NODISCARD ::Protocol::Vector3* release_velocity();
+  ::Protocol::Vector3* mutable_velocity();
+  void set_allocated_velocity(::Protocol::Vector3* velocity);
+  private:
+  const ::Protocol::Vector3& _internal_velocity() const;
+  ::Protocol::Vector3* _internal_mutable_velocity();
+  public:
+  void unsafe_arena_set_allocated_velocity(
+      ::Protocol::Vector3* velocity);
+  ::Protocol::Vector3* unsafe_arena_release_velocity();
+
+  // int64 timestamp = 1;
+  void clear_timestamp();
+  int64_t timestamp() const;
+  void set_timestamp(int64_t value);
+  private:
+  int64_t _internal_timestamp() const;
+  void _internal_set_timestamp(int64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:Protocol.C_FPS_POSITION)
  private:
   class _Internal;
 
@@ -717,7 +740,9 @@ class S_ADD_FPS_PLAYER final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo > gameobjects_;
+    ::Protocol::Vector3* position_;
+    ::Protocol::Vector3* velocity_;
+    int64_t timestamp_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -725,24 +750,24 @@ class S_ADD_FPS_PLAYER final :
 };
 // -------------------------------------------------------------------
 
-class C_SET_FPS_POSITION final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.C_SET_FPS_POSITION) */ {
+class S_FPS_POSITION final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_FPS_POSITION) */ {
  public:
-  inline C_SET_FPS_POSITION() : C_SET_FPS_POSITION(nullptr) {}
-  ~C_SET_FPS_POSITION() override;
-  explicit PROTOBUF_CONSTEXPR C_SET_FPS_POSITION(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline S_FPS_POSITION() : S_FPS_POSITION(nullptr) {}
+  ~S_FPS_POSITION() override;
+  explicit PROTOBUF_CONSTEXPR S_FPS_POSITION(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  C_SET_FPS_POSITION(const C_SET_FPS_POSITION& from);
-  C_SET_FPS_POSITION(C_SET_FPS_POSITION&& from) noexcept
-    : C_SET_FPS_POSITION() {
+  S_FPS_POSITION(const S_FPS_POSITION& from);
+  S_FPS_POSITION(S_FPS_POSITION&& from) noexcept
+    : S_FPS_POSITION() {
     *this = ::std::move(from);
   }
 
-  inline C_SET_FPS_POSITION& operator=(const C_SET_FPS_POSITION& from) {
+  inline S_FPS_POSITION& operator=(const S_FPS_POSITION& from) {
     CopyFrom(from);
     return *this;
   }
-  inline C_SET_FPS_POSITION& operator=(C_SET_FPS_POSITION&& from) noexcept {
+  inline S_FPS_POSITION& operator=(S_FPS_POSITION&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -765,20 +790,20 @@ class C_SET_FPS_POSITION final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const C_SET_FPS_POSITION& default_instance() {
+  static const S_FPS_POSITION& default_instance() {
     return *internal_default_instance();
   }
-  static inline const C_SET_FPS_POSITION* internal_default_instance() {
-    return reinterpret_cast<const C_SET_FPS_POSITION*>(
-               &_C_SET_FPS_POSITION_default_instance_);
+  static inline const S_FPS_POSITION* internal_default_instance() {
+    return reinterpret_cast<const S_FPS_POSITION*>(
+               &_S_FPS_POSITION_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     3;
 
-  friend void swap(C_SET_FPS_POSITION& a, C_SET_FPS_POSITION& b) {
+  friend void swap(S_FPS_POSITION& a, S_FPS_POSITION& b) {
     a.Swap(&b);
   }
-  inline void Swap(C_SET_FPS_POSITION* other) {
+  inline void Swap(S_FPS_POSITION* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -791,7 +816,7 @@ class C_SET_FPS_POSITION final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(C_SET_FPS_POSITION* other) {
+  void UnsafeArenaSwap(S_FPS_POSITION* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -799,14 +824,14 @@ class C_SET_FPS_POSITION final :
 
   // implements Message ----------------------------------------------
 
-  C_SET_FPS_POSITION* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<C_SET_FPS_POSITION>(arena);
+  S_FPS_POSITION* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_FPS_POSITION>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const C_SET_FPS_POSITION& from);
+  void CopyFrom(const S_FPS_POSITION& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const C_SET_FPS_POSITION& from) {
-    C_SET_FPS_POSITION::MergeImpl(*this, from);
+  void MergeFrom( const S_FPS_POSITION& from) {
+    S_FPS_POSITION::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -824,15 +849,15 @@ class C_SET_FPS_POSITION final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(C_SET_FPS_POSITION* other);
+  void InternalSwap(S_FPS_POSITION* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.C_SET_FPS_POSITION";
+    return "Protocol.S_FPS_POSITION";
   }
   protected:
-  explicit C_SET_FPS_POSITION(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit S_FPS_POSITION(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -848,8 +873,8 @@ class C_SET_FPS_POSITION final :
   enum : int {
     kPositionFieldNumber = 3,
     kVelocityFieldNumber = 4,
-    kTimestampFieldNumber = 1,
-    kPlayerIdFieldNumber = 2,
+    kTimestampFieldNumber = 2,
+    kPlayerIdFieldNumber = 1,
   };
   // .Protocol.Vector3 position = 3;
   bool has_position() const;
@@ -887,7 +912,7 @@ class C_SET_FPS_POSITION final :
       ::Protocol::Vector3* velocity);
   ::Protocol::Vector3* unsafe_arena_release_velocity();
 
-  // int64 timestamp = 1;
+  // int64 timestamp = 2;
   void clear_timestamp();
   int64_t timestamp() const;
   void set_timestamp(int64_t value);
@@ -896,7 +921,7 @@ class C_SET_FPS_POSITION final :
   void _internal_set_timestamp(int64_t value);
   public:
 
-  // int32 playerId = 2;
+  // int32 playerId = 1;
   void clear_playerid();
   int32_t playerid() const;
   void set_playerid(int32_t value);
@@ -905,7 +930,7 @@ class C_SET_FPS_POSITION final :
   void _internal_set_playerid(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.C_SET_FPS_POSITION)
+  // @@protoc_insertion_point(class_scope:Protocol.S_FPS_POSITION)
  private:
   class _Internal;
 
@@ -924,24 +949,24 @@ class C_SET_FPS_POSITION final :
 };
 // -------------------------------------------------------------------
 
-class S_SET_FPS_POSITION final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_SET_FPS_POSITION) */ {
+class C_FPS_ROTATION final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.C_FPS_ROTATION) */ {
  public:
-  inline S_SET_FPS_POSITION() : S_SET_FPS_POSITION(nullptr) {}
-  ~S_SET_FPS_POSITION() override;
-  explicit PROTOBUF_CONSTEXPR S_SET_FPS_POSITION(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline C_FPS_ROTATION() : C_FPS_ROTATION(nullptr) {}
+  ~C_FPS_ROTATION() override;
+  explicit PROTOBUF_CONSTEXPR C_FPS_ROTATION(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  S_SET_FPS_POSITION(const S_SET_FPS_POSITION& from);
-  S_SET_FPS_POSITION(S_SET_FPS_POSITION&& from) noexcept
-    : S_SET_FPS_POSITION() {
+  C_FPS_ROTATION(const C_FPS_ROTATION& from);
+  C_FPS_ROTATION(C_FPS_ROTATION&& from) noexcept
+    : C_FPS_ROTATION() {
     *this = ::std::move(from);
   }
 
-  inline S_SET_FPS_POSITION& operator=(const S_SET_FPS_POSITION& from) {
+  inline C_FPS_ROTATION& operator=(const C_FPS_ROTATION& from) {
     CopyFrom(from);
     return *this;
   }
-  inline S_SET_FPS_POSITION& operator=(S_SET_FPS_POSITION&& from) noexcept {
+  inline C_FPS_ROTATION& operator=(C_FPS_ROTATION&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -964,20 +989,20 @@ class S_SET_FPS_POSITION final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const S_SET_FPS_POSITION& default_instance() {
+  static const C_FPS_ROTATION& default_instance() {
     return *internal_default_instance();
   }
-  static inline const S_SET_FPS_POSITION* internal_default_instance() {
-    return reinterpret_cast<const S_SET_FPS_POSITION*>(
-               &_S_SET_FPS_POSITION_default_instance_);
+  static inline const C_FPS_ROTATION* internal_default_instance() {
+    return reinterpret_cast<const C_FPS_ROTATION*>(
+               &_C_FPS_ROTATION_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     4;
 
-  friend void swap(S_SET_FPS_POSITION& a, S_SET_FPS_POSITION& b) {
+  friend void swap(C_FPS_ROTATION& a, C_FPS_ROTATION& b) {
     a.Swap(&b);
   }
-  inline void Swap(S_SET_FPS_POSITION* other) {
+  inline void Swap(C_FPS_ROTATION* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -990,7 +1015,7 @@ class S_SET_FPS_POSITION final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(S_SET_FPS_POSITION* other) {
+  void UnsafeArenaSwap(C_FPS_ROTATION* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -998,14 +1023,14 @@ class S_SET_FPS_POSITION final :
 
   // implements Message ----------------------------------------------
 
-  S_SET_FPS_POSITION* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_SET_FPS_POSITION>(arena);
+  C_FPS_ROTATION* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_FPS_ROTATION>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_SET_FPS_POSITION& from);
+  void CopyFrom(const C_FPS_ROTATION& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_SET_FPS_POSITION& from) {
-    S_SET_FPS_POSITION::MergeImpl(*this, from);
+  void MergeFrom( const C_FPS_ROTATION& from) {
+    C_FPS_ROTATION::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -1023,15 +1048,15 @@ class S_SET_FPS_POSITION final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(S_SET_FPS_POSITION* other);
+  void InternalSwap(C_FPS_ROTATION* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.S_SET_FPS_POSITION";
+    return "Protocol.C_FPS_ROTATION";
   }
   protected:
-  explicit S_SET_FPS_POSITION(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit C_FPS_ROTATION(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -1045,66 +1070,27 @@ class S_SET_FPS_POSITION final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kPositionFieldNumber = 3,
-    kVelocityFieldNumber = 4,
-    kTimestampFieldNumber = 1,
-    kPlayerIdFieldNumber = 2,
+    kRotationFieldNumber = 1,
   };
-  // .Protocol.Vector3 position = 3;
-  bool has_position() const;
+  // .Protocol.Quaternion rotation = 1;
+  bool has_rotation() const;
   private:
-  bool _internal_has_position() const;
+  bool _internal_has_rotation() const;
   public:
-  void clear_position();
-  const ::Protocol::Vector3& position() const;
-  PROTOBUF_NODISCARD ::Protocol::Vector3* release_position();
-  ::Protocol::Vector3* mutable_position();
-  void set_allocated_position(::Protocol::Vector3* position);
+  void clear_rotation();
+  const ::Protocol::Quaternion& rotation() const;
+  PROTOBUF_NODISCARD ::Protocol::Quaternion* release_rotation();
+  ::Protocol::Quaternion* mutable_rotation();
+  void set_allocated_rotation(::Protocol::Quaternion* rotation);
   private:
-  const ::Protocol::Vector3& _internal_position() const;
-  ::Protocol::Vector3* _internal_mutable_position();
+  const ::Protocol::Quaternion& _internal_rotation() const;
+  ::Protocol::Quaternion* _internal_mutable_rotation();
   public:
-  void unsafe_arena_set_allocated_position(
-      ::Protocol::Vector3* position);
-  ::Protocol::Vector3* unsafe_arena_release_position();
+  void unsafe_arena_set_allocated_rotation(
+      ::Protocol::Quaternion* rotation);
+  ::Protocol::Quaternion* unsafe_arena_release_rotation();
 
-  // .Protocol.Vector3 velocity = 4;
-  bool has_velocity() const;
-  private:
-  bool _internal_has_velocity() const;
-  public:
-  void clear_velocity();
-  const ::Protocol::Vector3& velocity() const;
-  PROTOBUF_NODISCARD ::Protocol::Vector3* release_velocity();
-  ::Protocol::Vector3* mutable_velocity();
-  void set_allocated_velocity(::Protocol::Vector3* velocity);
-  private:
-  const ::Protocol::Vector3& _internal_velocity() const;
-  ::Protocol::Vector3* _internal_mutable_velocity();
-  public:
-  void unsafe_arena_set_allocated_velocity(
-      ::Protocol::Vector3* velocity);
-  ::Protocol::Vector3* unsafe_arena_release_velocity();
-
-  // int64 timestamp = 1;
-  void clear_timestamp();
-  int64_t timestamp() const;
-  void set_timestamp(int64_t value);
-  private:
-  int64_t _internal_timestamp() const;
-  void _internal_set_timestamp(int64_t value);
-  public:
-
-  // int32 playerId = 2;
-  void clear_playerid();
-  int32_t playerid() const;
-  void set_playerid(int32_t value);
-  private:
-  int32_t _internal_playerid() const;
-  void _internal_set_playerid(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:Protocol.S_SET_FPS_POSITION)
+  // @@protoc_insertion_point(class_scope:Protocol.C_FPS_ROTATION)
  private:
   class _Internal;
 
@@ -1112,10 +1098,7 @@ class S_SET_FPS_POSITION final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::Protocol::Vector3* position_;
-    ::Protocol::Vector3* velocity_;
-    int64_t timestamp_;
-    int32_t playerid_;
+    ::Protocol::Quaternion* rotation_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1123,24 +1106,24 @@ class S_SET_FPS_POSITION final :
 };
 // -------------------------------------------------------------------
 
-class C_SET_FPS_ROTATION final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.C_SET_FPS_ROTATION) */ {
+class S_FPS_ROTATION final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_FPS_ROTATION) */ {
  public:
-  inline C_SET_FPS_ROTATION() : C_SET_FPS_ROTATION(nullptr) {}
-  ~C_SET_FPS_ROTATION() override;
-  explicit PROTOBUF_CONSTEXPR C_SET_FPS_ROTATION(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline S_FPS_ROTATION() : S_FPS_ROTATION(nullptr) {}
+  ~S_FPS_ROTATION() override;
+  explicit PROTOBUF_CONSTEXPR S_FPS_ROTATION(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  C_SET_FPS_ROTATION(const C_SET_FPS_ROTATION& from);
-  C_SET_FPS_ROTATION(C_SET_FPS_ROTATION&& from) noexcept
-    : C_SET_FPS_ROTATION() {
+  S_FPS_ROTATION(const S_FPS_ROTATION& from);
+  S_FPS_ROTATION(S_FPS_ROTATION&& from) noexcept
+    : S_FPS_ROTATION() {
     *this = ::std::move(from);
   }
 
-  inline C_SET_FPS_ROTATION& operator=(const C_SET_FPS_ROTATION& from) {
+  inline S_FPS_ROTATION& operator=(const S_FPS_ROTATION& from) {
     CopyFrom(from);
     return *this;
   }
-  inline C_SET_FPS_ROTATION& operator=(C_SET_FPS_ROTATION&& from) noexcept {
+  inline S_FPS_ROTATION& operator=(S_FPS_ROTATION&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -1163,20 +1146,20 @@ class C_SET_FPS_ROTATION final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const C_SET_FPS_ROTATION& default_instance() {
+  static const S_FPS_ROTATION& default_instance() {
     return *internal_default_instance();
   }
-  static inline const C_SET_FPS_ROTATION* internal_default_instance() {
-    return reinterpret_cast<const C_SET_FPS_ROTATION*>(
-               &_C_SET_FPS_ROTATION_default_instance_);
+  static inline const S_FPS_ROTATION* internal_default_instance() {
+    return reinterpret_cast<const S_FPS_ROTATION*>(
+               &_S_FPS_ROTATION_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     5;
 
-  friend void swap(C_SET_FPS_ROTATION& a, C_SET_FPS_ROTATION& b) {
+  friend void swap(S_FPS_ROTATION& a, S_FPS_ROTATION& b) {
     a.Swap(&b);
   }
-  inline void Swap(C_SET_FPS_ROTATION* other) {
+  inline void Swap(S_FPS_ROTATION* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1189,7 +1172,7 @@ class C_SET_FPS_ROTATION final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(C_SET_FPS_ROTATION* other) {
+  void UnsafeArenaSwap(S_FPS_ROTATION* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -1197,14 +1180,14 @@ class C_SET_FPS_ROTATION final :
 
   // implements Message ----------------------------------------------
 
-  C_SET_FPS_ROTATION* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<C_SET_FPS_ROTATION>(arena);
+  S_FPS_ROTATION* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_FPS_ROTATION>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const C_SET_FPS_ROTATION& from);
+  void CopyFrom(const S_FPS_ROTATION& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const C_SET_FPS_ROTATION& from) {
-    C_SET_FPS_ROTATION::MergeImpl(*this, from);
+  void MergeFrom( const S_FPS_ROTATION& from) {
+    S_FPS_ROTATION::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -1222,15 +1205,15 @@ class C_SET_FPS_ROTATION final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(C_SET_FPS_ROTATION* other);
+  void InternalSwap(S_FPS_ROTATION* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.C_SET_FPS_ROTATION";
+    return "Protocol.S_FPS_ROTATION";
   }
   protected:
-  explicit C_SET_FPS_ROTATION(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit S_FPS_ROTATION(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -1274,7 +1257,7 @@ class C_SET_FPS_ROTATION final :
   void _internal_set_playerid(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.C_SET_FPS_ROTATION)
+  // @@protoc_insertion_point(class_scope:Protocol.S_FPS_ROTATION)
  private:
   class _Internal;
 
@@ -1291,24 +1274,24 @@ class C_SET_FPS_ROTATION final :
 };
 // -------------------------------------------------------------------
 
-class S_SET_FPS_ROTATION final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_SET_FPS_ROTATION) */ {
+class C_FPS_SHOOT final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.C_FPS_SHOOT) */ {
  public:
-  inline S_SET_FPS_ROTATION() : S_SET_FPS_ROTATION(nullptr) {}
-  ~S_SET_FPS_ROTATION() override;
-  explicit PROTOBUF_CONSTEXPR S_SET_FPS_ROTATION(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline C_FPS_SHOOT() : C_FPS_SHOOT(nullptr) {}
+  ~C_FPS_SHOOT() override;
+  explicit PROTOBUF_CONSTEXPR C_FPS_SHOOT(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  S_SET_FPS_ROTATION(const S_SET_FPS_ROTATION& from);
-  S_SET_FPS_ROTATION(S_SET_FPS_ROTATION&& from) noexcept
-    : S_SET_FPS_ROTATION() {
+  C_FPS_SHOOT(const C_FPS_SHOOT& from);
+  C_FPS_SHOOT(C_FPS_SHOOT&& from) noexcept
+    : C_FPS_SHOOT() {
     *this = ::std::move(from);
   }
 
-  inline S_SET_FPS_ROTATION& operator=(const S_SET_FPS_ROTATION& from) {
+  inline C_FPS_SHOOT& operator=(const C_FPS_SHOOT& from) {
     CopyFrom(from);
     return *this;
   }
-  inline S_SET_FPS_ROTATION& operator=(S_SET_FPS_ROTATION&& from) noexcept {
+  inline C_FPS_SHOOT& operator=(C_FPS_SHOOT&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -1331,20 +1314,20 @@ class S_SET_FPS_ROTATION final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const S_SET_FPS_ROTATION& default_instance() {
+  static const C_FPS_SHOOT& default_instance() {
     return *internal_default_instance();
   }
-  static inline const S_SET_FPS_ROTATION* internal_default_instance() {
-    return reinterpret_cast<const S_SET_FPS_ROTATION*>(
-               &_S_SET_FPS_ROTATION_default_instance_);
+  static inline const C_FPS_SHOOT* internal_default_instance() {
+    return reinterpret_cast<const C_FPS_SHOOT*>(
+               &_C_FPS_SHOOT_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     6;
 
-  friend void swap(S_SET_FPS_ROTATION& a, S_SET_FPS_ROTATION& b) {
+  friend void swap(C_FPS_SHOOT& a, C_FPS_SHOOT& b) {
     a.Swap(&b);
   }
-  inline void Swap(S_SET_FPS_ROTATION* other) {
+  inline void Swap(C_FPS_SHOOT* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1357,7 +1340,7 @@ class S_SET_FPS_ROTATION final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(S_SET_FPS_ROTATION* other) {
+  void UnsafeArenaSwap(C_FPS_SHOOT* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -1365,14 +1348,14 @@ class S_SET_FPS_ROTATION final :
 
   // implements Message ----------------------------------------------
 
-  S_SET_FPS_ROTATION* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_SET_FPS_ROTATION>(arena);
+  C_FPS_SHOOT* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_FPS_SHOOT>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_SET_FPS_ROTATION& from);
+  void CopyFrom(const C_FPS_SHOOT& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_SET_FPS_ROTATION& from) {
-    S_SET_FPS_ROTATION::MergeImpl(*this, from);
+  void MergeFrom( const C_FPS_SHOOT& from) {
+    C_FPS_SHOOT::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -1390,183 +1373,15 @@ class S_SET_FPS_ROTATION final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(S_SET_FPS_ROTATION* other);
+  void InternalSwap(C_FPS_SHOOT* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.S_SET_FPS_ROTATION";
+    return "Protocol.C_FPS_SHOOT";
   }
   protected:
-  explicit S_SET_FPS_ROTATION(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kRotationFieldNumber = 2,
-    kPlayerIdFieldNumber = 1,
-  };
-  // .Protocol.Quaternion rotation = 2;
-  bool has_rotation() const;
-  private:
-  bool _internal_has_rotation() const;
-  public:
-  void clear_rotation();
-  const ::Protocol::Quaternion& rotation() const;
-  PROTOBUF_NODISCARD ::Protocol::Quaternion* release_rotation();
-  ::Protocol::Quaternion* mutable_rotation();
-  void set_allocated_rotation(::Protocol::Quaternion* rotation);
-  private:
-  const ::Protocol::Quaternion& _internal_rotation() const;
-  ::Protocol::Quaternion* _internal_mutable_rotation();
-  public:
-  void unsafe_arena_set_allocated_rotation(
-      ::Protocol::Quaternion* rotation);
-  ::Protocol::Quaternion* unsafe_arena_release_rotation();
-
-  // int32 playerId = 1;
-  void clear_playerid();
-  int32_t playerid() const;
-  void set_playerid(int32_t value);
-  private:
-  int32_t _internal_playerid() const;
-  void _internal_set_playerid(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:Protocol.S_SET_FPS_ROTATION)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::Protocol::Quaternion* rotation_;
-    int32_t playerid_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Packet_5f002_5fFPS_2eproto;
-};
-// -------------------------------------------------------------------
-
-class C_SHOOT final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.C_SHOOT) */ {
- public:
-  inline C_SHOOT() : C_SHOOT(nullptr) {}
-  ~C_SHOOT() override;
-  explicit PROTOBUF_CONSTEXPR C_SHOOT(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  C_SHOOT(const C_SHOOT& from);
-  C_SHOOT(C_SHOOT&& from) noexcept
-    : C_SHOOT() {
-    *this = ::std::move(from);
-  }
-
-  inline C_SHOOT& operator=(const C_SHOOT& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline C_SHOOT& operator=(C_SHOOT&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const C_SHOOT& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const C_SHOOT* internal_default_instance() {
-    return reinterpret_cast<const C_SHOOT*>(
-               &_C_SHOOT_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    7;
-
-  friend void swap(C_SHOOT& a, C_SHOOT& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(C_SHOOT* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(C_SHOOT* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  C_SHOOT* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<C_SHOOT>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const C_SHOOT& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const C_SHOOT& from) {
-    C_SHOOT::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(C_SHOOT* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.C_SHOOT";
-  }
-  protected:
-  explicit C_SHOOT(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit C_FPS_SHOOT(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -1619,7 +1434,7 @@ class C_SHOOT final :
       ::Protocol::Vector3* direction);
   ::Protocol::Vector3* unsafe_arena_release_direction();
 
-  // @@protoc_insertion_point(class_scope:Protocol.C_SHOOT)
+  // @@protoc_insertion_point(class_scope:Protocol.C_FPS_SHOOT)
  private:
   class _Internal;
 
@@ -1636,24 +1451,24 @@ class C_SHOOT final :
 };
 // -------------------------------------------------------------------
 
-class S_SHOOT final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_SHOOT) */ {
+class S_FPS_SHOOT final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_FPS_SHOOT) */ {
  public:
-  inline S_SHOOT() : S_SHOOT(nullptr) {}
-  ~S_SHOOT() override;
-  explicit PROTOBUF_CONSTEXPR S_SHOOT(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline S_FPS_SHOOT() : S_FPS_SHOOT(nullptr) {}
+  ~S_FPS_SHOOT() override;
+  explicit PROTOBUF_CONSTEXPR S_FPS_SHOOT(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  S_SHOOT(const S_SHOOT& from);
-  S_SHOOT(S_SHOOT&& from) noexcept
-    : S_SHOOT() {
+  S_FPS_SHOOT(const S_FPS_SHOOT& from);
+  S_FPS_SHOOT(S_FPS_SHOOT&& from) noexcept
+    : S_FPS_SHOOT() {
     *this = ::std::move(from);
   }
 
-  inline S_SHOOT& operator=(const S_SHOOT& from) {
+  inline S_FPS_SHOOT& operator=(const S_FPS_SHOOT& from) {
     CopyFrom(from);
     return *this;
   }
-  inline S_SHOOT& operator=(S_SHOOT&& from) noexcept {
+  inline S_FPS_SHOOT& operator=(S_FPS_SHOOT&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -1676,20 +1491,20 @@ class S_SHOOT final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const S_SHOOT& default_instance() {
+  static const S_FPS_SHOOT& default_instance() {
     return *internal_default_instance();
   }
-  static inline const S_SHOOT* internal_default_instance() {
-    return reinterpret_cast<const S_SHOOT*>(
-               &_S_SHOOT_default_instance_);
+  static inline const S_FPS_SHOOT* internal_default_instance() {
+    return reinterpret_cast<const S_FPS_SHOOT*>(
+               &_S_FPS_SHOOT_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    7;
 
-  friend void swap(S_SHOOT& a, S_SHOOT& b) {
+  friend void swap(S_FPS_SHOOT& a, S_FPS_SHOOT& b) {
     a.Swap(&b);
   }
-  inline void Swap(S_SHOOT* other) {
+  inline void Swap(S_FPS_SHOOT* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1702,7 +1517,7 @@ class S_SHOOT final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(S_SHOOT* other) {
+  void UnsafeArenaSwap(S_FPS_SHOOT* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -1710,14 +1525,14 @@ class S_SHOOT final :
 
   // implements Message ----------------------------------------------
 
-  S_SHOOT* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_SHOOT>(arena);
+  S_FPS_SHOOT* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_FPS_SHOOT>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_SHOOT& from);
+  void CopyFrom(const S_FPS_SHOOT& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_SHOOT& from) {
-    S_SHOOT::MergeImpl(*this, from);
+  void MergeFrom( const S_FPS_SHOOT& from) {
+    S_FPS_SHOOT::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -1735,15 +1550,15 @@ class S_SHOOT final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(S_SHOOT* other);
+  void InternalSwap(S_FPS_SHOOT* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.S_SHOOT";
+    return "Protocol.S_FPS_SHOOT";
   }
   protected:
-  explicit S_SHOOT(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit S_FPS_SHOOT(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -1768,7 +1583,7 @@ class S_SHOOT final :
   void _internal_set_playerid(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.S_SHOOT)
+  // @@protoc_insertion_point(class_scope:Protocol.S_FPS_SHOOT)
  private:
   class _Internal;
 
@@ -1784,24 +1599,24 @@ class S_SHOOT final :
 };
 // -------------------------------------------------------------------
 
-class S_ATTACKED final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_ATTACKED) */ {
+class S_FPS_ATTACKED final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_FPS_ATTACKED) */ {
  public:
-  inline S_ATTACKED() : S_ATTACKED(nullptr) {}
-  ~S_ATTACKED() override;
-  explicit PROTOBUF_CONSTEXPR S_ATTACKED(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline S_FPS_ATTACKED() : S_FPS_ATTACKED(nullptr) {}
+  ~S_FPS_ATTACKED() override;
+  explicit PROTOBUF_CONSTEXPR S_FPS_ATTACKED(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  S_ATTACKED(const S_ATTACKED& from);
-  S_ATTACKED(S_ATTACKED&& from) noexcept
-    : S_ATTACKED() {
+  S_FPS_ATTACKED(const S_FPS_ATTACKED& from);
+  S_FPS_ATTACKED(S_FPS_ATTACKED&& from) noexcept
+    : S_FPS_ATTACKED() {
     *this = ::std::move(from);
   }
 
-  inline S_ATTACKED& operator=(const S_ATTACKED& from) {
+  inline S_FPS_ATTACKED& operator=(const S_FPS_ATTACKED& from) {
     CopyFrom(from);
     return *this;
   }
-  inline S_ATTACKED& operator=(S_ATTACKED&& from) noexcept {
+  inline S_FPS_ATTACKED& operator=(S_FPS_ATTACKED&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -1824,20 +1639,20 @@ class S_ATTACKED final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const S_ATTACKED& default_instance() {
+  static const S_FPS_ATTACKED& default_instance() {
     return *internal_default_instance();
   }
-  static inline const S_ATTACKED* internal_default_instance() {
-    return reinterpret_cast<const S_ATTACKED*>(
-               &_S_ATTACKED_default_instance_);
+  static inline const S_FPS_ATTACKED* internal_default_instance() {
+    return reinterpret_cast<const S_FPS_ATTACKED*>(
+               &_S_FPS_ATTACKED_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    8;
 
-  friend void swap(S_ATTACKED& a, S_ATTACKED& b) {
+  friend void swap(S_FPS_ATTACKED& a, S_FPS_ATTACKED& b) {
     a.Swap(&b);
   }
-  inline void Swap(S_ATTACKED* other) {
+  inline void Swap(S_FPS_ATTACKED* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1850,7 +1665,7 @@ class S_ATTACKED final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(S_ATTACKED* other) {
+  void UnsafeArenaSwap(S_FPS_ATTACKED* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -1858,14 +1673,14 @@ class S_ATTACKED final :
 
   // implements Message ----------------------------------------------
 
-  S_ATTACKED* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_ATTACKED>(arena);
+  S_FPS_ATTACKED* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_FPS_ATTACKED>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_ATTACKED& from);
+  void CopyFrom(const S_FPS_ATTACKED& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_ATTACKED& from) {
-    S_ATTACKED::MergeImpl(*this, from);
+  void MergeFrom( const S_FPS_ATTACKED& from) {
+    S_FPS_ATTACKED::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -1883,15 +1698,15 @@ class S_ATTACKED final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(S_ATTACKED* other);
+  void InternalSwap(S_FPS_ATTACKED* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.S_ATTACKED";
+    return "Protocol.S_FPS_ATTACKED";
   }
   protected:
-  explicit S_ATTACKED(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit S_FPS_ATTACKED(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -1936,7 +1751,7 @@ class S_ATTACKED final :
   void _internal_set_hp(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.S_ATTACKED)
+  // @@protoc_insertion_point(class_scope:Protocol.S_FPS_ATTACKED)
  private:
   class _Internal;
 
@@ -1954,24 +1769,24 @@ class S_ATTACKED final :
 };
 // -------------------------------------------------------------------
 
-class C_CHANGE_WEAPON final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.C_CHANGE_WEAPON) */ {
+class C_FPS_CHANGE_WEAPON final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.C_FPS_CHANGE_WEAPON) */ {
  public:
-  inline C_CHANGE_WEAPON() : C_CHANGE_WEAPON(nullptr) {}
-  ~C_CHANGE_WEAPON() override;
-  explicit PROTOBUF_CONSTEXPR C_CHANGE_WEAPON(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline C_FPS_CHANGE_WEAPON() : C_FPS_CHANGE_WEAPON(nullptr) {}
+  ~C_FPS_CHANGE_WEAPON() override;
+  explicit PROTOBUF_CONSTEXPR C_FPS_CHANGE_WEAPON(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  C_CHANGE_WEAPON(const C_CHANGE_WEAPON& from);
-  C_CHANGE_WEAPON(C_CHANGE_WEAPON&& from) noexcept
-    : C_CHANGE_WEAPON() {
+  C_FPS_CHANGE_WEAPON(const C_FPS_CHANGE_WEAPON& from);
+  C_FPS_CHANGE_WEAPON(C_FPS_CHANGE_WEAPON&& from) noexcept
+    : C_FPS_CHANGE_WEAPON() {
     *this = ::std::move(from);
   }
 
-  inline C_CHANGE_WEAPON& operator=(const C_CHANGE_WEAPON& from) {
+  inline C_FPS_CHANGE_WEAPON& operator=(const C_FPS_CHANGE_WEAPON& from) {
     CopyFrom(from);
     return *this;
   }
-  inline C_CHANGE_WEAPON& operator=(C_CHANGE_WEAPON&& from) noexcept {
+  inline C_FPS_CHANGE_WEAPON& operator=(C_FPS_CHANGE_WEAPON&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -1994,20 +1809,20 @@ class C_CHANGE_WEAPON final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const C_CHANGE_WEAPON& default_instance() {
+  static const C_FPS_CHANGE_WEAPON& default_instance() {
     return *internal_default_instance();
   }
-  static inline const C_CHANGE_WEAPON* internal_default_instance() {
-    return reinterpret_cast<const C_CHANGE_WEAPON*>(
-               &_C_CHANGE_WEAPON_default_instance_);
+  static inline const C_FPS_CHANGE_WEAPON* internal_default_instance() {
+    return reinterpret_cast<const C_FPS_CHANGE_WEAPON*>(
+               &_C_FPS_CHANGE_WEAPON_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    9;
 
-  friend void swap(C_CHANGE_WEAPON& a, C_CHANGE_WEAPON& b) {
+  friend void swap(C_FPS_CHANGE_WEAPON& a, C_FPS_CHANGE_WEAPON& b) {
     a.Swap(&b);
   }
-  inline void Swap(C_CHANGE_WEAPON* other) {
+  inline void Swap(C_FPS_CHANGE_WEAPON* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2020,7 +1835,7 @@ class C_CHANGE_WEAPON final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(C_CHANGE_WEAPON* other) {
+  void UnsafeArenaSwap(C_FPS_CHANGE_WEAPON* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -2028,14 +1843,14 @@ class C_CHANGE_WEAPON final :
 
   // implements Message ----------------------------------------------
 
-  C_CHANGE_WEAPON* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<C_CHANGE_WEAPON>(arena);
+  C_FPS_CHANGE_WEAPON* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_FPS_CHANGE_WEAPON>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const C_CHANGE_WEAPON& from);
+  void CopyFrom(const C_FPS_CHANGE_WEAPON& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const C_CHANGE_WEAPON& from) {
-    C_CHANGE_WEAPON::MergeImpl(*this, from);
+  void MergeFrom( const C_FPS_CHANGE_WEAPON& from) {
+    C_FPS_CHANGE_WEAPON::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -2053,15 +1868,15 @@ class C_CHANGE_WEAPON final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(C_CHANGE_WEAPON* other);
+  void InternalSwap(C_FPS_CHANGE_WEAPON* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.C_CHANGE_WEAPON";
+    return "Protocol.C_FPS_CHANGE_WEAPON";
   }
   protected:
-  explicit C_CHANGE_WEAPON(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit C_FPS_CHANGE_WEAPON(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -2096,7 +1911,7 @@ class C_CHANGE_WEAPON final :
   void _internal_set_weaponid(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.C_CHANGE_WEAPON)
+  // @@protoc_insertion_point(class_scope:Protocol.C_FPS_CHANGE_WEAPON)
  private:
   class _Internal;
 
@@ -2113,24 +1928,24 @@ class C_CHANGE_WEAPON final :
 };
 // -------------------------------------------------------------------
 
-class S_CHANGE_WEAPON final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_CHANGE_WEAPON) */ {
+class S_FPS_CHANGE_WEAPON final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_FPS_CHANGE_WEAPON) */ {
  public:
-  inline S_CHANGE_WEAPON() : S_CHANGE_WEAPON(nullptr) {}
-  ~S_CHANGE_WEAPON() override;
-  explicit PROTOBUF_CONSTEXPR S_CHANGE_WEAPON(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline S_FPS_CHANGE_WEAPON() : S_FPS_CHANGE_WEAPON(nullptr) {}
+  ~S_FPS_CHANGE_WEAPON() override;
+  explicit PROTOBUF_CONSTEXPR S_FPS_CHANGE_WEAPON(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  S_CHANGE_WEAPON(const S_CHANGE_WEAPON& from);
-  S_CHANGE_WEAPON(S_CHANGE_WEAPON&& from) noexcept
-    : S_CHANGE_WEAPON() {
+  S_FPS_CHANGE_WEAPON(const S_FPS_CHANGE_WEAPON& from);
+  S_FPS_CHANGE_WEAPON(S_FPS_CHANGE_WEAPON&& from) noexcept
+    : S_FPS_CHANGE_WEAPON() {
     *this = ::std::move(from);
   }
 
-  inline S_CHANGE_WEAPON& operator=(const S_CHANGE_WEAPON& from) {
+  inline S_FPS_CHANGE_WEAPON& operator=(const S_FPS_CHANGE_WEAPON& from) {
     CopyFrom(from);
     return *this;
   }
-  inline S_CHANGE_WEAPON& operator=(S_CHANGE_WEAPON&& from) noexcept {
+  inline S_FPS_CHANGE_WEAPON& operator=(S_FPS_CHANGE_WEAPON&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -2153,20 +1968,20 @@ class S_CHANGE_WEAPON final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const S_CHANGE_WEAPON& default_instance() {
+  static const S_FPS_CHANGE_WEAPON& default_instance() {
     return *internal_default_instance();
   }
-  static inline const S_CHANGE_WEAPON* internal_default_instance() {
-    return reinterpret_cast<const S_CHANGE_WEAPON*>(
-               &_S_CHANGE_WEAPON_default_instance_);
+  static inline const S_FPS_CHANGE_WEAPON* internal_default_instance() {
+    return reinterpret_cast<const S_FPS_CHANGE_WEAPON*>(
+               &_S_FPS_CHANGE_WEAPON_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    10;
 
-  friend void swap(S_CHANGE_WEAPON& a, S_CHANGE_WEAPON& b) {
+  friend void swap(S_FPS_CHANGE_WEAPON& a, S_FPS_CHANGE_WEAPON& b) {
     a.Swap(&b);
   }
-  inline void Swap(S_CHANGE_WEAPON* other) {
+  inline void Swap(S_FPS_CHANGE_WEAPON* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2179,7 +1994,7 @@ class S_CHANGE_WEAPON final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(S_CHANGE_WEAPON* other) {
+  void UnsafeArenaSwap(S_FPS_CHANGE_WEAPON* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -2187,14 +2002,14 @@ class S_CHANGE_WEAPON final :
 
   // implements Message ----------------------------------------------
 
-  S_CHANGE_WEAPON* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_CHANGE_WEAPON>(arena);
+  S_FPS_CHANGE_WEAPON* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_FPS_CHANGE_WEAPON>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_CHANGE_WEAPON& from);
+  void CopyFrom(const S_FPS_CHANGE_WEAPON& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_CHANGE_WEAPON& from) {
-    S_CHANGE_WEAPON::MergeImpl(*this, from);
+  void MergeFrom( const S_FPS_CHANGE_WEAPON& from) {
+    S_FPS_CHANGE_WEAPON::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -2212,15 +2027,15 @@ class S_CHANGE_WEAPON final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(S_CHANGE_WEAPON* other);
+  void InternalSwap(S_FPS_CHANGE_WEAPON* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.S_CHANGE_WEAPON";
+    return "Protocol.S_FPS_CHANGE_WEAPON";
   }
   protected:
-  explicit S_CHANGE_WEAPON(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit S_FPS_CHANGE_WEAPON(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -2265,7 +2080,7 @@ class S_CHANGE_WEAPON final :
   void _internal_set_timestamp(int64_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.S_CHANGE_WEAPON)
+  // @@protoc_insertion_point(class_scope:Protocol.S_FPS_CHANGE_WEAPON)
  private:
   class _Internal;
 
@@ -2283,23 +2098,23 @@ class S_CHANGE_WEAPON final :
 };
 // -------------------------------------------------------------------
 
-class C_RELOAD final :
-    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:Protocol.C_RELOAD) */ {
+class C_FPS_RELOAD final :
+    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:Protocol.C_FPS_RELOAD) */ {
  public:
-  inline C_RELOAD() : C_RELOAD(nullptr) {}
-  explicit PROTOBUF_CONSTEXPR C_RELOAD(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline C_FPS_RELOAD() : C_FPS_RELOAD(nullptr) {}
+  explicit PROTOBUF_CONSTEXPR C_FPS_RELOAD(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  C_RELOAD(const C_RELOAD& from);
-  C_RELOAD(C_RELOAD&& from) noexcept
-    : C_RELOAD() {
+  C_FPS_RELOAD(const C_FPS_RELOAD& from);
+  C_FPS_RELOAD(C_FPS_RELOAD&& from) noexcept
+    : C_FPS_RELOAD() {
     *this = ::std::move(from);
   }
 
-  inline C_RELOAD& operator=(const C_RELOAD& from) {
+  inline C_FPS_RELOAD& operator=(const C_FPS_RELOAD& from) {
     CopyFrom(from);
     return *this;
   }
-  inline C_RELOAD& operator=(C_RELOAD&& from) noexcept {
+  inline C_FPS_RELOAD& operator=(C_FPS_RELOAD&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -2322,20 +2137,20 @@ class C_RELOAD final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const C_RELOAD& default_instance() {
+  static const C_FPS_RELOAD& default_instance() {
     return *internal_default_instance();
   }
-  static inline const C_RELOAD* internal_default_instance() {
-    return reinterpret_cast<const C_RELOAD*>(
-               &_C_RELOAD_default_instance_);
+  static inline const C_FPS_RELOAD* internal_default_instance() {
+    return reinterpret_cast<const C_FPS_RELOAD*>(
+               &_C_FPS_RELOAD_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    11;
 
-  friend void swap(C_RELOAD& a, C_RELOAD& b) {
+  friend void swap(C_FPS_RELOAD& a, C_FPS_RELOAD& b) {
     a.Swap(&b);
   }
-  inline void Swap(C_RELOAD* other) {
+  inline void Swap(C_FPS_RELOAD* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2348,7 +2163,7 @@ class C_RELOAD final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(C_RELOAD* other) {
+  void UnsafeArenaSwap(C_FPS_RELOAD* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -2356,15 +2171,15 @@ class C_RELOAD final :
 
   // implements Message ----------------------------------------------
 
-  C_RELOAD* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<C_RELOAD>(arena);
+  C_FPS_RELOAD* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_FPS_RELOAD>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
-  inline void CopyFrom(const C_RELOAD& from) {
+  inline void CopyFrom(const C_FPS_RELOAD& from) {
     ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(*this, from);
   }
   using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
-  void MergeFrom(const C_RELOAD& from) {
+  void MergeFrom(const C_FPS_RELOAD& from) {
     ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(*this, from);
   }
   public:
@@ -2372,10 +2187,10 @@ class C_RELOAD final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.C_RELOAD";
+    return "Protocol.C_FPS_RELOAD";
   }
   protected:
-  explicit C_RELOAD(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit C_FPS_RELOAD(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -2388,7 +2203,7 @@ class C_RELOAD final :
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:Protocol.C_RELOAD)
+  // @@protoc_insertion_point(class_scope:Protocol.C_FPS_RELOAD)
  private:
   class _Internal;
 
@@ -2401,24 +2216,24 @@ class C_RELOAD final :
 };
 // -------------------------------------------------------------------
 
-class S_RELOAD final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_RELOAD) */ {
+class S_FPS_RELOAD final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.S_FPS_RELOAD) */ {
  public:
-  inline S_RELOAD() : S_RELOAD(nullptr) {}
-  ~S_RELOAD() override;
-  explicit PROTOBUF_CONSTEXPR S_RELOAD(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline S_FPS_RELOAD() : S_FPS_RELOAD(nullptr) {}
+  ~S_FPS_RELOAD() override;
+  explicit PROTOBUF_CONSTEXPR S_FPS_RELOAD(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  S_RELOAD(const S_RELOAD& from);
-  S_RELOAD(S_RELOAD&& from) noexcept
-    : S_RELOAD() {
+  S_FPS_RELOAD(const S_FPS_RELOAD& from);
+  S_FPS_RELOAD(S_FPS_RELOAD&& from) noexcept
+    : S_FPS_RELOAD() {
     *this = ::std::move(from);
   }
 
-  inline S_RELOAD& operator=(const S_RELOAD& from) {
+  inline S_FPS_RELOAD& operator=(const S_FPS_RELOAD& from) {
     CopyFrom(from);
     return *this;
   }
-  inline S_RELOAD& operator=(S_RELOAD&& from) noexcept {
+  inline S_FPS_RELOAD& operator=(S_FPS_RELOAD&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -2441,20 +2256,20 @@ class S_RELOAD final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const S_RELOAD& default_instance() {
+  static const S_FPS_RELOAD& default_instance() {
     return *internal_default_instance();
   }
-  static inline const S_RELOAD* internal_default_instance() {
-    return reinterpret_cast<const S_RELOAD*>(
-               &_S_RELOAD_default_instance_);
+  static inline const S_FPS_RELOAD* internal_default_instance() {
+    return reinterpret_cast<const S_FPS_RELOAD*>(
+               &_S_FPS_RELOAD_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    12;
 
-  friend void swap(S_RELOAD& a, S_RELOAD& b) {
+  friend void swap(S_FPS_RELOAD& a, S_FPS_RELOAD& b) {
     a.Swap(&b);
   }
-  inline void Swap(S_RELOAD* other) {
+  inline void Swap(S_FPS_RELOAD* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2467,7 +2282,7 @@ class S_RELOAD final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(S_RELOAD* other) {
+  void UnsafeArenaSwap(S_FPS_RELOAD* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -2475,14 +2290,14 @@ class S_RELOAD final :
 
   // implements Message ----------------------------------------------
 
-  S_RELOAD* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S_RELOAD>(arena);
+  S_FPS_RELOAD* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S_FPS_RELOAD>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S_RELOAD& from);
+  void CopyFrom(const S_FPS_RELOAD& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S_RELOAD& from) {
-    S_RELOAD::MergeImpl(*this, from);
+  void MergeFrom( const S_FPS_RELOAD& from) {
+    S_FPS_RELOAD::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -2500,15 +2315,15 @@ class S_RELOAD final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(S_RELOAD* other);
+  void InternalSwap(S_FPS_RELOAD* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.S_RELOAD";
+    return "Protocol.S_FPS_RELOAD";
   }
   protected:
-  explicit S_RELOAD(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit S_FPS_RELOAD(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -2533,7 +2348,7 @@ class S_RELOAD final :
   void _internal_set_playerid(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.S_RELOAD)
+  // @@protoc_insertion_point(class_scope:Protocol.S_FPS_RELOAD)
  private:
   class _Internal;
 
@@ -2549,24 +2364,24 @@ class S_RELOAD final :
 };
 // -------------------------------------------------------------------
 
-class FPS_Animation final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.FPS_Animation) */ {
+class FPSAnimation final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:Protocol.FPSAnimation) */ {
  public:
-  inline FPS_Animation() : FPS_Animation(nullptr) {}
-  ~FPS_Animation() override;
-  explicit PROTOBUF_CONSTEXPR FPS_Animation(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline FPSAnimation() : FPSAnimation(nullptr) {}
+  ~FPSAnimation() override;
+  explicit PROTOBUF_CONSTEXPR FPSAnimation(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  FPS_Animation(const FPS_Animation& from);
-  FPS_Animation(FPS_Animation&& from) noexcept
-    : FPS_Animation() {
+  FPSAnimation(const FPSAnimation& from);
+  FPSAnimation(FPSAnimation&& from) noexcept
+    : FPSAnimation() {
     *this = ::std::move(from);
   }
 
-  inline FPS_Animation& operator=(const FPS_Animation& from) {
+  inline FPSAnimation& operator=(const FPSAnimation& from) {
     CopyFrom(from);
     return *this;
   }
-  inline FPS_Animation& operator=(FPS_Animation&& from) noexcept {
+  inline FPSAnimation& operator=(FPSAnimation&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -2589,20 +2404,20 @@ class FPS_Animation final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const FPS_Animation& default_instance() {
+  static const FPSAnimation& default_instance() {
     return *internal_default_instance();
   }
-  static inline const FPS_Animation* internal_default_instance() {
-    return reinterpret_cast<const FPS_Animation*>(
-               &_FPS_Animation_default_instance_);
+  static inline const FPSAnimation* internal_default_instance() {
+    return reinterpret_cast<const FPSAnimation*>(
+               &_FPSAnimation_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    13;
 
-  friend void swap(FPS_Animation& a, FPS_Animation& b) {
+  friend void swap(FPSAnimation& a, FPSAnimation& b) {
     a.Swap(&b);
   }
-  inline void Swap(FPS_Animation* other) {
+  inline void Swap(FPSAnimation* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -2615,7 +2430,7 @@ class FPS_Animation final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(FPS_Animation* other) {
+  void UnsafeArenaSwap(FPSAnimation* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -2623,14 +2438,14 @@ class FPS_Animation final :
 
   // implements Message ----------------------------------------------
 
-  FPS_Animation* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<FPS_Animation>(arena);
+  FPSAnimation* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<FPSAnimation>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const FPS_Animation& from);
+  void CopyFrom(const FPSAnimation& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const FPS_Animation& from) {
-    FPS_Animation::MergeImpl(*this, from);
+  void MergeFrom( const FPSAnimation& from) {
+    FPSAnimation::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -2648,15 +2463,15 @@ class FPS_Animation final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(FPS_Animation* other);
+  void InternalSwap(FPSAnimation* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.FPS_Animation";
+    return "Protocol.FPSAnimation";
   }
   protected:
-  explicit FPS_Animation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit FPSAnimation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -2801,7 +2616,7 @@ class FPS_Animation final :
   void _internal_set_aiming(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:Protocol.FPS_Animation)
+  // @@protoc_insertion_point(class_scope:Protocol.FPSAnimation)
  private:
   class _Internal;
 
@@ -2877,7 +2692,7 @@ class C_FPS_ANIMATION final :
                &_C_FPS_ANIMATION_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    14;
 
   friend void swap(C_FPS_ANIMATION& a, C_FPS_ANIMATION& b) {
     a.Swap(&b);
@@ -2952,23 +2767,23 @@ class C_FPS_ANIMATION final :
   enum : int {
     kFpsAnimationFieldNumber = 1,
   };
-  // .Protocol.FPS_Animation fpsAnimation = 1;
+  // .Protocol.FPSAnimation fpsAnimation = 1;
   bool has_fpsanimation() const;
   private:
   bool _internal_has_fpsanimation() const;
   public:
   void clear_fpsanimation();
-  const ::Protocol::FPS_Animation& fpsanimation() const;
-  PROTOBUF_NODISCARD ::Protocol::FPS_Animation* release_fpsanimation();
-  ::Protocol::FPS_Animation* mutable_fpsanimation();
-  void set_allocated_fpsanimation(::Protocol::FPS_Animation* fpsanimation);
+  const ::Protocol::FPSAnimation& fpsanimation() const;
+  PROTOBUF_NODISCARD ::Protocol::FPSAnimation* release_fpsanimation();
+  ::Protocol::FPSAnimation* mutable_fpsanimation();
+  void set_allocated_fpsanimation(::Protocol::FPSAnimation* fpsanimation);
   private:
-  const ::Protocol::FPS_Animation& _internal_fpsanimation() const;
-  ::Protocol::FPS_Animation* _internal_mutable_fpsanimation();
+  const ::Protocol::FPSAnimation& _internal_fpsanimation() const;
+  ::Protocol::FPSAnimation* _internal_mutable_fpsanimation();
   public:
   void unsafe_arena_set_allocated_fpsanimation(
-      ::Protocol::FPS_Animation* fpsanimation);
-  ::Protocol::FPS_Animation* unsafe_arena_release_fpsanimation();
+      ::Protocol::FPSAnimation* fpsanimation);
+  ::Protocol::FPSAnimation* unsafe_arena_release_fpsanimation();
 
   // @@protoc_insertion_point(class_scope:Protocol.C_FPS_ANIMATION)
  private:
@@ -2978,7 +2793,7 @@ class C_FPS_ANIMATION final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::Protocol::FPS_Animation* fpsanimation_;
+    ::Protocol::FPSAnimation* fpsanimation_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -3034,7 +2849,7 @@ class S_FPS_ANIMATION final :
                &_S_FPS_ANIMATION_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    15;
 
   friend void swap(S_FPS_ANIMATION& a, S_FPS_ANIMATION& b) {
     a.Swap(&b);
@@ -3110,23 +2925,23 @@ class S_FPS_ANIMATION final :
     kFpsAnimationFieldNumber = 2,
     kPlayerIdFieldNumber = 1,
   };
-  // .Protocol.FPS_Animation fpsAnimation = 2;
+  // .Protocol.FPSAnimation fpsAnimation = 2;
   bool has_fpsanimation() const;
   private:
   bool _internal_has_fpsanimation() const;
   public:
   void clear_fpsanimation();
-  const ::Protocol::FPS_Animation& fpsanimation() const;
-  PROTOBUF_NODISCARD ::Protocol::FPS_Animation* release_fpsanimation();
-  ::Protocol::FPS_Animation* mutable_fpsanimation();
-  void set_allocated_fpsanimation(::Protocol::FPS_Animation* fpsanimation);
+  const ::Protocol::FPSAnimation& fpsanimation() const;
+  PROTOBUF_NODISCARD ::Protocol::FPSAnimation* release_fpsanimation();
+  ::Protocol::FPSAnimation* mutable_fpsanimation();
+  void set_allocated_fpsanimation(::Protocol::FPSAnimation* fpsanimation);
   private:
-  const ::Protocol::FPS_Animation& _internal_fpsanimation() const;
-  ::Protocol::FPS_Animation* _internal_mutable_fpsanimation();
+  const ::Protocol::FPSAnimation& _internal_fpsanimation() const;
+  ::Protocol::FPSAnimation* _internal_mutable_fpsanimation();
   public:
   void unsafe_arena_set_allocated_fpsanimation(
-      ::Protocol::FPS_Animation* fpsanimation);
-  ::Protocol::FPS_Animation* unsafe_arena_release_fpsanimation();
+      ::Protocol::FPSAnimation* fpsanimation);
+  ::Protocol::FPSAnimation* unsafe_arena_release_fpsanimation();
 
   // int32 playerId = 1;
   void clear_playerid();
@@ -3145,7 +2960,7 @@ class S_FPS_ANIMATION final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::Protocol::FPS_Animation* fpsanimation_;
+    ::Protocol::FPSAnimation* fpsanimation_;
     int32_t playerid_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -3202,7 +3017,7 @@ class C_FPS_READY final :
                &_C_FPS_READY_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    16;
 
   friend void swap(C_FPS_READY& a, C_FPS_READY& b) {
     a.Swap(&b);
@@ -3349,7 +3164,7 @@ class S_FPS_LOAD final :
                &_S_FPS_LOAD_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    17;
 
   friend void swap(S_FPS_LOAD& a, S_FPS_LOAD& b) {
     a.Swap(&b);
@@ -3408,6 +3223,124 @@ class S_FPS_LOAD final :
   // accessors -------------------------------------------------------
 
   // @@protoc_insertion_point(class_scope:Protocol.S_FPS_LOAD)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+  };
+  friend struct ::TableStruct_Packet_5f002_5fFPS_2eproto;
+};
+// -------------------------------------------------------------------
+
+class C_FPS_LOAD_COMPLETE final :
+    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:Protocol.C_FPS_LOAD_COMPLETE) */ {
+ public:
+  inline C_FPS_LOAD_COMPLETE() : C_FPS_LOAD_COMPLETE(nullptr) {}
+  explicit PROTOBUF_CONSTEXPR C_FPS_LOAD_COMPLETE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  C_FPS_LOAD_COMPLETE(const C_FPS_LOAD_COMPLETE& from);
+  C_FPS_LOAD_COMPLETE(C_FPS_LOAD_COMPLETE&& from) noexcept
+    : C_FPS_LOAD_COMPLETE() {
+    *this = ::std::move(from);
+  }
+
+  inline C_FPS_LOAD_COMPLETE& operator=(const C_FPS_LOAD_COMPLETE& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline C_FPS_LOAD_COMPLETE& operator=(C_FPS_LOAD_COMPLETE&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const C_FPS_LOAD_COMPLETE& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const C_FPS_LOAD_COMPLETE* internal_default_instance() {
+    return reinterpret_cast<const C_FPS_LOAD_COMPLETE*>(
+               &_C_FPS_LOAD_COMPLETE_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    18;
+
+  friend void swap(C_FPS_LOAD_COMPLETE& a, C_FPS_LOAD_COMPLETE& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(C_FPS_LOAD_COMPLETE* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(C_FPS_LOAD_COMPLETE* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  C_FPS_LOAD_COMPLETE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C_FPS_LOAD_COMPLETE>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
+  inline void CopyFrom(const C_FPS_LOAD_COMPLETE& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(*this, from);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
+  void MergeFrom(const C_FPS_LOAD_COMPLETE& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(*this, from);
+  }
+  public:
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "Protocol.C_FPS_LOAD_COMPLETE";
+  }
+  protected:
+  explicit C_FPS_LOAD_COMPLETE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:Protocol.C_FPS_LOAD_COMPLETE)
  private:
   class _Internal;
 
@@ -3538,124 +3471,6 @@ class S_FPS_START final :
 };
 // -------------------------------------------------------------------
 
-class C_FPS_LOAD_COMPLETE final :
-    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:Protocol.C_FPS_LOAD_COMPLETE) */ {
- public:
-  inline C_FPS_LOAD_COMPLETE() : C_FPS_LOAD_COMPLETE(nullptr) {}
-  explicit PROTOBUF_CONSTEXPR C_FPS_LOAD_COMPLETE(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  C_FPS_LOAD_COMPLETE(const C_FPS_LOAD_COMPLETE& from);
-  C_FPS_LOAD_COMPLETE(C_FPS_LOAD_COMPLETE&& from) noexcept
-    : C_FPS_LOAD_COMPLETE() {
-    *this = ::std::move(from);
-  }
-
-  inline C_FPS_LOAD_COMPLETE& operator=(const C_FPS_LOAD_COMPLETE& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline C_FPS_LOAD_COMPLETE& operator=(C_FPS_LOAD_COMPLETE&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const C_FPS_LOAD_COMPLETE& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const C_FPS_LOAD_COMPLETE* internal_default_instance() {
-    return reinterpret_cast<const C_FPS_LOAD_COMPLETE*>(
-               &_C_FPS_LOAD_COMPLETE_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    20;
-
-  friend void swap(C_FPS_LOAD_COMPLETE& a, C_FPS_LOAD_COMPLETE& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(C_FPS_LOAD_COMPLETE* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(C_FPS_LOAD_COMPLETE* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  C_FPS_LOAD_COMPLETE* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<C_FPS_LOAD_COMPLETE>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
-  inline void CopyFrom(const C_FPS_LOAD_COMPLETE& from) {
-    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(*this, from);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
-  void MergeFrom(const C_FPS_LOAD_COMPLETE& from) {
-    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(*this, from);
-  }
-  public:
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "Protocol.C_FPS_LOAD_COMPLETE";
-  }
-  protected:
-  explicit C_FPS_LOAD_COMPLETE(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // @@protoc_insertion_point(class_scope:Protocol.C_FPS_LOAD_COMPLETE)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-  };
-  friend struct ::TableStruct_Packet_5f002_5fFPS_2eproto;
-};
-// -------------------------------------------------------------------
-
 class S_FPS_FINISH final :
     public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:Protocol.S_FPS_FINISH) */ {
  public:
@@ -3703,7 +3518,7 @@ class S_FPS_FINISH final :
                &_S_FPS_FINISH_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    20;
 
   friend void swap(S_FPS_FINISH& a, S_FPS_FINISH& b) {
     a.Swap(&b);
@@ -3822,7 +3637,7 @@ class S_FPS_ANNOUNCE final :
                &_S_FPS_ANNOUNCE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    21;
 
   friend void swap(S_FPS_ANNOUNCE& a, S_FPS_ANNOUNCE& b) {
     a.Swap(&b);
@@ -3975,7 +3790,7 @@ class S_FPS_SPAWN_ITEM final :
                &_S_FPS_SPAWN_ITEM_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    22;
 
   friend void swap(S_FPS_SPAWN_ITEM& a, S_FPS_SPAWN_ITEM& b) {
     a.Swap(&b);
@@ -4132,7 +3947,7 @@ class S_FPS_SPAWN_DESTINATION final :
                &_S_FPS_SPAWN_DESTINATION_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    23;
 
   friend void swap(S_FPS_SPAWN_DESTINATION& a, S_FPS_SPAWN_DESTINATION& b) {
     a.Swap(&b);
@@ -4288,7 +4103,7 @@ class S_FPS_DESTROY_DESTINATION final :
                &_S_FPS_DESTROY_DESTINATION_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    24;
 
   friend void swap(S_FPS_DESTROY_DESTINATION& a, S_FPS_DESTROY_DESTINATION& b) {
     a.Swap(&b);
@@ -4407,7 +4222,7 @@ class S_FPS_ITEM_OCCUPY_PROGRESS_STATE final :
                &_S_FPS_ITEM_OCCUPY_PROGRESS_STATE_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    25;
 
   friend void swap(S_FPS_ITEM_OCCUPY_PROGRESS_STATE& a, S_FPS_ITEM_OCCUPY_PROGRESS_STATE& b) {
     a.Swap(&b);
@@ -4555,7 +4370,7 @@ class S_FPS_ITEM_OCCUPIED final :
                &_S_FPS_ITEM_OCCUPIED_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    26;
 
   friend void swap(S_FPS_ITEM_OCCUPIED& a, S_FPS_ITEM_OCCUPIED& b) {
     a.Swap(&b);
@@ -4630,18 +4445,13 @@ class S_FPS_ITEM_OCCUPIED final :
   enum : int {
     kOccupierFieldNumber = 1,
   };
-  // string occupier = 1;
+  // int32 occupier = 1;
   void clear_occupier();
-  const std::string& occupier() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_occupier(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_occupier();
-  PROTOBUF_NODISCARD std::string* release_occupier();
-  void set_allocated_occupier(std::string* occupier);
+  int32_t occupier() const;
+  void set_occupier(int32_t value);
   private:
-  const std::string& _internal_occupier() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_occupier(const std::string& value);
-  std::string* _internal_mutable_occupier();
+  int32_t _internal_occupier() const;
+  void _internal_set_occupier(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.S_FPS_ITEM_OCCUPIED)
@@ -4652,7 +4462,7 @@ class S_FPS_ITEM_OCCUPIED final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr occupier_;
+    int32_t occupier_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -4708,7 +4518,7 @@ class S_FPS_SCORED final :
                &_S_FPS_SCORED_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    27;
 
   friend void swap(S_FPS_SCORED& a, S_FPS_SCORED& b) {
     a.Swap(&b);
@@ -4904,64 +4714,44 @@ inline void Quaternion::set_w(float value) {
 
 // -------------------------------------------------------------------
 
-// S_ADD_FPS_PLAYER_GameObjectInfo
+// S_FPS_INSTANTIATE
 
-// int32 playerId = 1;
-inline void S_ADD_FPS_PLAYER_GameObjectInfo::clear_playerid() {
-  _impl_.playerid_ = 0;
-}
-inline int32_t S_ADD_FPS_PLAYER_GameObjectInfo::_internal_playerid() const {
-  return _impl_.playerid_;
-}
-inline int32_t S_ADD_FPS_PLAYER_GameObjectInfo::playerid() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.playerId)
-  return _internal_playerid();
-}
-inline void S_ADD_FPS_PLAYER_GameObjectInfo::_internal_set_playerid(int32_t value) {
-  
-  _impl_.playerid_ = value;
-}
-inline void S_ADD_FPS_PLAYER_GameObjectInfo::set_playerid(int32_t value) {
-  _internal_set_playerid(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.playerId)
-}
-
-// string ownerId = 2;
-inline void S_ADD_FPS_PLAYER_GameObjectInfo::clear_ownerid() {
+// string ownerId = 1;
+inline void S_FPS_INSTANTIATE::clear_ownerid() {
   _impl_.ownerid_.ClearToEmpty();
 }
-inline const std::string& S_ADD_FPS_PLAYER_GameObjectInfo::ownerid() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.ownerId)
+inline const std::string& S_FPS_INSTANTIATE::ownerid() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_INSTANTIATE.ownerId)
   return _internal_ownerid();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void S_ADD_FPS_PLAYER_GameObjectInfo::set_ownerid(ArgT0&& arg0, ArgT... args) {
+void S_FPS_INSTANTIATE::set_ownerid(ArgT0&& arg0, ArgT... args) {
  
  _impl_.ownerid_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.ownerId)
+  // @@protoc_insertion_point(field_set:Protocol.S_FPS_INSTANTIATE.ownerId)
 }
-inline std::string* S_ADD_FPS_PLAYER_GameObjectInfo::mutable_ownerid() {
+inline std::string* S_FPS_INSTANTIATE::mutable_ownerid() {
   std::string* _s = _internal_mutable_ownerid();
-  // @@protoc_insertion_point(field_mutable:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.ownerId)
+  // @@protoc_insertion_point(field_mutable:Protocol.S_FPS_INSTANTIATE.ownerId)
   return _s;
 }
-inline const std::string& S_ADD_FPS_PLAYER_GameObjectInfo::_internal_ownerid() const {
+inline const std::string& S_FPS_INSTANTIATE::_internal_ownerid() const {
   return _impl_.ownerid_.Get();
 }
-inline void S_ADD_FPS_PLAYER_GameObjectInfo::_internal_set_ownerid(const std::string& value) {
+inline void S_FPS_INSTANTIATE::_internal_set_ownerid(const std::string& value) {
   
   _impl_.ownerid_.Set(value, GetArenaForAllocation());
 }
-inline std::string* S_ADD_FPS_PLAYER_GameObjectInfo::_internal_mutable_ownerid() {
+inline std::string* S_FPS_INSTANTIATE::_internal_mutable_ownerid() {
   
   return _impl_.ownerid_.Mutable(GetArenaForAllocation());
 }
-inline std::string* S_ADD_FPS_PLAYER_GameObjectInfo::release_ownerid() {
-  // @@protoc_insertion_point(field_release:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.ownerId)
+inline std::string* S_FPS_INSTANTIATE::release_ownerid() {
+  // @@protoc_insertion_point(field_release:Protocol.S_FPS_INSTANTIATE.ownerId)
   return _impl_.ownerid_.Release();
 }
-inline void S_ADD_FPS_PLAYER_GameObjectInfo::set_allocated_ownerid(std::string* ownerid) {
+inline void S_FPS_INSTANTIATE::set_allocated_ownerid(std::string* ownerid) {
   if (ownerid != nullptr) {
     
   } else {
@@ -4973,309 +4763,265 @@ inline void S_ADD_FPS_PLAYER_GameObjectInfo::set_allocated_ownerid(std::string* 
     _impl_.ownerid_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.ownerId)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.S_FPS_INSTANTIATE.ownerId)
 }
 
-// int32 hp = 3;
-inline void S_ADD_FPS_PLAYER_GameObjectInfo::clear_hp() {
+// int32 playerId = 2;
+inline void S_FPS_INSTANTIATE::clear_playerid() {
+  _impl_.playerid_ = 0;
+}
+inline int32_t S_FPS_INSTANTIATE::_internal_playerid() const {
+  return _impl_.playerid_;
+}
+inline int32_t S_FPS_INSTANTIATE::playerid() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_INSTANTIATE.playerId)
+  return _internal_playerid();
+}
+inline void S_FPS_INSTANTIATE::_internal_set_playerid(int32_t value) {
+  
+  _impl_.playerid_ = value;
+}
+inline void S_FPS_INSTANTIATE::set_playerid(int32_t value) {
+  _internal_set_playerid(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_FPS_INSTANTIATE.playerId)
+}
+
+// .Protocol.Vector3 position = 3;
+inline bool S_FPS_INSTANTIATE::_internal_has_position() const {
+  return this != internal_default_instance() && _impl_.position_ != nullptr;
+}
+inline bool S_FPS_INSTANTIATE::has_position() const {
+  return _internal_has_position();
+}
+inline const ::Protocol::Vector3& S_FPS_INSTANTIATE::_internal_position() const {
+  const ::Protocol::Vector3* p = _impl_.position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Vector3&>(
+      ::Protocol::_Vector3_default_instance_);
+}
+inline const ::Protocol::Vector3& S_FPS_INSTANTIATE::position() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_INSTANTIATE.position)
+  return _internal_position();
+}
+inline void S_FPS_INSTANTIATE::unsafe_arena_set_allocated_position(
+    ::Protocol::Vector3* position) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
+  }
+  _impl_.position_ = position;
+  if (position) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_FPS_INSTANTIATE.position)
+}
+inline ::Protocol::Vector3* S_FPS_INSTANTIATE::release_position() {
+  
+  ::Protocol::Vector3* temp = _impl_.position_;
+  _impl_.position_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::Vector3* S_FPS_INSTANTIATE::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:Protocol.S_FPS_INSTANTIATE.position)
+  
+  ::Protocol::Vector3* temp = _impl_.position_;
+  _impl_.position_ = nullptr;
+  return temp;
+}
+inline ::Protocol::Vector3* S_FPS_INSTANTIATE::_internal_mutable_position() {
+  
+  if (_impl_.position_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::Vector3>(GetArenaForAllocation());
+    _impl_.position_ = p;
+  }
+  return _impl_.position_;
+}
+inline ::Protocol::Vector3* S_FPS_INSTANTIATE::mutable_position() {
+  ::Protocol::Vector3* _msg = _internal_mutable_position();
+  // @@protoc_insertion_point(field_mutable:Protocol.S_FPS_INSTANTIATE.position)
+  return _msg;
+}
+inline void S_FPS_INSTANTIATE::set_allocated_position(::Protocol::Vector3* position) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
+  }
+  if (position) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(position));
+    if (message_arena != submessage_arena) {
+      position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, position, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.position_ = position;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.S_FPS_INSTANTIATE.position)
+}
+
+// .Protocol.Quaternion rotation = 4;
+inline bool S_FPS_INSTANTIATE::_internal_has_rotation() const {
+  return this != internal_default_instance() && _impl_.rotation_ != nullptr;
+}
+inline bool S_FPS_INSTANTIATE::has_rotation() const {
+  return _internal_has_rotation();
+}
+inline void S_FPS_INSTANTIATE::clear_rotation() {
+  if (GetArenaForAllocation() == nullptr && _impl_.rotation_ != nullptr) {
+    delete _impl_.rotation_;
+  }
+  _impl_.rotation_ = nullptr;
+}
+inline const ::Protocol::Quaternion& S_FPS_INSTANTIATE::_internal_rotation() const {
+  const ::Protocol::Quaternion* p = _impl_.rotation_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Quaternion&>(
+      ::Protocol::_Quaternion_default_instance_);
+}
+inline const ::Protocol::Quaternion& S_FPS_INSTANTIATE::rotation() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_INSTANTIATE.rotation)
+  return _internal_rotation();
+}
+inline void S_FPS_INSTANTIATE::unsafe_arena_set_allocated_rotation(
+    ::Protocol::Quaternion* rotation) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.rotation_);
+  }
+  _impl_.rotation_ = rotation;
+  if (rotation) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_FPS_INSTANTIATE.rotation)
+}
+inline ::Protocol::Quaternion* S_FPS_INSTANTIATE::release_rotation() {
+  
+  ::Protocol::Quaternion* temp = _impl_.rotation_;
+  _impl_.rotation_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::Protocol::Quaternion* S_FPS_INSTANTIATE::unsafe_arena_release_rotation() {
+  // @@protoc_insertion_point(field_release:Protocol.S_FPS_INSTANTIATE.rotation)
+  
+  ::Protocol::Quaternion* temp = _impl_.rotation_;
+  _impl_.rotation_ = nullptr;
+  return temp;
+}
+inline ::Protocol::Quaternion* S_FPS_INSTANTIATE::_internal_mutable_rotation() {
+  
+  if (_impl_.rotation_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Protocol::Quaternion>(GetArenaForAllocation());
+    _impl_.rotation_ = p;
+  }
+  return _impl_.rotation_;
+}
+inline ::Protocol::Quaternion* S_FPS_INSTANTIATE::mutable_rotation() {
+  ::Protocol::Quaternion* _msg = _internal_mutable_rotation();
+  // @@protoc_insertion_point(field_mutable:Protocol.S_FPS_INSTANTIATE.rotation)
+  return _msg;
+}
+inline void S_FPS_INSTANTIATE::set_allocated_rotation(::Protocol::Quaternion* rotation) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.rotation_;
+  }
+  if (rotation) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(rotation);
+    if (message_arena != submessage_arena) {
+      rotation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, rotation, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.rotation_ = rotation;
+  // @@protoc_insertion_point(field_set_allocated:Protocol.S_FPS_INSTANTIATE.rotation)
+}
+
+// int32 hp = 5;
+inline void S_FPS_INSTANTIATE::clear_hp() {
   _impl_.hp_ = 0;
 }
-inline int32_t S_ADD_FPS_PLAYER_GameObjectInfo::_internal_hp() const {
+inline int32_t S_FPS_INSTANTIATE::_internal_hp() const {
   return _impl_.hp_;
 }
-inline int32_t S_ADD_FPS_PLAYER_GameObjectInfo::hp() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.hp)
+inline int32_t S_FPS_INSTANTIATE::hp() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_INSTANTIATE.hp)
   return _internal_hp();
 }
-inline void S_ADD_FPS_PLAYER_GameObjectInfo::_internal_set_hp(int32_t value) {
+inline void S_FPS_INSTANTIATE::_internal_set_hp(int32_t value) {
   
   _impl_.hp_ = value;
 }
-inline void S_ADD_FPS_PLAYER_GameObjectInfo::set_hp(int32_t value) {
+inline void S_FPS_INSTANTIATE::set_hp(int32_t value) {
   _internal_set_hp(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.hp)
-}
-
-// .Protocol.Vector3 position = 4;
-inline bool S_ADD_FPS_PLAYER_GameObjectInfo::_internal_has_position() const {
-  return this != internal_default_instance() && _impl_.position_ != nullptr;
-}
-inline bool S_ADD_FPS_PLAYER_GameObjectInfo::has_position() const {
-  return _internal_has_position();
-}
-inline const ::Protocol::Vector3& S_ADD_FPS_PLAYER_GameObjectInfo::_internal_position() const {
-  const ::Protocol::Vector3* p = _impl_.position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Vector3&>(
-      ::Protocol::_Vector3_default_instance_);
-}
-inline const ::Protocol::Vector3& S_ADD_FPS_PLAYER_GameObjectInfo::position() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.position)
-  return _internal_position();
-}
-inline void S_ADD_FPS_PLAYER_GameObjectInfo::unsafe_arena_set_allocated_position(
-    ::Protocol::Vector3* position) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
-  }
-  _impl_.position_ = position;
-  if (position) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.position)
-}
-inline ::Protocol::Vector3* S_ADD_FPS_PLAYER_GameObjectInfo::release_position() {
-  
-  ::Protocol::Vector3* temp = _impl_.position_;
-  _impl_.position_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::Protocol::Vector3* S_ADD_FPS_PLAYER_GameObjectInfo::unsafe_arena_release_position() {
-  // @@protoc_insertion_point(field_release:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.position)
-  
-  ::Protocol::Vector3* temp = _impl_.position_;
-  _impl_.position_ = nullptr;
-  return temp;
-}
-inline ::Protocol::Vector3* S_ADD_FPS_PLAYER_GameObjectInfo::_internal_mutable_position() {
-  
-  if (_impl_.position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::Protocol::Vector3>(GetArenaForAllocation());
-    _impl_.position_ = p;
-  }
-  return _impl_.position_;
-}
-inline ::Protocol::Vector3* S_ADD_FPS_PLAYER_GameObjectInfo::mutable_position() {
-  ::Protocol::Vector3* _msg = _internal_mutable_position();
-  // @@protoc_insertion_point(field_mutable:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.position)
-  return _msg;
-}
-inline void S_ADD_FPS_PLAYER_GameObjectInfo::set_allocated_position(::Protocol::Vector3* position) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
-  }
-  if (position) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(position));
-    if (message_arena != submessage_arena) {
-      position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, position, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.position_ = position;
-  // @@protoc_insertion_point(field_set_allocated:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.position)
-}
-
-// .Protocol.Quaternion rotation = 5;
-inline bool S_ADD_FPS_PLAYER_GameObjectInfo::_internal_has_rotation() const {
-  return this != internal_default_instance() && _impl_.rotation_ != nullptr;
-}
-inline bool S_ADD_FPS_PLAYER_GameObjectInfo::has_rotation() const {
-  return _internal_has_rotation();
-}
-inline void S_ADD_FPS_PLAYER_GameObjectInfo::clear_rotation() {
-  if (GetArenaForAllocation() == nullptr && _impl_.rotation_ != nullptr) {
-    delete _impl_.rotation_;
-  }
-  _impl_.rotation_ = nullptr;
-}
-inline const ::Protocol::Quaternion& S_ADD_FPS_PLAYER_GameObjectInfo::_internal_rotation() const {
-  const ::Protocol::Quaternion* p = _impl_.rotation_;
-  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Quaternion&>(
-      ::Protocol::_Quaternion_default_instance_);
-}
-inline const ::Protocol::Quaternion& S_ADD_FPS_PLAYER_GameObjectInfo::rotation() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.rotation)
-  return _internal_rotation();
-}
-inline void S_ADD_FPS_PLAYER_GameObjectInfo::unsafe_arena_set_allocated_rotation(
-    ::Protocol::Quaternion* rotation) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.rotation_);
-  }
-  _impl_.rotation_ = rotation;
-  if (rotation) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.rotation)
-}
-inline ::Protocol::Quaternion* S_ADD_FPS_PLAYER_GameObjectInfo::release_rotation() {
-  
-  ::Protocol::Quaternion* temp = _impl_.rotation_;
-  _impl_.rotation_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::Protocol::Quaternion* S_ADD_FPS_PLAYER_GameObjectInfo::unsafe_arena_release_rotation() {
-  // @@protoc_insertion_point(field_release:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.rotation)
-  
-  ::Protocol::Quaternion* temp = _impl_.rotation_;
-  _impl_.rotation_ = nullptr;
-  return temp;
-}
-inline ::Protocol::Quaternion* S_ADD_FPS_PLAYER_GameObjectInfo::_internal_mutable_rotation() {
-  
-  if (_impl_.rotation_ == nullptr) {
-    auto* p = CreateMaybeMessage<::Protocol::Quaternion>(GetArenaForAllocation());
-    _impl_.rotation_ = p;
-  }
-  return _impl_.rotation_;
-}
-inline ::Protocol::Quaternion* S_ADD_FPS_PLAYER_GameObjectInfo::mutable_rotation() {
-  ::Protocol::Quaternion* _msg = _internal_mutable_rotation();
-  // @@protoc_insertion_point(field_mutable:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.rotation)
-  return _msg;
-}
-inline void S_ADD_FPS_PLAYER_GameObjectInfo::set_allocated_rotation(::Protocol::Quaternion* rotation) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.rotation_;
-  }
-  if (rotation) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(rotation);
-    if (message_arena != submessage_arena) {
-      rotation = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, rotation, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.rotation_ = rotation;
-  // @@protoc_insertion_point(field_set_allocated:Protocol.S_ADD_FPS_PLAYER.GameObjectInfo.rotation)
+  // @@protoc_insertion_point(field_set:Protocol.S_FPS_INSTANTIATE.hp)
 }
 
 // -------------------------------------------------------------------
 
-// S_ADD_FPS_PLAYER
-
-// repeated .Protocol.S_ADD_FPS_PLAYER.GameObjectInfo gameObjects = 1;
-inline int S_ADD_FPS_PLAYER::_internal_gameobjects_size() const {
-  return _impl_.gameobjects_.size();
-}
-inline int S_ADD_FPS_PLAYER::gameobjects_size() const {
-  return _internal_gameobjects_size();
-}
-inline void S_ADD_FPS_PLAYER::clear_gameobjects() {
-  _impl_.gameobjects_.Clear();
-}
-inline ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo* S_ADD_FPS_PLAYER::mutable_gameobjects(int index) {
-  // @@protoc_insertion_point(field_mutable:Protocol.S_ADD_FPS_PLAYER.gameObjects)
-  return _impl_.gameobjects_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo >*
-S_ADD_FPS_PLAYER::mutable_gameobjects() {
-  // @@protoc_insertion_point(field_mutable_list:Protocol.S_ADD_FPS_PLAYER.gameObjects)
-  return &_impl_.gameobjects_;
-}
-inline const ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo& S_ADD_FPS_PLAYER::_internal_gameobjects(int index) const {
-  return _impl_.gameobjects_.Get(index);
-}
-inline const ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo& S_ADD_FPS_PLAYER::gameobjects(int index) const {
-  // @@protoc_insertion_point(field_get:Protocol.S_ADD_FPS_PLAYER.gameObjects)
-  return _internal_gameobjects(index);
-}
-inline ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo* S_ADD_FPS_PLAYER::_internal_add_gameobjects() {
-  return _impl_.gameobjects_.Add();
-}
-inline ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo* S_ADD_FPS_PLAYER::add_gameobjects() {
-  ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo* _add = _internal_add_gameobjects();
-  // @@protoc_insertion_point(field_add:Protocol.S_ADD_FPS_PLAYER.gameObjects)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Protocol::S_ADD_FPS_PLAYER_GameObjectInfo >&
-S_ADD_FPS_PLAYER::gameobjects() const {
-  // @@protoc_insertion_point(field_list:Protocol.S_ADD_FPS_PLAYER.gameObjects)
-  return _impl_.gameobjects_;
-}
-
-// -------------------------------------------------------------------
-
-// C_SET_FPS_POSITION
+// C_FPS_POSITION
 
 // int64 timestamp = 1;
-inline void C_SET_FPS_POSITION::clear_timestamp() {
+inline void C_FPS_POSITION::clear_timestamp() {
   _impl_.timestamp_ = int64_t{0};
 }
-inline int64_t C_SET_FPS_POSITION::_internal_timestamp() const {
+inline int64_t C_FPS_POSITION::_internal_timestamp() const {
   return _impl_.timestamp_;
 }
-inline int64_t C_SET_FPS_POSITION::timestamp() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_SET_FPS_POSITION.timestamp)
+inline int64_t C_FPS_POSITION::timestamp() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_FPS_POSITION.timestamp)
   return _internal_timestamp();
 }
-inline void C_SET_FPS_POSITION::_internal_set_timestamp(int64_t value) {
+inline void C_FPS_POSITION::_internal_set_timestamp(int64_t value) {
   
   _impl_.timestamp_ = value;
 }
-inline void C_SET_FPS_POSITION::set_timestamp(int64_t value) {
+inline void C_FPS_POSITION::set_timestamp(int64_t value) {
   _internal_set_timestamp(value);
-  // @@protoc_insertion_point(field_set:Protocol.C_SET_FPS_POSITION.timestamp)
+  // @@protoc_insertion_point(field_set:Protocol.C_FPS_POSITION.timestamp)
 }
 
-// int32 playerId = 2;
-inline void C_SET_FPS_POSITION::clear_playerid() {
-  _impl_.playerid_ = 0;
-}
-inline int32_t C_SET_FPS_POSITION::_internal_playerid() const {
-  return _impl_.playerid_;
-}
-inline int32_t C_SET_FPS_POSITION::playerid() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_SET_FPS_POSITION.playerId)
-  return _internal_playerid();
-}
-inline void C_SET_FPS_POSITION::_internal_set_playerid(int32_t value) {
-  
-  _impl_.playerid_ = value;
-}
-inline void C_SET_FPS_POSITION::set_playerid(int32_t value) {
-  _internal_set_playerid(value);
-  // @@protoc_insertion_point(field_set:Protocol.C_SET_FPS_POSITION.playerId)
-}
-
-// .Protocol.Vector3 position = 3;
-inline bool C_SET_FPS_POSITION::_internal_has_position() const {
+// .Protocol.Vector3 position = 2;
+inline bool C_FPS_POSITION::_internal_has_position() const {
   return this != internal_default_instance() && _impl_.position_ != nullptr;
 }
-inline bool C_SET_FPS_POSITION::has_position() const {
+inline bool C_FPS_POSITION::has_position() const {
   return _internal_has_position();
 }
-inline const ::Protocol::Vector3& C_SET_FPS_POSITION::_internal_position() const {
+inline const ::Protocol::Vector3& C_FPS_POSITION::_internal_position() const {
   const ::Protocol::Vector3* p = _impl_.position_;
   return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Vector3&>(
       ::Protocol::_Vector3_default_instance_);
 }
-inline const ::Protocol::Vector3& C_SET_FPS_POSITION::position() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_SET_FPS_POSITION.position)
+inline const ::Protocol::Vector3& C_FPS_POSITION::position() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_FPS_POSITION.position)
   return _internal_position();
 }
-inline void C_SET_FPS_POSITION::unsafe_arena_set_allocated_position(
+inline void C_FPS_POSITION::unsafe_arena_set_allocated_position(
     ::Protocol::Vector3* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
@@ -5286,9 +5032,9 @@ inline void C_SET_FPS_POSITION::unsafe_arena_set_allocated_position(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_SET_FPS_POSITION.position)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_FPS_POSITION.position)
 }
-inline ::Protocol::Vector3* C_SET_FPS_POSITION::release_position() {
+inline ::Protocol::Vector3* C_FPS_POSITION::release_position() {
   
   ::Protocol::Vector3* temp = _impl_.position_;
   _impl_.position_ = nullptr;
@@ -5303,14 +5049,14 @@ inline ::Protocol::Vector3* C_SET_FPS_POSITION::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::Protocol::Vector3* C_SET_FPS_POSITION::unsafe_arena_release_position() {
-  // @@protoc_insertion_point(field_release:Protocol.C_SET_FPS_POSITION.position)
+inline ::Protocol::Vector3* C_FPS_POSITION::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:Protocol.C_FPS_POSITION.position)
   
   ::Protocol::Vector3* temp = _impl_.position_;
   _impl_.position_ = nullptr;
   return temp;
 }
-inline ::Protocol::Vector3* C_SET_FPS_POSITION::_internal_mutable_position() {
+inline ::Protocol::Vector3* C_FPS_POSITION::_internal_mutable_position() {
   
   if (_impl_.position_ == nullptr) {
     auto* p = CreateMaybeMessage<::Protocol::Vector3>(GetArenaForAllocation());
@@ -5318,12 +5064,12 @@ inline ::Protocol::Vector3* C_SET_FPS_POSITION::_internal_mutable_position() {
   }
   return _impl_.position_;
 }
-inline ::Protocol::Vector3* C_SET_FPS_POSITION::mutable_position() {
+inline ::Protocol::Vector3* C_FPS_POSITION::mutable_position() {
   ::Protocol::Vector3* _msg = _internal_mutable_position();
-  // @@protoc_insertion_point(field_mutable:Protocol.C_SET_FPS_POSITION.position)
+  // @@protoc_insertion_point(field_mutable:Protocol.C_FPS_POSITION.position)
   return _msg;
 }
-inline void C_SET_FPS_POSITION::set_allocated_position(::Protocol::Vector3* position) {
+inline void C_FPS_POSITION::set_allocated_position(::Protocol::Vector3* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
@@ -5341,26 +5087,26 @@ inline void C_SET_FPS_POSITION::set_allocated_position(::Protocol::Vector3* posi
     
   }
   _impl_.position_ = position;
-  // @@protoc_insertion_point(field_set_allocated:Protocol.C_SET_FPS_POSITION.position)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.C_FPS_POSITION.position)
 }
 
-// .Protocol.Vector3 velocity = 4;
-inline bool C_SET_FPS_POSITION::_internal_has_velocity() const {
+// .Protocol.Vector3 velocity = 3;
+inline bool C_FPS_POSITION::_internal_has_velocity() const {
   return this != internal_default_instance() && _impl_.velocity_ != nullptr;
 }
-inline bool C_SET_FPS_POSITION::has_velocity() const {
+inline bool C_FPS_POSITION::has_velocity() const {
   return _internal_has_velocity();
 }
-inline const ::Protocol::Vector3& C_SET_FPS_POSITION::_internal_velocity() const {
+inline const ::Protocol::Vector3& C_FPS_POSITION::_internal_velocity() const {
   const ::Protocol::Vector3* p = _impl_.velocity_;
   return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Vector3&>(
       ::Protocol::_Vector3_default_instance_);
 }
-inline const ::Protocol::Vector3& C_SET_FPS_POSITION::velocity() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_SET_FPS_POSITION.velocity)
+inline const ::Protocol::Vector3& C_FPS_POSITION::velocity() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_FPS_POSITION.velocity)
   return _internal_velocity();
 }
-inline void C_SET_FPS_POSITION::unsafe_arena_set_allocated_velocity(
+inline void C_FPS_POSITION::unsafe_arena_set_allocated_velocity(
     ::Protocol::Vector3* velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.velocity_);
@@ -5371,9 +5117,9 @@ inline void C_SET_FPS_POSITION::unsafe_arena_set_allocated_velocity(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_SET_FPS_POSITION.velocity)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_FPS_POSITION.velocity)
 }
-inline ::Protocol::Vector3* C_SET_FPS_POSITION::release_velocity() {
+inline ::Protocol::Vector3* C_FPS_POSITION::release_velocity() {
   
   ::Protocol::Vector3* temp = _impl_.velocity_;
   _impl_.velocity_ = nullptr;
@@ -5388,14 +5134,14 @@ inline ::Protocol::Vector3* C_SET_FPS_POSITION::release_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::Protocol::Vector3* C_SET_FPS_POSITION::unsafe_arena_release_velocity() {
-  // @@protoc_insertion_point(field_release:Protocol.C_SET_FPS_POSITION.velocity)
+inline ::Protocol::Vector3* C_FPS_POSITION::unsafe_arena_release_velocity() {
+  // @@protoc_insertion_point(field_release:Protocol.C_FPS_POSITION.velocity)
   
   ::Protocol::Vector3* temp = _impl_.velocity_;
   _impl_.velocity_ = nullptr;
   return temp;
 }
-inline ::Protocol::Vector3* C_SET_FPS_POSITION::_internal_mutable_velocity() {
+inline ::Protocol::Vector3* C_FPS_POSITION::_internal_mutable_velocity() {
   
   if (_impl_.velocity_ == nullptr) {
     auto* p = CreateMaybeMessage<::Protocol::Vector3>(GetArenaForAllocation());
@@ -5403,12 +5149,12 @@ inline ::Protocol::Vector3* C_SET_FPS_POSITION::_internal_mutable_velocity() {
   }
   return _impl_.velocity_;
 }
-inline ::Protocol::Vector3* C_SET_FPS_POSITION::mutable_velocity() {
+inline ::Protocol::Vector3* C_FPS_POSITION::mutable_velocity() {
   ::Protocol::Vector3* _msg = _internal_mutable_velocity();
-  // @@protoc_insertion_point(field_mutable:Protocol.C_SET_FPS_POSITION.velocity)
+  // @@protoc_insertion_point(field_mutable:Protocol.C_FPS_POSITION.velocity)
   return _msg;
 }
-inline void C_SET_FPS_POSITION::set_allocated_velocity(::Protocol::Vector3* velocity) {
+inline void C_FPS_POSITION::set_allocated_velocity(::Protocol::Vector3* velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.velocity_);
@@ -5426,70 +5172,70 @@ inline void C_SET_FPS_POSITION::set_allocated_velocity(::Protocol::Vector3* velo
     
   }
   _impl_.velocity_ = velocity;
-  // @@protoc_insertion_point(field_set_allocated:Protocol.C_SET_FPS_POSITION.velocity)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.C_FPS_POSITION.velocity)
 }
 
 // -------------------------------------------------------------------
 
-// S_SET_FPS_POSITION
+// S_FPS_POSITION
 
-// int64 timestamp = 1;
-inline void S_SET_FPS_POSITION::clear_timestamp() {
-  _impl_.timestamp_ = int64_t{0};
-}
-inline int64_t S_SET_FPS_POSITION::_internal_timestamp() const {
-  return _impl_.timestamp_;
-}
-inline int64_t S_SET_FPS_POSITION::timestamp() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_SET_FPS_POSITION.timestamp)
-  return _internal_timestamp();
-}
-inline void S_SET_FPS_POSITION::_internal_set_timestamp(int64_t value) {
-  
-  _impl_.timestamp_ = value;
-}
-inline void S_SET_FPS_POSITION::set_timestamp(int64_t value) {
-  _internal_set_timestamp(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_SET_FPS_POSITION.timestamp)
-}
-
-// int32 playerId = 2;
-inline void S_SET_FPS_POSITION::clear_playerid() {
+// int32 playerId = 1;
+inline void S_FPS_POSITION::clear_playerid() {
   _impl_.playerid_ = 0;
 }
-inline int32_t S_SET_FPS_POSITION::_internal_playerid() const {
+inline int32_t S_FPS_POSITION::_internal_playerid() const {
   return _impl_.playerid_;
 }
-inline int32_t S_SET_FPS_POSITION::playerid() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_SET_FPS_POSITION.playerId)
+inline int32_t S_FPS_POSITION::playerid() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_POSITION.playerId)
   return _internal_playerid();
 }
-inline void S_SET_FPS_POSITION::_internal_set_playerid(int32_t value) {
+inline void S_FPS_POSITION::_internal_set_playerid(int32_t value) {
   
   _impl_.playerid_ = value;
 }
-inline void S_SET_FPS_POSITION::set_playerid(int32_t value) {
+inline void S_FPS_POSITION::set_playerid(int32_t value) {
   _internal_set_playerid(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_SET_FPS_POSITION.playerId)
+  // @@protoc_insertion_point(field_set:Protocol.S_FPS_POSITION.playerId)
+}
+
+// int64 timestamp = 2;
+inline void S_FPS_POSITION::clear_timestamp() {
+  _impl_.timestamp_ = int64_t{0};
+}
+inline int64_t S_FPS_POSITION::_internal_timestamp() const {
+  return _impl_.timestamp_;
+}
+inline int64_t S_FPS_POSITION::timestamp() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_POSITION.timestamp)
+  return _internal_timestamp();
+}
+inline void S_FPS_POSITION::_internal_set_timestamp(int64_t value) {
+  
+  _impl_.timestamp_ = value;
+}
+inline void S_FPS_POSITION::set_timestamp(int64_t value) {
+  _internal_set_timestamp(value);
+  // @@protoc_insertion_point(field_set:Protocol.S_FPS_POSITION.timestamp)
 }
 
 // .Protocol.Vector3 position = 3;
-inline bool S_SET_FPS_POSITION::_internal_has_position() const {
+inline bool S_FPS_POSITION::_internal_has_position() const {
   return this != internal_default_instance() && _impl_.position_ != nullptr;
 }
-inline bool S_SET_FPS_POSITION::has_position() const {
+inline bool S_FPS_POSITION::has_position() const {
   return _internal_has_position();
 }
-inline const ::Protocol::Vector3& S_SET_FPS_POSITION::_internal_position() const {
+inline const ::Protocol::Vector3& S_FPS_POSITION::_internal_position() const {
   const ::Protocol::Vector3* p = _impl_.position_;
   return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Vector3&>(
       ::Protocol::_Vector3_default_instance_);
 }
-inline const ::Protocol::Vector3& S_SET_FPS_POSITION::position() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_SET_FPS_POSITION.position)
+inline const ::Protocol::Vector3& S_FPS_POSITION::position() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_POSITION.position)
   return _internal_position();
 }
-inline void S_SET_FPS_POSITION::unsafe_arena_set_allocated_position(
+inline void S_FPS_POSITION::unsafe_arena_set_allocated_position(
     ::Protocol::Vector3* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
@@ -5500,9 +5246,9 @@ inline void S_SET_FPS_POSITION::unsafe_arena_set_allocated_position(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_SET_FPS_POSITION.position)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_FPS_POSITION.position)
 }
-inline ::Protocol::Vector3* S_SET_FPS_POSITION::release_position() {
+inline ::Protocol::Vector3* S_FPS_POSITION::release_position() {
   
   ::Protocol::Vector3* temp = _impl_.position_;
   _impl_.position_ = nullptr;
@@ -5517,14 +5263,14 @@ inline ::Protocol::Vector3* S_SET_FPS_POSITION::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::Protocol::Vector3* S_SET_FPS_POSITION::unsafe_arena_release_position() {
-  // @@protoc_insertion_point(field_release:Protocol.S_SET_FPS_POSITION.position)
+inline ::Protocol::Vector3* S_FPS_POSITION::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:Protocol.S_FPS_POSITION.position)
   
   ::Protocol::Vector3* temp = _impl_.position_;
   _impl_.position_ = nullptr;
   return temp;
 }
-inline ::Protocol::Vector3* S_SET_FPS_POSITION::_internal_mutable_position() {
+inline ::Protocol::Vector3* S_FPS_POSITION::_internal_mutable_position() {
   
   if (_impl_.position_ == nullptr) {
     auto* p = CreateMaybeMessage<::Protocol::Vector3>(GetArenaForAllocation());
@@ -5532,12 +5278,12 @@ inline ::Protocol::Vector3* S_SET_FPS_POSITION::_internal_mutable_position() {
   }
   return _impl_.position_;
 }
-inline ::Protocol::Vector3* S_SET_FPS_POSITION::mutable_position() {
+inline ::Protocol::Vector3* S_FPS_POSITION::mutable_position() {
   ::Protocol::Vector3* _msg = _internal_mutable_position();
-  // @@protoc_insertion_point(field_mutable:Protocol.S_SET_FPS_POSITION.position)
+  // @@protoc_insertion_point(field_mutable:Protocol.S_FPS_POSITION.position)
   return _msg;
 }
-inline void S_SET_FPS_POSITION::set_allocated_position(::Protocol::Vector3* position) {
+inline void S_FPS_POSITION::set_allocated_position(::Protocol::Vector3* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
@@ -5555,26 +5301,26 @@ inline void S_SET_FPS_POSITION::set_allocated_position(::Protocol::Vector3* posi
     
   }
   _impl_.position_ = position;
-  // @@protoc_insertion_point(field_set_allocated:Protocol.S_SET_FPS_POSITION.position)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.S_FPS_POSITION.position)
 }
 
 // .Protocol.Vector3 velocity = 4;
-inline bool S_SET_FPS_POSITION::_internal_has_velocity() const {
+inline bool S_FPS_POSITION::_internal_has_velocity() const {
   return this != internal_default_instance() && _impl_.velocity_ != nullptr;
 }
-inline bool S_SET_FPS_POSITION::has_velocity() const {
+inline bool S_FPS_POSITION::has_velocity() const {
   return _internal_has_velocity();
 }
-inline const ::Protocol::Vector3& S_SET_FPS_POSITION::_internal_velocity() const {
+inline const ::Protocol::Vector3& S_FPS_POSITION::_internal_velocity() const {
   const ::Protocol::Vector3* p = _impl_.velocity_;
   return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Vector3&>(
       ::Protocol::_Vector3_default_instance_);
 }
-inline const ::Protocol::Vector3& S_SET_FPS_POSITION::velocity() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_SET_FPS_POSITION.velocity)
+inline const ::Protocol::Vector3& S_FPS_POSITION::velocity() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_POSITION.velocity)
   return _internal_velocity();
 }
-inline void S_SET_FPS_POSITION::unsafe_arena_set_allocated_velocity(
+inline void S_FPS_POSITION::unsafe_arena_set_allocated_velocity(
     ::Protocol::Vector3* velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.velocity_);
@@ -5585,9 +5331,9 @@ inline void S_SET_FPS_POSITION::unsafe_arena_set_allocated_velocity(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_SET_FPS_POSITION.velocity)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_FPS_POSITION.velocity)
 }
-inline ::Protocol::Vector3* S_SET_FPS_POSITION::release_velocity() {
+inline ::Protocol::Vector3* S_FPS_POSITION::release_velocity() {
   
   ::Protocol::Vector3* temp = _impl_.velocity_;
   _impl_.velocity_ = nullptr;
@@ -5602,14 +5348,14 @@ inline ::Protocol::Vector3* S_SET_FPS_POSITION::release_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::Protocol::Vector3* S_SET_FPS_POSITION::unsafe_arena_release_velocity() {
-  // @@protoc_insertion_point(field_release:Protocol.S_SET_FPS_POSITION.velocity)
+inline ::Protocol::Vector3* S_FPS_POSITION::unsafe_arena_release_velocity() {
+  // @@protoc_insertion_point(field_release:Protocol.S_FPS_POSITION.velocity)
   
   ::Protocol::Vector3* temp = _impl_.velocity_;
   _impl_.velocity_ = nullptr;
   return temp;
 }
-inline ::Protocol::Vector3* S_SET_FPS_POSITION::_internal_mutable_velocity() {
+inline ::Protocol::Vector3* S_FPS_POSITION::_internal_mutable_velocity() {
   
   if (_impl_.velocity_ == nullptr) {
     auto* p = CreateMaybeMessage<::Protocol::Vector3>(GetArenaForAllocation());
@@ -5617,12 +5363,12 @@ inline ::Protocol::Vector3* S_SET_FPS_POSITION::_internal_mutable_velocity() {
   }
   return _impl_.velocity_;
 }
-inline ::Protocol::Vector3* S_SET_FPS_POSITION::mutable_velocity() {
+inline ::Protocol::Vector3* S_FPS_POSITION::mutable_velocity() {
   ::Protocol::Vector3* _msg = _internal_mutable_velocity();
-  // @@protoc_insertion_point(field_mutable:Protocol.S_SET_FPS_POSITION.velocity)
+  // @@protoc_insertion_point(field_mutable:Protocol.S_FPS_POSITION.velocity)
   return _msg;
 }
-inline void S_SET_FPS_POSITION::set_allocated_velocity(::Protocol::Vector3* velocity) {
+inline void S_FPS_POSITION::set_allocated_velocity(::Protocol::Vector3* velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.velocity_);
@@ -5640,56 +5386,36 @@ inline void S_SET_FPS_POSITION::set_allocated_velocity(::Protocol::Vector3* velo
     
   }
   _impl_.velocity_ = velocity;
-  // @@protoc_insertion_point(field_set_allocated:Protocol.S_SET_FPS_POSITION.velocity)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.S_FPS_POSITION.velocity)
 }
 
 // -------------------------------------------------------------------
 
-// C_SET_FPS_ROTATION
+// C_FPS_ROTATION
 
-// int32 playerId = 1;
-inline void C_SET_FPS_ROTATION::clear_playerid() {
-  _impl_.playerid_ = 0;
-}
-inline int32_t C_SET_FPS_ROTATION::_internal_playerid() const {
-  return _impl_.playerid_;
-}
-inline int32_t C_SET_FPS_ROTATION::playerid() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_SET_FPS_ROTATION.playerId)
-  return _internal_playerid();
-}
-inline void C_SET_FPS_ROTATION::_internal_set_playerid(int32_t value) {
-  
-  _impl_.playerid_ = value;
-}
-inline void C_SET_FPS_ROTATION::set_playerid(int32_t value) {
-  _internal_set_playerid(value);
-  // @@protoc_insertion_point(field_set:Protocol.C_SET_FPS_ROTATION.playerId)
-}
-
-// .Protocol.Quaternion rotation = 2;
-inline bool C_SET_FPS_ROTATION::_internal_has_rotation() const {
+// .Protocol.Quaternion rotation = 1;
+inline bool C_FPS_ROTATION::_internal_has_rotation() const {
   return this != internal_default_instance() && _impl_.rotation_ != nullptr;
 }
-inline bool C_SET_FPS_ROTATION::has_rotation() const {
+inline bool C_FPS_ROTATION::has_rotation() const {
   return _internal_has_rotation();
 }
-inline void C_SET_FPS_ROTATION::clear_rotation() {
+inline void C_FPS_ROTATION::clear_rotation() {
   if (GetArenaForAllocation() == nullptr && _impl_.rotation_ != nullptr) {
     delete _impl_.rotation_;
   }
   _impl_.rotation_ = nullptr;
 }
-inline const ::Protocol::Quaternion& C_SET_FPS_ROTATION::_internal_rotation() const {
+inline const ::Protocol::Quaternion& C_FPS_ROTATION::_internal_rotation() const {
   const ::Protocol::Quaternion* p = _impl_.rotation_;
   return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Quaternion&>(
       ::Protocol::_Quaternion_default_instance_);
 }
-inline const ::Protocol::Quaternion& C_SET_FPS_ROTATION::rotation() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_SET_FPS_ROTATION.rotation)
+inline const ::Protocol::Quaternion& C_FPS_ROTATION::rotation() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_FPS_ROTATION.rotation)
   return _internal_rotation();
 }
-inline void C_SET_FPS_ROTATION::unsafe_arena_set_allocated_rotation(
+inline void C_FPS_ROTATION::unsafe_arena_set_allocated_rotation(
     ::Protocol::Quaternion* rotation) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.rotation_);
@@ -5700,9 +5426,9 @@ inline void C_SET_FPS_ROTATION::unsafe_arena_set_allocated_rotation(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_SET_FPS_ROTATION.rotation)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_FPS_ROTATION.rotation)
 }
-inline ::Protocol::Quaternion* C_SET_FPS_ROTATION::release_rotation() {
+inline ::Protocol::Quaternion* C_FPS_ROTATION::release_rotation() {
   
   ::Protocol::Quaternion* temp = _impl_.rotation_;
   _impl_.rotation_ = nullptr;
@@ -5717,14 +5443,14 @@ inline ::Protocol::Quaternion* C_SET_FPS_ROTATION::release_rotation() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::Protocol::Quaternion* C_SET_FPS_ROTATION::unsafe_arena_release_rotation() {
-  // @@protoc_insertion_point(field_release:Protocol.C_SET_FPS_ROTATION.rotation)
+inline ::Protocol::Quaternion* C_FPS_ROTATION::unsafe_arena_release_rotation() {
+  // @@protoc_insertion_point(field_release:Protocol.C_FPS_ROTATION.rotation)
   
   ::Protocol::Quaternion* temp = _impl_.rotation_;
   _impl_.rotation_ = nullptr;
   return temp;
 }
-inline ::Protocol::Quaternion* C_SET_FPS_ROTATION::_internal_mutable_rotation() {
+inline ::Protocol::Quaternion* C_FPS_ROTATION::_internal_mutable_rotation() {
   
   if (_impl_.rotation_ == nullptr) {
     auto* p = CreateMaybeMessage<::Protocol::Quaternion>(GetArenaForAllocation());
@@ -5732,12 +5458,12 @@ inline ::Protocol::Quaternion* C_SET_FPS_ROTATION::_internal_mutable_rotation() 
   }
   return _impl_.rotation_;
 }
-inline ::Protocol::Quaternion* C_SET_FPS_ROTATION::mutable_rotation() {
+inline ::Protocol::Quaternion* C_FPS_ROTATION::mutable_rotation() {
   ::Protocol::Quaternion* _msg = _internal_mutable_rotation();
-  // @@protoc_insertion_point(field_mutable:Protocol.C_SET_FPS_ROTATION.rotation)
+  // @@protoc_insertion_point(field_mutable:Protocol.C_FPS_ROTATION.rotation)
   return _msg;
 }
-inline void C_SET_FPS_ROTATION::set_allocated_rotation(::Protocol::Quaternion* rotation) {
+inline void C_FPS_ROTATION::set_allocated_rotation(::Protocol::Quaternion* rotation) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.rotation_;
@@ -5754,56 +5480,56 @@ inline void C_SET_FPS_ROTATION::set_allocated_rotation(::Protocol::Quaternion* r
     
   }
   _impl_.rotation_ = rotation;
-  // @@protoc_insertion_point(field_set_allocated:Protocol.C_SET_FPS_ROTATION.rotation)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.C_FPS_ROTATION.rotation)
 }
 
 // -------------------------------------------------------------------
 
-// S_SET_FPS_ROTATION
+// S_FPS_ROTATION
 
 // int32 playerId = 1;
-inline void S_SET_FPS_ROTATION::clear_playerid() {
+inline void S_FPS_ROTATION::clear_playerid() {
   _impl_.playerid_ = 0;
 }
-inline int32_t S_SET_FPS_ROTATION::_internal_playerid() const {
+inline int32_t S_FPS_ROTATION::_internal_playerid() const {
   return _impl_.playerid_;
 }
-inline int32_t S_SET_FPS_ROTATION::playerid() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_SET_FPS_ROTATION.playerId)
+inline int32_t S_FPS_ROTATION::playerid() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_ROTATION.playerId)
   return _internal_playerid();
 }
-inline void S_SET_FPS_ROTATION::_internal_set_playerid(int32_t value) {
+inline void S_FPS_ROTATION::_internal_set_playerid(int32_t value) {
   
   _impl_.playerid_ = value;
 }
-inline void S_SET_FPS_ROTATION::set_playerid(int32_t value) {
+inline void S_FPS_ROTATION::set_playerid(int32_t value) {
   _internal_set_playerid(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_SET_FPS_ROTATION.playerId)
+  // @@protoc_insertion_point(field_set:Protocol.S_FPS_ROTATION.playerId)
 }
 
 // .Protocol.Quaternion rotation = 2;
-inline bool S_SET_FPS_ROTATION::_internal_has_rotation() const {
+inline bool S_FPS_ROTATION::_internal_has_rotation() const {
   return this != internal_default_instance() && _impl_.rotation_ != nullptr;
 }
-inline bool S_SET_FPS_ROTATION::has_rotation() const {
+inline bool S_FPS_ROTATION::has_rotation() const {
   return _internal_has_rotation();
 }
-inline void S_SET_FPS_ROTATION::clear_rotation() {
+inline void S_FPS_ROTATION::clear_rotation() {
   if (GetArenaForAllocation() == nullptr && _impl_.rotation_ != nullptr) {
     delete _impl_.rotation_;
   }
   _impl_.rotation_ = nullptr;
 }
-inline const ::Protocol::Quaternion& S_SET_FPS_ROTATION::_internal_rotation() const {
+inline const ::Protocol::Quaternion& S_FPS_ROTATION::_internal_rotation() const {
   const ::Protocol::Quaternion* p = _impl_.rotation_;
   return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Quaternion&>(
       ::Protocol::_Quaternion_default_instance_);
 }
-inline const ::Protocol::Quaternion& S_SET_FPS_ROTATION::rotation() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_SET_FPS_ROTATION.rotation)
+inline const ::Protocol::Quaternion& S_FPS_ROTATION::rotation() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_ROTATION.rotation)
   return _internal_rotation();
 }
-inline void S_SET_FPS_ROTATION::unsafe_arena_set_allocated_rotation(
+inline void S_FPS_ROTATION::unsafe_arena_set_allocated_rotation(
     ::Protocol::Quaternion* rotation) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.rotation_);
@@ -5814,9 +5540,9 @@ inline void S_SET_FPS_ROTATION::unsafe_arena_set_allocated_rotation(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_SET_FPS_ROTATION.rotation)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_FPS_ROTATION.rotation)
 }
-inline ::Protocol::Quaternion* S_SET_FPS_ROTATION::release_rotation() {
+inline ::Protocol::Quaternion* S_FPS_ROTATION::release_rotation() {
   
   ::Protocol::Quaternion* temp = _impl_.rotation_;
   _impl_.rotation_ = nullptr;
@@ -5831,14 +5557,14 @@ inline ::Protocol::Quaternion* S_SET_FPS_ROTATION::release_rotation() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::Protocol::Quaternion* S_SET_FPS_ROTATION::unsafe_arena_release_rotation() {
-  // @@protoc_insertion_point(field_release:Protocol.S_SET_FPS_ROTATION.rotation)
+inline ::Protocol::Quaternion* S_FPS_ROTATION::unsafe_arena_release_rotation() {
+  // @@protoc_insertion_point(field_release:Protocol.S_FPS_ROTATION.rotation)
   
   ::Protocol::Quaternion* temp = _impl_.rotation_;
   _impl_.rotation_ = nullptr;
   return temp;
 }
-inline ::Protocol::Quaternion* S_SET_FPS_ROTATION::_internal_mutable_rotation() {
+inline ::Protocol::Quaternion* S_FPS_ROTATION::_internal_mutable_rotation() {
   
   if (_impl_.rotation_ == nullptr) {
     auto* p = CreateMaybeMessage<::Protocol::Quaternion>(GetArenaForAllocation());
@@ -5846,12 +5572,12 @@ inline ::Protocol::Quaternion* S_SET_FPS_ROTATION::_internal_mutable_rotation() 
   }
   return _impl_.rotation_;
 }
-inline ::Protocol::Quaternion* S_SET_FPS_ROTATION::mutable_rotation() {
+inline ::Protocol::Quaternion* S_FPS_ROTATION::mutable_rotation() {
   ::Protocol::Quaternion* _msg = _internal_mutable_rotation();
-  // @@protoc_insertion_point(field_mutable:Protocol.S_SET_FPS_ROTATION.rotation)
+  // @@protoc_insertion_point(field_mutable:Protocol.S_FPS_ROTATION.rotation)
   return _msg;
 }
-inline void S_SET_FPS_ROTATION::set_allocated_rotation(::Protocol::Quaternion* rotation) {
+inline void S_FPS_ROTATION::set_allocated_rotation(::Protocol::Quaternion* rotation) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.rotation_;
@@ -5868,30 +5594,30 @@ inline void S_SET_FPS_ROTATION::set_allocated_rotation(::Protocol::Quaternion* r
     
   }
   _impl_.rotation_ = rotation;
-  // @@protoc_insertion_point(field_set_allocated:Protocol.S_SET_FPS_ROTATION.rotation)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.S_FPS_ROTATION.rotation)
 }
 
 // -------------------------------------------------------------------
 
-// C_SHOOT
+// C_FPS_SHOOT
 
 // .Protocol.Vector3 position = 1;
-inline bool C_SHOOT::_internal_has_position() const {
+inline bool C_FPS_SHOOT::_internal_has_position() const {
   return this != internal_default_instance() && _impl_.position_ != nullptr;
 }
-inline bool C_SHOOT::has_position() const {
+inline bool C_FPS_SHOOT::has_position() const {
   return _internal_has_position();
 }
-inline const ::Protocol::Vector3& C_SHOOT::_internal_position() const {
+inline const ::Protocol::Vector3& C_FPS_SHOOT::_internal_position() const {
   const ::Protocol::Vector3* p = _impl_.position_;
   return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Vector3&>(
       ::Protocol::_Vector3_default_instance_);
 }
-inline const ::Protocol::Vector3& C_SHOOT::position() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_SHOOT.position)
+inline const ::Protocol::Vector3& C_FPS_SHOOT::position() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_FPS_SHOOT.position)
   return _internal_position();
 }
-inline void C_SHOOT::unsafe_arena_set_allocated_position(
+inline void C_FPS_SHOOT::unsafe_arena_set_allocated_position(
     ::Protocol::Vector3* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
@@ -5902,9 +5628,9 @@ inline void C_SHOOT::unsafe_arena_set_allocated_position(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_SHOOT.position)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_FPS_SHOOT.position)
 }
-inline ::Protocol::Vector3* C_SHOOT::release_position() {
+inline ::Protocol::Vector3* C_FPS_SHOOT::release_position() {
   
   ::Protocol::Vector3* temp = _impl_.position_;
   _impl_.position_ = nullptr;
@@ -5919,14 +5645,14 @@ inline ::Protocol::Vector3* C_SHOOT::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::Protocol::Vector3* C_SHOOT::unsafe_arena_release_position() {
-  // @@protoc_insertion_point(field_release:Protocol.C_SHOOT.position)
+inline ::Protocol::Vector3* C_FPS_SHOOT::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:Protocol.C_FPS_SHOOT.position)
   
   ::Protocol::Vector3* temp = _impl_.position_;
   _impl_.position_ = nullptr;
   return temp;
 }
-inline ::Protocol::Vector3* C_SHOOT::_internal_mutable_position() {
+inline ::Protocol::Vector3* C_FPS_SHOOT::_internal_mutable_position() {
   
   if (_impl_.position_ == nullptr) {
     auto* p = CreateMaybeMessage<::Protocol::Vector3>(GetArenaForAllocation());
@@ -5934,12 +5660,12 @@ inline ::Protocol::Vector3* C_SHOOT::_internal_mutable_position() {
   }
   return _impl_.position_;
 }
-inline ::Protocol::Vector3* C_SHOOT::mutable_position() {
+inline ::Protocol::Vector3* C_FPS_SHOOT::mutable_position() {
   ::Protocol::Vector3* _msg = _internal_mutable_position();
-  // @@protoc_insertion_point(field_mutable:Protocol.C_SHOOT.position)
+  // @@protoc_insertion_point(field_mutable:Protocol.C_FPS_SHOOT.position)
   return _msg;
 }
-inline void C_SHOOT::set_allocated_position(::Protocol::Vector3* position) {
+inline void C_FPS_SHOOT::set_allocated_position(::Protocol::Vector3* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.position_);
@@ -5957,26 +5683,26 @@ inline void C_SHOOT::set_allocated_position(::Protocol::Vector3* position) {
     
   }
   _impl_.position_ = position;
-  // @@protoc_insertion_point(field_set_allocated:Protocol.C_SHOOT.position)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.C_FPS_SHOOT.position)
 }
 
 // .Protocol.Vector3 direction = 2;
-inline bool C_SHOOT::_internal_has_direction() const {
+inline bool C_FPS_SHOOT::_internal_has_direction() const {
   return this != internal_default_instance() && _impl_.direction_ != nullptr;
 }
-inline bool C_SHOOT::has_direction() const {
+inline bool C_FPS_SHOOT::has_direction() const {
   return _internal_has_direction();
 }
-inline const ::Protocol::Vector3& C_SHOOT::_internal_direction() const {
+inline const ::Protocol::Vector3& C_FPS_SHOOT::_internal_direction() const {
   const ::Protocol::Vector3* p = _impl_.direction_;
   return p != nullptr ? *p : reinterpret_cast<const ::Protocol::Vector3&>(
       ::Protocol::_Vector3_default_instance_);
 }
-inline const ::Protocol::Vector3& C_SHOOT::direction() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_SHOOT.direction)
+inline const ::Protocol::Vector3& C_FPS_SHOOT::direction() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_FPS_SHOOT.direction)
   return _internal_direction();
 }
-inline void C_SHOOT::unsafe_arena_set_allocated_direction(
+inline void C_FPS_SHOOT::unsafe_arena_set_allocated_direction(
     ::Protocol::Vector3* direction) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.direction_);
@@ -5987,9 +5713,9 @@ inline void C_SHOOT::unsafe_arena_set_allocated_direction(
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_SHOOT.direction)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_FPS_SHOOT.direction)
 }
-inline ::Protocol::Vector3* C_SHOOT::release_direction() {
+inline ::Protocol::Vector3* C_FPS_SHOOT::release_direction() {
   
   ::Protocol::Vector3* temp = _impl_.direction_;
   _impl_.direction_ = nullptr;
@@ -6004,14 +5730,14 @@ inline ::Protocol::Vector3* C_SHOOT::release_direction() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::Protocol::Vector3* C_SHOOT::unsafe_arena_release_direction() {
-  // @@protoc_insertion_point(field_release:Protocol.C_SHOOT.direction)
+inline ::Protocol::Vector3* C_FPS_SHOOT::unsafe_arena_release_direction() {
+  // @@protoc_insertion_point(field_release:Protocol.C_FPS_SHOOT.direction)
   
   ::Protocol::Vector3* temp = _impl_.direction_;
   _impl_.direction_ = nullptr;
   return temp;
 }
-inline ::Protocol::Vector3* C_SHOOT::_internal_mutable_direction() {
+inline ::Protocol::Vector3* C_FPS_SHOOT::_internal_mutable_direction() {
   
   if (_impl_.direction_ == nullptr) {
     auto* p = CreateMaybeMessage<::Protocol::Vector3>(GetArenaForAllocation());
@@ -6019,12 +5745,12 @@ inline ::Protocol::Vector3* C_SHOOT::_internal_mutable_direction() {
   }
   return _impl_.direction_;
 }
-inline ::Protocol::Vector3* C_SHOOT::mutable_direction() {
+inline ::Protocol::Vector3* C_FPS_SHOOT::mutable_direction() {
   ::Protocol::Vector3* _msg = _internal_mutable_direction();
-  // @@protoc_insertion_point(field_mutable:Protocol.C_SHOOT.direction)
+  // @@protoc_insertion_point(field_mutable:Protocol.C_FPS_SHOOT.direction)
   return _msg;
 }
-inline void C_SHOOT::set_allocated_direction(::Protocol::Vector3* direction) {
+inline void C_FPS_SHOOT::set_allocated_direction(::Protocol::Vector3* direction) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.direction_);
@@ -6042,502 +5768,502 @@ inline void C_SHOOT::set_allocated_direction(::Protocol::Vector3* direction) {
     
   }
   _impl_.direction_ = direction;
-  // @@protoc_insertion_point(field_set_allocated:Protocol.C_SHOOT.direction)
+  // @@protoc_insertion_point(field_set_allocated:Protocol.C_FPS_SHOOT.direction)
 }
 
 // -------------------------------------------------------------------
 
-// S_SHOOT
+// S_FPS_SHOOT
 
 // int32 playerId = 1;
-inline void S_SHOOT::clear_playerid() {
+inline void S_FPS_SHOOT::clear_playerid() {
   _impl_.playerid_ = 0;
 }
-inline int32_t S_SHOOT::_internal_playerid() const {
+inline int32_t S_FPS_SHOOT::_internal_playerid() const {
   return _impl_.playerid_;
 }
-inline int32_t S_SHOOT::playerid() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_SHOOT.playerId)
+inline int32_t S_FPS_SHOOT::playerid() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_SHOOT.playerId)
   return _internal_playerid();
 }
-inline void S_SHOOT::_internal_set_playerid(int32_t value) {
+inline void S_FPS_SHOOT::_internal_set_playerid(int32_t value) {
   
   _impl_.playerid_ = value;
 }
-inline void S_SHOOT::set_playerid(int32_t value) {
+inline void S_FPS_SHOOT::set_playerid(int32_t value) {
   _internal_set_playerid(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_SHOOT.playerId)
+  // @@protoc_insertion_point(field_set:Protocol.S_FPS_SHOOT.playerId)
 }
 
 // -------------------------------------------------------------------
 
-// S_ATTACKED
+// S_FPS_ATTACKED
 
 // int32 playerid = 1;
-inline void S_ATTACKED::clear_playerid() {
+inline void S_FPS_ATTACKED::clear_playerid() {
   _impl_.playerid_ = 0;
 }
-inline int32_t S_ATTACKED::_internal_playerid() const {
+inline int32_t S_FPS_ATTACKED::_internal_playerid() const {
   return _impl_.playerid_;
 }
-inline int32_t S_ATTACKED::playerid() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_ATTACKED.playerid)
+inline int32_t S_FPS_ATTACKED::playerid() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_ATTACKED.playerid)
   return _internal_playerid();
 }
-inline void S_ATTACKED::_internal_set_playerid(int32_t value) {
+inline void S_FPS_ATTACKED::_internal_set_playerid(int32_t value) {
   
   _impl_.playerid_ = value;
 }
-inline void S_ATTACKED::set_playerid(int32_t value) {
+inline void S_FPS_ATTACKED::set_playerid(int32_t value) {
   _internal_set_playerid(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_ATTACKED.playerid)
+  // @@protoc_insertion_point(field_set:Protocol.S_FPS_ATTACKED.playerid)
 }
 
 // int32 damage = 2;
-inline void S_ATTACKED::clear_damage() {
+inline void S_FPS_ATTACKED::clear_damage() {
   _impl_.damage_ = 0;
 }
-inline int32_t S_ATTACKED::_internal_damage() const {
+inline int32_t S_FPS_ATTACKED::_internal_damage() const {
   return _impl_.damage_;
 }
-inline int32_t S_ATTACKED::damage() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_ATTACKED.damage)
+inline int32_t S_FPS_ATTACKED::damage() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_ATTACKED.damage)
   return _internal_damage();
 }
-inline void S_ATTACKED::_internal_set_damage(int32_t value) {
+inline void S_FPS_ATTACKED::_internal_set_damage(int32_t value) {
   
   _impl_.damage_ = value;
 }
-inline void S_ATTACKED::set_damage(int32_t value) {
+inline void S_FPS_ATTACKED::set_damage(int32_t value) {
   _internal_set_damage(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_ATTACKED.damage)
+  // @@protoc_insertion_point(field_set:Protocol.S_FPS_ATTACKED.damage)
 }
 
 // int32 hp = 3;
-inline void S_ATTACKED::clear_hp() {
+inline void S_FPS_ATTACKED::clear_hp() {
   _impl_.hp_ = 0;
 }
-inline int32_t S_ATTACKED::_internal_hp() const {
+inline int32_t S_FPS_ATTACKED::_internal_hp() const {
   return _impl_.hp_;
 }
-inline int32_t S_ATTACKED::hp() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_ATTACKED.hp)
+inline int32_t S_FPS_ATTACKED::hp() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_ATTACKED.hp)
   return _internal_hp();
 }
-inline void S_ATTACKED::_internal_set_hp(int32_t value) {
+inline void S_FPS_ATTACKED::_internal_set_hp(int32_t value) {
   
   _impl_.hp_ = value;
 }
-inline void S_ATTACKED::set_hp(int32_t value) {
+inline void S_FPS_ATTACKED::set_hp(int32_t value) {
   _internal_set_hp(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_ATTACKED.hp)
+  // @@protoc_insertion_point(field_set:Protocol.S_FPS_ATTACKED.hp)
 }
 
 // -------------------------------------------------------------------
 
-// C_CHANGE_WEAPON
+// C_FPS_CHANGE_WEAPON
 
 // int32 weaponId = 1;
-inline void C_CHANGE_WEAPON::clear_weaponid() {
+inline void C_FPS_CHANGE_WEAPON::clear_weaponid() {
   _impl_.weaponid_ = 0;
 }
-inline int32_t C_CHANGE_WEAPON::_internal_weaponid() const {
+inline int32_t C_FPS_CHANGE_WEAPON::_internal_weaponid() const {
   return _impl_.weaponid_;
 }
-inline int32_t C_CHANGE_WEAPON::weaponid() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_CHANGE_WEAPON.weaponId)
+inline int32_t C_FPS_CHANGE_WEAPON::weaponid() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_FPS_CHANGE_WEAPON.weaponId)
   return _internal_weaponid();
 }
-inline void C_CHANGE_WEAPON::_internal_set_weaponid(int32_t value) {
+inline void C_FPS_CHANGE_WEAPON::_internal_set_weaponid(int32_t value) {
   
   _impl_.weaponid_ = value;
 }
-inline void C_CHANGE_WEAPON::set_weaponid(int32_t value) {
+inline void C_FPS_CHANGE_WEAPON::set_weaponid(int32_t value) {
   _internal_set_weaponid(value);
-  // @@protoc_insertion_point(field_set:Protocol.C_CHANGE_WEAPON.weaponId)
+  // @@protoc_insertion_point(field_set:Protocol.C_FPS_CHANGE_WEAPON.weaponId)
 }
 
 // int64 timestamp = 2;
-inline void C_CHANGE_WEAPON::clear_timestamp() {
+inline void C_FPS_CHANGE_WEAPON::clear_timestamp() {
   _impl_.timestamp_ = int64_t{0};
 }
-inline int64_t C_CHANGE_WEAPON::_internal_timestamp() const {
+inline int64_t C_FPS_CHANGE_WEAPON::_internal_timestamp() const {
   return _impl_.timestamp_;
 }
-inline int64_t C_CHANGE_WEAPON::timestamp() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_CHANGE_WEAPON.timestamp)
+inline int64_t C_FPS_CHANGE_WEAPON::timestamp() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_FPS_CHANGE_WEAPON.timestamp)
   return _internal_timestamp();
 }
-inline void C_CHANGE_WEAPON::_internal_set_timestamp(int64_t value) {
+inline void C_FPS_CHANGE_WEAPON::_internal_set_timestamp(int64_t value) {
   
   _impl_.timestamp_ = value;
 }
-inline void C_CHANGE_WEAPON::set_timestamp(int64_t value) {
+inline void C_FPS_CHANGE_WEAPON::set_timestamp(int64_t value) {
   _internal_set_timestamp(value);
-  // @@protoc_insertion_point(field_set:Protocol.C_CHANGE_WEAPON.timestamp)
+  // @@protoc_insertion_point(field_set:Protocol.C_FPS_CHANGE_WEAPON.timestamp)
 }
 
 // -------------------------------------------------------------------
 
-// S_CHANGE_WEAPON
+// S_FPS_CHANGE_WEAPON
 
 // int32 playerId = 1;
-inline void S_CHANGE_WEAPON::clear_playerid() {
+inline void S_FPS_CHANGE_WEAPON::clear_playerid() {
   _impl_.playerid_ = 0;
 }
-inline int32_t S_CHANGE_WEAPON::_internal_playerid() const {
+inline int32_t S_FPS_CHANGE_WEAPON::_internal_playerid() const {
   return _impl_.playerid_;
 }
-inline int32_t S_CHANGE_WEAPON::playerid() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_CHANGE_WEAPON.playerId)
+inline int32_t S_FPS_CHANGE_WEAPON::playerid() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_CHANGE_WEAPON.playerId)
   return _internal_playerid();
 }
-inline void S_CHANGE_WEAPON::_internal_set_playerid(int32_t value) {
+inline void S_FPS_CHANGE_WEAPON::_internal_set_playerid(int32_t value) {
   
   _impl_.playerid_ = value;
 }
-inline void S_CHANGE_WEAPON::set_playerid(int32_t value) {
+inline void S_FPS_CHANGE_WEAPON::set_playerid(int32_t value) {
   _internal_set_playerid(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_CHANGE_WEAPON.playerId)
+  // @@protoc_insertion_point(field_set:Protocol.S_FPS_CHANGE_WEAPON.playerId)
 }
 
 // int32 weaponId = 2;
-inline void S_CHANGE_WEAPON::clear_weaponid() {
+inline void S_FPS_CHANGE_WEAPON::clear_weaponid() {
   _impl_.weaponid_ = 0;
 }
-inline int32_t S_CHANGE_WEAPON::_internal_weaponid() const {
+inline int32_t S_FPS_CHANGE_WEAPON::_internal_weaponid() const {
   return _impl_.weaponid_;
 }
-inline int32_t S_CHANGE_WEAPON::weaponid() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_CHANGE_WEAPON.weaponId)
+inline int32_t S_FPS_CHANGE_WEAPON::weaponid() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_CHANGE_WEAPON.weaponId)
   return _internal_weaponid();
 }
-inline void S_CHANGE_WEAPON::_internal_set_weaponid(int32_t value) {
+inline void S_FPS_CHANGE_WEAPON::_internal_set_weaponid(int32_t value) {
   
   _impl_.weaponid_ = value;
 }
-inline void S_CHANGE_WEAPON::set_weaponid(int32_t value) {
+inline void S_FPS_CHANGE_WEAPON::set_weaponid(int32_t value) {
   _internal_set_weaponid(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_CHANGE_WEAPON.weaponId)
+  // @@protoc_insertion_point(field_set:Protocol.S_FPS_CHANGE_WEAPON.weaponId)
 }
 
 // int64 timestamp = 3;
-inline void S_CHANGE_WEAPON::clear_timestamp() {
+inline void S_FPS_CHANGE_WEAPON::clear_timestamp() {
   _impl_.timestamp_ = int64_t{0};
 }
-inline int64_t S_CHANGE_WEAPON::_internal_timestamp() const {
+inline int64_t S_FPS_CHANGE_WEAPON::_internal_timestamp() const {
   return _impl_.timestamp_;
 }
-inline int64_t S_CHANGE_WEAPON::timestamp() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_CHANGE_WEAPON.timestamp)
+inline int64_t S_FPS_CHANGE_WEAPON::timestamp() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_CHANGE_WEAPON.timestamp)
   return _internal_timestamp();
 }
-inline void S_CHANGE_WEAPON::_internal_set_timestamp(int64_t value) {
+inline void S_FPS_CHANGE_WEAPON::_internal_set_timestamp(int64_t value) {
   
   _impl_.timestamp_ = value;
 }
-inline void S_CHANGE_WEAPON::set_timestamp(int64_t value) {
+inline void S_FPS_CHANGE_WEAPON::set_timestamp(int64_t value) {
   _internal_set_timestamp(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_CHANGE_WEAPON.timestamp)
+  // @@protoc_insertion_point(field_set:Protocol.S_FPS_CHANGE_WEAPON.timestamp)
 }
 
 // -------------------------------------------------------------------
 
-// C_RELOAD
+// C_FPS_RELOAD
 
 // -------------------------------------------------------------------
 
-// S_RELOAD
+// S_FPS_RELOAD
 
 // int32 playerId = 1;
-inline void S_RELOAD::clear_playerid() {
+inline void S_FPS_RELOAD::clear_playerid() {
   _impl_.playerid_ = 0;
 }
-inline int32_t S_RELOAD::_internal_playerid() const {
+inline int32_t S_FPS_RELOAD::_internal_playerid() const {
   return _impl_.playerid_;
 }
-inline int32_t S_RELOAD::playerid() const {
-  // @@protoc_insertion_point(field_get:Protocol.S_RELOAD.playerId)
+inline int32_t S_FPS_RELOAD::playerid() const {
+  // @@protoc_insertion_point(field_get:Protocol.S_FPS_RELOAD.playerId)
   return _internal_playerid();
 }
-inline void S_RELOAD::_internal_set_playerid(int32_t value) {
+inline void S_FPS_RELOAD::_internal_set_playerid(int32_t value) {
   
   _impl_.playerid_ = value;
 }
-inline void S_RELOAD::set_playerid(int32_t value) {
+inline void S_FPS_RELOAD::set_playerid(int32_t value) {
   _internal_set_playerid(value);
-  // @@protoc_insertion_point(field_set:Protocol.S_RELOAD.playerId)
+  // @@protoc_insertion_point(field_set:Protocol.S_FPS_RELOAD.playerId)
 }
 
 // -------------------------------------------------------------------
 
-// FPS_Animation
+// FPSAnimation
 
 // float moveX = 1;
-inline void FPS_Animation::clear_movex() {
+inline void FPSAnimation::clear_movex() {
   _impl_.movex_ = 0;
 }
-inline float FPS_Animation::_internal_movex() const {
+inline float FPSAnimation::_internal_movex() const {
   return _impl_.movex_;
 }
-inline float FPS_Animation::movex() const {
-  // @@protoc_insertion_point(field_get:Protocol.FPS_Animation.moveX)
+inline float FPSAnimation::movex() const {
+  // @@protoc_insertion_point(field_get:Protocol.FPSAnimation.moveX)
   return _internal_movex();
 }
-inline void FPS_Animation::_internal_set_movex(float value) {
+inline void FPSAnimation::_internal_set_movex(float value) {
   
   _impl_.movex_ = value;
 }
-inline void FPS_Animation::set_movex(float value) {
+inline void FPSAnimation::set_movex(float value) {
   _internal_set_movex(value);
-  // @@protoc_insertion_point(field_set:Protocol.FPS_Animation.moveX)
+  // @@protoc_insertion_point(field_set:Protocol.FPSAnimation.moveX)
 }
 
 // float moveY = 2;
-inline void FPS_Animation::clear_movey() {
+inline void FPSAnimation::clear_movey() {
   _impl_.movey_ = 0;
 }
-inline float FPS_Animation::_internal_movey() const {
+inline float FPSAnimation::_internal_movey() const {
   return _impl_.movey_;
 }
-inline float FPS_Animation::movey() const {
-  // @@protoc_insertion_point(field_get:Protocol.FPS_Animation.moveY)
+inline float FPSAnimation::movey() const {
+  // @@protoc_insertion_point(field_get:Protocol.FPSAnimation.moveY)
   return _internal_movey();
 }
-inline void FPS_Animation::_internal_set_movey(float value) {
+inline void FPSAnimation::_internal_set_movey(float value) {
   
   _impl_.movey_ = value;
 }
-inline void FPS_Animation::set_movey(float value) {
+inline void FPSAnimation::set_movey(float value) {
   _internal_set_movey(value);
-  // @@protoc_insertion_point(field_set:Protocol.FPS_Animation.moveY)
+  // @@protoc_insertion_point(field_set:Protocol.FPSAnimation.moveY)
 }
 
 // float velocity = 3;
-inline void FPS_Animation::clear_velocity() {
+inline void FPSAnimation::clear_velocity() {
   _impl_.velocity_ = 0;
 }
-inline float FPS_Animation::_internal_velocity() const {
+inline float FPSAnimation::_internal_velocity() const {
   return _impl_.velocity_;
 }
-inline float FPS_Animation::velocity() const {
-  // @@protoc_insertion_point(field_get:Protocol.FPS_Animation.velocity)
+inline float FPSAnimation::velocity() const {
+  // @@protoc_insertion_point(field_get:Protocol.FPSAnimation.velocity)
   return _internal_velocity();
 }
-inline void FPS_Animation::_internal_set_velocity(float value) {
+inline void FPSAnimation::_internal_set_velocity(float value) {
   
   _impl_.velocity_ = value;
 }
-inline void FPS_Animation::set_velocity(float value) {
+inline void FPSAnimation::set_velocity(float value) {
   _internal_set_velocity(value);
-  // @@protoc_insertion_point(field_set:Protocol.FPS_Animation.velocity)
+  // @@protoc_insertion_point(field_set:Protocol.FPSAnimation.velocity)
 }
 
 // bool moving = 4;
-inline void FPS_Animation::clear_moving() {
+inline void FPSAnimation::clear_moving() {
   _impl_.moving_ = false;
 }
-inline bool FPS_Animation::_internal_moving() const {
+inline bool FPSAnimation::_internal_moving() const {
   return _impl_.moving_;
 }
-inline bool FPS_Animation::moving() const {
-  // @@protoc_insertion_point(field_get:Protocol.FPS_Animation.moving)
+inline bool FPSAnimation::moving() const {
+  // @@protoc_insertion_point(field_get:Protocol.FPSAnimation.moving)
   return _internal_moving();
 }
-inline void FPS_Animation::_internal_set_moving(bool value) {
+inline void FPSAnimation::_internal_set_moving(bool value) {
   
   _impl_.moving_ = value;
 }
-inline void FPS_Animation::set_moving(bool value) {
+inline void FPSAnimation::set_moving(bool value) {
   _internal_set_moving(value);
-  // @@protoc_insertion_point(field_set:Protocol.FPS_Animation.moving)
+  // @@protoc_insertion_point(field_set:Protocol.FPSAnimation.moving)
 }
 
 // bool inAir = 5;
-inline void FPS_Animation::clear_inair() {
+inline void FPSAnimation::clear_inair() {
   _impl_.inair_ = false;
 }
-inline bool FPS_Animation::_internal_inair() const {
+inline bool FPSAnimation::_internal_inair() const {
   return _impl_.inair_;
 }
-inline bool FPS_Animation::inair() const {
-  // @@protoc_insertion_point(field_get:Protocol.FPS_Animation.inAir)
+inline bool FPSAnimation::inair() const {
+  // @@protoc_insertion_point(field_get:Protocol.FPSAnimation.inAir)
   return _internal_inair();
 }
-inline void FPS_Animation::_internal_set_inair(bool value) {
+inline void FPSAnimation::_internal_set_inair(bool value) {
   
   _impl_.inair_ = value;
 }
-inline void FPS_Animation::set_inair(bool value) {
+inline void FPSAnimation::set_inair(bool value) {
   _internal_set_inair(value);
-  // @@protoc_insertion_point(field_set:Protocol.FPS_Animation.inAir)
+  // @@protoc_insertion_point(field_set:Protocol.FPSAnimation.inAir)
 }
 
 // float sprinting = 6;
-inline void FPS_Animation::clear_sprinting() {
+inline void FPSAnimation::clear_sprinting() {
   _impl_.sprinting_ = 0;
 }
-inline float FPS_Animation::_internal_sprinting() const {
+inline float FPSAnimation::_internal_sprinting() const {
   return _impl_.sprinting_;
 }
-inline float FPS_Animation::sprinting() const {
-  // @@protoc_insertion_point(field_get:Protocol.FPS_Animation.sprinting)
+inline float FPSAnimation::sprinting() const {
+  // @@protoc_insertion_point(field_get:Protocol.FPSAnimation.sprinting)
   return _internal_sprinting();
 }
-inline void FPS_Animation::_internal_set_sprinting(float value) {
+inline void FPSAnimation::_internal_set_sprinting(float value) {
   
   _impl_.sprinting_ = value;
 }
-inline void FPS_Animation::set_sprinting(float value) {
+inline void FPSAnimation::set_sprinting(float value) {
   _internal_set_sprinting(value);
-  // @@protoc_insertion_point(field_set:Protocol.FPS_Animation.sprinting)
+  // @@protoc_insertion_point(field_set:Protocol.FPSAnimation.sprinting)
 }
 
 // int32 poseState = 7;
-inline void FPS_Animation::clear_posestate() {
+inline void FPSAnimation::clear_posestate() {
   _impl_.posestate_ = 0;
 }
-inline int32_t FPS_Animation::_internal_posestate() const {
+inline int32_t FPSAnimation::_internal_posestate() const {
   return _impl_.posestate_;
 }
-inline int32_t FPS_Animation::posestate() const {
-  // @@protoc_insertion_point(field_get:Protocol.FPS_Animation.poseState)
+inline int32_t FPSAnimation::posestate() const {
+  // @@protoc_insertion_point(field_get:Protocol.FPSAnimation.poseState)
   return _internal_posestate();
 }
-inline void FPS_Animation::_internal_set_posestate(int32_t value) {
+inline void FPSAnimation::_internal_set_posestate(int32_t value) {
   
   _impl_.posestate_ = value;
 }
-inline void FPS_Animation::set_posestate(int32_t value) {
+inline void FPSAnimation::set_posestate(int32_t value) {
   _internal_set_posestate(value);
-  // @@protoc_insertion_point(field_set:Protocol.FPS_Animation.poseState)
+  // @@protoc_insertion_point(field_set:Protocol.FPSAnimation.poseState)
 }
 
 // int32 movementState = 8;
-inline void FPS_Animation::clear_movementstate() {
+inline void FPSAnimation::clear_movementstate() {
   _impl_.movementstate_ = 0;
 }
-inline int32_t FPS_Animation::_internal_movementstate() const {
+inline int32_t FPSAnimation::_internal_movementstate() const {
   return _impl_.movementstate_;
 }
-inline int32_t FPS_Animation::movementstate() const {
-  // @@protoc_insertion_point(field_get:Protocol.FPS_Animation.movementState)
+inline int32_t FPSAnimation::movementstate() const {
+  // @@protoc_insertion_point(field_get:Protocol.FPSAnimation.movementState)
   return _internal_movementstate();
 }
-inline void FPS_Animation::_internal_set_movementstate(int32_t value) {
+inline void FPSAnimation::_internal_set_movementstate(int32_t value) {
   
   _impl_.movementstate_ = value;
 }
-inline void FPS_Animation::set_movementstate(int32_t value) {
+inline void FPSAnimation::set_movementstate(int32_t value) {
   _internal_set_movementstate(value);
-  // @@protoc_insertion_point(field_set:Protocol.FPS_Animation.movementState)
+  // @@protoc_insertion_point(field_set:Protocol.FPSAnimation.movementState)
 }
 
 // float lookX = 9;
-inline void FPS_Animation::clear_lookx() {
+inline void FPSAnimation::clear_lookx() {
   _impl_.lookx_ = 0;
 }
-inline float FPS_Animation::_internal_lookx() const {
+inline float FPSAnimation::_internal_lookx() const {
   return _impl_.lookx_;
 }
-inline float FPS_Animation::lookx() const {
-  // @@protoc_insertion_point(field_get:Protocol.FPS_Animation.lookX)
+inline float FPSAnimation::lookx() const {
+  // @@protoc_insertion_point(field_get:Protocol.FPSAnimation.lookX)
   return _internal_lookx();
 }
-inline void FPS_Animation::_internal_set_lookx(float value) {
+inline void FPSAnimation::_internal_set_lookx(float value) {
   
   _impl_.lookx_ = value;
 }
-inline void FPS_Animation::set_lookx(float value) {
+inline void FPSAnimation::set_lookx(float value) {
   _internal_set_lookx(value);
-  // @@protoc_insertion_point(field_set:Protocol.FPS_Animation.lookX)
+  // @@protoc_insertion_point(field_set:Protocol.FPSAnimation.lookX)
 }
 
 // float lookY = 10;
-inline void FPS_Animation::clear_looky() {
+inline void FPSAnimation::clear_looky() {
   _impl_.looky_ = 0;
 }
-inline float FPS_Animation::_internal_looky() const {
+inline float FPSAnimation::_internal_looky() const {
   return _impl_.looky_;
 }
-inline float FPS_Animation::looky() const {
-  // @@protoc_insertion_point(field_get:Protocol.FPS_Animation.lookY)
+inline float FPSAnimation::looky() const {
+  // @@protoc_insertion_point(field_get:Protocol.FPSAnimation.lookY)
   return _internal_looky();
 }
-inline void FPS_Animation::_internal_set_looky(float value) {
+inline void FPSAnimation::_internal_set_looky(float value) {
   
   _impl_.looky_ = value;
 }
-inline void FPS_Animation::set_looky(float value) {
+inline void FPSAnimation::set_looky(float value) {
   _internal_set_looky(value);
-  // @@protoc_insertion_point(field_set:Protocol.FPS_Animation.lookY)
+  // @@protoc_insertion_point(field_set:Protocol.FPSAnimation.lookY)
 }
 
 // bool isTurning = 11;
-inline void FPS_Animation::clear_isturning() {
+inline void FPSAnimation::clear_isturning() {
   _impl_.isturning_ = false;
 }
-inline bool FPS_Animation::_internal_isturning() const {
+inline bool FPSAnimation::_internal_isturning() const {
   return _impl_.isturning_;
 }
-inline bool FPS_Animation::isturning() const {
-  // @@protoc_insertion_point(field_get:Protocol.FPS_Animation.isTurning)
+inline bool FPSAnimation::isturning() const {
+  // @@protoc_insertion_point(field_get:Protocol.FPSAnimation.isTurning)
   return _internal_isturning();
 }
-inline void FPS_Animation::_internal_set_isturning(bool value) {
+inline void FPSAnimation::_internal_set_isturning(bool value) {
   
   _impl_.isturning_ = value;
 }
-inline void FPS_Animation::set_isturning(bool value) {
+inline void FPSAnimation::set_isturning(bool value) {
   _internal_set_isturning(value);
-  // @@protoc_insertion_point(field_set:Protocol.FPS_Animation.isTurning)
+  // @@protoc_insertion_point(field_set:Protocol.FPSAnimation.isTurning)
 }
 
 // bool turnRight = 12;
-inline void FPS_Animation::clear_turnright() {
+inline void FPSAnimation::clear_turnright() {
   _impl_.turnright_ = false;
 }
-inline bool FPS_Animation::_internal_turnright() const {
+inline bool FPSAnimation::_internal_turnright() const {
   return _impl_.turnright_;
 }
-inline bool FPS_Animation::turnright() const {
-  // @@protoc_insertion_point(field_get:Protocol.FPS_Animation.turnRight)
+inline bool FPSAnimation::turnright() const {
+  // @@protoc_insertion_point(field_get:Protocol.FPSAnimation.turnRight)
   return _internal_turnright();
 }
-inline void FPS_Animation::_internal_set_turnright(bool value) {
+inline void FPSAnimation::_internal_set_turnright(bool value) {
   
   _impl_.turnright_ = value;
 }
-inline void FPS_Animation::set_turnright(bool value) {
+inline void FPSAnimation::set_turnright(bool value) {
   _internal_set_turnright(value);
-  // @@protoc_insertion_point(field_set:Protocol.FPS_Animation.turnRight)
+  // @@protoc_insertion_point(field_set:Protocol.FPSAnimation.turnRight)
 }
 
 // bool aiming = 13;
-inline void FPS_Animation::clear_aiming() {
+inline void FPSAnimation::clear_aiming() {
   _impl_.aiming_ = false;
 }
-inline bool FPS_Animation::_internal_aiming() const {
+inline bool FPSAnimation::_internal_aiming() const {
   return _impl_.aiming_;
 }
-inline bool FPS_Animation::aiming() const {
-  // @@protoc_insertion_point(field_get:Protocol.FPS_Animation.aiming)
+inline bool FPSAnimation::aiming() const {
+  // @@protoc_insertion_point(field_get:Protocol.FPSAnimation.aiming)
   return _internal_aiming();
 }
-inline void FPS_Animation::_internal_set_aiming(bool value) {
+inline void FPSAnimation::_internal_set_aiming(bool value) {
   
   _impl_.aiming_ = value;
 }
-inline void FPS_Animation::set_aiming(bool value) {
+inline void FPSAnimation::set_aiming(bool value) {
   _internal_set_aiming(value);
-  // @@protoc_insertion_point(field_set:Protocol.FPS_Animation.aiming)
+  // @@protoc_insertion_point(field_set:Protocol.FPSAnimation.aiming)
 }
 
 // -------------------------------------------------------------------
 
 // C_FPS_ANIMATION
 
-// .Protocol.FPS_Animation fpsAnimation = 1;
+// .Protocol.FPSAnimation fpsAnimation = 1;
 inline bool C_FPS_ANIMATION::_internal_has_fpsanimation() const {
   return this != internal_default_instance() && _impl_.fpsanimation_ != nullptr;
 }
@@ -6550,17 +6276,17 @@ inline void C_FPS_ANIMATION::clear_fpsanimation() {
   }
   _impl_.fpsanimation_ = nullptr;
 }
-inline const ::Protocol::FPS_Animation& C_FPS_ANIMATION::_internal_fpsanimation() const {
-  const ::Protocol::FPS_Animation* p = _impl_.fpsanimation_;
-  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::FPS_Animation&>(
-      ::Protocol::_FPS_Animation_default_instance_);
+inline const ::Protocol::FPSAnimation& C_FPS_ANIMATION::_internal_fpsanimation() const {
+  const ::Protocol::FPSAnimation* p = _impl_.fpsanimation_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::FPSAnimation&>(
+      ::Protocol::_FPSAnimation_default_instance_);
 }
-inline const ::Protocol::FPS_Animation& C_FPS_ANIMATION::fpsanimation() const {
+inline const ::Protocol::FPSAnimation& C_FPS_ANIMATION::fpsanimation() const {
   // @@protoc_insertion_point(field_get:Protocol.C_FPS_ANIMATION.fpsAnimation)
   return _internal_fpsanimation();
 }
 inline void C_FPS_ANIMATION::unsafe_arena_set_allocated_fpsanimation(
-    ::Protocol::FPS_Animation* fpsanimation) {
+    ::Protocol::FPSAnimation* fpsanimation) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.fpsanimation_);
   }
@@ -6572,9 +6298,9 @@ inline void C_FPS_ANIMATION::unsafe_arena_set_allocated_fpsanimation(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.C_FPS_ANIMATION.fpsAnimation)
 }
-inline ::Protocol::FPS_Animation* C_FPS_ANIMATION::release_fpsanimation() {
+inline ::Protocol::FPSAnimation* C_FPS_ANIMATION::release_fpsanimation() {
   
-  ::Protocol::FPS_Animation* temp = _impl_.fpsanimation_;
+  ::Protocol::FPSAnimation* temp = _impl_.fpsanimation_;
   _impl_.fpsanimation_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -6587,27 +6313,27 @@ inline ::Protocol::FPS_Animation* C_FPS_ANIMATION::release_fpsanimation() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::Protocol::FPS_Animation* C_FPS_ANIMATION::unsafe_arena_release_fpsanimation() {
+inline ::Protocol::FPSAnimation* C_FPS_ANIMATION::unsafe_arena_release_fpsanimation() {
   // @@protoc_insertion_point(field_release:Protocol.C_FPS_ANIMATION.fpsAnimation)
   
-  ::Protocol::FPS_Animation* temp = _impl_.fpsanimation_;
+  ::Protocol::FPSAnimation* temp = _impl_.fpsanimation_;
   _impl_.fpsanimation_ = nullptr;
   return temp;
 }
-inline ::Protocol::FPS_Animation* C_FPS_ANIMATION::_internal_mutable_fpsanimation() {
+inline ::Protocol::FPSAnimation* C_FPS_ANIMATION::_internal_mutable_fpsanimation() {
   
   if (_impl_.fpsanimation_ == nullptr) {
-    auto* p = CreateMaybeMessage<::Protocol::FPS_Animation>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::Protocol::FPSAnimation>(GetArenaForAllocation());
     _impl_.fpsanimation_ = p;
   }
   return _impl_.fpsanimation_;
 }
-inline ::Protocol::FPS_Animation* C_FPS_ANIMATION::mutable_fpsanimation() {
-  ::Protocol::FPS_Animation* _msg = _internal_mutable_fpsanimation();
+inline ::Protocol::FPSAnimation* C_FPS_ANIMATION::mutable_fpsanimation() {
+  ::Protocol::FPSAnimation* _msg = _internal_mutable_fpsanimation();
   // @@protoc_insertion_point(field_mutable:Protocol.C_FPS_ANIMATION.fpsAnimation)
   return _msg;
 }
-inline void C_FPS_ANIMATION::set_allocated_fpsanimation(::Protocol::FPS_Animation* fpsanimation) {
+inline void C_FPS_ANIMATION::set_allocated_fpsanimation(::Protocol::FPSAnimation* fpsanimation) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.fpsanimation_;
@@ -6651,7 +6377,7 @@ inline void S_FPS_ANIMATION::set_playerid(int32_t value) {
   // @@protoc_insertion_point(field_set:Protocol.S_FPS_ANIMATION.playerId)
 }
 
-// .Protocol.FPS_Animation fpsAnimation = 2;
+// .Protocol.FPSAnimation fpsAnimation = 2;
 inline bool S_FPS_ANIMATION::_internal_has_fpsanimation() const {
   return this != internal_default_instance() && _impl_.fpsanimation_ != nullptr;
 }
@@ -6664,17 +6390,17 @@ inline void S_FPS_ANIMATION::clear_fpsanimation() {
   }
   _impl_.fpsanimation_ = nullptr;
 }
-inline const ::Protocol::FPS_Animation& S_FPS_ANIMATION::_internal_fpsanimation() const {
-  const ::Protocol::FPS_Animation* p = _impl_.fpsanimation_;
-  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::FPS_Animation&>(
-      ::Protocol::_FPS_Animation_default_instance_);
+inline const ::Protocol::FPSAnimation& S_FPS_ANIMATION::_internal_fpsanimation() const {
+  const ::Protocol::FPSAnimation* p = _impl_.fpsanimation_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Protocol::FPSAnimation&>(
+      ::Protocol::_FPSAnimation_default_instance_);
 }
-inline const ::Protocol::FPS_Animation& S_FPS_ANIMATION::fpsanimation() const {
+inline const ::Protocol::FPSAnimation& S_FPS_ANIMATION::fpsanimation() const {
   // @@protoc_insertion_point(field_get:Protocol.S_FPS_ANIMATION.fpsAnimation)
   return _internal_fpsanimation();
 }
 inline void S_FPS_ANIMATION::unsafe_arena_set_allocated_fpsanimation(
-    ::Protocol::FPS_Animation* fpsanimation) {
+    ::Protocol::FPSAnimation* fpsanimation) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.fpsanimation_);
   }
@@ -6686,9 +6412,9 @@ inline void S_FPS_ANIMATION::unsafe_arena_set_allocated_fpsanimation(
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Protocol.S_FPS_ANIMATION.fpsAnimation)
 }
-inline ::Protocol::FPS_Animation* S_FPS_ANIMATION::release_fpsanimation() {
+inline ::Protocol::FPSAnimation* S_FPS_ANIMATION::release_fpsanimation() {
   
-  ::Protocol::FPS_Animation* temp = _impl_.fpsanimation_;
+  ::Protocol::FPSAnimation* temp = _impl_.fpsanimation_;
   _impl_.fpsanimation_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -6701,27 +6427,27 @@ inline ::Protocol::FPS_Animation* S_FPS_ANIMATION::release_fpsanimation() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::Protocol::FPS_Animation* S_FPS_ANIMATION::unsafe_arena_release_fpsanimation() {
+inline ::Protocol::FPSAnimation* S_FPS_ANIMATION::unsafe_arena_release_fpsanimation() {
   // @@protoc_insertion_point(field_release:Protocol.S_FPS_ANIMATION.fpsAnimation)
   
-  ::Protocol::FPS_Animation* temp = _impl_.fpsanimation_;
+  ::Protocol::FPSAnimation* temp = _impl_.fpsanimation_;
   _impl_.fpsanimation_ = nullptr;
   return temp;
 }
-inline ::Protocol::FPS_Animation* S_FPS_ANIMATION::_internal_mutable_fpsanimation() {
+inline ::Protocol::FPSAnimation* S_FPS_ANIMATION::_internal_mutable_fpsanimation() {
   
   if (_impl_.fpsanimation_ == nullptr) {
-    auto* p = CreateMaybeMessage<::Protocol::FPS_Animation>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::Protocol::FPSAnimation>(GetArenaForAllocation());
     _impl_.fpsanimation_ = p;
   }
   return _impl_.fpsanimation_;
 }
-inline ::Protocol::FPS_Animation* S_FPS_ANIMATION::mutable_fpsanimation() {
-  ::Protocol::FPS_Animation* _msg = _internal_mutable_fpsanimation();
+inline ::Protocol::FPSAnimation* S_FPS_ANIMATION::mutable_fpsanimation() {
+  ::Protocol::FPSAnimation* _msg = _internal_mutable_fpsanimation();
   // @@protoc_insertion_point(field_mutable:Protocol.S_FPS_ANIMATION.fpsAnimation)
   return _msg;
 }
-inline void S_FPS_ANIMATION::set_allocated_fpsanimation(::Protocol::FPS_Animation* fpsanimation) {
+inline void S_FPS_ANIMATION::set_allocated_fpsanimation(::Protocol::FPSAnimation* fpsanimation) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete _impl_.fpsanimation_;
@@ -6771,11 +6497,11 @@ inline void C_FPS_READY::set_isready(bool value) {
 
 // -------------------------------------------------------------------
 
-// S_FPS_START
+// C_FPS_LOAD_COMPLETE
 
 // -------------------------------------------------------------------
 
-// C_FPS_LOAD_COMPLETE
+// S_FPS_START
 
 // -------------------------------------------------------------------
 
@@ -7045,54 +6771,24 @@ inline void S_FPS_ITEM_OCCUPY_PROGRESS_STATE::set_occupyprogressstate(int32_t va
 
 // S_FPS_ITEM_OCCUPIED
 
-// string occupier = 1;
+// int32 occupier = 1;
 inline void S_FPS_ITEM_OCCUPIED::clear_occupier() {
-  _impl_.occupier_.ClearToEmpty();
+  _impl_.occupier_ = 0;
 }
-inline const std::string& S_FPS_ITEM_OCCUPIED::occupier() const {
+inline int32_t S_FPS_ITEM_OCCUPIED::_internal_occupier() const {
+  return _impl_.occupier_;
+}
+inline int32_t S_FPS_ITEM_OCCUPIED::occupier() const {
   // @@protoc_insertion_point(field_get:Protocol.S_FPS_ITEM_OCCUPIED.occupier)
   return _internal_occupier();
 }
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void S_FPS_ITEM_OCCUPIED::set_occupier(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.occupier_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+inline void S_FPS_ITEM_OCCUPIED::_internal_set_occupier(int32_t value) {
+  
+  _impl_.occupier_ = value;
+}
+inline void S_FPS_ITEM_OCCUPIED::set_occupier(int32_t value) {
+  _internal_set_occupier(value);
   // @@protoc_insertion_point(field_set:Protocol.S_FPS_ITEM_OCCUPIED.occupier)
-}
-inline std::string* S_FPS_ITEM_OCCUPIED::mutable_occupier() {
-  std::string* _s = _internal_mutable_occupier();
-  // @@protoc_insertion_point(field_mutable:Protocol.S_FPS_ITEM_OCCUPIED.occupier)
-  return _s;
-}
-inline const std::string& S_FPS_ITEM_OCCUPIED::_internal_occupier() const {
-  return _impl_.occupier_.Get();
-}
-inline void S_FPS_ITEM_OCCUPIED::_internal_set_occupier(const std::string& value) {
-  
-  _impl_.occupier_.Set(value, GetArenaForAllocation());
-}
-inline std::string* S_FPS_ITEM_OCCUPIED::_internal_mutable_occupier() {
-  
-  return _impl_.occupier_.Mutable(GetArenaForAllocation());
-}
-inline std::string* S_FPS_ITEM_OCCUPIED::release_occupier() {
-  // @@protoc_insertion_point(field_release:Protocol.S_FPS_ITEM_OCCUPIED.occupier)
-  return _impl_.occupier_.Release();
-}
-inline void S_FPS_ITEM_OCCUPIED::set_allocated_occupier(std::string* occupier) {
-  if (occupier != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.occupier_.SetAllocated(occupier, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.occupier_.IsDefault()) {
-    _impl_.occupier_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:Protocol.S_FPS_ITEM_OCCUPIED.occupier)
 }
 
 // -------------------------------------------------------------------
@@ -7152,8 +6848,6 @@ inline void S_FPS_SCORED::set_allocated_scorer(std::string* scorer) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

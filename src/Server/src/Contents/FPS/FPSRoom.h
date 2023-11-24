@@ -19,6 +19,7 @@ enum class ItemState
 	Idle,
 	BeingOccupied,
 	Occupied,
+	Intercepted,
 	Respawning
 };
 
@@ -44,13 +45,13 @@ protected:
 	virtual void Handle_C_FPS_READY(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_READY> pkt) override;
 	virtual void Handle_C_FPS_LOAD_COMPLETE(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_LOAD_COMPLETE> pkt) override;
 
-	virtual void Handle_C_SET_FPS_POSITION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_FPS_POSITION> pkt) override;
-	virtual void Handle_C_SET_FPS_ROTATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SET_FPS_ROTATION> pkt) override;
+	virtual void Handle_C_FPS_POSITION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_POSITION> pkt) override;
+	virtual void Handle_C_FPS_ROTATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_ROTATION> pkt) override;
 	virtual void Handle_C_FPS_ANIMATION(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_ANIMATION> pkt) override;
 	
-	virtual void Handle_C_SHOOT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_SHOOT> pkt) override;
-	virtual void Handle_C_RELOAD(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_RELOAD> pkt) override;
-	virtual void Handle_C_CHANGE_WEAPON(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_CHANGE_WEAPON> pkt) override;
+	virtual void Handle_C_FPS_SHOOT(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_SHOOT> pkt) override;
+	virtual void Handle_C_FPS_RELOAD(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_RELOAD> pkt) override;
+	virtual void Handle_C_FPS_CHANGE_WEAPON(std::shared_ptr<GameSession> session, std::shared_ptr<Protocol::C_FPS_CHANGE_WEAPON> pkt) override;
 
 private:
 	void InstantiatePlayer(std::shared_ptr<FPSClient> client, btVector3 position, btQuaternion rotation);
@@ -63,7 +64,13 @@ private:
 	void StartGame();
 	void FinishGame();
 
-	void LoadMap();	
+	void UpdateShoot(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>>& sendBuffers);
+	void UpdateItem(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>>& sendBuffers);
+	void UpdatePlayerState(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>>>& sendBuffers);
+	void UpdateScore();
+	void UpdateTransform();
+
+	void LoadMap();
 
 #if _WIN32
 	void InitDraw();
@@ -71,34 +78,50 @@ private:
 #endif
 
 private:
-	RoomState roomState = RoomState::Idle;
+	int updateInterval = 50;
+	long long currentUpdateTime = 0;
+	long long prevUpdateTime = 0;
+	int deltaTime = 0;
 
 	int idGenerator = 0;
 	std::map<int, std::shared_ptr<FPSPlayer>> players;
 
-	vector<queue<pair<btVector3, btVector3>>> shots;
+	std::vector<std::shared_ptr<DelayedJob>> delayedJobs;
 
+	RoomState roomState;
+
+	std::shared_ptr<btDiscreteDynamicsWorld> dynamicsWorld;
 	std::shared_ptr<btDefaultCollisionConfiguration> collisionConfiguration;
 	std::shared_ptr<btCollisionDispatcher> dispatcher;
 	std::shared_ptr<btBroadphaseInterface> broadphase;
 	std::shared_ptr<btSequentialImpulseConstraintSolver> solver;
 
-	std::shared_ptr<btDiscreteDynamicsWorld> dynamicsWorld;
-
 	float rayDistance = 1000;
 	int damage = 10;
 
-	btVector3 itemPosition;
 	ItemState itemState;
+
+	btVector3 itemPosition;
+	int itemDistance = 3;
+
 	int totalOccupyTime = 3000;
-	int currentOccupyTime;
 	int occupyTimeCap = 1500;
-	int occupyDistance = 3;
-	string occupierId;
+	int currentOccupyTime;
+
+	int occupierId;
 
 	btVector3 destination;
+	int destinationDistance = 2;
 
-	std::vector<std::shared_ptr<DelayedJob>> delayedJobs;
-
+	int scoreToWin = 3;
 	std::map<string, int> scores;
+
+	int respawnTime = 5000;
+
+	std::vector<std::tuple<string, btVector3, btVector3>> shoots;
+
+#if _WIN32
+	//draw
+	vector<queue<pair<btVector3, btVector3>>> shoots_draw;
+#endif
 };

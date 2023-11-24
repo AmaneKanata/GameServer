@@ -55,11 +55,6 @@ public:
 	{
 	}
 
-	void UpdateTransform()
-	{
-		collisionObject->setWorldTransform(transform);
-	}
-
 public:
 	int id;
 

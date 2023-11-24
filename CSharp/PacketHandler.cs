@@ -23,13 +23,13 @@ namespace Framework.Network
         private Action<Protocol.S_SET_GAME_OBJECT_OWNER> S_SET_GAME_OBJECT_OWNER_Handler;
         private Action<Protocol.S_SET_TRANSFORM> S_SET_TRANSFORM_Handler;
         private Action<Protocol.S_SET_ANIMATION> S_SET_ANIMATION_Handler;
-        private Action<Protocol.S_ADD_FPS_PLAYER> S_ADD_FPS_PLAYER_Handler;
-        private Action<Protocol.S_SET_FPS_POSITION> S_SET_FPS_POSITION_Handler;
-        private Action<Protocol.S_SET_FPS_ROTATION> S_SET_FPS_ROTATION_Handler;
-        private Action<Protocol.S_SHOOT> S_SHOOT_Handler;
-        private Action<Protocol.S_ATTACKED> S_ATTACKED_Handler;
-        private Action<Protocol.S_CHANGE_WEAPON> S_CHANGE_WEAPON_Handler;
-        private Action<Protocol.S_RELOAD> S_RELOAD_Handler;
+        private Action<Protocol.S_FPS_INSTANTIATE> S_FPS_INSTANTIATE_Handler;
+        private Action<Protocol.S_FPS_POSITION> S_FPS_POSITION_Handler;
+        private Action<Protocol.S_FPS_ROTATION> S_FPS_ROTATION_Handler;
+        private Action<Protocol.S_FPS_SHOOT> S_FPS_SHOOT_Handler;
+        private Action<Protocol.S_FPS_ATTACKED> S_FPS_ATTACKED_Handler;
+        private Action<Protocol.S_FPS_CHANGE_WEAPON> S_FPS_CHANGE_WEAPON_Handler;
+        private Action<Protocol.S_FPS_RELOAD> S_FPS_RELOAD_Handler;
         private Action<Protocol.S_FPS_ANIMATION> S_FPS_ANIMATION_Handler;
         private Action<Protocol.S_FPS_LOAD> S_FPS_LOAD_Handler;
         private Action<Protocol.S_FPS_START> S_FPS_START_Handler;
@@ -60,16 +60,16 @@ namespace Framework.Network
             Handlers.Add(110, _Handle_S_SET_GAME_OBJECT_OWNER);
             Handlers.Add(112, _Handle_S_SET_TRANSFORM);
             Handlers.Add(114, _Handle_S_SET_ANIMATION);
-            Handlers.Add(200, _Handle_S_ADD_FPS_PLAYER);
-            Handlers.Add(202, _Handle_S_SET_FPS_POSITION);
-            Handlers.Add(204, _Handle_S_SET_FPS_ROTATION);
-            Handlers.Add(206, _Handle_S_SHOOT);
-            Handlers.Add(207, _Handle_S_ATTACKED);
-            Handlers.Add(209, _Handle_S_CHANGE_WEAPON);
-            Handlers.Add(211, _Handle_S_RELOAD);
+            Handlers.Add(200, _Handle_S_FPS_INSTANTIATE);
+            Handlers.Add(202, _Handle_S_FPS_POSITION);
+            Handlers.Add(204, _Handle_S_FPS_ROTATION);
+            Handlers.Add(206, _Handle_S_FPS_SHOOT);
+            Handlers.Add(207, _Handle_S_FPS_ATTACKED);
+            Handlers.Add(209, _Handle_S_FPS_CHANGE_WEAPON);
+            Handlers.Add(211, _Handle_S_FPS_RELOAD);
             Handlers.Add(213, _Handle_S_FPS_ANIMATION);
             Handlers.Add(215, _Handle_S_FPS_LOAD);
-            Handlers.Add(216, _Handle_S_FPS_START);
+            Handlers.Add(217, _Handle_S_FPS_START);
             Handlers.Add(218, _Handle_S_FPS_FINISH);
             Handlers.Add(219, _Handle_S_FPS_ANNOUNCE);
             Handlers.Add(220, _Handle_S_FPS_SPAWN_ITEM);
@@ -271,89 +271,89 @@ namespace Framework.Network
         {
             S_SET_ANIMATION_Handler?.Invoke((Protocol.S_SET_ANIMATION)message);
         }
-        public void AddHandler( Action<Protocol.S_ADD_FPS_PLAYER> handler )
+        public void AddHandler( Action<Protocol.S_FPS_INSTANTIATE> handler )
         {
-            S_ADD_FPS_PLAYER_Handler += handler;
+            S_FPS_INSTANTIATE_Handler += handler;
         }
-        public void RemoveHandler( Action<Protocol.S_ADD_FPS_PLAYER> handler )
+        public void RemoveHandler( Action<Protocol.S_FPS_INSTANTIATE> handler )
         {
-            S_ADD_FPS_PLAYER_Handler -= handler;
+            S_FPS_INSTANTIATE_Handler -= handler;
         }
-        private void _Handle_S_ADD_FPS_PLAYER( IMessage message )
+        private void _Handle_S_FPS_INSTANTIATE( IMessage message )
         {
-            S_ADD_FPS_PLAYER_Handler?.Invoke((Protocol.S_ADD_FPS_PLAYER)message);
+            S_FPS_INSTANTIATE_Handler?.Invoke((Protocol.S_FPS_INSTANTIATE)message);
         }
-        public void AddHandler( Action<Protocol.S_SET_FPS_POSITION> handler )
+        public void AddHandler( Action<Protocol.S_FPS_POSITION> handler )
         {
-            S_SET_FPS_POSITION_Handler += handler;
+            S_FPS_POSITION_Handler += handler;
         }
-        public void RemoveHandler( Action<Protocol.S_SET_FPS_POSITION> handler )
+        public void RemoveHandler( Action<Protocol.S_FPS_POSITION> handler )
         {
-            S_SET_FPS_POSITION_Handler -= handler;
+            S_FPS_POSITION_Handler -= handler;
         }
-        private void _Handle_S_SET_FPS_POSITION( IMessage message )
+        private void _Handle_S_FPS_POSITION( IMessage message )
         {
-            S_SET_FPS_POSITION_Handler?.Invoke((Protocol.S_SET_FPS_POSITION)message);
+            S_FPS_POSITION_Handler?.Invoke((Protocol.S_FPS_POSITION)message);
         }
-        public void AddHandler( Action<Protocol.S_SET_FPS_ROTATION> handler )
+        public void AddHandler( Action<Protocol.S_FPS_ROTATION> handler )
         {
-            S_SET_FPS_ROTATION_Handler += handler;
+            S_FPS_ROTATION_Handler += handler;
         }
-        public void RemoveHandler( Action<Protocol.S_SET_FPS_ROTATION> handler )
+        public void RemoveHandler( Action<Protocol.S_FPS_ROTATION> handler )
         {
-            S_SET_FPS_ROTATION_Handler -= handler;
+            S_FPS_ROTATION_Handler -= handler;
         }
-        private void _Handle_S_SET_FPS_ROTATION( IMessage message )
+        private void _Handle_S_FPS_ROTATION( IMessage message )
         {
-            S_SET_FPS_ROTATION_Handler?.Invoke((Protocol.S_SET_FPS_ROTATION)message);
+            S_FPS_ROTATION_Handler?.Invoke((Protocol.S_FPS_ROTATION)message);
         }
-        public void AddHandler( Action<Protocol.S_SHOOT> handler )
+        public void AddHandler( Action<Protocol.S_FPS_SHOOT> handler )
         {
-            S_SHOOT_Handler += handler;
+            S_FPS_SHOOT_Handler += handler;
         }
-        public void RemoveHandler( Action<Protocol.S_SHOOT> handler )
+        public void RemoveHandler( Action<Protocol.S_FPS_SHOOT> handler )
         {
-            S_SHOOT_Handler -= handler;
+            S_FPS_SHOOT_Handler -= handler;
         }
-        private void _Handle_S_SHOOT( IMessage message )
+        private void _Handle_S_FPS_SHOOT( IMessage message )
         {
-            S_SHOOT_Handler?.Invoke((Protocol.S_SHOOT)message);
+            S_FPS_SHOOT_Handler?.Invoke((Protocol.S_FPS_SHOOT)message);
         }
-        public void AddHandler( Action<Protocol.S_ATTACKED> handler )
+        public void AddHandler( Action<Protocol.S_FPS_ATTACKED> handler )
         {
-            S_ATTACKED_Handler += handler;
+            S_FPS_ATTACKED_Handler += handler;
         }
-        public void RemoveHandler( Action<Protocol.S_ATTACKED> handler )
+        public void RemoveHandler( Action<Protocol.S_FPS_ATTACKED> handler )
         {
-            S_ATTACKED_Handler -= handler;
+            S_FPS_ATTACKED_Handler -= handler;
         }
-        private void _Handle_S_ATTACKED( IMessage message )
+        private void _Handle_S_FPS_ATTACKED( IMessage message )
         {
-            S_ATTACKED_Handler?.Invoke((Protocol.S_ATTACKED)message);
+            S_FPS_ATTACKED_Handler?.Invoke((Protocol.S_FPS_ATTACKED)message);
         }
-        public void AddHandler( Action<Protocol.S_CHANGE_WEAPON> handler )
+        public void AddHandler( Action<Protocol.S_FPS_CHANGE_WEAPON> handler )
         {
-            S_CHANGE_WEAPON_Handler += handler;
+            S_FPS_CHANGE_WEAPON_Handler += handler;
         }
-        public void RemoveHandler( Action<Protocol.S_CHANGE_WEAPON> handler )
+        public void RemoveHandler( Action<Protocol.S_FPS_CHANGE_WEAPON> handler )
         {
-            S_CHANGE_WEAPON_Handler -= handler;
+            S_FPS_CHANGE_WEAPON_Handler -= handler;
         }
-        private void _Handle_S_CHANGE_WEAPON( IMessage message )
+        private void _Handle_S_FPS_CHANGE_WEAPON( IMessage message )
         {
-            S_CHANGE_WEAPON_Handler?.Invoke((Protocol.S_CHANGE_WEAPON)message);
+            S_FPS_CHANGE_WEAPON_Handler?.Invoke((Protocol.S_FPS_CHANGE_WEAPON)message);
         }
-        public void AddHandler( Action<Protocol.S_RELOAD> handler )
+        public void AddHandler( Action<Protocol.S_FPS_RELOAD> handler )
         {
-            S_RELOAD_Handler += handler;
+            S_FPS_RELOAD_Handler += handler;
         }
-        public void RemoveHandler( Action<Protocol.S_RELOAD> handler )
+        public void RemoveHandler( Action<Protocol.S_FPS_RELOAD> handler )
         {
-            S_RELOAD_Handler -= handler;
+            S_FPS_RELOAD_Handler -= handler;
         }
-        private void _Handle_S_RELOAD( IMessage message )
+        private void _Handle_S_FPS_RELOAD( IMessage message )
         {
-            S_RELOAD_Handler?.Invoke((Protocol.S_RELOAD)message);
+            S_FPS_RELOAD_Handler?.Invoke((Protocol.S_FPS_RELOAD)message);
         }
         public void AddHandler( Action<Protocol.S_FPS_ANIMATION> handler )
         {

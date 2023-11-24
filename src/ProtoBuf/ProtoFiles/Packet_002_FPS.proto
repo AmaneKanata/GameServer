@@ -11,88 +11,82 @@ message Quaternion
 	float w = 4;
 }
 
-message S_ADD_FPS_PLAYER
+message S_FPS_INSTANTIATE
 {
-	message GameObjectInfo
-	{
-		int32 playerId = 1;
-		string ownerId = 2;
-		int32 hp = 3;
-		Vector3 position = 4;
-		Quaternion rotation = 5;
-	}
-	repeated GameObjectInfo gameObjects = 1;
+	string ownerId = 1;
+	int32 playerId = 2;
+	Vector3 position = 3;
+	Quaternion rotation = 4;
+	int32 hp = 5;
 }
 
-message C_SET_FPS_POSITION
+message C_FPS_POSITION
 {
 	int64 timestamp = 1;
-	int32 playerId = 2;
+	Vector3 position = 2;
+	Vector3 velocity = 3;
+}
+
+message S_FPS_POSITION
+{
+	int32 playerId = 1;
+	int64 timestamp = 2;
 	Vector3 position = 3;
 	Vector3 velocity = 4;
 }
 
-message S_SET_FPS_POSITION
+message C_FPS_ROTATION
 {
-	int64 timestamp = 1;
-	int32 playerId = 2;
-	Vector3 position = 3;
-	Vector3 velocity = 4;
+	Quaternion rotation = 1;
 }
 
-message C_SET_FPS_ROTATION
+message S_FPS_ROTATION
 {
 	int32 playerId = 1;
 	Quaternion rotation = 2;
 }
 
-message S_SET_FPS_ROTATION
-{
-	int32 playerId = 1;
-	Quaternion rotation = 2;
-}
-
-message C_SHOOT
+message C_FPS_SHOOT
 {
 	Vector3 position = 1;
 	Vector3 direction = 2;
 }
 
-message S_SHOOT
+message S_FPS_SHOOT
 {
 	int32 playerId= 1;
 }
 
-message S_ATTACKED
+message S_FPS_ATTACKED
 {
 	int32 playerid = 1;
 	int32 damage = 2;
 	int32 hp = 3;
 }
 
-message C_CHANGE_WEAPON
+message C_FPS_CHANGE_WEAPON
 {
 	int32 weaponId = 1;
 	int64 timestamp = 2;
 }
 
-message S_CHANGE_WEAPON
+message S_FPS_CHANGE_WEAPON
 {
 	int32 playerId = 1;
 	int32 weaponId = 2;
 	int64 timestamp = 3;
 }
 
-message C_RELOAD
+message C_FPS_RELOAD
 {
 }
 
-message S_RELOAD
+message S_FPS_RELOAD
 {
 	int32 playerId = 1;
 }
 
-message FPS_Animation
+message FPSAnimation
 {
 	float moveX = 1;
 	float moveY = 2;
@@ -114,13 +108,13 @@ message FPS_Animation
 
 message C_FPS_ANIMATION
 {
-	FPS_Animation fpsAnimation = 1;
+	FPSAnimation fpsAnimation = 1;
 }
 
 message S_FPS_ANIMATION
 {
 	int32 playerId = 1;
-	FPS_Animation fpsAnimation = 2;
+	FPSAnimation fpsAnimation = 2;
 }
 
 //Game
@@ -134,11 +128,11 @@ message S_FPS_LOAD
 {
 }
 
-message S_FPS_START
+message C_FPS_LOAD_COMPLETE
 {
 }
 
-message C_FPS_LOAD_COMPLETE
+message S_FPS_START
 {
 }
 
@@ -172,7 +166,7 @@ message S_FPS_ITEM_OCCUPY_PROGRESS_STATE
 
 message S_FPS_ITEM_OCCUPIED
 {
-	string occupier = 1;
+	int32 occupier = 1;
 }
 
 message S_FPS_SCORED

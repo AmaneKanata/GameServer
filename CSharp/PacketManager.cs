@@ -38,24 +38,24 @@ namespace Framework.Network
         PKT_S_SET_TRANSFORM = 112,
         PKT_C_SET_ANIMATION = 113,
         PKT_S_SET_ANIMATION = 114,
-        PKT_S_ADD_FPS_PLAYER = 200,
-        PKT_C_SET_FPS_POSITION = 201,
-        PKT_S_SET_FPS_POSITION = 202,
-        PKT_C_SET_FPS_ROTATION = 203,
-        PKT_S_SET_FPS_ROTATION = 204,
-        PKT_C_SHOOT = 205,
-        PKT_S_SHOOT = 206,
-        PKT_S_ATTACKED = 207,
-        PKT_C_CHANGE_WEAPON = 208,
-        PKT_S_CHANGE_WEAPON = 209,
-        PKT_C_RELOAD = 210,
-        PKT_S_RELOAD = 211,
+        PKT_S_FPS_INSTANTIATE = 200,
+        PKT_C_FPS_POSITION = 201,
+        PKT_S_FPS_POSITION = 202,
+        PKT_C_FPS_ROTATION = 203,
+        PKT_S_FPS_ROTATION = 204,
+        PKT_C_FPS_SHOOT = 205,
+        PKT_S_FPS_SHOOT = 206,
+        PKT_S_FPS_ATTACKED = 207,
+        PKT_C_FPS_CHANGE_WEAPON = 208,
+        PKT_S_FPS_CHANGE_WEAPON = 209,
+        PKT_C_FPS_RELOAD = 210,
+        PKT_S_FPS_RELOAD = 211,
         PKT_C_FPS_ANIMATION = 212,
         PKT_S_FPS_ANIMATION = 213,
         PKT_C_FPS_READY = 214,
         PKT_S_FPS_LOAD = 215,
-        PKT_S_FPS_START = 216,
-        PKT_C_FPS_LOAD_COMPLETE = 217,
+        PKT_C_FPS_LOAD_COMPLETE = 216,
+        PKT_S_FPS_START = 217,
         PKT_S_FPS_FINISH = 218,
         PKT_S_FPS_ANNOUNCE = 219,
         PKT_S_FPS_SPAWN_ITEM = 220,
@@ -88,13 +88,13 @@ namespace Framework.Network
             onRecv.Add((ushort)MsgId.PKT_S_SET_GAME_OBJECT_OWNER, MakePacket<S_SET_GAME_OBJECT_OWNER>);
             onRecv.Add((ushort)MsgId.PKT_S_SET_TRANSFORM, MakePacket<S_SET_TRANSFORM>);
             onRecv.Add((ushort)MsgId.PKT_S_SET_ANIMATION, MakePacket<S_SET_ANIMATION>);
-            onRecv.Add((ushort)MsgId.PKT_S_ADD_FPS_PLAYER, MakePacket<S_ADD_FPS_PLAYER>);
-            onRecv.Add((ushort)MsgId.PKT_S_SET_FPS_POSITION, MakePacket<S_SET_FPS_POSITION>);
-            onRecv.Add((ushort)MsgId.PKT_S_SET_FPS_ROTATION, MakePacket<S_SET_FPS_ROTATION>);
-            onRecv.Add((ushort)MsgId.PKT_S_SHOOT, MakePacket<S_SHOOT>);
-            onRecv.Add((ushort)MsgId.PKT_S_ATTACKED, MakePacket<S_ATTACKED>);
-            onRecv.Add((ushort)MsgId.PKT_S_CHANGE_WEAPON, MakePacket<S_CHANGE_WEAPON>);
-            onRecv.Add((ushort)MsgId.PKT_S_RELOAD, MakePacket<S_RELOAD>);
+            onRecv.Add((ushort)MsgId.PKT_S_FPS_INSTANTIATE, MakePacket<S_FPS_INSTANTIATE>);
+            onRecv.Add((ushort)MsgId.PKT_S_FPS_POSITION, MakePacket<S_FPS_POSITION>);
+            onRecv.Add((ushort)MsgId.PKT_S_FPS_ROTATION, MakePacket<S_FPS_ROTATION>);
+            onRecv.Add((ushort)MsgId.PKT_S_FPS_SHOOT, MakePacket<S_FPS_SHOOT>);
+            onRecv.Add((ushort)MsgId.PKT_S_FPS_ATTACKED, MakePacket<S_FPS_ATTACKED>);
+            onRecv.Add((ushort)MsgId.PKT_S_FPS_CHANGE_WEAPON, MakePacket<S_FPS_CHANGE_WEAPON>);
+            onRecv.Add((ushort)MsgId.PKT_S_FPS_RELOAD, MakePacket<S_FPS_RELOAD>);
             onRecv.Add((ushort)MsgId.PKT_S_FPS_ANIMATION, MakePacket<S_FPS_ANIMATION>);
             onRecv.Add((ushort)MsgId.PKT_S_FPS_LOAD, MakePacket<S_FPS_LOAD>);
             onRecv.Add((ushort)MsgId.PKT_S_FPS_START, MakePacket<S_FPS_START>);
@@ -157,14 +157,14 @@ namespace Framework.Network
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_SET_GAME_OBJECT_OWNER pkt ) { return MakeSendBuffer(pkt, 109); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_SET_TRANSFORM pkt ) { return MakeSendBuffer(pkt, 111); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_SET_ANIMATION pkt ) { return MakeSendBuffer(pkt, 113); }
-        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_SET_FPS_POSITION pkt ) { return MakeSendBuffer(pkt, 201); }
-        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_SET_FPS_ROTATION pkt ) { return MakeSendBuffer(pkt, 203); }
-        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_SHOOT pkt ) { return MakeSendBuffer(pkt, 205); }
-        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_CHANGE_WEAPON pkt ) { return MakeSendBuffer(pkt, 208); }
-        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_RELOAD pkt ) { return MakeSendBuffer(pkt, 210); }
+        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_FPS_POSITION pkt ) { return MakeSendBuffer(pkt, 201); }
+        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_FPS_ROTATION pkt ) { return MakeSendBuffer(pkt, 203); }
+        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_FPS_SHOOT pkt ) { return MakeSendBuffer(pkt, 205); }
+        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_FPS_CHANGE_WEAPON pkt ) { return MakeSendBuffer(pkt, 208); }
+        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_FPS_RELOAD pkt ) { return MakeSendBuffer(pkt, 210); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_FPS_ANIMATION pkt ) { return MakeSendBuffer(pkt, 212); }
         public static ArraySegment<byte> MakeSendBuffer( Protocol.C_FPS_READY pkt ) { return MakeSendBuffer(pkt, 214); }
-        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_FPS_LOAD_COMPLETE pkt ) { return MakeSendBuffer(pkt, 217); }
+        public static ArraySegment<byte> MakeSendBuffer( Protocol.C_FPS_LOAD_COMPLETE pkt ) { return MakeSendBuffer(pkt, 216); }
 
         private static ArraySegment<byte> MakeSendBuffer( IMessage pkt, ushort pktId )
         {
