@@ -19,7 +19,7 @@ enum class ItemState
 	Idle,
 	BeingOccupied,
 	Occupied,
-	Intercepted,
+	Scored,
 	Respawning
 };
 
@@ -109,6 +109,7 @@ private:
 	int currentOccupyTime;
 
 	int occupierId;
+	string scorerId;
 
 	btVector3 destination;
 	int destinationDistance = 2;

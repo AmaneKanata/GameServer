@@ -381,14 +381,8 @@ void FPSRoom::UpdateShoot(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer
 
 		if (attackedPlayer->hp <= 0 && attackedPlayerId == occupierId)
 		{
-			scores[shooterId]++;
-			occupierId = -1;
-
-			Protocol::S_FPS_SCORED scored;
-			scored.set_scorer(shooterId);
-			sendBuffers->push_back(MakeSendBuffer(scored));
-
-			itemState = ItemState::Intercepted;
+			scorerId = shooterId;
+			itemState = ItemState::Scored;
 		}
 	}
 
@@ -493,31 +487,26 @@ void FPSRoom::UpdateItem(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>
 
 		if ((occupier->position - destination).length() < destinationDistance)
 		{
-			scores[occupier->ownerId]++;
-			occupierId = -1;
-
-			Protocol::S_FPS_SCORED scored;
-			scored.set_scorer(occupier->ownerId);
-			sendBuffers->push_back(MakeSendBuffer(scored));
-
-			Protocol::S_FPS_DESTROY_DESTINATION destroyDestination;
-			sendBuffers->push_back(MakeSendBuffer(destroyDestination));
-
-			itemState = ItemState::Respawning;
-
-			delayedJobs.push_back(
-				DelayPost(respawnTime, &FPSRoom::SpawnItem, btVector3(0, 1, 7))
-			);
+			scorerId = occupier->ownerId;
+			itemState = ItemState::Scored;
 		}
 
 		break;
 	}
-	case ItemState::Intercepted:
+	case ItemState::Scored:
 	{
-		itemState = ItemState::Respawning;
+		scores[scorerId]++;
+		scorerId = "";
+		occupierId = -1;
+
+		Protocol::S_FPS_SCORED scored;
+		scored.set_scorer(scorerId);
+		sendBuffers->push_back(MakeSendBuffer(scored));
 
 		Protocol::S_FPS_DESTROY_DESTINATION destroyDestination;
 		sendBuffers->push_back(MakeSendBuffer(destroyDestination));
+
+		itemState = ItemState::Respawning;
 
 		delayedJobs.push_back(
 			DelayPost(respawnTime, &FPSRoom::SpawnItem, btVector3(0, 1, 7))
