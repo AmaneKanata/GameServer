@@ -89,10 +89,6 @@ void FPSRoom::Handle_C_FPS_LOAD_COMPLETE(std::shared_ptr<GameSession> session, s
 	if (client == nullptr)
 		return;
 
-	btVector3 position(0, 0, 0);
-	btQuaternion rotation(0, 0, 0, 1);
-	InstantiatePlayer(client, position, rotation);
-
 	client->isLoaded = true;
 
 	bool allLoaded = true;
@@ -278,6 +274,16 @@ void FPSRoom::InitGame()
 
 void FPSRoom::StartGame()
 {
+	float positionX = -5.0f;
+	int cnt = 0;
+	for (auto& [clientId, client] : clients)
+	{
+		btVector3 position(positionX + cnt * 10, 0, 0);
+		btQuaternion rotation(0, 0, 0, 1);
+		InstantiatePlayer(std::static_pointer_cast<FPSClient>(client), position, rotation);
+		cnt++;
+	}
+
 	prevUpdateTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	Post(&FPSRoom::Update);
 	
