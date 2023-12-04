@@ -379,6 +379,9 @@ void FPSRoom::UpdateShoot(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer
 			continue;
 		auto& attackedPlayer = iter->second;
 
+		if(attackedPlayer->hp <= 0)
+			continue;
+
 		attackedPlayer->hp -= damage;
 
 		Protocol::S_FPS_ATTACKED res;
