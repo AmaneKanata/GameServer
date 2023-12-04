@@ -274,13 +274,15 @@ void FPSRoom::InitGame()
 
 void FPSRoom::StartGame()
 {
-	float positionX = -5.0f;
+	std::vector<btVector3> spawnPositions = {
+		btVector3(-5, 0, 0),
+		btVector3(5, 0, 0),
+	};
 	int cnt = 0;
 	for (auto& [clientId, client] : clients)
 	{
-		btVector3 position(positionX + cnt * 10, 0, 0);
 		btQuaternion rotation(0, 0, 0, 1);
-		InstantiatePlayer(std::static_pointer_cast<FPSClient>(client), position, rotation);
+		InstantiatePlayer(std::static_pointer_cast<FPSClient>(client), spawnPositions[cnt], rotation);
 		cnt++;
 	}
 
