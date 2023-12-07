@@ -7,8 +7,6 @@
 #include "Server_Singleton.h"
 #include "LogManager.h"
 
-const float ROTATION_BIAS = (M_PI / 180.0f);
-
 class FPSCharacter
 {
 public:
@@ -33,13 +31,13 @@ public:
 		//btBoxShape* box = new btBoxShape(btVector3(0.5f, 1.0f, 0.5f));
 		//collisionObject->setCollisionShape(box);
 
-		btCapsuleShape* capsule = new btCapsuleShape(0.5f, 1.0f);
+		btCapsuleShape* capsule = new btCapsuleShape(0.29f, 1.55f);
 		collisionObject->setCollisionShape(capsule);
 
 		collisionObject->setCustomDebugColor(btVector3(0, 0, 0));
 
 		transform.setIdentity();
-		position.setY(position.y() + 1);
+		position += center;
 		transform.setOrigin(position);
 		transform.setRotation(rotation);
 		collisionObject->setWorldTransform(transform);
@@ -61,6 +59,8 @@ public:
 	std::shared_ptr<btCollisionObject> collisionObject;
 	btTransform transform;
 	long long timestamp;
+	
+	btVector3 center = {0, 0.9, 0.08};
 	btVector3 position;
 	btVector3 velocity;
 };
