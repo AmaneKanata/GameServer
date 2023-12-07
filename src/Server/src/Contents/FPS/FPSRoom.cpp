@@ -276,7 +276,7 @@ void FPSRoom::InitGame()
 
 void FPSRoom::StartGame()
 {
-	int spawnPositionIndex = rand() % (spawnPositions.size() / 2 + 1);
+	int spawnPositionIndex = rand() % (playerPositions.size() / 2);
 
 	int cnt = 0;
 	for (auto& [clientId, client] : clients)
@@ -284,7 +284,7 @@ void FPSRoom::StartGame()
 		btQuaternion rotation(0, 0, 0, 1);
 		InstantiatePlayer(
 			std::static_pointer_cast<FPSClient>(client), 
-			spawnPositions[spawnPositionIndex * 2 + cnt],
+			playerPositions[spawnPositionIndex * 2 + cnt],
 			rotation);
 		cnt++;
 	}
@@ -292,7 +292,7 @@ void FPSRoom::StartGame()
 	prevUpdateTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	Post(&FPSRoom::Update);
 	
-	int itemPositionIndex = rand() % (itemPositions.size() + 1);
+	int itemPositionIndex = rand() % itemPositions.size();
 	delayedJobs.push_back(
 		DelayPost(3000, &FPSRoom::SpawnItem, itemPositions[itemPositionIndex])
 	);
@@ -483,7 +483,7 @@ void FPSRoom::UpdateItem(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>
 				occupied.set_occupier(occupierId);
 				sendBuffers->push_back(MakeSendBuffer(occupied));
 
-				int destinationPositionIndex = rand() % (destinationPositions.size() + 1);
+				int destinationPositionIndex = rand() % destinationPositions.size();
 				currentDestinationPosition = destinationPositions[destinationPositionIndex];
 				Protocol::S_FPS_SPAWN_DESTINATION destPkt;
 				destPkt.set_allocated_position(ConvertVector3(currentDestinationPosition));
@@ -524,7 +524,7 @@ void FPSRoom::UpdateItem(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>
 
 		itemState = ItemState::Respawning;
 
-		int itemPositionIndex = rand() % (itemPositions.size() + 1);
+		int itemPositionIndex = rand() % itemPositions.size();
 		delayedJobs.push_back(
 			DelayPost(respawnTime, &FPSRoom::SpawnItem, itemPositions[itemPositionIndex])
 		);
@@ -555,7 +555,12 @@ void FPSRoom::UpdatePlayerState(std::shared_ptr<std::vector<std::shared_ptr<Send
 					auto owner = std::static_pointer_cast<FPSClient>(iter->second);
 					owner->player = nullptr;
 					delayedJobs.push_back(
-						DelayPost(respawnTime, &FPSRoom::InstantiatePlayer, owner, btVector3(0, 0, 0), btQuaternion(0, 0, 0, 1))
+						DelayPost(respawnTime, 
+							&FPSRoom::InstantiatePlayer, 
+							owner, 
+							playerPositions[rand() % playerPositions.size()],
+							btQuaternion(0, 0, 0, 1)
+						)
 					);
 				}
 			}

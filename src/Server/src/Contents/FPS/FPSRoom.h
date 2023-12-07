@@ -137,7 +137,7 @@ private:
 		{-8, 1, -13}
 	};
 
-	std::vector<btVector3> spawnPositions =
+	std::vector<btVector3> playerPositions =
 	{
 		{8, 0, 4},
 		{-8, 0, -4},
