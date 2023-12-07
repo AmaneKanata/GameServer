@@ -31,5 +31,5 @@ static Protocol::Quaternion* ConvertQuaternion(btQuaternion quat)
 
 static btQuaternion ConvertQuaternion(Protocol::Quaternion quat)
 {
-	return btQuaternion(quat.x(), quat.y() * -1, quat.z(), quat.w());
+	return btQuaternion(quat.x(), quat.y() * -1, quat.z() * -1, quat.w());
 }
