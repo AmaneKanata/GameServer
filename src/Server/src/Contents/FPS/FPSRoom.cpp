@@ -7,6 +7,8 @@
 
 void FPSRoom::HandleInit() 
 {
+	srand((unsigned int)time(NULL));
+
 	Post(&RoomBase::SendServerTime);
 }
 
@@ -240,7 +242,7 @@ void FPSRoom::InstantiatePlayer(std::shared_ptr<FPSClient> client, btVector3 pos
 
 void FPSRoom::SpawnItem(btVector3 position)
 {
-	itemPosition = position;
+	currentItemPosition = position;
 	itemState = ItemState::Idle;
 	currentOccupyTime = 0;
 	occupierId = -1;
@@ -274,23 +276,25 @@ void FPSRoom::InitGame()
 
 void FPSRoom::StartGame()
 {
-	std::vector<btVector3> spawnPositions = {
-		btVector3(-5, 0, 0),
-		btVector3(5, 0, 0),
-	};
+	int spawnPositionIndex = rand() % (spawnPositions.size() / 2 + 1);
+
 	int cnt = 0;
 	for (auto& [clientId, client] : clients)
 	{
 		btQuaternion rotation(0, 0, 0, 1);
-		InstantiatePlayer(std::static_pointer_cast<FPSClient>(client), spawnPositions[cnt], rotation);
+		InstantiatePlayer(
+			std::static_pointer_cast<FPSClient>(client), 
+			spawnPositions[spawnPositionIndex * 2 + cnt],
+			rotation);
 		cnt++;
 	}
 
 	prevUpdateTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 	Post(&FPSRoom::Update);
 	
+	int itemPositionIndex = rand() % (itemPositions.size() + 1);
 	delayedJobs.push_back(
-		DelayPost(3000, &FPSRoom::SpawnItem, btVector3(0, 1, 7))
+		DelayPost(3000, &FPSRoom::SpawnItem, itemPositions[itemPositionIndex])
 	);
 }
 
@@ -409,7 +413,7 @@ void FPSRoom::UpdateItem(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>
 		int cnt = 0;
 		for (auto& [playerId, player] : players)
 		{
-			if ((player->position - itemPosition).length() < itemDistance)
+			if ((player->position - currentItemPosition).length() < itemDistance)
 				cnt++;
 		}
 
@@ -440,7 +444,7 @@ void FPSRoom::UpdateItem(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>
 		int occupierId = -1;
 		for (auto& [playerId, player] : players)
 		{
-			if ((player->position - itemPosition).length() < itemDistance)
+			if ((player->position - currentItemPosition).length() < itemDistance)
 			{
 				if (occupierId == -1)
 				{
@@ -479,9 +483,10 @@ void FPSRoom::UpdateItem(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>
 				occupied.set_occupier(occupierId);
 				sendBuffers->push_back(MakeSendBuffer(occupied));
 
-				destination.setValue(0, 1, -7);
+				int destinationPositionIndex = rand() % (destinationPositions.size() + 1);
+				currentDestinationPosition = destinationPositions[destinationPositionIndex];
 				Protocol::S_FPS_SPAWN_DESTINATION destPkt;
-				destPkt.set_allocated_position(ConvertVector3(destination));
+				destPkt.set_allocated_position(ConvertVector3(currentDestinationPosition));
 				sendBuffers->push_back(MakeSendBuffer(destPkt));
 			}
 		}
@@ -496,7 +501,7 @@ void FPSRoom::UpdateItem(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>
 
 		auto& occupier = iter->second;
 
-		if ((occupier->position - destination).length() < destinationDistance)
+		if ((occupier->position - currentDestinationPosition).length() < destinationDistance)
 		{
 			scorerId = occupier->ownerId;
 			itemState = ItemState::Scored;
@@ -519,8 +524,9 @@ void FPSRoom::UpdateItem(std::shared_ptr<std::vector<std::shared_ptr<SendBuffer>
 
 		itemState = ItemState::Respawning;
 
+		int itemPositionIndex = rand() % (itemPositions.size() + 1);
 		delayedJobs.push_back(
-			DelayPost(respawnTime, &FPSRoom::SpawnItem, btVector3(0, 1, 7))
+			DelayPost(respawnTime, &FPSRoom::SpawnItem, itemPositions[itemPositionIndex])
 		);
 
 		break;

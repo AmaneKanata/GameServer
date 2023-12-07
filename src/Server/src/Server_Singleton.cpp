@@ -24,5 +24,5 @@ std::shared_ptr<agones::SDK> agones_sdk = nullptr;
 std::string agones_state = "";
 
 #if _WIN32
-bool FPS_DRAW = true;
+bool FPS_DRAW = false;
 #endif

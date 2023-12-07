@@ -101,7 +101,7 @@ private:
 
 	ItemState itemState;
 
-	btVector3 itemPosition;
+	btVector3 currentItemPosition;
 	int itemDistance = 3;
 
 	int totalOccupyTime = 3000;
@@ -111,7 +111,7 @@ private:
 	int occupierId;
 	string scorerId;
 
-	btVector3 destination;
+	btVector3 currentDestinationPosition;
 	int destinationDistance = 2;
 
 	int scoreToWin = 3;
@@ -120,6 +120,37 @@ private:
 	int respawnTime = 5000;
 
 	std::vector<std::tuple<string, btVector3, btVector3>> shoots;
+
+	std::vector<btVector3> itemPositions =
+	{
+		{4, 1, 0},
+		{-4, 1, 0},
+		{0, 1, 4},
+		{0, 1, -4}
+	};
+	
+	std::vector<btVector3> destinationPositions =
+	{
+		{8, 1, 13},
+		{8, 1, -13},
+		{-8, 1, 13},
+		{-8, 1, -13}
+	};
+
+	std::vector<btVector3> spawnPositions =
+	{
+		{8, 0, 4},
+		{-8, 0, -4},
+
+		{8, 0, -4},
+		{-8, 0, 4},
+
+		{4, 0, 8},
+		{-4, 0, -8},
+
+		{4, 0, -8},
+		{-4, 0, 8}
+	};
 
 #if _WIN32
 	//draw
